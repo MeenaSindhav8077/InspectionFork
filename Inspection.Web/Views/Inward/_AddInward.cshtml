@@ -1,0 +1,170 @@
+﻿@model Inspection.Web.Models.InwardDataModel
+
+
+@{
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section styles{
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link href="~/Content/assets/libs/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css" />
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header align-items-center d-flex">
+                <h4 class="card-title mb-0 flex-grow-1">Inward Data</h4>
+                <div class="flex-shrink-0">
+                    @*<div class="form-check form-switch form-switch-right form-switch-md">
+                            <label for="form-grid-showcode" class="form-label text-muted">
+                                Show
+                                Code
+                            </label>
+                            <input class="form-check-input code-switcher" type="checkbox"
+                                   id="form-grid-showcode">
+                        </div>*@
+                </div>
+            </div>
+            @using (Html.BeginForm("AddINward", "Inward", FormMethod.Post))
+            {
+                <div class="card-body">
+                    <div class="live-preview">
+                        <div class="row gy-4">
+                            <div class="col-xxl-3 col-md-6">
+                                <div>
+                                    @Html.LabelFor(model => model.InwardDate, new { @class = "form-label" })
+                                    @Html.TextBoxFor(model => model.InwardDate, new { @class = "form-control", type = "Date", id = "exampleInputdate" })
+                                    @Html.ValidationMessageFor(model => model.InwardDate, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-xxl-3 col-md-6">
+                                <div>
+                                    @Html.LabelFor(model => model.InwardTime, new { @class = "form-label" })
+                                    @Html.TextBoxFor(model => model.InwardTime, new { @class = "form-control", type = "time", id = "exampleInputdate" })
+                                    @Html.ValidationMessageFor(model => model.InwardTime, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-xxl-3 col-md-6">
+                                <div>
+                                    @Html.LabelFor(model => model.JobNo, new { @class = "form-label" })
+                                    @Html.TextBoxFor(model => model.JobNo, new { @class = "form-control", id = "idjobnumber" })
+                                    @Html.ValidationMessageFor(model => model.JobNo, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-xxl-3 col-md-6">
+                                <div>
+                                    @Html.LabelFor(model => model.Partno, new { @class = "form-label" })
+                                    @Html.TextBoxFor(model => model.Partno, new { @class = "form-control", id = "idpartnumber", @disabled = "disabled" })
+                                    @Html.ValidationMessageFor(model => model.Partno, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-xxl-3 col-md-6">
+                                @Html.LabelFor(model => model.Stage, new { @class = "form-label" })
+                                @Html.DropDownListFor(model => model.Stage, new SelectList(Model._Stage, "Value", "Text"), "Select", new { @class = "form-select mb-3", id = "disabledInput" })
+                                @Html.ValidationMessageFor(model => model.Stage, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="col-xxl-3 col-md-6">
+                                <div>
+                                    @Html.LabelFor(model => model.ERev, new { @class = "form-label" })
+                                    @Html.TextBoxFor(model => model.ERev, new { @class = "form-control", id = "idrev", @disabled = "disabled" })
+                                    @Html.ValidationMessageFor(model => model.ERev, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-xxl-3 col-md-6">
+                                <div>
+                                    @Html.LabelFor(model => model.ActualRev, new { @class = "form-label" })
+                                    @Html.TextBoxFor(model => model.ActualRev, new { @class = "form-control", id = "labelInput" })
+                                    @Html.ValidationMessageFor(model => model.ActualRev, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-xxl-3 col-md-6">
+                                <div>
+                                    @Html.LabelFor(model => model.Qty, new { @class = "form-label" })
+                                    @Html.TextBoxFor(model => model.Qty, new { @class = "form-control", id = "labelInput" })
+                                    @Html.ValidationMessageFor(model => model.Qty, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-xxl-3 col-md-6">
+                                @Html.LabelFor(model => model.Status, new { @class = "form-label" })
+                                @{
+                                    var staticData = new List<SelectListItem>
+                                                                                                                                                                                                                                                                                                                                                                                        {
+                                        new SelectListItem { Value = "Final Inspection", Text = "Final Inspection" },
+                                        new SelectListItem { Value = "Humidity", Text = "Humidity" },
+                                        new SelectListItem { Value = "Thread Inspection", Text = "Thread Inspection" },
+                                        new SelectListItem { Value = "Visual Inspection", Text = "Visual Inspection" }
+                                    };
+                                }
+                                @Html.ListBoxFor(model => model.MStatus, staticData, new { @class = "js-example-basic-multiple", name = "states[]" })
+                            </div>
+                            <div class="col-xxl-9 col-md-6">
+                            </div>
+                            <div class="col-xxl-3 col-md-6">
+                                <button type="submit" class="btn btn-primary waves-effect waves-light" id="sa-position">Submit</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+<script>
+    document.getElementById("idjobnumber").addEventListener("keydown", function (event) {
+        if (event.key === "Tab") {
+            myFunction();
+        }
+    });
+
+    function myFunction() {
+        // Get the element by its id
+        var element = document.getElementById("idjobnumber");
+
+        // Get the value of the element
+        var value = element.value;
+
+        $.getJSON('/Inward/GetPartnorevno', { idjobnumber: value }, function (data) {
+            if (data !== null) {
+                debugger
+                $("#idpartnumber").val(data.Partno);
+                $("#idrev").val(data.ERev);
+                //document.getElementById("idpartnumber").value = data.Partno;
+                //document.getElementById("idrev").value = data.ERev;
+            } else {
+                console.log("No data found or error occurred.");
+            }
+        });
+
+
+    }
+</script>
+
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script src="~/Content/assets/libs/prismjs/prism.js"></script>
+
+    <script src="~/Content/assets/js/app.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!--jquery cdn-->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <!--select2 cdn-->
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    <script src="~/Content/assets/js/pages/select2.init.js"></script>
+
+    <!-- App js -->
+    <script src="~/Content/assets/js/app.js"></script>
+
+    <!-- Sweet Alerts js -->
+    <script src="~/Content/assets/libs/sweetalert2/sweetalert2.min.js"></script>
+
+    <!-- Sweet alert init js-->
+    <script src="~/Content/assets/js/pages/sweetalerts.init.js"></script>
+
+    <!-- App js -->
+    <script src="~/Content/assets/js/app.js"></script>
+}

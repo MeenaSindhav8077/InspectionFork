@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="b77cb73cc70e41deb483fa11b9a5980a" Name="Diagram1" ZoomLevel="18">
+        <EntityTypeShape EntityType="EpicorERPModel.JobHead" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EpicorERPModel.APInvHed" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EpicorERPModel.BankAcct" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EpicorERPModel.BankBal" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EpicorERPModel.BankTran" Width="1.5" PointX="8.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EpicorERPModel.BookDtl" Width="1.5" PointX="10.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EpicorERPModel.BookOrd" Width="1.5" PointX="10.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EpicorERPModel.BookRel" Width="1.5" PointX="10.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EpicorERPModel.CheckHed" Width="1.5" PointX="12.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EpicorERPModel.CustCnt" Width="1.5" PointX="14.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EpicorERPModel.Customer" Width="1.5" PointX="16.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EpicorERPModel.CustView" Width="1.5" PointX="18.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EpicorERPModel.DemandDetail" Width="1.5" PointX="6.75" PointY="18.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EpicorERPModel.DemandDetailImport" Width="1.5" PointX="8.75" PointY="18.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EpicorERPModel.DemandHead" Width="1.5" PointX="20.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EpicorERPModel.DemandHeadImport" Width="1.5" PointX="22.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EpicorERPModel.DemandSchedule" Width="1.5" PointX="24.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EpicorERPModel.DemandScheduleImport" Width="1.5" PointX="26.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EpicorERPModel.DMRCorAct" Width="1.5" PointX="28.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EpicorERPModel.DMRHead" Width="1.5" PointX="28.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EpicorERPModel.ECOCOPart" Width="1.5" PointX="28.75" PointY="21.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EpicorERPModel.ECOOpr" Width="1.5" PointX="28.75" PointY="27.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EpicorERPModel.ECORev" Width="1.5" PointX="30.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EpicorERPModel.EmpBasic" Width="1.5" PointX="30.75" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EpicorERPModel.Equip" Width="1.5" PointX="10.75" PointY="31.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EpicorERPModel.FlexTopParts2" Width="1.5" PointX="12.75" PointY="31.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EpicorERPModel.GetMasterOrderDataset" Width="1.5" PointX="32.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EpicorERPModel.Inspectr" Width="1.5" PointX="32.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EpicorERPModel.InvcDtl" Width="1.5" PointX="32.75" PointY="15.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EpicorERPModel.InvcHead" Width="1.5" PointX="34.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EpicorERPModel.JobHead1" Width="1.5" PointX="12.75" PointY="35.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EpicorERPModel.JobOper" Width="1.5" PointX="36.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EpicorERPModel.LaborDtl" Width="1.5" PointX="18.75" PointY="37.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EpicorERPModel.Menu" Width="1.5" PointX="36.75" PointY="37.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EpicorERPModel.mFilesCust" Width="1.5" PointX="38.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EpicorERPModel.MscShpDt" Width="1.5" PointX="38.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EpicorERPModel.MscShpHd" Width="1.5" PointX="38.75" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EpicorERPModel.OrderDtl" Width="1.5" PointX="40.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EpicorERPModel.OrderHed" Width="1.5" PointX="24.75" PointY="40.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EpicorERPModel.OrderRel" Width="1.5" PointX="20.75" PointY="41.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EpicorERPModel.Part" Width="1.5" PointX="42.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EpicorERPModel.PartBin" Width="1.5" PointX="44.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EpicorERPModel.PartClass" Width="1.5" PointX="44.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EpicorERPModel.PartCost" Width="1.5" PointX="44.75" PointY="15.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EpicorERPModel.PartMtl" Width="1.5" PointX="44.75" PointY="23.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EpicorERPModel.PartOpr" Width="1.5" PointX="44.75" PointY="36.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EpicorERPModel.PartPlant" Width="1.5" PointX="46.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EpicorERPModel.PartRev" Width="1.5" PointX="46.75" PointY="27.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EpicorERPModel.PartTran" Width="1.5" PointX="46.75" PointY="36.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EpicorERPModel.PerCon" Width="1.5" PointX="48.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EpicorERPModel.PerConLnk" Width="1.5" PointX="48.75" PointY="14.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EpicorERPModel.PODetail" Width="1.5" PointX="48.75" PointY="23.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EpicorERPModel.POHeader" Width="1.5" PointX="50.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EpicorERPModel.PORel" Width="1.5" PointX="50.75" PointY="24.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EpicorERPModel.ProdGrup" Width="1.5" PointX="36.75" PointY="50.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EpicorERPModel.PurAgent" Width="1.5" PointX="50.75" PointY="47.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EpicorERPModel.QCIncoming" Width="1.5" PointX="52.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EpicorERPModel.QuoteDtl" Width="1.5" PointX="52.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EpicorERPModel.QuoteHed" Width="1.5" PointX="26.75" PointY="53.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EpicorERPModel.RcvDtl" Width="1.5" PointX="28.75" PointY="53.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EpicorERPModel.Resource" Width="1.5" PointX="48.75" PointY="53.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EpicorERPModel.ResourceGroup" Width="1.5" PointX="54.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EpicorERPModel.RMADtl" Width="1.5" PointX="54.75" PointY="16.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EpicorERPModel.RMAHead" Width="1.5" PointX="54.75" PointY="27.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EpicorERPModel.RMARcpt" Width="1.5" PointX="54.75" PointY="38.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EpicorERPModel.SalesRep" Width="1.5" PointX="54.75" PointY="46.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EpicorERPModel.SalesTBD" Width="1.5" PointX="50.75" PointY="55.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EpicorERPModel.ShipDtl" Width="1.5" PointX="56.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EpicorERPModel.ShipHead" Width="1.5" PointX="4.75" PointY="56.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EpicorERPModel.ShipTo" Width="1.5" PointX="56.75" PointY="30.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EpicorERPModel.SubShipD" Width="1.5" PointX="0.75" PointY="57.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EpicorERPModel.SubShipH" Width="1.5" PointX="36.75" PointY="57.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EpicorERPModel.UOM" Width="1.5" PointX="58.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EpicorERPModel.UOMClass" Width="1.5" PointX="58.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EpicorERPModel.UOMConv" Width="1.5" PointX="6.75" PointY="58.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EpicorERPModel.UserFile" Width="1.5" PointX="8.75" PointY="58.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EpicorERPModel.ViewActiveIndirect" Width="1.5" PointX="58.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EpicorERPModel.ViewActiveLaborDetail" Width="1.5" PointX="58.75" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EpicorERPModel.ViewDMR" Width="1.5" PointX="58.75" PointY="22.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EpicorERPModel.ViewDMRTranDate" Width="1.5" PointX="58.75" PointY="26.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EpicorERPModel.ViewLaborDtl" Width="1.5" PointX="58.75" PointY="29.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EpicorERPModel.ViewLRLaborDetail" Width="1.5" PointX="58.75" PointY="57.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EpicorERPModel.VntgStat" Width="1.5" PointX="60.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EpicorERPModel.PcInputValue" Width="1.5" PointX="60.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EpicorERPModel.Column" Width="1.5" PointX="60.75" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EpicorERPModel.Index" Width="1.5" PointX="60.75" PointY="19.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EpicorERPModel.IndexColumn" Width="1.5" PointX="60.75" PointY="24.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EpicorERPModel.Table" Width="1.5" PointX="60.75" PointY="28.75" IsExpanded="true" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
