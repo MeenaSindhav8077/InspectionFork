@@ -14,7 +14,7 @@ namespace Inspection.Web.Controllers
         ITe_INDIAEntities DB = new ITe_INDIAEntities();
         InwardDataModel List = new InwardDataModel();
         public ActionResult Index(int? id , string value)
-        {
+        { 
             try
             {
                 List = (from model in DB.Final_Inspection_Data.Where(p=>p.ID == id)
@@ -45,27 +45,20 @@ namespace Inspection.Web.Controllers
 
         public ActionResult _Index()
         {
+            List<Submodel> submodelsList = new List<Submodel>();    
             try
             {
-                InwardDataModel model = new InwardDataModel();
-
-
-                List = (from models in DB.Final_Inspection_Process
-                        select new InwardDataModel.submodel
+                submodelsList = (from models in DB.Final_Inspection_Process
+                        select new Submodel
                         {
-                            id = model.ID,
-                            InwardTime = model.Inward_Time,
-                            InwardDate = model.Inward_Date,
-                            JobNo = model.JobNum,
-                            Partno = model.PartNum,
-                            Stage = model.Stage,
-                            ERev = model.EpiRev,
-                            ActualRev = model.ActRev,
-                            Qty = model.Qty,
-                            Status = model.Status,
-                            currentstage = value,
+                            id = models.ID,
+                            inspectiondate = models.Inspection_date,
+                            StartTime = models.starttime,
+                            EndTime = models.endtime,
+                            InspectedQty = models.Inspection_Qty,
+                            User = models.done_by
                         }
-                        ).FirstOrDefault();
+                        ).ToList();
             }
             catch (Exception)
             {
@@ -99,7 +92,6 @@ namespace Inspection.Web.Controllers
             }
             catch (Exception)
             {
-
                 throw;
             }
             return RedirectToAction("Index");
