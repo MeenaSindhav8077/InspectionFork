@@ -60,7 +60,7 @@ namespace Inspection.Web.Controllers
         }
         public ActionResult MrbData()
         {
-            List<MrbModel> List = new List<MrbModel>();
+            List<MrbModel> List = new List<MrbModel>(); 
 
             try
             {

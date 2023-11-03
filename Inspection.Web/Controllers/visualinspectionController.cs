@@ -42,25 +42,59 @@ namespace Inspection.Web.Controllers
             }
             return View(List);
         }
-        public ActionResult AddData(Submodel _model)
+
+        public ActionResult _Index()
+        {
+            try
+            {
+                InwardDataModel model = new InwardDataModel();
+
+
+                List = (from models in DB.Final_Inspection_Process
+                        select new InwardDataModel.submodel
+                        {
+                            id = model.ID,
+                            InwardTime = model.Inward_Time,
+                            InwardDate = model.Inward_Date,
+                            JobNo = model.JobNum,
+                            Partno = model.PartNum,
+                            Stage = model.Stage,
+                            ERev = model.EpiRev,
+                            ActualRev = model.ActRev,
+                            Qty = model.Qty,
+                            Status = model.Status,
+                            currentstage = value,
+                        }
+                        ).FirstOrDefault();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            return View(List);
+        }
+        public ActionResult AddData(InwardDataModel _model)
         {
             try
             {
                 if (_model != null)
                 {
                     Final_Inspection_Process _Inspection_Data = new Final_Inspection_Process();
-                    //_Inspection_Data.Process = _model.process;
-                    //_Inspection_Data.JobNum = _model.jobnum;
-                    //_Inspection_Data.PartNum = _model.partno;
-                    //_Inspection_Data.Inspection_Type = _model.ins;
-                    _Inspection_Data.Inspection_date = _model.inspectiondate;
-                    _Inspection_Data.starttime = _model.StartTime;
-                    _Inspection_Data.endtime = _model.EndTime;
-                    _Inspection_Data.Inspection_Qty = Convert.ToInt32(_model.InspectedQty);
-                    _Inspection_Data.done_by = _model.User;
+                    _Inspection_Data.PID = _model.id;
+                    _Inspection_Data.MID = 1;
+                    _Inspection_Data.Inspection_ID = "";
+                    _Inspection_Data.Rework_Id = 0;
+                    _Inspection_Data.Inspection_date = _model._submodel.inspectiondate;
+                    _Inspection_Data.starttime = _model._submodel.StartTime;
+                    _Inspection_Data.endtime = _model._submodel.EndTime;
+                    _Inspection_Data.Inspection_Qty = Convert.ToInt32(_model._submodel.InspectedQty);
+                    _Inspection_Data.done_by = _model._submodel.User;
                     DB.Final_Inspection_Process.Add(_Inspection_Data);
                     DB.SaveChanges();
 
+
+                    return PartialView("_SubIndex", List);
                 }
             }
             catch (Exception)

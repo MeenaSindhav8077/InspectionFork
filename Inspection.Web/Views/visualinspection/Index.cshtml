@@ -97,7 +97,9 @@
     <!-- Sweet Alert css-->
     <link href="~/Content/assets/libs/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css" />
 }
-
+@{ 
+    int Count = 1;
+}
 <div class="row">
     <div class="col-lg-12">
         <div class="card" id="leadsList">
@@ -137,10 +139,37 @@
                                 </tr>
                             </thead>
                             <tbody class="list form-check-all">
-                                <tr>
-                                    <td>
-                                    </td>
-                                </tr>
+                                @foreach (var item in Model._submodels)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => Count)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.inspectiondate)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.StartTime)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.EndTime)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.InspectedQty)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.User)
+                                        </td>
+                                        @*<td>
+                                            @Html.DisplayFor(modelItem => item.)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Qty)
+                                        </td>*@
+                                    </tr>
+
+                                    Count++;
+                                }
                             </tbody>
                         </table>
                         <div class="noresult" style="display: none">
@@ -210,10 +239,8 @@
                 <div class="modal fade" id="showModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     @Html.Partial("_SubIndex",Model)
                 </div>
-
             </div>
         </div>
-
     </div>
     <!--end col-->
 </div>

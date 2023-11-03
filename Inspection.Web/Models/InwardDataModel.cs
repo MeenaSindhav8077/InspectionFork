@@ -44,6 +44,7 @@ namespace Inspection.Web.Models
         public string currentstage { get; set; }
 
         public Submodel _submodel { get; set; }
+        public List<Submodel> _submodels { get; set; }
 
         public bool? finalinspection { get; set; }
         public bool? humidity { get; set; }
