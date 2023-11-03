@@ -2,6 +2,7 @@
 using Inspection.Web.Models;
 using System;
 using System.Collections.Generic;
+using System.Drawing.Printing;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -15,8 +16,21 @@ namespace Inspection.Web.Controllers
         InwardDataModel List = new InwardDataModel();
         public ActionResult Index(int? id , string value)
         {
+            List<Submodel> submodelsList = new List<Submodel>();
             try
             {
+                if (id != null && value != null)
+                {
+                    Session["uid"] = id;
+                    Session["stage"] = value;
+                }
+                else 
+                {
+                    id = id = Convert.ToInt32(Session["uid"]);
+                    value = value = Session["stage"].ToString();
+                } 
+                
+
                 List = (from model in DB.Final_Inspection_Data.Where(p=>p.ID == id)
                         select new InwardDataModel
                         {
@@ -34,54 +48,48 @@ namespace Inspection.Web.Controllers
                             _submodel = new Submodel(),
                         }
                         ).FirstOrDefault();
+
+
+                submodelsList = (from models in DB.Final_Inspection_Process.OrderByDescending(p=>p.ID)
+                                 select new Submodel
+                                 {
+                                     id = models.ID,
+                                     inspectiondate = models.Inspection_date,
+                                     StartTime = models.starttime,
+                                     EndTime = models.endtime,
+                                     InspectedQty = models.Inspection_Qty,
+                                     User = models.done_by
+                                 }
+                       ).ToList();
+
+
+                var MAINMODELModel = new mAINPROGRESSModel
+                {
+                    _INWARD = List,
+                    SUBMODEL = submodelsList,
+                };
+
+                return View(MAINMODELModel);
             }
             catch (Exception)
             {
 
                 throw;
             }
-            return View(List);
+            return View();
         }
-
-        public ActionResult _Index()
-        {
-            try
-            {
-                InwardDataModel model = new InwardDataModel();
-
-
-                List = (from models in DB.Final_Inspection_Process
-                        select new InwardDataModel.submodel
-                        {
-                            id = model.ID,
-                            InwardTime = model.Inward_Time,
-                            InwardDate = model.Inward_Date,
-                            JobNo = model.JobNum,
-                            Partno = model.PartNum,
-                            Stage = model.Stage,
-                            ERev = model.EpiRev,
-                            ActualRev = model.ActRev,
-                            Qty = model.Qty,
-                            Status = model.Status,
-                            currentstage = value,
-                        }
-                        ).FirstOrDefault();
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
-            return View(List);
-        }
+       
         public ActionResult AddData(InwardDataModel _model)
         {
             try
             {
+
+                int id = Convert.ToInt32(Session["uid"]);
+
                 if (_model != null)
                 {
                     Final_Inspection_Process _Inspection_Data = new Final_Inspection_Process();
-                    _Inspection_Data.PID = _model.id;
+                    _Inspection_Data.PID = id;
                     _Inspection_Data.MID = 1;
                     _Inspection_Data.Inspection_ID = "";
                     _Inspection_Data.Rework_Id = 0;
@@ -94,13 +102,11 @@ namespace Inspection.Web.Controllers
                     DB.SaveChanges();
 
 
-                    return PartialView("_SubIndex", List);
+                    return RedirectToAction("Index");
                 }
             }
             catch (Exception)
             {
-
-                throw;
             }
             return RedirectToAction("Index");
         }

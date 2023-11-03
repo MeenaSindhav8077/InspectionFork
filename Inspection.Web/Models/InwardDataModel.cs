@@ -58,13 +58,23 @@ namespace Inspection.Web.Models
     {
         public int id { get; set; }
 
-        public DateTime inspectiondate { get; set; }
+        public DateTime? inspectiondate { get; set; }
         public string StartTime { get; set; }
         public string EndTime { get; set; }
-        public string InspectedQty { get; set; }
+        public int? InspectedQty { get; set; }
         public string InspectionBy { get; set; }
         public string User { get; set; }
         public IEnumerable<SelectListItem> _User { get; set; }
+
+    }
+
+
+    public class mAINPROGRESSModel
+    {
+        public InwardDataModel _INWARD { get; set; }
+        public List<Submodel> SUBMODEL { get; set; }
+
+        public Submodel _submodel { get; set; }
 
     }
 

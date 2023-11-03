@@ -22,9 +22,9 @@ namespace Inspection.Web.Controllers
             model._Stage = _Service.GetInspectiontype();
 
             return View(model);
-        }
+        }   
 
-
+        // HELLO.. I AM  UNNATI
         public ActionResult AddInward(InwardDataModel _model)
         {
             try

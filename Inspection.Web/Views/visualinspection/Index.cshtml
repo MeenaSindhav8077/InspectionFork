@@ -1,4 +1,4 @@
-﻿@model  Inspection.Web.Models.InwardDataModel
+﻿@model  Inspection.Web.Models.mAINPROGRESSModel
 @{
     ViewBag.Title = "Index";
 }
@@ -20,49 +20,49 @@
                 <div class="col-xxl-2 col-md-6">
                     <div>
                         <label>Inward Date</label>
-                        @Html.TextBoxFor(model => model.InwardDate, new { @disabled = "disabled", @class = "aspNetDisabled form-control" })
+                        @Html.TextBoxFor(model => model._INWARD.InwardDate, new { @disabled = "disabled", @class = "aspNetDisabled form-control" })
                     </div>
                 </div>
                 <div class="col-xxl-2 col-md-6">
                     <div>
                         <label>Job No</label>
-                        @Html.TextBoxFor(model => model.InwardTime, new { @disabled = "disabled", @class = "aspNetDisabled form-control" })
+                        @Html.TextBoxFor(model => model._INWARD.InwardTime, new { @disabled = "disabled", @class = "aspNetDisabled form-control" })
                     </div>
                 </div>
                 <div class="col-xxl-2 col-md-6">
                     <div>
                         <label>Part No</label>
-                        @Html.TextBoxFor(model => model.JobNo, new { @disabled = "disabled", @class = "aspNetDisabled form-control" })
+                        @Html.TextBoxFor(model => model._INWARD.JobNo, new { @disabled = "disabled", @class = "aspNetDisabled form-control" })
                     </div>
                 </div>
                 <div class="col-xxl-2 col-md-6">
                     <div>
                         <label>Part No</label>
-                        @Html.TextBoxFor(model => model.Partno, new { @disabled = "disabled", @class = "aspNetDisabled form-control" })
+                        @Html.TextBoxFor(model => model._INWARD.Partno, new { @disabled = "disabled", @class = "aspNetDisabled form-control" })
                     </div>
                 </div>
                 <div class="col-xxl-2 col-md-6">
                     <div>
                         <label>Stage</label>
-                        @Html.TextBoxFor(model => model.Stage, new { @disabled = "disabled", @class = "aspNetDisabled form-control" })
+                        @Html.TextBoxFor(model => model._INWARD.Stage, new { @disabled = "disabled", @class = "aspNetDisabled form-control" })
                     </div>
                 </div>
                 <div class="col-xxl-1 col-md-6">
                     <div>
                         <label>Epicor Rev</label>
-                        @Html.TextBoxFor(model => model.ERev, new { @disabled = "disabled", @class = "aspNetDisabled form-control" })
+                        @Html.TextBoxFor(model => model._INWARD.ERev, new { @disabled = "disabled", @class = "aspNetDisabled form-control" })
                     </div>
                 </div>
                 <div class="col-xxl-1 col-md-6">
                     <div>
                         <label>Actual Rev</label>
-                        @Html.TextBoxFor(model => model.ActualRev, new { @disabled = "disabled", @class = "aspNetDisabled form-control" })
+                        @Html.TextBoxFor(model => model._INWARD.ActualRev, new { @disabled = "disabled", @class = "aspNetDisabled form-control" })
                     </div>
                 </div>
                 <div class="col-xxl-2 col-md-6">
                     <div>
                         <label>Qty</label>
-                        @Html.TextBoxFor(model => model.Qty, new { @disabled = "disabled", @class = "aspNetDisabled form-control" })
+                        @Html.TextBoxFor(model => model._INWARD.Qty, new { @disabled = "disabled", @class = "aspNetDisabled form-control" })
                     </div>
                 </div>
             </div>
@@ -78,7 +78,7 @@
             <h4 class="mb-sm-0">
                 @if (Model != null)
                 {
-                    <span id="ContentPlaceHolder1_lblaction">0</span> @Model.currentstage
+                    <span id="ContentPlaceHolder1_lblaction">0</span> @Model._INWARD.currentstage
                 }
 
             </h4>
@@ -97,7 +97,7 @@
     <!-- Sweet Alert css-->
     <link href="~/Content/assets/libs/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css" />
 }
-@{ 
+@{
     int Count = 1;
 }
 <div class="row">
@@ -114,7 +114,7 @@
                             <button type="button" class="btn btn-success add-btn"
                                     data-bs-toggle="modal" id="create-btn"
                                     data-bs-target="#showModal">
-                                <i class="ri-add-line align-bottom me-1"></i> Add Leads
+                                <i class="ri-add-line align-bottom me-1"></i> Add 
                             </button>
                         </div>
                     </div>
@@ -139,37 +139,41 @@
                                 </tr>
                             </thead>
                             <tbody class="list form-check-all">
-                                @foreach (var item in Model._submodels)
+                                @if (Model.SUBMODEL != null && Model.SUBMODEL.Count > 0)
                                 {
-                                    <tr>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => Count)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.inspectiondate)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.StartTime)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.EndTime)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.InspectedQty)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.User)
-                                        </td>
-                                        @*<td>
-                                            @Html.DisplayFor(modelItem => item.)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.Qty)
-                                        </td>*@
-                                    </tr>
+                                    foreach (var item in Model.SUBMODEL)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => Count)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.inspectiondate)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.StartTime)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.EndTime)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.InspectedQty)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.User)
+                                            </td>
+                                            @*<td>
+                                                    @Html.DisplayFor(modelItem => item.)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.Qty)
+                                                </td>*@
+                                        </tr>
 
-                                    Count++;
+                                        Count++;
+                                    }
                                 }
+
                             </tbody>
                         </table>
                         <div class="noresult" style="display: none">
@@ -237,7 +241,7 @@
                     </div>
                 </div>
                 <div class="modal fade" id="showModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    @Html.Partial("_SubIndex",Model)
+                    @Html.Partial("_SubIndex", Model)
                 </div>
             </div>
         </div>
