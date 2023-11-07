@@ -86,6 +86,7 @@ namespace Inspection.Web.Controllers
                     _Inspection_Data.Humidity_Inspection = _model.humidity;
                     _Inspection_Data.Thread_Inspection = _model.threadinspection;
                     _Inspection_Data.Visual_Inspection = _model.visualinspection;
+                    _Inspection_Data.CurrentDate = DateTime.Now;
                     DB.Final_Inspection_Data.Add(_Inspection_Data);
                     DB.SaveChanges();
 

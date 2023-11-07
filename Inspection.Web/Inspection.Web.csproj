@@ -304,6 +304,33 @@
     <Compile Include="DataBase\Engineering_CNC_new.cs">
       <DependentUpon>Data.tt</DependentUpon>
     </Compile>
+    <Compile Include="DataBase\Engwork_AddNewTool.cs">
+      <DependentUpon>Data.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\Engwork_MAFIA.cs">
+      <DependentUpon>Data.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\Engwork_MaterialSuggestion.cs">
+      <DependentUpon>Data.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\Engwork_MOM.cs">
+      <DependentUpon>Data.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\Engwork_OPD.cs">
+      <DependentUpon>Data.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\Engwork_OPSequence.cs">
+      <DependentUpon>Data.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\Engwork_PoForecast.cs">
+      <DependentUpon>Data.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\Engwork_PTD.cs">
+      <DependentUpon>Data.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\Engwork_ToolingSuggesstion_AvaCheck.cs">
+      <DependentUpon>Data.tt</DependentUpon>
+    </Compile>
     <Compile Include="DataBase\Epicor_Job_Head.cs">
       <DependentUpon>Data.tt</DependentUpon>
     </Compile>
@@ -1105,6 +1132,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\DashBoardModel.cs" />
     <Compile Include="Models\InspectionModel.cs" />
     <Compile Include="Models\InwardDataModel.cs" />
     <Compile Include="Models\LoginModel.cs" />

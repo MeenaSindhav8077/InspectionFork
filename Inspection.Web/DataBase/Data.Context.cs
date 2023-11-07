@@ -46,6 +46,15 @@ namespace Inspection.Web.DataBase
         public virtual DbSet<Employee_Details> Employee_Details { get; set; }
         public virtual DbSet<Employee> Employees { get; set; }
         public virtual DbSet<Engineering_CNC_new> Engineering_CNC_new { get; set; }
+        public virtual DbSet<Engwork_AddNewTool> Engwork_AddNewTool { get; set; }
+        public virtual DbSet<Engwork_MAFIA> Engwork_MAFIA { get; set; }
+        public virtual DbSet<Engwork_MaterialSuggestion> Engwork_MaterialSuggestion { get; set; }
+        public virtual DbSet<Engwork_MOM> Engwork_MOM { get; set; }
+        public virtual DbSet<Engwork_OPD> Engwork_OPD { get; set; }
+        public virtual DbSet<Engwork_OPSequence> Engwork_OPSequence { get; set; }
+        public virtual DbSet<Engwork_PoForecast> Engwork_PoForecast { get; set; }
+        public virtual DbSet<Engwork_PTD> Engwork_PTD { get; set; }
+        public virtual DbSet<Engwork_ToolingSuggesstion_AvaCheck> Engwork_ToolingSuggesstion_AvaCheck { get; set; }
         public virtual DbSet<Epicor_Job_Head> Epicor_Job_Head { get; set; }
         public virtual DbSet<Epicor_Part_Library> Epicor_Part_Library { get; set; }
         public virtual DbSet<Epicor_Part_Update_Log> Epicor_Part_Update_Log { get; set; }

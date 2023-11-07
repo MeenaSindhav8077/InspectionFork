@@ -428,6 +428,201 @@
           <Property Name="mom_Creation_Date" Type="datetime" />
           <Property Name="Tool_Type_New" Type="nvarchar(max)" />
         </EntityType>
+        <EntityType Name="Engwork_AddNewTool">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ToolName" Type="nvarchar" MaxLength="50" />
+          <Property Name="PartDescription" Type="nvarchar" MaxLength="50" />
+          <Property Name="ToolType" Type="nvarchar" MaxLength="50" />
+          <Property Name="TotalCorner" Type="nvarchar" MaxLength="50" />
+          <Property Name="PerCornerQty" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="TotalQty" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="PerPartQty" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="Is_deleted" Type="bit" />
+          <Property Name="Is_Saved" Type="bit" />
+          <Property Name="Is_Submited" Type="bit" />
+          <Property Name="Is_SavedBy" Type="bit" />
+          <Property Name="Timestapm" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Engwork_MAFIA">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="RId" />
+            <PropertyRef Name="MId" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RId" Type="int" Nullable="false" />
+          <Property Name="MId" Type="int" Nullable="false" />
+          <Property Name="SN_Available" Type="bit" />
+          <Property Name="FL_Available" Type="bit" />
+          <Property Name="MAFIA_Made" Type="bit" />
+          <Property Name="MAFIA_Released" Type="bit" />
+          <Property Name="MAFIA_MadeDate" Type="datetime" />
+          <Property Name="MAFIA_ReleasedDate" Type="datetime" />
+          <Property Name="MAFIA_Remark" Type="nvarchar" MaxLength="50" />
+          <Property Name="MAFIA_CorrectionDate" Type="datetime" />
+          <Property Name="MAFIA_StatusCheckDate" Type="datetime" />
+          <Property Name="MadeBy" Type="int" />
+          <Property Name="Is_deleted" Type="bit" />
+          <Property Name="Is_Saved" Type="bit" />
+          <Property Name="Is_Submited" Type="bit" />
+          <Property Name="Is_SavedBy" Type="bit" />
+          <Property Name="Timestapm" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Engwork_MaterialSuggestion">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="RId" />
+            <PropertyRef Name="MId" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RId" Type="int" Nullable="false" />
+          <Property Name="MId" Type="int" Nullable="false" />
+          <Property Name="MaterialGrade" Type="nvarchar" MaxLength="50" />
+          <Property Name="PartDimension" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="MaterialPartName" Type="nvarchar" MaxLength="50" />
+          <Property Name="MaterialDescription" Type="nvarchar" MaxLength="50" />
+          <Property Name="UOM" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="MaterialEmailDate" Type="datetime" />
+          <Property Name="Calculator" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="QtyPerParent" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="Is_deleted" Type="bit" />
+          <Property Name="Is_Saved" Type="bit" />
+          <Property Name="Is_Submited" Type="bit" />
+          <Property Name="Is_SavedBy" Type="bit" />
+          <Property Name="Timestapm" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Engwork_MOM">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="RId" />
+            <PropertyRef Name="MId" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RId" Type="int" Nullable="false" />
+          <Property Name="MId" Type="int" Nullable="false" />
+          <Property Name="OPSeqSheetCompleteDate" Type="datetime" />
+          <Property Name="MOMCompleteDate" Type="datetime" />
+          <Property Name="OPSequenceFileAttachment" Type="nvarchar(max)" />
+          <Property Name="ProcessRemark" Type="nvarchar" MaxLength="50" />
+          <Property Name="Is_deleted" Type="bit" />
+          <Property Name="Is_Saved" Type="bit" />
+          <Property Name="Is_Submited" Type="bit" />
+          <Property Name="Is_SavedBy" Type="bit" />
+          <Property Name="Timestapm" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Engwork_OPD">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="RId" />
+            <PropertyRef Name="MId" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RId" Type="int" Nullable="false" />
+          <Property Name="MId" Type="int" Nullable="false" />
+          <Property Name="DXFRequired" Type="bit" />
+          <Property Name="DXFAvilableDate" Type="datetime" />
+          <Property Name="DXFRemark" Type="nvarchar" MaxLength="50" />
+          <Property Name="OPDRequestFrom" Type="int" />
+          <Property Name="OPDRequirementDescription" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreationDate" Type="datetime" />
+          <Property Name="OPDCorrectionDate" Type="datetime" />
+          <Property Name="StageDrawingAvilableDate" Type="datetime" />
+          <Property Name="Is_deleted" Type="bit" />
+          <Property Name="Is_Saved" Type="bit" />
+          <Property Name="Is_Submited" Type="bit" />
+          <Property Name="Is_SavedBy" Type="bit" />
+          <Property Name="Timestapm" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Engwork_OPSequence">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="RId" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RId" Type="int" Nullable="false" />
+          <Property Name="OPSequence" Type="nvarchar" MaxLength="50" />
+          <Property Name="Process" Type="nvarchar" MaxLength="50" />
+          <Property Name="Is_deleted" Type="bit" />
+          <Property Name="Is_Saved" Type="bit" />
+          <Property Name="Is_Submited" Type="bit" />
+          <Property Name="Is_SavedBy" Type="bit" />
+          <Property Name="Timestapm" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Engwork_PoForecast">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="MId" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MId" Type="int" Nullable="false" />
+          <Property Name="Type" Type="nvarchar" MaxLength="50" />
+          <Property Name="PoNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="PoDate" Type="datetime" />
+          <Property Name="PartNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="SubPart" Type="nvarchar" MaxLength="50" />
+          <Property Name="ReferencePart" Type="nvarchar" MaxLength="50" />
+          <Property Name="Status" Type="nvarchar" MaxLength="50" />
+          <Property Name="EntryDate" Type="datetime" />
+          <Property Name="PoQty" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="Category" Type="nvarchar" MaxLength="50" />
+          <Property Name="SQRMCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="RevisionType" Type="nvarchar" MaxLength="50" />
+          <Property Name="RevisionNo" Type="int" />
+          <Property Name="PoDgRelatedRemarks" Type="nvarchar" MaxLength="50" />
+          <Property Name="DrawingAvailableDate" Type="datetime" />
+          <Property Name="DrawingVerifyDate" Type="datetime" />
+          <Property Name="DrawingRemarks" Type="nvarchar" MaxLength="50" />
+          <Property Name="MaterialRemaks" Type="nvarchar" MaxLength="50" />
+          <Property Name="SN_MadeOutSource" Type="nvarchar" MaxLength="50" />
+          <Property Name="MaterialRelatedRemark" Type="nvarchar" MaxLength="50" />
+          <Property Name="Is_deleted" Type="bit" />
+          <Property Name="Is_Saved" Type="bit" />
+          <Property Name="Is_Submited" Type="bit" />
+          <Property Name="Is_SavedBy" Type="bit" />
+          <Property Name="Timestapm" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Engwork_PTD">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="RId" />
+            <PropertyRef Name="MId" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RId" Type="int" Nullable="false" />
+          <Property Name="MId" Type="int" Nullable="false" />
+          <Property Name="PTDForm" Type="nvarchar" MaxLength="50" />
+          <Property Name="StageDrawingRequired" Type="bit" />
+          <Property Name="PTDDate" Type="datetime" />
+          <Property Name="Is_deleted" Type="bit" />
+          <Property Name="Is_Saved" Type="bit" />
+          <Property Name="Is_Submited" Type="bit" />
+          <Property Name="Is_SavedBy" Type="bit" />
+          <Property Name="Timestapm" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Engwork_ToolingSuggesstion_AvaCheck">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="RId" />
+            <PropertyRef Name="MId" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RId" Type="int" Nullable="false" />
+          <Property Name="MId" Type="int" Nullable="false" />
+          <Property Name="SpecialToolRequired" Type="nchar" MaxLength="10" />
+          <Property Name="ToolingPartName" Type="nchar" MaxLength="10" />
+          <Property Name="ToolingOnHandQty" Type="nchar" MaxLength="10" />
+          <Property Name="ToolAvailableinStore" Type="nchar" MaxLength="10" />
+          <Property Name="ToolingRemark" Type="nchar" MaxLength="10" />
+          <Property Name="OverrideToolingAvaCheckMark" Type="nchar" MaxLength="10" />
+          <Property Name="Is_deleted" Type="bit" />
+          <Property Name="Is_Saved" Type="bit" />
+          <Property Name="Is_Submited" Type="bit" />
+          <Property Name="Is_SavedBy" Type="bit" />
+          <Property Name="Timestapm" Type="datetime" />
+        </EntityType>
         <EntityType Name="Epicor_Job_Head">
           <Key>
             <PropertyRef Name="Id" />
@@ -978,6 +1173,7 @@
           <Property Name="Humidity_Inspection" Type="bit" />
           <Property Name="Thread_Inspection" Type="bit" />
           <Property Name="Visual_Inspection" Type="bit" />
+          <Property Name="CurrentDate" Type="datetime" />
         </EntityType>
         <EntityType Name="Final_Inspection_Mrb_Data">
           <Key>
@@ -5374,6 +5570,15 @@ warning 6002: The table/view 'ITe_INDIA.dbo.VW_UdiOnHold' does not have a primar
           <EntitySet Name="Employee_Details" EntityType="Self.Employee_Details" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Employees" EntityType="Self.Employees" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Engineering_CNC_new" EntityType="Self.Engineering_CNC_new" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Engwork_AddNewTool" EntityType="Self.Engwork_AddNewTool" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Engwork_MAFIA" EntityType="Self.Engwork_MAFIA" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Engwork_MaterialSuggestion" EntityType="Self.Engwork_MaterialSuggestion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Engwork_MOM" EntityType="Self.Engwork_MOM" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Engwork_OPD" EntityType="Self.Engwork_OPD" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Engwork_OPSequence" EntityType="Self.Engwork_OPSequence" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Engwork_PoForecast" EntityType="Self.Engwork_PoForecast" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Engwork_PTD" EntityType="Self.Engwork_PTD" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Engwork_ToolingSuggesstion_AvaCheck" EntityType="Self.Engwork_ToolingSuggesstion_AvaCheck" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Epicor_Job_Head" EntityType="Self.Epicor_Job_Head" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Epicor_Part_Library" EntityType="Self.Epicor_Part_Library" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Epicor_Part_Update_Log" EntityType="Self.Epicor_Part_Update_Log" Schema="dbo" store:Type="Tables" />
@@ -5759,6 +5964,15 @@ warning 6002: The table/view 'ITe_INDIA.dbo.VW_UdiOnHold' does not have a primar
           <EntitySet Name="Employee_Details" EntityType="ITe_INDIAModel.Employee_Details" />
           <EntitySet Name="Employees" EntityType="ITe_INDIAModel.Employee" />
           <EntitySet Name="Engineering_CNC_new" EntityType="ITe_INDIAModel.Engineering_CNC_new" />
+          <EntitySet Name="Engwork_AddNewTool" EntityType="ITe_INDIAModel.Engwork_AddNewTool" />
+          <EntitySet Name="Engwork_MAFIA" EntityType="ITe_INDIAModel.Engwork_MAFIA" />
+          <EntitySet Name="Engwork_MaterialSuggestion" EntityType="ITe_INDIAModel.Engwork_MaterialSuggestion" />
+          <EntitySet Name="Engwork_MOM" EntityType="ITe_INDIAModel.Engwork_MOM" />
+          <EntitySet Name="Engwork_OPD" EntityType="ITe_INDIAModel.Engwork_OPD" />
+          <EntitySet Name="Engwork_OPSequence" EntityType="ITe_INDIAModel.Engwork_OPSequence" />
+          <EntitySet Name="Engwork_PoForecast" EntityType="ITe_INDIAModel.Engwork_PoForecast" />
+          <EntitySet Name="Engwork_PTD" EntityType="ITe_INDIAModel.Engwork_PTD" />
+          <EntitySet Name="Engwork_ToolingSuggesstion_AvaCheck" EntityType="ITe_INDIAModel.Engwork_ToolingSuggesstion_AvaCheck" />
           <EntitySet Name="Epicor_Job_Head" EntityType="ITe_INDIAModel.Epicor_Job_Head" />
           <EntitySet Name="Epicor_Part_Library" EntityType="ITe_INDIAModel.Epicor_Part_Library" />
           <EntitySet Name="Epicor_Part_Update_Log" EntityType="ITe_INDIAModel.Epicor_Part_Update_Log" />
@@ -6587,6 +6801,201 @@ warning 6002: The table/view 'ITe_INDIA.dbo.VW_UdiOnHold' does not have a primar
           <Property Name="mom_Creation_Date" Type="DateTime" Precision="3" />
           <Property Name="Tool_Type_New" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="Engwork_AddNewTool">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ToolName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PartDescription" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ToolType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TotalCorner" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PerCornerQty" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="TotalQty" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="PerPartQty" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Is_deleted" Type="Boolean" />
+          <Property Name="Is_Saved" Type="Boolean" />
+          <Property Name="Is_Submited" Type="Boolean" />
+          <Property Name="Is_SavedBy" Type="Boolean" />
+          <Property Name="Timestapm" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="Engwork_MAFIA">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="RId" />
+            <PropertyRef Name="MId" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RId" Type="Int32" Nullable="false" />
+          <Property Name="MId" Type="Int32" Nullable="false" />
+          <Property Name="SN_Available" Type="Boolean" />
+          <Property Name="FL_Available" Type="Boolean" />
+          <Property Name="MAFIA_Made" Type="Boolean" />
+          <Property Name="MAFIA_Released" Type="Boolean" />
+          <Property Name="MAFIA_MadeDate" Type="DateTime" Precision="3" />
+          <Property Name="MAFIA_ReleasedDate" Type="DateTime" Precision="3" />
+          <Property Name="MAFIA_Remark" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MAFIA_CorrectionDate" Type="DateTime" Precision="3" />
+          <Property Name="MAFIA_StatusCheckDate" Type="DateTime" Precision="3" />
+          <Property Name="MadeBy" Type="Int32" />
+          <Property Name="Is_deleted" Type="Boolean" />
+          <Property Name="Is_Saved" Type="Boolean" />
+          <Property Name="Is_Submited" Type="Boolean" />
+          <Property Name="Is_SavedBy" Type="Boolean" />
+          <Property Name="Timestapm" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="Engwork_MaterialSuggestion">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="RId" />
+            <PropertyRef Name="MId" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RId" Type="Int32" Nullable="false" />
+          <Property Name="MId" Type="Int32" Nullable="false" />
+          <Property Name="MaterialGrade" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PartDimension" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="MaterialPartName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MaterialDescription" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UOM" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="MaterialEmailDate" Type="DateTime" Precision="3" />
+          <Property Name="Calculator" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="QtyPerParent" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Is_deleted" Type="Boolean" />
+          <Property Name="Is_Saved" Type="Boolean" />
+          <Property Name="Is_Submited" Type="Boolean" />
+          <Property Name="Is_SavedBy" Type="Boolean" />
+          <Property Name="Timestapm" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="Engwork_MOM">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="RId" />
+            <PropertyRef Name="MId" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RId" Type="Int32" Nullable="false" />
+          <Property Name="MId" Type="Int32" Nullable="false" />
+          <Property Name="OPSeqSheetCompleteDate" Type="DateTime" Precision="3" />
+          <Property Name="MOMCompleteDate" Type="DateTime" Precision="3" />
+          <Property Name="OPSequenceFileAttachment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ProcessRemark" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Is_deleted" Type="Boolean" />
+          <Property Name="Is_Saved" Type="Boolean" />
+          <Property Name="Is_Submited" Type="Boolean" />
+          <Property Name="Is_SavedBy" Type="Boolean" />
+          <Property Name="Timestapm" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="Engwork_OPD">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="RId" />
+            <PropertyRef Name="MId" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RId" Type="Int32" Nullable="false" />
+          <Property Name="MId" Type="Int32" Nullable="false" />
+          <Property Name="DXFRequired" Type="Boolean" />
+          <Property Name="DXFAvilableDate" Type="DateTime" Precision="3" />
+          <Property Name="DXFRemark" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="OPDRequestFrom" Type="Int32" />
+          <Property Name="OPDRequirementDescription" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreationDate" Type="DateTime" Precision="3" />
+          <Property Name="OPDCorrectionDate" Type="DateTime" Precision="3" />
+          <Property Name="StageDrawingAvilableDate" Type="DateTime" Precision="3" />
+          <Property Name="Is_deleted" Type="Boolean" />
+          <Property Name="Is_Saved" Type="Boolean" />
+          <Property Name="Is_Submited" Type="Boolean" />
+          <Property Name="Is_SavedBy" Type="Boolean" />
+          <Property Name="Timestapm" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="Engwork_OPSequence">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="RId" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RId" Type="Int32" Nullable="false" />
+          <Property Name="OPSequence" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Process" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Is_deleted" Type="Boolean" />
+          <Property Name="Is_Saved" Type="Boolean" />
+          <Property Name="Is_Submited" Type="Boolean" />
+          <Property Name="Is_SavedBy" Type="Boolean" />
+          <Property Name="Timestapm" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="Engwork_PoForecast">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="MId" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MId" Type="Int32" Nullable="false" />
+          <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PoNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PoDate" Type="DateTime" Precision="3" />
+          <Property Name="PartNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SubPart" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ReferencePart" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EntryDate" Type="DateTime" Precision="3" />
+          <Property Name="PoQty" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Category" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SQRMCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="RevisionType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="RevisionNo" Type="Int32" />
+          <Property Name="PoDgRelatedRemarks" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DrawingAvailableDate" Type="DateTime" Precision="3" />
+          <Property Name="DrawingVerifyDate" Type="DateTime" Precision="3" />
+          <Property Name="DrawingRemarks" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MaterialRemaks" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SN_MadeOutSource" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MaterialRelatedRemark" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Is_deleted" Type="Boolean" />
+          <Property Name="Is_Saved" Type="Boolean" />
+          <Property Name="Is_Submited" Type="Boolean" />
+          <Property Name="Is_SavedBy" Type="Boolean" />
+          <Property Name="Timestapm" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="Engwork_PTD">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="RId" />
+            <PropertyRef Name="MId" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RId" Type="Int32" Nullable="false" />
+          <Property Name="MId" Type="Int32" Nullable="false" />
+          <Property Name="PTDForm" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="StageDrawingRequired" Type="Boolean" />
+          <Property Name="PTDDate" Type="DateTime" Precision="3" />
+          <Property Name="Is_deleted" Type="Boolean" />
+          <Property Name="Is_Saved" Type="Boolean" />
+          <Property Name="Is_Submited" Type="Boolean" />
+          <Property Name="Is_SavedBy" Type="Boolean" />
+          <Property Name="Timestapm" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="Engwork_ToolingSuggesstion_AvaCheck">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="RId" />
+            <PropertyRef Name="MId" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RId" Type="Int32" Nullable="false" />
+          <Property Name="MId" Type="Int32" Nullable="false" />
+          <Property Name="SpecialToolRequired" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="ToolingPartName" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="ToolingOnHandQty" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="ToolAvailableinStore" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="ToolingRemark" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="OverrideToolingAvaCheckMark" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Is_deleted" Type="Boolean" />
+          <Property Name="Is_Saved" Type="Boolean" />
+          <Property Name="Is_Submited" Type="Boolean" />
+          <Property Name="Is_SavedBy" Type="Boolean" />
+          <Property Name="Timestapm" Type="DateTime" Precision="3" />
+        </EntityType>
         <EntityType Name="Epicor_Job_Head">
           <Key>
             <PropertyRef Name="Id" />
@@ -7137,6 +7546,7 @@ warning 6002: The table/view 'ITe_INDIA.dbo.VW_UdiOnHold' does not have a primar
           <Property Name="Humidity_Inspection" Type="Boolean" />
           <Property Name="Thread_Inspection" Type="Boolean" />
           <Property Name="Visual_Inspection" Type="Boolean" />
+          <Property Name="CurrentDate" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="Final_Inspection_Mrb_Data">
           <Key>
@@ -12029,6 +12439,196 @@ warning 6002: The table/view 'ITe_INDIA.dbo.VW_UdiOnHold' does not have a primar
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Engwork_AddNewTool">
+            <EntityTypeMapping TypeName="ITe_INDIAModel.Engwork_AddNewTool">
+              <MappingFragment StoreEntitySet="Engwork_AddNewTool">
+                <ScalarProperty Name="Timestapm" ColumnName="Timestapm" />
+                <ScalarProperty Name="Is_SavedBy" ColumnName="Is_SavedBy" />
+                <ScalarProperty Name="Is_Submited" ColumnName="Is_Submited" />
+                <ScalarProperty Name="Is_Saved" ColumnName="Is_Saved" />
+                <ScalarProperty Name="Is_deleted" ColumnName="Is_deleted" />
+                <ScalarProperty Name="PerPartQty" ColumnName="PerPartQty" />
+                <ScalarProperty Name="TotalQty" ColumnName="TotalQty" />
+                <ScalarProperty Name="PerCornerQty" ColumnName="PerCornerQty" />
+                <ScalarProperty Name="TotalCorner" ColumnName="TotalCorner" />
+                <ScalarProperty Name="ToolType" ColumnName="ToolType" />
+                <ScalarProperty Name="PartDescription" ColumnName="PartDescription" />
+                <ScalarProperty Name="ToolName" ColumnName="ToolName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Engwork_MAFIA">
+            <EntityTypeMapping TypeName="ITe_INDIAModel.Engwork_MAFIA">
+              <MappingFragment StoreEntitySet="Engwork_MAFIA">
+                <ScalarProperty Name="Timestapm" ColumnName="Timestapm" />
+                <ScalarProperty Name="Is_SavedBy" ColumnName="Is_SavedBy" />
+                <ScalarProperty Name="Is_Submited" ColumnName="Is_Submited" />
+                <ScalarProperty Name="Is_Saved" ColumnName="Is_Saved" />
+                <ScalarProperty Name="Is_deleted" ColumnName="Is_deleted" />
+                <ScalarProperty Name="MadeBy" ColumnName="MadeBy" />
+                <ScalarProperty Name="MAFIA_StatusCheckDate" ColumnName="MAFIA_StatusCheckDate" />
+                <ScalarProperty Name="MAFIA_CorrectionDate" ColumnName="MAFIA_CorrectionDate" />
+                <ScalarProperty Name="MAFIA_Remark" ColumnName="MAFIA_Remark" />
+                <ScalarProperty Name="MAFIA_ReleasedDate" ColumnName="MAFIA_ReleasedDate" />
+                <ScalarProperty Name="MAFIA_MadeDate" ColumnName="MAFIA_MadeDate" />
+                <ScalarProperty Name="MAFIA_Released" ColumnName="MAFIA_Released" />
+                <ScalarProperty Name="MAFIA_Made" ColumnName="MAFIA_Made" />
+                <ScalarProperty Name="FL_Available" ColumnName="FL_Available" />
+                <ScalarProperty Name="SN_Available" ColumnName="SN_Available" />
+                <ScalarProperty Name="MId" ColumnName="MId" />
+                <ScalarProperty Name="RId" ColumnName="RId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Engwork_MaterialSuggestion">
+            <EntityTypeMapping TypeName="ITe_INDIAModel.Engwork_MaterialSuggestion">
+              <MappingFragment StoreEntitySet="Engwork_MaterialSuggestion">
+                <ScalarProperty Name="Timestapm" ColumnName="Timestapm" />
+                <ScalarProperty Name="Is_SavedBy" ColumnName="Is_SavedBy" />
+                <ScalarProperty Name="Is_Submited" ColumnName="Is_Submited" />
+                <ScalarProperty Name="Is_Saved" ColumnName="Is_Saved" />
+                <ScalarProperty Name="Is_deleted" ColumnName="Is_deleted" />
+                <ScalarProperty Name="QtyPerParent" ColumnName="QtyPerParent" />
+                <ScalarProperty Name="Calculator" ColumnName="Calculator" />
+                <ScalarProperty Name="MaterialEmailDate" ColumnName="MaterialEmailDate" />
+                <ScalarProperty Name="UOM" ColumnName="UOM" />
+                <ScalarProperty Name="MaterialDescription" ColumnName="MaterialDescription" />
+                <ScalarProperty Name="MaterialPartName" ColumnName="MaterialPartName" />
+                <ScalarProperty Name="PartDimension" ColumnName="PartDimension" />
+                <ScalarProperty Name="MaterialGrade" ColumnName="MaterialGrade" />
+                <ScalarProperty Name="MId" ColumnName="MId" />
+                <ScalarProperty Name="RId" ColumnName="RId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Engwork_MOM">
+            <EntityTypeMapping TypeName="ITe_INDIAModel.Engwork_MOM">
+              <MappingFragment StoreEntitySet="Engwork_MOM">
+                <ScalarProperty Name="Timestapm" ColumnName="Timestapm" />
+                <ScalarProperty Name="Is_SavedBy" ColumnName="Is_SavedBy" />
+                <ScalarProperty Name="Is_Submited" ColumnName="Is_Submited" />
+                <ScalarProperty Name="Is_Saved" ColumnName="Is_Saved" />
+                <ScalarProperty Name="Is_deleted" ColumnName="Is_deleted" />
+                <ScalarProperty Name="ProcessRemark" ColumnName="ProcessRemark" />
+                <ScalarProperty Name="OPSequenceFileAttachment" ColumnName="OPSequenceFileAttachment" />
+                <ScalarProperty Name="MOMCompleteDate" ColumnName="MOMCompleteDate" />
+                <ScalarProperty Name="OPSeqSheetCompleteDate" ColumnName="OPSeqSheetCompleteDate" />
+                <ScalarProperty Name="MId" ColumnName="MId" />
+                <ScalarProperty Name="RId" ColumnName="RId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Engwork_OPD">
+            <EntityTypeMapping TypeName="ITe_INDIAModel.Engwork_OPD">
+              <MappingFragment StoreEntitySet="Engwork_OPD">
+                <ScalarProperty Name="Timestapm" ColumnName="Timestapm" />
+                <ScalarProperty Name="Is_SavedBy" ColumnName="Is_SavedBy" />
+                <ScalarProperty Name="Is_Submited" ColumnName="Is_Submited" />
+                <ScalarProperty Name="Is_Saved" ColumnName="Is_Saved" />
+                <ScalarProperty Name="Is_deleted" ColumnName="Is_deleted" />
+                <ScalarProperty Name="StageDrawingAvilableDate" ColumnName="StageDrawingAvilableDate" />
+                <ScalarProperty Name="OPDCorrectionDate" ColumnName="OPDCorrectionDate" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="OPDRequirementDescription" ColumnName="OPDRequirementDescription" />
+                <ScalarProperty Name="OPDRequestFrom" ColumnName="OPDRequestFrom" />
+                <ScalarProperty Name="DXFRemark" ColumnName="DXFRemark" />
+                <ScalarProperty Name="DXFAvilableDate" ColumnName="DXFAvilableDate" />
+                <ScalarProperty Name="DXFRequired" ColumnName="DXFRequired" />
+                <ScalarProperty Name="MId" ColumnName="MId" />
+                <ScalarProperty Name="RId" ColumnName="RId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Engwork_OPSequence">
+            <EntityTypeMapping TypeName="ITe_INDIAModel.Engwork_OPSequence">
+              <MappingFragment StoreEntitySet="Engwork_OPSequence">
+                <ScalarProperty Name="Timestapm" ColumnName="Timestapm" />
+                <ScalarProperty Name="Is_SavedBy" ColumnName="Is_SavedBy" />
+                <ScalarProperty Name="Is_Submited" ColumnName="Is_Submited" />
+                <ScalarProperty Name="Is_Saved" ColumnName="Is_Saved" />
+                <ScalarProperty Name="Is_deleted" ColumnName="Is_deleted" />
+                <ScalarProperty Name="Process" ColumnName="Process" />
+                <ScalarProperty Name="OPSequence" ColumnName="OPSequence" />
+                <ScalarProperty Name="RId" ColumnName="RId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Engwork_PoForecast">
+            <EntityTypeMapping TypeName="ITe_INDIAModel.Engwork_PoForecast">
+              <MappingFragment StoreEntitySet="Engwork_PoForecast">
+                <ScalarProperty Name="Timestapm" ColumnName="Timestapm" />
+                <ScalarProperty Name="Is_SavedBy" ColumnName="Is_SavedBy" />
+                <ScalarProperty Name="Is_Submited" ColumnName="Is_Submited" />
+                <ScalarProperty Name="Is_Saved" ColumnName="Is_Saved" />
+                <ScalarProperty Name="Is_deleted" ColumnName="Is_deleted" />
+                <ScalarProperty Name="MaterialRelatedRemark" ColumnName="MaterialRelatedRemark" />
+                <ScalarProperty Name="SN_MadeOutSource" ColumnName="SN_MadeOutSource" />
+                <ScalarProperty Name="MaterialRemaks" ColumnName="MaterialRemaks" />
+                <ScalarProperty Name="DrawingRemarks" ColumnName="DrawingRemarks" />
+                <ScalarProperty Name="DrawingVerifyDate" ColumnName="DrawingVerifyDate" />
+                <ScalarProperty Name="DrawingAvailableDate" ColumnName="DrawingAvailableDate" />
+                <ScalarProperty Name="PoDgRelatedRemarks" ColumnName="PoDgRelatedRemarks" />
+                <ScalarProperty Name="RevisionNo" ColumnName="RevisionNo" />
+                <ScalarProperty Name="RevisionType" ColumnName="RevisionType" />
+                <ScalarProperty Name="SQRMCode" ColumnName="SQRMCode" />
+                <ScalarProperty Name="Category" ColumnName="Category" />
+                <ScalarProperty Name="PoQty" ColumnName="PoQty" />
+                <ScalarProperty Name="EntryDate" ColumnName="EntryDate" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="ReferencePart" ColumnName="ReferencePart" />
+                <ScalarProperty Name="SubPart" ColumnName="SubPart" />
+                <ScalarProperty Name="PartNumber" ColumnName="PartNumber" />
+                <ScalarProperty Name="PoDate" ColumnName="PoDate" />
+                <ScalarProperty Name="PoNumber" ColumnName="PoNumber" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="MId" ColumnName="MId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Engwork_PTD">
+            <EntityTypeMapping TypeName="ITe_INDIAModel.Engwork_PTD">
+              <MappingFragment StoreEntitySet="Engwork_PTD">
+                <ScalarProperty Name="Timestapm" ColumnName="Timestapm" />
+                <ScalarProperty Name="Is_SavedBy" ColumnName="Is_SavedBy" />
+                <ScalarProperty Name="Is_Submited" ColumnName="Is_Submited" />
+                <ScalarProperty Name="Is_Saved" ColumnName="Is_Saved" />
+                <ScalarProperty Name="Is_deleted" ColumnName="Is_deleted" />
+                <ScalarProperty Name="PTDDate" ColumnName="PTDDate" />
+                <ScalarProperty Name="StageDrawingRequired" ColumnName="StageDrawingRequired" />
+                <ScalarProperty Name="PTDForm" ColumnName="PTDForm" />
+                <ScalarProperty Name="MId" ColumnName="MId" />
+                <ScalarProperty Name="RId" ColumnName="RId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Engwork_ToolingSuggesstion_AvaCheck">
+            <EntityTypeMapping TypeName="ITe_INDIAModel.Engwork_ToolingSuggesstion_AvaCheck">
+              <MappingFragment StoreEntitySet="Engwork_ToolingSuggesstion_AvaCheck">
+                <ScalarProperty Name="Timestapm" ColumnName="Timestapm" />
+                <ScalarProperty Name="Is_SavedBy" ColumnName="Is_SavedBy" />
+                <ScalarProperty Name="Is_Submited" ColumnName="Is_Submited" />
+                <ScalarProperty Name="Is_Saved" ColumnName="Is_Saved" />
+                <ScalarProperty Name="Is_deleted" ColumnName="Is_deleted" />
+                <ScalarProperty Name="OverrideToolingAvaCheckMark" ColumnName="OverrideToolingAvaCheckMark" />
+                <ScalarProperty Name="ToolingRemark" ColumnName="ToolingRemark" />
+                <ScalarProperty Name="ToolAvailableinStore" ColumnName="ToolAvailableinStore" />
+                <ScalarProperty Name="ToolingOnHandQty" ColumnName="ToolingOnHandQty" />
+                <ScalarProperty Name="ToolingPartName" ColumnName="ToolingPartName" />
+                <ScalarProperty Name="SpecialToolRequired" ColumnName="SpecialToolRequired" />
+                <ScalarProperty Name="MId" ColumnName="MId" />
+                <ScalarProperty Name="RId" ColumnName="RId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Epicor_Job_Head">
             <EntityTypeMapping TypeName="ITe_INDIAModel.Epicor_Job_Head">
               <MappingFragment StoreEntitySet="Epicor_Job_Head">
@@ -12539,6 +13139,7 @@ warning 6002: The table/view 'ITe_INDIA.dbo.VW_UdiOnHold' does not have a primar
           <EntitySetMapping Name="Final_Inspection_Data">
             <EntityTypeMapping TypeName="ITe_INDIAModel.Final_Inspection_Data">
               <MappingFragment StoreEntitySet="Final_Inspection_Data">
+                <ScalarProperty Name="CurrentDate" ColumnName="CurrentDate" />
                 <ScalarProperty Name="Visual_Inspection" ColumnName="Visual_Inspection" />
                 <ScalarProperty Name="Thread_Inspection" ColumnName="Thread_Inspection" />
                 <ScalarProperty Name="Humidity_Inspection" ColumnName="Humidity_Inspection" />

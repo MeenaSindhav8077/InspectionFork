@@ -37,5 +37,6 @@ namespace Inspection.Web.DataBase
         public Nullable<bool> Humidity_Inspection { get; set; }
         public Nullable<bool> Thread_Inspection { get; set; }
         public Nullable<bool> Visual_Inspection { get; set; }
+        public Nullable<System.DateTime> CurrentDate { get; set; }
     }
 }
