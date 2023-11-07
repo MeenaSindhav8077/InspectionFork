@@ -28,7 +28,7 @@ namespace Inspection.Web.Controllers
             }
             catch (Exception)
             {
-                throw;
+                throw;  
             }
 
             return View();
