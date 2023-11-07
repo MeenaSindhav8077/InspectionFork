@@ -16,7 +16,6 @@ namespace Inspection.Web.Controllers
         InwardDataModel List = new InwardDataModel();
         public ActionResult Index(int? id , string value)
         {
-            List<Submodel> submodelsList = new List<Submodel>();
             try
             {
                 if (id != null && value != null)
@@ -50,26 +49,29 @@ namespace Inspection.Web.Controllers
                         ).FirstOrDefault();
 
 
-                submodelsList = (from models in DB.Final_Inspection_Process.OrderByDescending(p=>p.ID)
-                                 select new Submodel
-                                 {
-                                     id = models.ID,
-                                     inspectiondate = models.Inspection_date,
-                                     StartTime = models.starttime,
-                                     EndTime = models.endtime,
-                                     InspectedQty = models.Inspection_Qty,
-                                     User = models.done_by
-                                 }
-                       ).ToList();
+        public ActionResult _Index()
+        {
+            try
+            {
+                InwardDataModel model = new InwardDataModel();
 
 
-                var MAINMODELModel = new mAINPROGRESSModel
-                {
-                    _INWARD = List,
-                    SUBMODEL = submodelsList,
-                };
-
-                return View(MAINMODELModel);
+                List = (from models in DB.Final_Inspection_Process
+                        select new InwardDataModel.submodel
+                        {
+                            id = model.ID,
+                            InwardTime = model.Inward_Time,
+                            InwardDate = model.Inward_Date,
+                            JobNo = model.JobNum,
+                            Partno = model.PartNum,
+                            Stage = model.Stage,
+                            ERev = model.EpiRev,
+                            ActualRev = model.ActRev,
+                            Qty = model.Qty,
+                            Status = model.Status,
+                            currentstage = value,
+                        }
+                        ).FirstOrDefault();
             }
             catch (Exception)
             {
@@ -107,6 +109,8 @@ namespace Inspection.Web.Controllers
             }
             catch (Exception)
             {
+
+                throw;
             }
             return RedirectToAction("Index");
         }
