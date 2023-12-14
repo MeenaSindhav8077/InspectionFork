@@ -24,8 +24,7 @@ namespace Inspection.Web.DataBase
         public string Stage { get; set; }
         public string EpiRev { get; set; }
         public string ActRev { get; set; }
-        public Nullable<decimal> Qty { get; set; }
-        public Nullable<decimal> Sample_Qty { get; set; }
+        public string Sample_Qty { get; set; }
         public string MES { get; set; }
         public string Status { get; set; }
         public Nullable<int> Reject_Qty { get; set; }
@@ -38,5 +37,8 @@ namespace Inspection.Web.DataBase
         public Nullable<bool> Thread_Inspection { get; set; }
         public Nullable<bool> Visual_Inspection { get; set; }
         public Nullable<System.DateTime> CurrentDate { get; set; }
+        public string qty { get; set; }
+        public Nullable<bool> Active { get; set; }
+        public Nullable<bool> Delete { get; set; }
     }
 }

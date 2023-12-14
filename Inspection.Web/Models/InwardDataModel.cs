@@ -37,7 +37,7 @@ namespace Inspection.Web.Models
         public string ActualRev { get; set; }
 
         [Required(ErrorMessage = "The  field is required.")]
-        public decimal? Qty { get; set; }
+        public string Qty { get; set; }
 
         public IEnumerable<SelectListItem> _Stage { get; set; }
 
@@ -63,12 +63,16 @@ namespace Inspection.Web.Models
         public string EndTime { get; set; }
         public int? InspectedQty { get; set; }
         public string InspectionBy { get; set; }
-        public string User { get; set; }
         public IEnumerable<SelectListItem> _User { get; set; }
 
     }
 
+    public class MainInwardModel
+    {
+        public InwardDataModel _INWARD { get; set; }
+        public List<InwardDataModel> _INWARDList { get; set; }
 
+    }
     public class mAINPROGRESSModel
     {
         public InwardDataModel _INWARD { get; set; }

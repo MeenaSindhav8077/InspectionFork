@@ -1,0 +1,151 @@
+﻿@model  List<Inspection.Web.Models.InwardDataModel>
+
+@{
+    ViewBag.Title = "Data Tables";
+    ViewBag.pTitle = "Data Tables";
+    ViewBag.pageTitle = "Tables";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    int Count = 1;
+}
+
+@section styles{
+    <!--datatable css-->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css" />
+    <!--datatable responsive css-->
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.bootstrap.min.css" />
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.2.2/css/buttons.dataTables.min.css">
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card"> 
+            <div class="card-header">
+                <h5 class="card-title mb-0">Alternative Pagination</h5>
+            </div>
+            <div class="card-body">
+                <table id="alternative-pagination" class="table nowrap dt-responsive align-middle table-hover table-bordered" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>Sr.</th>
+                            <th>Inward Date</th>
+                            <th>Inward Time</th>
+                            <th>Job No.</th>
+                            <th>Part No</th>
+                            <th>Stage</th>
+                            <th>Rev</th>
+                            <th>Inward qty</th>
+                            <th>Acrtion</th>
+                            <th>Go</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+
+
+
+
+                        @foreach (var item in Model)
+                        {
+                            List<string> mm = new List<string>();
+                            mm.Add("Select....");
+
+                            if(item.finalinspection ==true)
+                            {
+                                mm.Add("Final Inspection");
+                            }
+                            if (item.visualinspection == true)
+                            {
+                                mm.Add("Visual Inspection");
+                            }
+                            if (item.humidity == true)
+                            {
+                                mm.Add("Huminity");
+                            }
+                            if (item.threadinspection == true)
+                            {
+                                mm.Add("Thred Inspection");
+                            }
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => Count)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.InwardDate)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.InwardTime)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.JobNo)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Partno)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Status)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ERev)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Qty)
+                                </td>
+                                <td>
+                                    <div class="">
+                                        <div class="">
+                                         
+                                            @Html.DropDownListFor(modelItem => item.Stage, new SelectList(mm,  "Text"), new { @class = "form-control", @id = "drpselect", })
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <button onclick="gobutton(@item.id)" class="btn rounded-pill btn-primary waves-effect waves-light">Go</button>
+                                </td>
+
+                            </tr>
+
+                            Count++;
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div><!--end col-->
+</div><!--end row-->
+
+<script  src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script>
+    function gobutton(id) {
+        debugger
+
+        var selectvalue = $('#drpselect').val();
+
+        var url = '@Url.Action("Index", "visualinspection")' + '?id=' + id + '&value=' + selectvalue;
+        window.location.href = url;
+        
+    }
+
+
+</script>
+
+@section scripts{
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+    <!--datatable js-->
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.2.2/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.print.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.html5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+
+    <script src="~/Content/assets/js/pages/datatables.init.js"></script>
+    <!-- App js -->
+    <script src="~/Content/assets/js/app.js"></script>
+}

@@ -19,7 +19,7 @@ namespace Inspection.Web.Service
                 if ((sessionCookie != null) && (sessionCookie.IndexOf("ASP.NET_SessionId") >= 0))
                 {
                     // Session has expired. Redirect to the login page.
-                    filterContext.Result = new RedirectResult("~/Account/Login");
+                    filterContext.Result = new RedirectResult("/Account/Login");
                 }
             }
 

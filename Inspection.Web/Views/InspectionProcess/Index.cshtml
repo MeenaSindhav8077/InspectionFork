@@ -36,17 +36,13 @@
                             <th>Part No</th>
                             <th>Stage</th>
                             <th>Rev</th>
+                            <th>ActualRev</th>
                             <th>Inward qty</th>
-                            <th>Acrtion</th>
+                            <th>Status</th>
                             <th>Go</th>
                         </tr>
                     </thead>
                     <tbody>
-
-
-
-
-
                         @foreach (var item in Model)
                         {
                             List<string> mm = new List<string>();
@@ -85,50 +81,67 @@
                                     @Html.DisplayFor(modelItem => item.Partno)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.Status)
+                                    @Html.DisplayFor(modelItem => item.Stage)
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.ERev)
                                 </td>
                                 <td>
+                                    @Html.DisplayFor(modelItem => item.ActualRev)
+                                </td>
+                                <td>
                                     @Html.DisplayFor(modelItem => item.Qty)
                                 </td>
                                 <td>
-                                    <div class="">
-                                        <div class="">
-                                         
-                                            @Html.DropDownListFor(modelItem => item.Stage, new SelectList(mm,  "Text"), new { @class = "form-control", @id = "drpselect", })
+                                    @if (item.Status.ToString().Trim() == "Humidity")
+                                    {
+                                        <div class="badge bg-success">
+                                            @Html.DisplayFor(modelItem => item.Status) Inspection
                                         </div>
-                                    </div>
+                                    }
+                                    else if (item.Status.ToString().Trim() == "Final")
+                                    {
+                                        <div class="badge bg-warning">
+                                            @Html.DisplayFor(modelItem => item.Status) Inspection
+                                        </div>
+
+                                    }
+                                    else if (item.Status.ToString().Trim() == "Visual")
+                                    {
+                                        <div class="badge bg-danger">
+                                            @Html.DisplayFor(modelItem => item.Status) Inspection
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="badge bg-info">
+                                            @item.Status  Inspection
+                                        </div>
+                                        
+                                    }
                                 </td>
                                 <td>
-                                    <button onclick="gobutton(@item.id)" class="btn rounded-pill btn-primary waves-effect waves-light">Go</button>
+                                    <button onclick="gobutton('@item.id','@item.Status')" class="btn rounded-pill btn-primary waves-effect waves-light">Go</button>
                                 </td>
-
                             </tr>
-
                             Count++;
                         }
                     </tbody>
                 </table>
             </div>
         </div>
-    </div><!--end col-->
-</div><!--end row-->
+    </div>
+</div>
 
 <script  src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script>
-    function gobutton(id) {
+    function gobutton(id,status) {
         debugger
-
-        var selectvalue = $('#drpselect').val();
-
+        var selectvalue = status;
         var url = '@Url.Action("Index", "visualinspection")' + '?id=' + id + '&value=' + selectvalue;
         window.location.href = url;
         
     }
-
-
 </script>
 
 @section scripts{

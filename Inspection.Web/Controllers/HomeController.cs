@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace Inspection.Web.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         ITe_INDIAEntities DB = new ITe_INDIAEntities();
@@ -28,9 +29,8 @@ namespace Inspection.Web.Controllers
             }
             catch (Exception)
             {
-                throw;  
-            }
 
+            }
             return View();
         }
 

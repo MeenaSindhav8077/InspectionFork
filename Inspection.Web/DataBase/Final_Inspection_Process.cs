@@ -45,5 +45,7 @@ namespace Inspection.Web.DataBase
         public string reject_mrb { get; set; }
         public string rework_mrb { get; set; }
         public string status { get; set; }
+        public string Stage { get; set; }
+        public Nullable<bool> CkMRB { get; set; }
     }
 }

@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace Inspection.Web.Controllers
 {
+    [Authorize]
     public class MRBController : Controller
     {
         // GET: MRB

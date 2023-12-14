@@ -9,6 +9,7 @@ using System.Web.Mvc;
 
 namespace Inspection.Web.Controllers
 {
+    [Authorize]
     public class InspectionProcessController : Controller
     {
         // GET: InspectionProcess
@@ -31,7 +32,7 @@ namespace Inspection.Web.Controllers
                             Stage = model.Stage,
                             ERev = model.EpiRev,
                             ActualRev = model.ActRev,
-                            Qty = model.Qty,
+                            Qty = model.qty,
                             Status = model.Status,
                             threadinspection = model.Thread_Inspection,
                             visualinspection = model.Visual_Inspection,

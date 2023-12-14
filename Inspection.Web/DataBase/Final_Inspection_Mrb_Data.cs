@@ -22,5 +22,10 @@ namespace Inspection.Web.DataBase
         public string location { get; set; }
         public Nullable<bool> Active { get; set; }
         public Nullable<bool> Deleted { get; set; }
+        public string Stage { get; set; }
+        public string Partno { get; set; }
+        public string Jobno { get; set; }
+        public string ERev { get; set; }
+        public Nullable<int> Gid { get; set; }
     }
 }

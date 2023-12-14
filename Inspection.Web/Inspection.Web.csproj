@@ -145,15 +145,6 @@
     <Compile Include="DataBase\APInvHed.cs">
       <DependentUpon>EData.tt</DependentUpon>
     </Compile>
-    <Compile Include="DataBase\Associated_Document.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\Attachment_Mst.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\backup_logs.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
     <Compile Include="DataBase\BankAcct.cs">
       <DependentUpon>EData.tt</DependentUpon>
     </Compile>
@@ -172,9 +163,6 @@
     <Compile Include="DataBase\BookRel.cs">
       <DependentUpon>EData.tt</DependentUpon>
     </Compile>
-    <Compile Include="DataBase\catagory_tbl.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
     <Compile Include="DataBase\CheckHed.cs">
       <DependentUpon>EData.tt</DependentUpon>
     </Compile>
@@ -184,9 +172,6 @@
     <Compile Include="DataBase\CompanyAuthTerritories_Result.cs">
       <DependentUpon>EData.tt</DependentUpon>
     </Compile>
-    <Compile Include="DataBase\CRUP_MST.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
     <Compile Include="DataBase\CustCnt.cs">
       <DependentUpon>EData.tt</DependentUpon>
     </Compile>
@@ -195,9 +180,6 @@
     </Compile>
     <Compile Include="DataBase\CustView.cs">
       <DependentUpon>EData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\C__EFMigrationsHistory.cs">
-      <DependentUpon>Data.tt</DependentUpon>
     </Compile>
     <Compile Include="DataBase\Data.Context.cs">
       <AutoGen>True</AutoGen>
@@ -213,9 +195,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Data.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\DayClose.cs">
-      <DependentUpon>Data.tt</DependentUpon>
     </Compile>
     <Compile Include="DataBase\DemandDetail.cs">
       <DependentUpon>EData.tt</DependentUpon>
@@ -235,20 +214,11 @@
     <Compile Include="DataBase\DemandScheduleImport.cs">
       <DependentUpon>EData.tt</DependentUpon>
     </Compile>
-    <Compile Include="DataBase\department.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
     <Compile Include="DataBase\DMRCorAct.cs">
       <DependentUpon>EData.tt</DependentUpon>
     </Compile>
     <Compile Include="DataBase\DMRHead.cs">
       <DependentUpon>EData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\Document.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\ECN_CHANGE_OPTIONS.cs">
-      <DependentUpon>Data.tt</DependentUpon>
     </Compile>
     <Compile Include="DataBase\ECOCOPart.cs">
       <DependentUpon>EData.tt</DependentUpon>
@@ -274,130 +244,19 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>EData.edmx</DependentUpon>
     </Compile>
-    <Compile Include="DataBase\emailauto.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
     <Compile Include="DataBase\EmpBasic.cs">
       <DependentUpon>EData.tt</DependentUpon>
     </Compile>
-    <Compile Include="DataBase\Employee.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\Employee_Details.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\Emp_Course_data.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\Emp_Limit.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\Emp_Training_final_database.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\Emp_Training_Master.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\emp_trial_data.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\Engineering_CNC_new.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\Engwork_AddNewTool.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\Engwork_MAFIA.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\Engwork_MaterialSuggestion.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\Engwork_MOM.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\Engwork_OPD.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\Engwork_OPSequence.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\Engwork_PoForecast.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\Engwork_PTD.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\Engwork_ToolingSuggesstion_AvaCheck.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\Epicor_Job_Head.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\Epicor_Part_Library.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\Epicor_Part_Update_Log.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\EPO_Approval.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\EPO_Creation.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\EPO_Employee_details.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\EPO_ITEM_Receive.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\EPO_MPC_VOTE.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\EPO_Ref_Table.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
     <Compile Include="DataBase\Equip.cs">
       <DependentUpon>EData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\Event.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\Event_Logger_Data.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\Event_Logger_Supervisor_data.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\Event_Management_MSM.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\Event_Management_MSM_Details.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\Event_Management_Multiname.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\Event_Management_Report_Details.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\event_management_with_textbox_values.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\Event_Name_Master.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\Event_Secondary_MSM.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\Feedback_Query_Table.cs">
-      <DependentUpon>Data.tt</DependentUpon>
     </Compile>
     <Compile Include="DataBase\Final_Inspection_Data.cs">
       <DependentUpon>Data.tt</DependentUpon>
     </Compile>
     <Compile Include="DataBase\Final_Inspection_Mrb_Data.cs">
+      <DependentUpon>Data.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\Final_Inspection_Mrb_Rcode.cs">
       <DependentUpon>Data.tt</DependentUpon>
     </Compile>
     <Compile Include="DataBase\Final_Inspection_Process.cs">
@@ -418,52 +277,10 @@
     <Compile Include="DataBase\FlexTopParts2.cs">
       <DependentUpon>EData.tt</DependentUpon>
     </Compile>
-    <Compile Include="DataBase\formula_history_tbl.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\formula_master_tbl.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\FUNCTION_MST.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\gatepass.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\gatepasspreviousdaydetail.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\gatepass_jobwork.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\gatepass_returnablenew.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
     <Compile Include="DataBase\GetMasterOrderDataset.cs">
       <DependentUpon>EData.tt</DependentUpon>
     </Compile>
     <Compile Include="DataBase\GetProductDesc_Result.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\HIBC_Apprentix_Table.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\HIBC_Code_Generator.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\HIBC_Primary_Barcode_Temp.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\HIBC_Temp_Storage.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\holiday.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\hourcounting.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\icrdtemp.cs">
       <DependentUpon>Data.tt</DependentUpon>
     </Compile>
     <Compile Include="DataBase\Index.cs">
@@ -472,29 +289,8 @@
     <Compile Include="DataBase\IndexColumn.cs">
       <DependentUpon>EData.tt</DependentUpon>
     </Compile>
-    <Compile Include="DataBase\InitiatorName.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
     <Compile Include="DataBase\Inspectr.cs">
       <DependentUpon>EData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\Intervierw_Experience_Reference.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\Interview_Answer_verify.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\Interview_Education_details.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\Interview_family_background.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\Interview_form_personal_details.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\Interview_Questions.cs">
-      <DependentUpon>Data.tt</DependentUpon>
     </Compile>
     <Compile Include="DataBase\InvcDtl.cs">
       <DependentUpon>EData.tt</DependentUpon>
@@ -502,25 +298,7 @@
     <Compile Include="DataBase\InvcHead.cs">
       <DependentUpon>EData.tt</DependentUpon>
     </Compile>
-    <Compile Include="DataBase\Invoice_entry_master_tbl.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\ISQuery.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\Issue_Material.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
     <Compile Include="DataBase\ISUser.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\Items_of_EPO_temp.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\item_name_tbl.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\item_type.cs">
       <DependentUpon>Data.tt</DependentUpon>
     </Compile>
     <Compile Include="DataBase\JobHead.cs">
@@ -532,56 +310,14 @@
     <Compile Include="DataBase\JobOper.cs">
       <DependentUpon>EData.tt</DependentUpon>
     </Compile>
-    <Compile Include="DataBase\jobwork.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\jobworkhour.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
     <Compile Include="DataBase\LaborDtl.cs">
       <DependentUpon>EData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\Late_comers_of_week_mail.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\late_coming_img_table.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\login_tbl.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\machine.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\Machine_Details.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\maintenance.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\Material_Library.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\MDR_Part_Data.cs">
-      <DependentUpon>Data.tt</DependentUpon>
     </Compile>
     <Compile Include="DataBase\Menu.cs">
       <DependentUpon>EData.tt</DependentUpon>
     </Compile>
-    <Compile Include="DataBase\METADATA.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
     <Compile Include="DataBase\mFilesCust.cs">
       <DependentUpon>EData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\MiscelleneousRequestTbl.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\MODULE_MAP.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\MODULE_MST.cs">
-      <DependentUpon>Data.tt</DependentUpon>
     </Compile>
     <Compile Include="DataBase\MonthlyAvgRating_Result.cs">
       <DependentUpon>Data.tt</DependentUpon>
@@ -595,26 +331,11 @@
     <Compile Include="DataBase\MonthlyQualityRating_Result.cs">
       <DependentUpon>Data.tt</DependentUpon>
     </Compile>
-    <Compile Include="DataBase\monthly_attendance_data.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
     <Compile Include="DataBase\MscShpDt.cs">
       <DependentUpon>EData.tt</DependentUpon>
     </Compile>
     <Compile Include="DataBase\MscShpHd.cs">
       <DependentUpon>EData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\multiname.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\mytimepunchrecord.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\nonreturnablegatepass.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\NotificationList_Document.cs">
-      <DependentUpon>Data.tt</DependentUpon>
     </Compile>
     <Compile Include="DataBase\OrderDtl.cs">
       <DependentUpon>EData.tt</DependentUpon>
@@ -640,14 +361,8 @@
     <Compile Include="DataBase\PartCost.cs">
       <DependentUpon>EData.tt</DependentUpon>
     </Compile>
-    <Compile Include="DataBase\PartMasterTbl.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
     <Compile Include="DataBase\PartMtl.cs">
       <DependentUpon>EData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\partnumber.cs">
-      <DependentUpon>Data.tt</DependentUpon>
     </Compile>
     <Compile Include="DataBase\PartOpr.cs">
       <DependentUpon>EData.tt</DependentUpon>
@@ -660,9 +375,6 @@
     </Compile>
     <Compile Include="DataBase\PartTran.cs">
       <DependentUpon>EData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\Part_Library.cs">
-      <DependentUpon>Data.tt</DependentUpon>
     </Compile>
     <Compile Include="DataBase\PcInputValue.cs">
       <DependentUpon>EData.tt</DependentUpon>
@@ -682,98 +394,14 @@
     <Compile Include="DataBase\PORel.cs">
       <DependentUpon>EData.tt</DependentUpon>
     </Compile>
-    <Compile Include="DataBase\PPAP_Data.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\PRIVILAGE_MENUDemon.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\PRIVILEGE_MST.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\Prodcution_Report_CNC.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
     <Compile Include="DataBase\ProdGrup.cs">
       <DependentUpon>EData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\Production_Deviation_Report.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\Production_ECR_Data.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\Production_Final_Data.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\Production_Planning.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\Production_Production_dtls.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\Production_Qtydtls.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\Production_Report_Generator_Detail.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\Production_Setup_Dtls.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\Production_Tool_Details.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\Production_Utilization.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\Prod_Flex_Bulk_Shaft_Issue.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\Prod_Flex_Bulk_Shaft_Job_List.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\Prod_Flex_Bulk_Shaft_Job_List_History.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\Prod_Flex_Cut_Shaft_Job_List.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\Prod_Flex_Cut_Shaft_Job_List_History.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\Prod_Flex_Inventory.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\Prod_Flex_Part_List.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\Prod_Flex_Part_List_History.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\Prod_Flex_Part_Wise_Operation.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\Program_Operation_wise_Tool_Library.cs">
-      <DependentUpon>Data.tt</DependentUpon>
     </Compile>
     <Compile Include="DataBase\PurAgent.cs">
       <DependentUpon>EData.tt</DependentUpon>
     </Compile>
-    <Compile Include="DataBase\purchase_analysis_item_group_master.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\purreq.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\purreq_invoice_viewdetail.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
     <Compile Include="DataBase\QCIncoming.cs">
       <DependentUpon>EData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\Query_tbl.cs">
-      <DependentUpon>Data.tt</DependentUpon>
     </Compile>
     <Compile Include="DataBase\QuoteDtl.cs">
       <DependentUpon>EData.tt</DependentUpon>
@@ -784,20 +412,11 @@
     <Compile Include="DataBase\RcvDtl.cs">
       <DependentUpon>EData.tt</DependentUpon>
     </Compile>
-    <Compile Include="DataBase\React_Employee.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\RequisitionEntry.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
     <Compile Include="DataBase\Resource.cs">
       <DependentUpon>EData.tt</DependentUpon>
     </Compile>
     <Compile Include="DataBase\ResourceGroup.cs">
       <DependentUpon>EData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\ReturnMiscelleneousRequestTbl.cs">
-      <DependentUpon>Data.tt</DependentUpon>
     </Compile>
     <Compile Include="DataBase\RMADtl.cs">
       <DependentUpon>EData.tt</DependentUpon>
@@ -808,9 +427,6 @@
     <Compile Include="DataBase\RMARcpt.cs">
       <DependentUpon>EData.tt</DependentUpon>
     </Compile>
-    <Compile Include="DataBase\ROLE_MST.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
     <Compile Include="DataBase\SalesRep.cs">
       <DependentUpon>EData.tt</DependentUpon>
     </Compile>
@@ -818,9 +434,6 @@
       <DependentUpon>EData.tt</DependentUpon>
     </Compile>
     <Compile Include="DataBase\SelectQuery_Result.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\shift.cs">
       <DependentUpon>Data.tt</DependentUpon>
     </Compile>
     <Compile Include="DataBase\ShipDtl.cs">
@@ -831,30 +444,6 @@
     </Compile>
     <Compile Include="DataBase\ShipTo.cs">
       <DependentUpon>EData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\Sholder_Implant_Database.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\Sholder_Implant_Database_History.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\ShopFloorEntry.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\Shoulder_Implant_Database_New.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\Shoulder_implant_Images.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\Shoulder_Implant_Images_desc.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\Shoulder_Implant_Master.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\Shoulder_Implant_Technique.cs">
-      <DependentUpon>Data.tt</DependentUpon>
     </Compile>
     <Compile Include="DataBase\sp_group_by_slip_no_Result.cs">
       <DependentUpon>Data.tt</DependentUpon>
@@ -874,134 +463,14 @@
     <Compile Include="DataBase\sp_viewInvoiceData_Result.cs">
       <DependentUpon>Data.tt</DependentUpon>
     </Compile>
-    <Compile Include="DataBase\sswhite_gallery.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\SSW_Appliances.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\SSW_Appliances_Main.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\SSW_Appliances_Main_added.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\ssw_appliance_for_reference.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\SSW_Vacancy.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\Student_Data.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
     <Compile Include="DataBase\SubShipD.cs">
       <DependentUpon>EData.tt</DependentUpon>
     </Compile>
     <Compile Include="DataBase\SubShipH.cs">
       <DependentUpon>EData.tt</DependentUpon>
     </Compile>
-    <Compile Include="DataBase\Supplier_Data.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\Supplier_Data_new.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\Supplier_master.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\Supplier_New_Data.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\supp_email.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\sysdiagram.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
     <Compile Include="DataBase\Table.cs">
       <DependentUpon>EData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\Task_Management_Trial.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\Task_Management_Trial_Secondary.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\tblAudit.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\TBLBIN.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\tblCityStatesCounty.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\TBLCONTACT.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\tblCOUNTRY.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\tblFile.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\TBLLabelDTL.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\TBLLabelMST.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\TBLLOCATION.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\Tempdatatable.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\tempUser.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\tempUser1.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\test.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\Ticket_generated_department_applicable.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\Ticket_generation_application_revision_detail.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\Ticket_generation_Process.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\Ticket_process_chat.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\Tooling_Utilization_all_details.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\Tooling_Utilization_details.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\Tool_Category.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\Tool_Inventory_System.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\Tool_Utilization.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\UDAI_UDIMaster.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\UDAI_UDIMaster_History_tbl.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\unit.cs">
-      <DependentUpon>Data.tt</DependentUpon>
     </Compile>
     <Compile Include="DataBase\UOM.cs">
       <DependentUpon>EData.tt</DependentUpon>
@@ -1012,43 +481,10 @@
     <Compile Include="DataBase\UOMConv.cs">
       <DependentUpon>EData.tt</DependentUpon>
     </Compile>
-    <Compile Include="DataBase\userdata.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
     <Compile Include="DataBase\UserFile.cs">
       <DependentUpon>EData.tt</DependentUpon>
     </Compile>
     <Compile Include="DataBase\user_data.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\USER_DTL.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\USER_MST.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\User_Mst_For_Shoulder.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\USER_RIGHTS.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\USER_ROLE.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\User_roles_for_Shoulder_app.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\User_Wise_Sholder_Implant_FVRT.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\User_Wise_Shoulder_Implant_History.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\Version.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\video_table.cs">
       <DependentUpon>Data.tt</DependentUpon>
     </Compile>
     <Compile Include="DataBase\ViewActiveIndirect.cs">
@@ -1069,65 +505,8 @@
     <Compile Include="DataBase\ViewLRLaborDetail.cs">
       <DependentUpon>EData.tt</DependentUpon>
     </Compile>
-    <Compile Include="DataBase\View_1.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\view_invoice_with_supplier.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\Visitor_gatepass_data.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\VMSAttendanceShiftchangedata.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\VMSAttendanceShiftchangedata_History.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\VMSAttendanceShiftDetail.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\VMSEmployeeDetail.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\VMSFLEXDATAFilter.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\VMSFORExport.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\VMSFOREXPORTATTEND.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\VMS_DATA_FROM_DASHBOARD.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\VMS_FTO_Request.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\VMS_Monthly_Data.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
     <Compile Include="DataBase\VntgStat.cs">
       <DependentUpon>EData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\VW_UdiOnHold.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\Weather.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\who_Is_In_the_Building.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\Working_Sampling_Time.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\Work_Sampling_Study_All.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\Work_Sampling_Study_machine.cs">
-      <DependentUpon>Data.tt</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -1139,6 +518,7 @@
     <Compile Include="Models\MrbModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service\Inspectionservice.cs" />
+    <Compile Include="Service\Maineservice.cs" />
     <Compile Include="Service\SessionExpireFilterAttribute .cs" />
   </ItemGroup>
   <ItemGroup>
@@ -5130,8 +4510,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\_menu.cshtml" />
     <Content Include="Views\Shared\_page_title.cshtml" />
@@ -5142,12 +4520,6 @@
     <Content Include="Views\Shared\_customizer.cshtml" />
     <Content Include="Views\Shared\_footer.cshtml" />
     <Content Include="Views\Shared\_head_css.cshtml" />
-    <Content Include="Views\Home\Analytics.cshtml" />
-    <Content Include="Views\Home\CRM.cshtml" />
-    <Content Include="Views\Home\Crypto.cshtml" />
-    <Content Include="Views\Home\Job.cshtml" />
-    <Content Include="Views\Home\NFT.cshtml" />
-    <Content Include="Views\Home\Projects.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Inward\_AddInward.cshtml" />
     <Content Include="Views\InspectionProcess\Index.cshtml" />

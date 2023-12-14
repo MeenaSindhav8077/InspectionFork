@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace Inspection.Web.Controllers
 {
+    [Authorize]
     public class InspectionController : Controller
     {
         // GET: Inspection

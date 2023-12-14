@@ -1,0 +1,185 @@
+﻿@model Inspection.Web.Models.MrbModel
+@using Inspection.Web.Service
+
+
+@{
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section styles{
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+    <!-- dropzone css -->
+    <link rel="stylesheet" href="~/Content/assets/libs/dropzone/dropzone.css" type="text/css" />
+
+    <!-- Sweet Alert css-->
+    <link href="~/Content/assets/libs/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css" />
+}
+
+<style>
+    div.scroll {
+        height: 80px;
+        overflow-x: hidden;
+        overflow-y: auto;
+    }
+</style>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header align-items-center d-flex">
+                <h4 class="card-title mb-0 flex-grow-1">Inward Data</h4>
+                <div class="flex-shrink-0">
+                    @*<div class="form-check form-switch form-switch-right form-switch-md">
+                            <label for="form-grid-showcode" class="form-label text-muted">
+                                Show
+                                Code
+                            </label>
+                            <input class="form-check-input code-switcher" type="checkbox"
+                                   id="form-grid-showcode">
+                        </div>*@
+                </div>
+            </div>
+            @using (Html.BeginForm("AddMrbdata", "MRB", FormMethod.Post))
+            {
+                <div class="card-body">
+                    <div class="live-preview">
+                        <div class="row gy-4">
+                            <div class="col-xxl-3 col-md-6">
+                                <div>
+                                    @Html.LabelFor(model => model.Serialno, new { @class = "form-label" })
+                                    @Html.TextBoxFor(model => model.Serialno, new { @class = "form-control", id = "idjobnumber" })
+                                    @Html.ValidationMessageFor(model => model.Serialno, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-xxl-3 col-md-6">
+                                <div>
+                                    @Html.LabelFor(model => model.Qty, new { @class = "form-label" })
+                                    @Html.TextBoxFor(model => model.Qty, new { @class = "form-control", id = "exampleInputdate" })
+                                    @Html.ValidationMessageFor(model => model.Qty, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-xxl-3 col-md-6">
+                                <div>
+                                    @Html.LabelFor(model => model.Remark, new { @class = "form-label" })
+                                    @Html.TextBoxFor(model => model.Remark, new { @class = "form-control", id = "exampleInputdate" })
+                                    @Html.ValidationMessageFor(model => model.Remark, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-xxl-3 col-md-6">
+                                <div>
+                                    @Html.LabelFor(model => model.Location, new { @class = "form-label" })
+                                    @Html.TextBoxFor(model => model.Location, new { @class = "form-control", id = "labelInput" })
+                                    @Html.ValidationMessageFor(model => model.Location, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="col-xxl-3 col-md-6">
+                                <div class="scroll">
+                                    <table class="invoice-table table table-borderless table-nowrap mb-0">
+                                        <tbody id="newlink">
+                                            <tr class="product">
+                                                <td class="text-start col-lg-12">
+
+                                                    <input class="form-control" type="text" id="productName-1" name="ProductNames[]" placeholder="Enter Rcode" required>
+                                                </td>
+                                                <td class="product-removal">
+                                                    <a class="btn btn-danger" onclick="removeRow(this)">-</a>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <a href="javascript:new_link()" class="btn btn-success">Add</a>
+
+                            </div>
+                            <div class="col-xxl-3 col-md-6">
+                                <div>
+                                    <label for="basiInput" class="form-label">Description</label>
+                                    <input type="text" class="form-control" id="basiInput">
+                                </div>
+                            </div>
+                            <div class="col-xxl-9 col-md-6">
+                            </div>
+                            <div class="col-xxl-6 col-md-6">
+                                <button type="submit" class="btn btn-primary waves-effect waves-light" id="sa-position">Submit</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+
+<script>
+    document.getElementById("idjobnumber").addEventListener("keydown", function (event) {
+        if (event.key === "Tab") {
+            myFunction();
+        }
+    });
+
+    function myFunction() {
+        // Get the element by its id
+        var element = document.getElementById("idjobnumber");
+
+        // Get the value of the element
+        var value = element.value;
+
+        $.getJSON('/Inward/GetPartnorevno', { idjobnumber: value }, function (data) {
+            if (data !== null) {
+                debugger
+                $("#idpartnumber").val(data.Partno);
+                $("#idrev").val(data.ERev);
+                //document.getElementById("idpartnumber").value = data.Partno;
+                //document.getElementById("idrev").value = data.ERev;
+            } else {
+                console.log("No data found or error occurred.");
+            }
+        });
+
+
+    }
+
+</script>
+
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script src="~/Content/assets/libs/prismjs/prism.js"></script>
+
+    <script src="~/Content/assets/js/app.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!--jquery cdn-->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <!--select2 cdn-->
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    <script src="~/Content/assets/js/pages/select2.init.js"></script>
+
+    <!-- App js -->
+    <script src="~/Content/assets/js/app.js"></script>
+
+
+    <!-- dropzone min -->
+    <script src="~/Content/assets/libs/dropzone/dropzone-min.js"></script>
+
+    <!-- cleave.js -->
+    <script src="~/Content/assets/libs/cleave.js/cleave.min.js"></script>
+
+    <!--Invoice create init js-->
+    <script src="~/Content/assets/js/pages/invoicecreate.init.js"></script>
+
+    <!-- Sweet Alerts js -->
+    <script src="~/Content/assets/libs/sweetalert2/sweetalert2.min.js"></script>
+
+    <!-- Sweet alert init js-->
+    <script src="~/Content/assets/js/pages/sweetalerts.init.js"></script>
+
+    <!-- App js -->
+    <script src="~/Content/assets/js/app.js"></script>
+}
+
+
