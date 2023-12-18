@@ -18,7 +18,7 @@ namespace Inspection.Web.Controllers
         InwardDataModel List = new InwardDataModel();
         List<Submodel> _List = new List<Submodel>();
 
-
+        [Authorize]
         public ActionResult Index(int? id, string value) 
         {
             try
@@ -81,7 +81,7 @@ namespace Inspection.Web.Controllers
 
             return View(maininwarddata);
         }
-
+        [Authorize]
         public ActionResult _Index()
         {
             try
@@ -113,8 +113,8 @@ namespace Inspection.Web.Controllers
             }
             return View();
         }
-       
-        public ActionResult AddData(InwardDataModel _model)
+        [Authorize]
+        public ActionResult AddData(mAINPROGRESSModel _model)
         {
             try
             {
@@ -135,9 +135,46 @@ namespace Inspection.Web.Controllers
                     _Inspection_Data.endtime = _model._submodel.EndTime;
                     _Inspection_Data.Inspection_Qty = Convert.ToInt32(_model._submodel.InspectedQty);
                     _Inspection_Data.done_by = _model._submodel.InspectionBy;
+                    _Inspection_Data.JobNum = _model._INWARD.JobNo;
+                    _Inspection_Data.PartNum = _model._INWARD.Partno;
+                    _Inspection_Data.Inspection_Type = _model._INWARD.Status;
                     DB.Final_Inspection_Process.Add(_Inspection_Data);
                     DB.SaveChanges();
 
+                    TempData["SuccessMessage"] = "Data saved successfully.";
+
+                    return RedirectToAction("Index");
+                }
+            }
+            catch (Exception)
+            {
+                TempData["WarningMessage"] = "Warning: Something went wrong Data Not Saved.";
+            }
+            return RedirectToAction("Index");
+        }
+        [Authorize]
+        [HttpPost]
+        public ActionResult ENDTIMEQTY(mAINPROGRESSModel _model)//, string EndTime, int InspectedQty, string JobNo
+        {
+            try
+            {
+                if (_model != null)
+                {
+                    Final_Inspection_Process _Inspection_Data = DB.Final_Inspection_Process.Where(V => V.ID == _model._submodel.id).FirstOrDefault();
+                    if (_Inspection_Data != null)
+                    {
+                        _Inspection_Data.MID = 1;
+                        _Inspection_Data.Inspection_ID = "2";
+                        _Inspection_Data.Rework_Id = 0;
+                        _Inspection_Data.Inspection_date = _model._submodel.inspectiondate;
+                        _Inspection_Data.starttime = _model._submodel.StartTime;
+                        _Inspection_Data.endtime = _model._submodel.EndTime;
+                        _Inspection_Data.Inspection_Qty = Convert.ToInt32(_model._submodel.InspectedQty);
+                        _Inspection_Data.done_by = _model._submodel.InspectionBy;
+                        _Inspection_Data.PartNum = _model._submodel.InspectionBy;
+                        _Inspection_Data.Inspection_Type = _model._submodel.InspectionBy;
+                        DB.SaveChanges();
+                    } 
                     TempData["SuccessMessage"] = "Data saved successfully.";
 
                     return RedirectToAction("Index");

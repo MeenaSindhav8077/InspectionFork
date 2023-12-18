@@ -129,6 +129,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AfterInspectionController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InspectionController.cs" />
     <Compile Include="Controllers\InspectionProcessController.cs" />
@@ -249,6 +250,9 @@
     </Compile>
     <Compile Include="DataBase\Equip.cs">
       <DependentUpon>EData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\Feedback_Query_Table.cs">
+      <DependentUpon>Data.tt</DependentUpon>
     </Compile>
     <Compile Include="DataBase\Final_Inspection_Data.cs">
       <DependentUpon>Data.tt</DependentUpon>
@@ -4530,6 +4534,7 @@
     <Content Include="Views\visualinspection\_SubIndex.cshtml" />
     <Content Include="Views\MRB\_MrbDataList.cshtml" />
     <Content Include="Scripts\table2excel.jquery.js" />
+    <Content Include="Views\AfterInspection\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

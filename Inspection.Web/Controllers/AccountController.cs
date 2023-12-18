@@ -45,5 +45,17 @@ namespace Inspection.Web.Controllers
 
             return View();
         }
+        public ActionResult Logout()
+        {
+            // Log the user out
+            FormsAuthentication.SignOut();
+
+            // Clear the session if needed
+            Session.Clear();
+
+            return RedirectToAction("Login", "Account");
+
+
+        }
     }
 }

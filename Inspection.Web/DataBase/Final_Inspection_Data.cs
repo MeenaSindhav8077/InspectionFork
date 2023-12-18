@@ -40,5 +40,6 @@ namespace Inspection.Web.DataBase
         public string qty { get; set; }
         public Nullable<bool> Active { get; set; }
         public Nullable<bool> Delete { get; set; }
+        public Nullable<bool> Is_Submiteed { get; set; }
     }
 }

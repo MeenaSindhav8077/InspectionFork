@@ -30,11 +30,9 @@ namespace Inspection.Web.Controllers
                 {
                     if (_model != null)
                     {
-
                         string Comasepretedrcode = string.Join(", ", ProductNames);
 
                         Final_Inspection_Mrb_Data  _Inspection_Data = new Final_Inspection_Mrb_Data();
-
 
                         _Inspection_Data.Qty = _model.Qty;
                         _Inspection_Data.RCode = Comasepretedrcode;
@@ -45,7 +43,6 @@ namespace Inspection.Web.Controllers
                         _Inspection_Data.Deleted = false;
                         DB.Final_Inspection_Mrb_Data.Add(_Inspection_Data);
                         DB.SaveChanges();
-
                     }
                 }
                 catch (Exception ex)

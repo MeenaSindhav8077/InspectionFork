@@ -69,7 +69,7 @@
                                     @Html.DisplayFor(modelItem => Count)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.InwardDate)
+                                    @Html.DisplayFor(modelItem => item.InwardDate, "{0:dd, MMM yyyy}")
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.InwardTime)
@@ -117,7 +117,6 @@
                                         <div class="badge bg-info">
                                             @item.Status  Inspection
                                         </div>
-                                        
                                     }
                                 </td>
                                 <td>

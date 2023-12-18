@@ -1,4 +1,5 @@
 ﻿@model  Inspection.Web.Models.mAINPROGRESSModel
+@using Inspection.Web.Service
 @{
     ViewBag.Title = "Index";
 }
@@ -15,7 +16,6 @@
 <div class="card">
     <div class="card-body">
         <div class="live-preview">
-
             <div class="row gy-4">
                 <div class="col-xxl-2 col-md-6">
                     <div>
@@ -32,7 +32,7 @@
                 <div class="col-xxl-2 col-md-6">
                     <div>
                         <label>Job No</label>
-                        @Html.TextBoxFor(model => model._INWARD.JobNo, new { @disabled = "disabled", @class = "aspNetDisabled form-control" })
+                        @Html.TextBoxFor(model => model._INWARD.JobNo, new { @disabled = "disabled", @class = "aspNetDisabled form-control job-input" })
                     </div>
                 </div>
                 <div class="col-xxl-2 col-md-6">
@@ -65,8 +65,13 @@
                         @Html.TextBoxFor(model => model._INWARD.Qty, new { @disabled = "disabled", @class = "aspNetDisabled form-control" })
                     </div>
                 </div>
+                <div class="col-xxl-2 col-md-6">
+                    <div>
+                        <label>Stage</label>
+                        @Html.TextBoxFor(model => model._INWARD.Stage, new { @disabled = "disabled", @class = "aspNetDisabled form-control" })
+                    </div>
+                </div>
             </div>
-
         </div>
     </div>
     <br>
@@ -85,126 +90,155 @@
     </div>
 </div>
 
-@{
-    ViewBag.Title = "Leads";
-    ViewBag.pTitle = "Leads";
-    ViewBag.pageTitle = "CRM";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
+
 
 @section styles{
     <!-- Sweet Alert css-->
     <link href="~/Content/assets/libs/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css" />
 
-        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-        <link href="~/Content/assets/libs/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link href="~/Content/assets/libs/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css" />
 
 
-        @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jqueryval")
 
-        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
-        <script src="~/Content/assets/libs/prismjs/prism.js"></script>
+    <script src="~/Content/assets/libs/prismjs/prism.js"></script>
 
-        <script src="~/Content/assets/js/app.js"></script>
+    <script src="~/Content/assets/js/app.js"></script>
 
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-        <!--jquery cdn-->
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-        <!--select2 cdn-->
-        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <!--jquery cdn-->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <!--select2 cdn-->
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
-        <script src="~/Content/assets/js/pages/select2.init.js"></script>
+    <script src="~/Content/assets/js/pages/select2.init.js"></script>
 
-        <!-- App js -->
-        <script src="~/Content/assets/js/app.js"></script>
+    <!-- App js -->
+    <script src="~/Content/assets/js/app.js"></script>
 
-        <!-- Sweet Alerts js -->
-        <script src="~/Content/assets/libs/sweetalert2/sweetalert2.min.js"></script>
+    <!-- Sweet Alerts js -->
+    <script src="~/Content/assets/libs/sweetalert2/sweetalert2.min.js"></script>
 
-        <!-- Sweet alert init js-->
-        <script src="~/Content/assets/js/pages/sweetalerts.init.js"></script>
+    <!-- Sweet alert init js-->
+    <script src="~/Content/assets/js/pages/sweetalerts.init.js"></script>
 
-        <!-- App js -->
-        <script src="~/Content/assets/js/app.js"></script>
+    <!-- App js -->
+    <script src="~/Content/assets/js/app.js"></script>
 
 }
 @{
     int Count = 1;
 }
+
 <div class="row">
     <div class="col-lg-12">
-        <div class="card" id="leadsList">
-            <div class="card-header border-0">
+        <div class="card">
+        <div class="card-body">
+            @using (Html.BeginForm("AddData", "visualinspection", FormMethod.Post))
+            {
+                <div class="live-preview">
+                    @Html.HiddenFor(model => Model._INWARD.id)
+                    @Html.HiddenFor(model => Model._INWARD.JobNo)
+                    @Html.HiddenFor(model => Model._INWARD.Partno)
+                    <div class="row align-items-center g-3">
+                        <div class="col-lg-2">
+                            <div>
+                                @Html.LabelFor(model => model._submodel.inspectiondate, "Inspection Date", new { @class = "form-label" })
+                                @Html.EditorFor(model => model._submodel.inspectiondate, new { htmlAttributes = new { @class = "form-control", @type = "date", @placeholder = "Select Date", @required = "required" } })
+                            </div>
+                        </div>
+                        <div class="col-lg-2">
+                            <div>
+                                @Html.LabelFor(model => model._submodel.StartTime, "Start Date", new { @class = "form-label" })
+                                @Html.EditorFor(model => model._submodel.StartTime, new { htmlAttributes = new { @class = "form-control", @type = "time", @placeholder = "Select Time", @required = "required" } })
+                            </div>
+                        </div>
+                        <div class="col-lg-2">
+                            @Html.LabelFor(model => model._submodel.InspectionBy, new { @class = "form-label" })
+                            @{
+                                var inspectionservice = new Inspection.Web.Scripts.Inspectionservice();
+                                var userSelectList = inspectionservice.Getuser();
+                            }
 
-                <div class="row g-4 align-items-center">
-                    <div class="col-sm-3">
-                    </div>
-                    <div class="col-sm-auto ms-auto">
-                        <div class="hstack gap-2">
-                            <button class="btn btn-soft-danger" id="remove-actions" onClick="deleteMultiple()"><i class="ri-delete-bin-2-line"></i></button>
-                            <button type="button" class="btn btn-success add-btn"
-                                    data-bs-toggle="modal" id="create-btn"
-                                    data-bs-target="#showModal">
-                                <i class="ri-add-line align-bottom me-1"></i> Add
-                            </button>
+                            @Html.DropDownListFor(model => model._submodel.InspectionBy, new SelectList(userSelectList, "Value", "Text"), "Select", new { @class = "form-select ", id = "disabledInput" })
+                            @Html.ValidationMessageFor(model => model._submodel.InspectionBy, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col" style="margin-left:684px; margin-top:24px">
+                            <button type="submit" class="btn btn-success " id="add-btn">Add</button>
                         </div>
                     </div>
                 </div>
-            </div>
+               
+            }
+        </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card" id="leadsList">
             <div class="card-body">
                 <div>
                     <div class="table-responsive table-card">
-                        <table class="table align-middle" id="customerTable">
+                        <table class="table align-middle ccssb" id="customerTables">
                             <thead class="table-light">
                                 <tr>
                                     <th class="" data-sort="name">Sr No.</th>
                                     <th class="" data-sort="leads_score">Inspection Date</th>
                                     <th class="" data-sort="phone">Start Time</th>
-                                    <th  class=""  data-sort="location">End Time</th>
-                                    <th  class=""  data-sort="tags">Inspection  Qty</th>
+                                    <th class="" data-sort="location">End Time</th>
+                                    <th class="" data-sort="tags">Inspection  Qty</th>
                                     <th class="" data-sort="date">Ins By</th>
                                     <th class="" data-sort="action">Action</th>
                                 </tr>
                             </thead>
-                            <tbody class="list form-check-all">
-                                @if (Model != null)
-                                {
-                                    if (Model.SUBMODEL != null && Model.SUBMODEL.Count > 0)
-                                    {
-                                        foreach (var item in Model.SUBMODEL)
-                                        {
-                                            <tr>
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => Count)
-                                                </td>
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.inspectiondate)
-                                                </td>
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.StartTime)
-                                                </td>
-                                                <td>
-                                                    @Html.TextBoxFor(model => item.EndTime, new { @disabled = "disabled", @class = "aspNetDisabled form-control  endtime-input" })
-                                                </td>
-                                                <td>
-                                                    @Html.TextBoxFor(model => item.InspectedQty, new { @disabled = "disabled", @class = "aspNetDisabled form-control quantity-input" })
-                                                </td>
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.InspectionBy)
-                                                </td>
-                                                <td>
-                                                    <button type="submit" id="openbtn" class="btn rounded-pill btn-success waves-effect waves-light openbtn">Open</button>
-                                                </td>
-                                            </tr>
+                            @using (Html.BeginForm("ENDTIMEQTY", "visualinspection", FormMethod.Post ,new { @class = "ccssb" }))
+                            {
+                                <tbody class="list form-check-all">
 
-                                            Count++;
+                                    @if (Model != null)
+                                    {
+                                        if (Model.SUBMODEL != null && Model.SUBMODEL.Count > 0)
+                                        {
+                                            foreach (var item in Model.SUBMODEL)
+                                            {
+                                                <tr>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => Count)
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.inspectiondate)
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.StartTime)
+                                                    </td>
+                                                    <td>
+                                                        @Html.TextBoxFor(model => item.EndTime, new { @class = "aspNetDisabled form-control  endtime-input" , @type = "time", })
+                                                    </td>
+                                                    <td>
+                                                        @Html.TextBoxFor(model => item.InspectedQty, new { @class = "aspNetDisabled form-control quantity-input" })
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.InspectionBy)
+                                                    </td>
+                                                    <td>
+                                                        <button type="button" id="openbtn" class="btn rounded-pill btn-success waves-effect waves-light openbtn">Open</button>
+                                                        <button type="submit" class="btn rounded-pill btn-danger waves-effect waves-light closebtn">Close</button>
+                                                    </td>
+                                                </tr>
+
+                                                Count++;
+                                            }
                                         }
                                     }
-                                }
-                            </tbody>
+                                </tbody>
+                            }
                         </table>
                         <div class="noresult" style="display: none">
                             <div class="text-center">
@@ -233,10 +267,7 @@
                         </div>
                     </div>
                 </div>
-
-                <!--end modal-->
-                <!-- Modal -->
-                <div class="modal fade zoomIn" id="deleteRecordModal" tabindex="-1"
+                  <div class="modal fade zoomIn" id="deleteRecordModal" tabindex="-1"
                      aria-labelledby="deleteRecordLabel" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
@@ -270,9 +301,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="modal fade" id="showModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    @Html.Partial("_SubIndex", Model)
-                </div>
+
             </div>
         </div>
     </div>
@@ -285,15 +314,32 @@
     $(document).ready(function () {
         $(".endtime-input").hide();
         $(".quantity-input").hide();
+        $(".closebtn").hide();
 
         $(document).on('click', '.openbtn', function () {
             var row = $(this).closest('tr');
             row.find('.endtime-input').show();
             row.find('.quantity-input').show();
-            $('.openbtn').text('Close');
+            row.find('.openbtn').hide();
+            row.find('.closebtn').show();
+        });
+
+        $(document).on('click', '.closebtn', function (e) {
+            e.preventDefault();
+            var form = $('.ccssb');
+
+            var row = $(this).closest('tr');
+            var endTimeValue = row.find('.endtime-input').val();
+            var inspectedQtyValue = row.find('.quantity-input').val();
+            var jobValue = row.find('.job-input').val();
+
+            // Set values in hidden fields (assuming you have hidden fields in the form)
+            $('#EndTime').val(endTimeValue);
+            $('#InspectedQty').val(inspectedQtyValue);
+            $('#JobNo').val(jobValue);
+            form.submit();
         });
     });
-
 </script>
 <script>
     $(document).ready(function () {

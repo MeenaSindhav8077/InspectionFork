@@ -12,6 +12,7 @@ namespace Inspection.Web.Models
         public int id { get; set; }
         public string name { get; set; }
         [Required(ErrorMessage = "The  field is required.")]
+        [DisplayFormat(DataFormatString = "{0:dd, MMM yyyy}")]
         public DateTime? InwardDate { get; set; }
 
         [Required(ErrorMessage = "The  field is required.")]
@@ -50,6 +51,7 @@ namespace Inspection.Web.Models
         public bool? humidity { get; set; }
         public bool? threadinspection { get; set; }
         public bool? visualinspection { get; set; }
+        public bool RequideMrb { get; set; }
 
         
 

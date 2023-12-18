@@ -20,7 +20,7 @@ namespace Inspection.Web
 
         void Session_End(object sender, EventArgs e)
         {
-            Response.Redirect("~/Account/Login"); 
+            Response.Redirect("~/Login/Account"); 
         }
     }
 }
