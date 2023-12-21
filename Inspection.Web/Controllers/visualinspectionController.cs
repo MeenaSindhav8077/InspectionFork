@@ -137,6 +137,8 @@ namespace Inspection.Web.Controllers
                     _Inspection_Data.done_by = _model._submodel.InspectionBy;
                     _Inspection_Data.JobNum = _model._INWARD.JobNo;
                     _Inspection_Data.PartNum = _model._INWARD.Partno;
+                    _Inspection_Data.status = _model._INWARD.Status;
+                    _Inspection_Data.Stage = _model._INWARD.Stage;
                     _Inspection_Data.Inspection_Type = _model._INWARD.Status;
                     DB.Final_Inspection_Process.Add(_Inspection_Data);
                     DB.SaveChanges();
@@ -152,27 +154,20 @@ namespace Inspection.Web.Controllers
             }
             return RedirectToAction("Index");
         }
-        [Authorize]
+      
         [HttpPost]
-        public ActionResult ENDTIMEQTY(mAINPROGRESSModel _model)//, string EndTime, int InspectedQty, string JobNo
+        public ActionResult ENDTIMEQTY(string id, string endtime , string qty)//, string EndTime, int InspectedQty, string JobNo
         {
             try
             {
-                if (_model != null)
+                if (id != null && endtime != null && qty != null)
                 {
-                    Final_Inspection_Process _Inspection_Data = DB.Final_Inspection_Process.Where(V => V.ID == _model._submodel.id).FirstOrDefault();
+                    int ID = Convert.ToInt32(id);
+                    Final_Inspection_Process _Inspection_Data = DB.Final_Inspection_Process.Where(V => V.ID == ID).FirstOrDefault();
                     if (_Inspection_Data != null)
                     {
-                        _Inspection_Data.MID = 1;
-                        _Inspection_Data.Inspection_ID = "2";
-                        _Inspection_Data.Rework_Id = 0;
-                        _Inspection_Data.Inspection_date = _model._submodel.inspectiondate;
-                        _Inspection_Data.starttime = _model._submodel.StartTime;
-                        _Inspection_Data.endtime = _model._submodel.EndTime;
-                        _Inspection_Data.Inspection_Qty = Convert.ToInt32(_model._submodel.InspectedQty);
-                        _Inspection_Data.done_by = _model._submodel.InspectionBy;
-                        _Inspection_Data.PartNum = _model._submodel.InspectionBy;
-                        _Inspection_Data.Inspection_Type = _model._submodel.InspectionBy;
+                        _Inspection_Data.endtime = endtime;
+                        _Inspection_Data.Inspection_Qty = Convert.ToInt32(qty);
                         DB.SaveChanges();
                     } 
                     TempData["SuccessMessage"] = "Data saved successfully.";

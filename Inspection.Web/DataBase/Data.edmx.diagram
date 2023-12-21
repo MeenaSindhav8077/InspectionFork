@@ -4,18 +4,17 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="3dce09b9ac8a43128073e5818f27bbad" Name="Diagram1">
-        <EntityTypeShape EntityType="ITe_INDIAModel.Feedback_Query_Table" Width="1.5" PointX="0.75" PointY="0.75" />
-        <EntityTypeShape EntityType="ITe_INDIAModel.Final_Inspection_Data" Width="1.5" PointX="2.75" PointY="0.75" />
-        <EntityTypeShape EntityType="ITe_INDIAModel.Final_Inspection_Mrb_Data" Width="1.5" PointX="4.75" PointY="0.75" />
-        <EntityTypeShape EntityType="ITe_INDIAModel.Final_Inspection_Mrb_Rcode" Width="1.5" PointX="4.75" PointY="5.75" />
-        <EntityTypeShape EntityType="ITe_INDIAModel.Final_Inspection_Process" Width="1.5" PointX="6.75" PointY="0.75" />
-        <EntityTypeShape EntityType="ITe_INDIAModel.Final_Inspection_Process_Rework" Width="1.5" PointX="0.75" PointY="7.75" />
-        <EntityTypeShape EntityType="ITe_INDIAModel.Final_Inspection_Rework" Width="1.5" PointX="8.75" PointY="0.75" />
-        <EntityTypeShape EntityType="ITe_INDIAModel.Final_Inspection_Stage_Master" Width="1.5" PointX="8.75" PointY="4.75" />
-        <EntityTypeShape EntityType="ITe_INDIAModel.Final_Inspection_UserList" Width="1.5" PointX="8.75" PointY="7.75" />
-        <EntityTypeShape EntityType="ITe_INDIAModel.ISUser" Width="1.5" PointX="2.75" PointY="9.75" />
-        <EntityTypeShape EntityType="ITe_INDIAModel.user_data" Width="1.5" PointX="4.75" PointY="9.75" />
+      <Diagram DiagramId="3dce09b9ac8a43128073e5818f27bbad" Name="Diagram1" ZoomLevel="83">
+        <EntityTypeShape EntityType="ITe_INDIAModel.Final_Inspection_Data" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="ITe_INDIAModel.Final_Inspection_Mrb_Data" Width="1.5" PointX="2.75" PointY="0.75" />
+        <EntityTypeShape EntityType="ITe_INDIAModel.Final_Inspection_Mrb_Rcode" Width="1.5" PointX="4.75" PointY="0.75" />
+        <EntityTypeShape EntityType="ITe_INDIAModel.Final_Inspection_Process" Width="1.5" PointX="4.75" PointY="4.75" />
+        <EntityTypeShape EntityType="ITe_INDIAModel.Final_Inspection_Process_Rework" Width="1.5" PointX="6.75" PointY="0.75" />
+        <EntityTypeShape EntityType="ITe_INDIAModel.Final_Inspection_Rework" Width="1.5" PointX="6.75" PointY="6.75" />
+        <EntityTypeShape EntityType="ITe_INDIAModel.Final_Inspection_Stage_Master" Width="1.5" PointX="0.75" PointY="7.75" />
+        <EntityTypeShape EntityType="ITe_INDIAModel.Final_Inspection_UserList" Width="1.5" PointX="8.75" PointY="0.75" />
+        <EntityTypeShape EntityType="ITe_INDIAModel.ISUser" Width="1.5" PointX="8.75" PointY="3.75" />
+        <EntityTypeShape EntityType="ITe_INDIAModel.user_data" Width="1.5" PointX="8.75" PointY="8.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

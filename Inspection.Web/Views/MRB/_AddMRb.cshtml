@@ -1,0 +1,234 @@
+﻿@model Inspection.Web.Models.mrbmainmodel
+@using Inspection.Web.Service
+
+
+@{
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section styles{
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+    <!-- dropzone css -->
+    <link rel="stylesheet" href="~/Content/assets/libs/dropzone/dropzone.css" type="text/css" />
+
+    <!-- Sweet Alert css-->
+    <link href="~/Content/assets/libs/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css" />
+}
+
+<style>
+    div.scroll {
+        height: 80px;
+        overflow-x: hidden;
+        overflow-y: auto;
+    }
+</style>
+@{
+    int COUNT = 1;
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header align-items-center d-flex">
+                <h4 class="card-title mb-0 flex-grow-1">MRb Ragister</h4>
+                <div class="flex-shrink-0">
+                </div>
+            </div>
+            @*@using (Html.BeginForm("AddMrbdata", "MRB", FormMethod.Post))
+                {*@
+            <div class="card-body">
+                <div class="live-preview">
+                    <div class="row gy-4">
+                        <div class="col-xxl-3 col-md-6">
+                            <div>
+                                <div>
+                                    <label>Job No</label>
+                                    @Html.TextBoxFor(model => model._MrbModel.jobno, new { @disabled = "disabled", @class = "aspNetDisabled form-control" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xxl-3 col-md-6">
+                            <div>
+                                <label>Part No</label>
+                                @Html.TextBoxFor(model => model._MrbModel.partno, new { @disabled = "disabled", @class = "form-control", id = "exampleInputdate" })
+                            </div>
+                        </div>
+                        <div class="col-xxl-3 col-md-6">
+                            <div>
+                                <label>Qty</label>
+                                @Html.TextBoxFor(model => model._MrbModel.Qty, new { @disabled = "disabled", @class = "form-control", id = "exampleInputdate" })
+                            </div>
+                        </div>
+                        <div class="col-xxl-3 col-md-6">
+                            <div>
+                                <label>Inspection Type</label>
+                                @Html.TextBoxFor(model => model._MrbModel.status, new { @disabled = "disabled", @class = "form-control", id = "exampleInputdate" })
+                            </div>
+                        </div>
+                        @*<div class="col-xxl-3 col-md-6">
+                                <div class="scroll">
+                                    <table class="invoice-table table table-borderless table-nowrap mb-0">
+                                        <tbody id="newlink">
+                                            <tr class="product">
+                                                <td class="text-start col-lg-12">
+                                                    <input class="form-control" type="text" id="productName-1" name="ProductNames[]" placeholder="Enter Rcode" required>
+                                                </td>
+                                                <td class="product-removal">
+                                                    <a class="btn btn-danger" onclick="removeRow(this)">-</a>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <a href="javascript:new_link()" class="btn btn-success">Add</a>
+
+                            </div>
+                            <div class="col-xxl-3 col-md-6">
+                                <div>
+                                    <label for="basiInput" class="form-label">Description</label>
+                                    <input type="text" class="form-control" id="basiInput">
+                                </div>
+                            </div>*@
+
+                        <div class="col-xxl-6 col-md-6">
+                            <button type="submit" class="btn btn-primary waves-effect waves-light">save</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @*}*@
+        </div>
+    </div>
+</div>
+<div class="card">
+    <div class="card-body p-4">
+        <div class="table-responsive">
+            <table class="invoice-table table table-bordered table-nowrap mb-0">
+                <thead class="align-middle">
+                    <tr class="table-active">
+                        <th scope="col">Sr No</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">RCode</th>
+                        <th scope="col">Defect</th>
+                        <th scope="col">Location</th>
+                    </tr>
+                </thead>
+                <tbody id="newlink">
+                    <tr id="1" class="product">
+                        <th scope="row" class="product-id">1</th>
+
+                        <td class="text-start">
+                            <div class="mb-2">
+                                <input type="text" class="form-control bg-light border-0" id="productName-1" required />
+                            </div>
+                        </td>
+                        <td>
+                            <input type="number" class="form-control product-price bg-light border-0" id="productRate-1" required />
+                            <!-- Plus button for RCode -->
+                           
+                        </td>
+                        <td>
+                            <input type="number" class="form-control bg-light border-0 product-quantity" id="product-qty-1" >
+                        </td>
+                        <td>
+                            <input type="text" class="form-control bg-light border-0 product-line-price" id="productPrice-1"  />
+                        </td>
+
+                        <td class="">
+                            <a href="javascript:void(0)" onclick="addSubRow('productRate-1')" class="btn btn-success"><i class="ri-add-fill me-1 align-bottom"></i></a>
+                        </td>
+                    </tr>
+                </tbody>
+                <tr id="newForm" style="display: none;"></tr>
+                <tr>
+                    <td colspan="9">
+                        <a href="javascript:new_link()" id="add-item" class="btn btn-soft-secondary fw-medium"><i class="ri-add-fill me-1 align-bottom"></i> Add Item</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.getElementById("idjobnumber").addEventListener("keydown", function (event) {
+        if (event.key === "Tab") {
+            myFunction();
+        }
+    });
+
+    function myFunction() {
+        // Get the element by its id
+        var element = document.getElementById("idjobnumber");
+
+        // Get the value of the element
+        var value = element.value;
+
+        $.getJSON('/Inward/GetPartnorevno', { idjobnumber: value }, function (data) {
+            if (data !== null) {
+                debugger
+                $("#idpartnumber").val(data.Partno);
+                $("#idrev").val(data.ERev);
+                //document.getElementById("idpartnumber").value = data.Partno;
+                //document.getElementById("idrev").value = data.ERev;
+            } else {
+                console.log("No data found or error occurred.");
+            }
+        });
+    }
+</script>
+
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script src="~/Content/assets/libs/prismjs/prism.js"></script>
+
+    <script src="~/Content/assets/js/app.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!--jquery cdn-->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <!--select2 cdn-->
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    <script src="~/Content/assets/js/pages/select2.init.js"></script>
+
+    <!-- App js -->
+    <script src="~/Content/assets/js/app.js"></script>
+
+
+    <!-- dropzone min -->
+    <script src="~/Content/assets/libs/dropzone/dropzone-min.js"></script>
+
+    <!-- cleave.js -->
+    <script src="~/Content/assets/libs/cleave.js/cleave.min.js"></script>
+
+    <!--Invoice create init js-->
+    <script src="~/Content/assets/js/pages/invoicecreate.init.js"></script>
+
+    <!-- Sweet Alerts js -->
+    <script src="~/Content/assets/libs/sweetalert2/sweetalert2.min.js"></script>
+
+    <!-- Sweet alert init js-->
+    <script src="~/Content/assets/js/pages/sweetalerts.init.js"></script>
+
+    <!-- App js -->
+    <script src="~/Content/assets/js/app.js"></script>
+    <script src="~/Content/assets/libs/dropzone/dropzone-min.js"></script>
+
+    <!-- cleave.js -->
+    <script src="~/Content/assets/libs/cleave.js/cleave.min.js"></script>
+
+    <!--Invoice create init js-->
+    <script src="~/Content/assets/js/pages/invoicecreate.init.js"></script>
+
+    <!-- Sweet Alerts js -->
+    <script src="~/Content/assets/libs/sweetalert2/sweetalert2.min.js"></script>
+
+    <!-- App js -->
+    <script src="~/Content/assets/js/app.js"></script>
+}
+
+

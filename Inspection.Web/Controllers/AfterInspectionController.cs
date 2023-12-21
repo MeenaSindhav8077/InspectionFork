@@ -16,38 +16,51 @@ namespace Inspection.Web.Controllers
         // GET: AfterInspection
         ITe_INDIAEntities DB = new ITe_INDIAEntities();
         List<InwardDataModel> _List = new List<InwardDataModel>();
+        [Authorize]
         public ActionResult Index()
         {
-            _List = (from model in DB.Final_Inspection_Data.OrderByDescending(p => p.ID)
+            _List = (from model in DB.Final_Inspection_Process.OrderByDescending(p => p.ID)
                     select new InwardDataModel
                     {
                         id = model.ID,
-                        InwardTime = model.Inward_Time,
-                        InwardDate = model.Inward_Date,
+                        InwardTime = model.starttime,
+                        InwardDate = model.Inspection_date,
                         JobNo = model.JobNum,
                         Partno = model.PartNum,
                         Stage = model.Stage,
-                        ERev = model.EpiRev,
-                        ActualRev = model.ActRev,
-                        Qty = model.qty,
-                        Status = model.Status,
-                       // RequideMrb = mrb
-                        //currentstage = value,
-                        //_submodel = new Submodel(),
+                        // ERev = model.e,
+                        //  ActualRev = model.ActRev,
+                        IQTY = model.Inspection_Qty,
+                        Status = model.Inspection_Type,
+                        RequideMrb = model.CkMRB ?? false,
+                       // RequideMrb = model.ch
                     }
                         ).ToList();
 
             return View(_List);
         }
 
-        [HttpPost]
-        public ActionResult YourAction(int id, bool checkeded)
+        
+        [Authorize]
+        public ActionResult Mrbrequred(String id)
         {
-            // Use the id and checked values as needed
-            // ...
+            try
+            {
+                int ID = Convert .ToInt32(id);  
+                Final_Inspection_Process _data = DB.Final_Inspection_Process.Where(v => v.ID == ID).FirstOrDefault();
 
-            // Assuming you want to return a JSON response
-            return Json(new { success = true, message = "Data successfully processed" });
+                if (_data != null)
+                {
+                    _data.CkMRB = true;
+                    DB.SaveChanges();
+                }
+                TempData["SuccessMessage"] = "Data saved successfully.";
+            }
+            catch (Exception)
+            {
+                TempData["WarningMessage"] = "Warning: Something went wrong Data Not Saved.";
+            }
+            return RedirectToAction("Index");
         }
     }
 }

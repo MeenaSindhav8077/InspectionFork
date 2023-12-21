@@ -27,7 +27,6 @@ namespace Inspection.Web.DataBase
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Feedback_Query_Table> Feedback_Query_Table { get; set; }
         public virtual DbSet<Final_Inspection_Data> Final_Inspection_Data { get; set; }
         public virtual DbSet<Final_Inspection_Mrb_Data> Final_Inspection_Mrb_Data { get; set; }
         public virtual DbSet<Final_Inspection_Mrb_Rcode> Final_Inspection_Mrb_Rcode { get; set; }

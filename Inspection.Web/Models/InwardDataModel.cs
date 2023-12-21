@@ -53,6 +53,8 @@ namespace Inspection.Web.Models
         public bool? visualinspection { get; set; }
         public bool RequideMrb { get; set; }
 
+        public int? IQTY { get; set; }
+
         
 
     }

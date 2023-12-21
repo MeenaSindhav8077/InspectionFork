@@ -251,9 +251,6 @@
     <Compile Include="DataBase\Equip.cs">
       <DependentUpon>EData.tt</DependentUpon>
     </Compile>
-    <Compile Include="DataBase\Feedback_Query_Table.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
     <Compile Include="DataBase\Final_Inspection_Data.cs">
       <DependentUpon>Data.tt</DependentUpon>
     </Compile>
@@ -4535,6 +4532,7 @@
     <Content Include="Views\MRB\_MrbDataList.cshtml" />
     <Content Include="Scripts\table2excel.jquery.js" />
     <Content Include="Views\AfterInspection\Index.cshtml" />
+    <Content Include="Views\MRB\_AddMRb.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -20,7 +20,16 @@ namespace Inspection.Web
 
         void Session_End(object sender, EventArgs e)
         {
-            Response.Redirect("~/Login/Account"); 
+            string lastUrl = Session["LastUrl"] as string;
+
+            if (!string.IsNullOrEmpty(lastUrl))
+            {
+                Context.Response.Redirect(lastUrl, true);
+            }
+            else
+            {
+                Context.Response.Redirect("~/Login/Account", true);
+            }
         }
     }
 }

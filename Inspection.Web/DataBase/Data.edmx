@@ -5,23 +5,6 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="ITe_INDIAModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="Feedback_Query_Table">
-          <Key>
-            <PropertyRef Name="ID" />
-            <PropertyRef Name="MID" />
-          </Key>
-          <Property Name="ID" Type="int" Nullable="false" />
-          <Property Name="MID" Type="int" Nullable="false" />
-          <Property Name="Query_Title" Type="nvarchar(max)" />
-          <Property Name="Query_Reason" Type="nvarchar(max)" />
-          <Property Name="Query_Application_Name" Type="nvarchar(max)" />
-          <Property Name="Query_generate_date" Type="datetime" />
-          <Property Name="active" Type="nvarchar" MaxLength="10" />
-          <Property Name="status" Type="nvarchar" MaxLength="100" />
-          <Property Name="query_complition_date" Type="datetime" />
-          <Property Name="remark_on_completion" Type="nvarchar(max)" />
-          <Property Name="PersonID" Type="nvarchar" MaxLength="50" />
-        </EntityType>
         <EntityType Name="Final_Inspection_Data">
           <Key>
             <PropertyRef Name="ID" />
@@ -265,7 +248,6 @@
         <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="sp_viewInvoiceData" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="ITe_INDIAModelStoreContainer">
-          <EntitySet Name="Feedback_Query_Table" EntityType="Self.Feedback_Query_Table" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Final_Inspection_Data" EntityType="Self.Final_Inspection_Data" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Final_Inspection_Mrb_Data" EntityType="Self.Final_Inspection_Mrb_Data" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Final_Inspection_Mrb_Rcode" EntityType="Self.Final_Inspection_Mrb_Rcode" Schema="dbo" store:Type="Tables" />
@@ -325,7 +307,6 @@
           <FunctionImport Name="SP_UdiOnHold" ReturnType="Collection(ITe_INDIAModel.SP_UdiOnHold_Result)" />
           <FunctionImport Name="sp_upgraddiagrams" />
           <FunctionImport Name="sp_viewInvoiceData" ReturnType="Collection(ITe_INDIAModel.sp_viewInvoiceData_Result)" />
-          <EntitySet Name="Feedback_Query_Table" EntityType="ITe_INDIAModel.Feedback_Query_Table" />
           <EntitySet Name="Final_Inspection_Data" EntityType="ITe_INDIAModel.Final_Inspection_Data" />
           <EntitySet Name="Final_Inspection_Mrb_Data" EntityType="ITe_INDIAModel.Final_Inspection_Mrb_Data" />
           <EntitySet Name="Final_Inspection_Mrb_Rcode" EntityType="ITe_INDIAModel.Final_Inspection_Mrb_Rcode" />
@@ -551,23 +532,6 @@
           <Property Type="Double" Name="total_cost" Nullable="true" />
           <Property Type="Boolean" Name="requestForDelete" Nullable="true" />
         </ComplexType>
-        <EntityType Name="Feedback_Query_Table">
-          <Key>
-            <PropertyRef Name="ID" />
-            <PropertyRef Name="MID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
-          <Property Name="MID" Type="Int32" Nullable="false" />
-          <Property Name="Query_Title" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Query_Reason" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Query_Application_Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Query_generate_date" Type="DateTime" Precision="3" />
-          <Property Name="active" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="status" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="query_complition_date" Type="DateTime" Precision="3" />
-          <Property Name="remark_on_completion" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="PersonID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-        </EntityType>
         <EntityType Name="Final_Inspection_Data">
           <Key>
             <PropertyRef Name="ID" />
@@ -1051,23 +1015,6 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <EntitySetMapping Name="Feedback_Query_Table">
-            <EntityTypeMapping TypeName="ITe_INDIAModel.Feedback_Query_Table">
-              <MappingFragment StoreEntitySet="Feedback_Query_Table">
-                <ScalarProperty Name="PersonID" ColumnName="PersonID" />
-                <ScalarProperty Name="remark_on_completion" ColumnName="remark_on_completion" />
-                <ScalarProperty Name="query_complition_date" ColumnName="query_complition_date" />
-                <ScalarProperty Name="status" ColumnName="status" />
-                <ScalarProperty Name="active" ColumnName="active" />
-                <ScalarProperty Name="Query_generate_date" ColumnName="Query_generate_date" />
-                <ScalarProperty Name="Query_Application_Name" ColumnName="Query_Application_Name" />
-                <ScalarProperty Name="Query_Reason" ColumnName="Query_Reason" />
-                <ScalarProperty Name="Query_Title" ColumnName="Query_Title" />
-                <ScalarProperty Name="MID" ColumnName="MID" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Final_Inspection_Data">
             <EntityTypeMapping TypeName="ITe_INDIAModel.Final_Inspection_Data">
               <MappingFragment StoreEntitySet="Final_Inspection_Data">
