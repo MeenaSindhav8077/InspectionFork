@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Inspection.Web.DataBase;
+using Inspection.Web.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -10,9 +12,29 @@ namespace Inspection.Web.Controllers
     public class InspectionController : Controller
     {
         // GET: Inspection
+        ITe_INDIAEntities DB = new ITe_INDIAEntities();
         public ActionResult Index()
         {
-            return View();
+            List<InwardDataModel> inwardDataModel = new List<InwardDataModel>();
+
+            try
+            {
+                inwardDataModel = (from model in DB.Final_Inspection_Process.Where(l => l.reworkWAITING == true).OrderByDescending(p => p.ID)
+                                   select new InwardDataModel
+                                   {
+                                       id = model.ID,
+                                       JobNo = model.JobNum,
+                                       IQTY = model.Inspection_Qty,
+                                       Partno = model.PartNum,
+                                       InwardDate = model.Inspection_date,
+                                       InspectionType = model.Inspection_Type,
+                                   }).ToList();
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return View(inwardDataModel);
         }
     }
 }

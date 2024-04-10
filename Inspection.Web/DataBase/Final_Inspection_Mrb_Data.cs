@@ -15,17 +15,14 @@ namespace Inspection.Web.DataBase
     public partial class Final_Inspection_Mrb_Data
     {
         public int ID { get; set; }
-        public int SerialNo { get; set; }
-        public decimal Qty { get; set; }
-        public string RCode { get; set; }
+        public int Qty { get; set; }
         public string Desccription { get; set; }
         public string location { get; set; }
         public Nullable<bool> Active { get; set; }
         public Nullable<bool> Deleted { get; set; }
         public string Stage { get; set; }
-        public string Partno { get; set; }
-        public string Jobno { get; set; }
-        public string ERev { get; set; }
         public Nullable<int> Gid { get; set; }
+        public string JobNo { get; set; }
+        public string PartNo { get; set; }
     }
 }

@@ -12,37 +12,19 @@
 @section styles{
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <link href="~/Content/assets/libs/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css" />
-
-   
-        @Scripts.Render("~/bundles/jqueryval")
-
-        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-
-        <script src="~/Content/assets/libs/prismjs/prism.js"></script>
-
-        <script src="~/Content/assets/js/app.js"></script>
-
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-        <!--jquery cdn-->
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-        <!--select2 cdn-->
-        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-
-        <script src="~/Content/assets/js/pages/select2.init.js"></script>
-
-        <!-- App js -->
-        <script src="~/Content/assets/js/app.js"></script>
-
-        <!-- Sweet Alerts js -->
-        <script src="~/Content/assets/libs/sweetalert2/sweetalert2.min.js"></script>
-
-        <!-- Sweet alert init js-->
-        <script src="~/Content/assets/js/pages/sweetalerts.init.js"></script>
-
-        <!-- App js -->
-        <script src="~/Content/assets/js/app.js"></script>
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="~/Content/assets/libs/prismjs/prism.js"></script>
+    <script src="~/Content/assets/js/app.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="~/Content/assets/js/pages/select2.init.js"></script>
+    <script src="~/Content/assets/js/app.js"></script>
+    <script src="~/Content/assets/libs/sweetalert2/sweetalert2.min.js"></script>
+    <script src="~/Content/assets/js/pages/sweetalerts.init.js"></script>
+    <script src="~/Content/assets/js/app.js"></script>
 
 }
 <div class="row">
@@ -51,7 +33,7 @@
             <div class="card-header align-items-center d-flex">
                 <h4 class="card-title mb-0 flex-grow-1">Inward Form</h4>
             </div>
-            @using (Html.BeginForm("AddINward", "Inward", FormMethod.Post))
+            @using (Html.BeginForm("AddINward", "Inward", FormMethod.Post, new { id = "inwardForm" }))
             {
                 @Html.HiddenFor(model => model._INWARD.id)
                 <div class="card-body">
@@ -60,29 +42,25 @@
                             <div class="col-xxl-3 col-md-6">
                                 <div>
                                     @Html.LabelFor(model => model._INWARD.InwardDate, new { @class = "form-label" })
-                                    @Html.TextBoxFor(model => model._INWARD.InwardDate, new { @class = "form-control", type = "Date", id = "exampleInputdate" })
-                                    @Html.ValidationMessageFor(model => model._INWARD.InwardDate, "", new { @class = "text-danger" })
+                                    @Html.TextBoxFor(model => model._INWARD.InwardDate, new { @class = "form-control", type = "Date", id = "Inwarddate" })
                                 </div>
                             </div>
                             <div class="col-xxl-3 col-md-6">
                                 <div>
                                     @Html.LabelFor(model => model._INWARD.InwardTime, new { @class = "form-label" })
-                                    @Html.TextBoxFor(model => model._INWARD.InwardTime, new { @class = "form-control", type = "time", id = "exampleInputdate" })
-                                    @Html.ValidationMessageFor(model => model._INWARD.InwardTime, "", new { @class = "text-danger" })
+                                    @Html.TextBoxFor(model => model._INWARD.InwardTime, new { @class = "form-control", type = "time", id = "Inputdatetime" })
                                 </div>
                             </div>
                             <div class="col-xxl-3 col-md-6">
                                 <div>
                                     @Html.LabelFor(model => model._INWARD.JobNo, new { @class = "form-label" })
                                     @Html.TextBoxFor(model => model._INWARD.JobNo, new { @class = "form-control", id = "idjobnumber" })
-                                    @Html.ValidationMessageFor(model => model._INWARD.JobNo, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                             <div class="col-xxl-3 col-md-6">
                                 <div>
                                     @Html.LabelFor(model => model._INWARD.Partno, new { @class = "form-label" })
-                                    @Html.TextBoxFor(model => model._INWARD.Partno, new { @class = "form-control", id = "idpartnumber", @disabled = "disabled" })
-                                    @Html.ValidationMessageFor(model => model._INWARD.Partno, "", new { @class = "text-danger" })
+                                    @Html.TextBoxFor(model => model._INWARD.Partno, new { @class = "form-control", id = "idpartnumber", @readonly = "readonly" })
                                 </div>
                             </div>
                             @{
@@ -90,49 +68,77 @@
                                 var _TypeList = _DropDownListService.GetInspectiontype();
                             }
                             <div class="col-xxl-3 col-md-6">
-                                @Html.LabelFor(model => model._INWARD.Stage, new { @class = "form-label" })
-                                @Html.DropDownListFor(model => model._INWARD.Stage, _TypeList, "Select", new { @class = "form-select mb-3", id = "disabledInput" })
-                                @Html.ValidationMessageFor(model => model._INWARD.Stage, "", new { @class = "text-danger" })
+                                <div>
+                                    @Html.LabelFor(model => model._INWARD.Qty, new { @class = "form-label" })
+                                    @Html.TextBoxFor(model => model._INWARD.Qty, new { @class = "form-control", id = "Inputqty" })
+                                </div>
                             </div>
+
                             <div class="col-xxl-3 col-md-6">
                                 <div>
                                     @Html.LabelFor(model => model._INWARD.ERev, new { @class = "form-label" })
-                                    @Html.TextBoxFor(model => model._INWARD.ERev, new { @class = "form-control", id = "idrev", @disabled = "disabled" })
-                                    @Html.ValidationMessageFor(model => model._INWARD.ERev, "", new { @class = "text-danger" })
+                                    @Html.TextBoxFor(model => model._INWARD.ERev, new { @class = "form-control", id = "idrev", @readonly = "readonly" })
                                 </div>
                             </div>
                             <div class="col-xxl-3 col-md-6">
                                 <div>
                                     @Html.LabelFor(model => model._INWARD.ActualRev, new { @class = "form-label" })
-                                    @Html.TextBoxFor(model => model._INWARD.ActualRev, new { @class = "form-control", id = "labelInput" })
-                                    @Html.ValidationMessageFor(model => model._INWARD.ActualRev, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-                            <div class="col-xxl-3 col-md-6">
-                                <div>
-                                    @Html.LabelFor(model => model._INWARD.Qty, new { @class = "form-label" })
-                                    @Html.TextBoxFor(model => model._INWARD.Qty, new { @class = "form-control", id = "labelInput" })
-                                    @Html.ValidationMessageFor(model => model._INWARD.Qty, "", new { @class = "text-danger" })
+                                    @Html.TextBoxFor(model => model._INWARD.ActualRev, new { @class = "form-control", id = "Inputact" })
                                 </div>
                             </div>
                             <div class="col-xxl-3 col-md-6">
                                 @{
                                     var staticData = new List<SelectListItem>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             {
-                                         new SelectListItem { Value = "Final", Text = "Final Inspection" },
-                                         new SelectListItem { Value = "Humidity ", Text = "Humidity Inspection" },
-                                         new SelectListItem { Value = "Thread ", Text = "Thread Inspection" },
-                                         new SelectListItem { Value = "Visual ", Text = "Visual Inspection" }
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       {
+                                       new SelectListItem { Value = "Final", Text = "Final Inspection" },
+                                       new SelectListItem { Value = "Humidity ", Text = "Humidity Inspection" },
+                                       new SelectListItem { Value = "Thread ", Text = "Thread Inspection" },
+                                       new SelectListItem { Value = "Visual ", Text = "Visual Inspection" }
+                                  };
+
+                                    var qualitystage = new List<SelectListItem>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     {
+                                         new SelectListItem { Value = "N/A ", Text = "N/A" },
+                                         new SelectListItem { Value = "AFTER PRIMARY PASSIVATION ", Text = "AFTER PRIMARY PASSIVATION" },
+                                         new SelectListItem { Value = "AFTER CHROME,LM &amp; SECONDARY PASSIVATION  ", Text = "AFTER CHROME,LM &amp; SECONDARY PASSIVATION " },
+                                         new SelectListItem { Value = "BEFORE ZINC PLATTING  ", Text = "BEFORE ZINC PLATTING " },
+                                         new SelectListItem { Value = "AFTER LM &amp; SECONDARY PASSIVATION ", Text = "AFTER LM &amp; SECONDARY PASSIVATION " },
+                                         new SelectListItem { Value = "BEFORE HT ", Text = "BEFORE HT" },
+                                         new SelectListItem { Value = "AFTER BRUSHFINISH ", Text = "AFTER BRUSHFINISH" },
+                                         new SelectListItem { Value = "AFTER EDM ", Text = "AFTER EDM" },
+                                         new SelectListItem { Value = "AFTER GB ", Text = "AFTER GB " },
+                                         new SelectListItem { Value = "AFTER HT ", Text = "AFTER HT" },
+                                         new SelectListItem { Value = "AFTER GB &amp; BRUSHFINISH ", Text = "AFTER GB &amp; BRUSHFINISH" },
+                                         new SelectListItem { Value = "BEFORE BLACKOXIDE ", Text = "BEFORE BLACKOXIDE" },
+                                         new SelectListItem { Value = "AFTER ASSEMBLY ", Text = "AFTER ASSEMBLY" },
+                                         new SelectListItem { Value = "BEFORE GB ", Text = "BEFORE GB" },
+                                         new SelectListItem { Value = "BEFORE PASSIVATION ", Text = "BEFORE PASSIVATION" },
+                                         new SelectListItem { Value = "AFTER BLACKOXIDE ", Text = "AFTER BLACKOXIDE" },
+                                         new SelectListItem { Value = "BEFORE BRUSHFINISH ", Text = "BEFORE BRUSHFINISH" },
+                                         new SelectListItem { Value = "AFTER SECONDARY PASSIVATION ", Text = "AFTER SECONDARY PASSIVATION" },
+                                         new SelectListItem { Value = "AFTER CHROME ", Text = "AFTER CHROME" },
+                                         new SelectListItem { Value = "AFTER ZINC PLATTING ", Text = "AFTER ZINC PLATTING" },
+                                         new SelectListItem { Value = "BEFORE ASSEMBLY ", Text = "BEFORE ASSEMBLY" },
+                                         new SelectListItem { Value = "AFTER ELECTROPOLISH ", Text = "AFTER ELECTROPOLISH" },
+                                         new SelectListItem { Value = "AFTER ASSEMBLY &amp; LM ", Text = "AFTER ASSEMBLY &amp; LM" },
+                                         new SelectListItem { Value = "PROTOTYPE ", Text = "PROTOTYPE" }
                                     };
                                 }
-                                @Html.LabelFor(model => model._INWARD.Status, new { @class = "form-label" })
-                                @Html.DropDownListFor(model => model._INWARD.Status, staticData, new { @class = "form-select mb-3", id = "disabledInput" })
-                                @Html.ValidationMessageFor(model => model._INWARD.Status, "", new { @class = "text-danger" })
+                                @Html.LabelFor(model => model._INWARD.InspectionType, new { @class = "form-label" })
+                                @Html.DropDownListFor(model => model._INWARD.InspectionType, staticData, new { @class = "form-select mb-3 js-example-basic-single", id = "Inputinstype" })
                             </div>
-                            <div class="col-xxl-6 md-6">
+                            <div class="col-xxl-3 col-md-6">
+                                @Html.LabelFor(model => model._INWARD.ProcessStage, new { @class = "form-label" })
+                                @Html.DropDownListFor(model => model._INWARD.ProcessStage, _TypeList, new { @class = "form-select mb-3 js-example-basic-single", id = "Inputstage" })
+                            </div>
+                            <div class="col-xxl-3 col-md-6">
+                             
+                                    @Html.LabelFor(model => model._INWARD.QualityStage, new { @class = "form-label" })
+                                    @Html.DropDownListFor(model => model._INWARD.QualityStage, qualitystage, new { @class = "form-select mb-3 js-example-basic-single", id = "InputstageQuality" })
                             </div>
                             <div class="col-xxl-3 md-6">
-                                <button type="submit" class="btn btn-primary waves-effect waves-light" style="float: right; margin: 20px 0 0;">Submit</button>
+                                <button type="submit" class="btn btn-primary waves-effect waves-light" id="btninwrad" style="float: right; margin: 20px 0 0;">Save</button>
+                                <input type="hidden" id="hiddenidinward" />
                             </div>
                         </div>
                     </div>
@@ -146,82 +152,11 @@
         <div class="card">
             <div class="card-header align-items-center d-flex">
                 <h4 class="card-title mb-0 flex-grow-1">Inward Data</h4>
-            </div><!-- end card header -->
-
+            </div>
             <div class="card-body">
-
                 <div class="live-preview">
                     <div class="table-responsive table-card">
-                        <table class="table align-middle table-nowrap table-striped-columns mb-0">
-                            <thead class="table-light">
-                                <tr>
-                                    <th scope="col">Sr</th>
-                                    <th scope="col">Inward Date</th>
-                                    <th scope="col">Inward Time</th>
-                                    <th scope="col">Job No.</th>
-                                    <th scope="col">Part No</th>
-                                    <th scope="col">Stage</th>
-                                    <th scope="col">ERev</th>
-                                    <th scope="col">ActualRev</th>
-                                    <th scope="col">Qty</th>
-                                    <th scope="col">Status</th>
-                                    <th scope="col">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @if (Model != null)
-                                {
-                                    if (Model._INWARDList != null)
-                                    {
-                                        foreach (var item in Model._INWARDList)
-                                        {
-                                            <tr>
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => Count)
-                                                </td>
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.InwardDate, "{0:dd, MMM yyyy}")
-                                                </td>
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.InwardTime)
-                                                </td>
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.JobNo)
-                                                </td>
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.Partno)
-                                                </td>
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.Stage)
-                                                </td>
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.ERev)
-                                                </td>
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.ActualRev)
-                                                </td>
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.Qty)
-                                                </td>
-                                                <td>
-                                                        @item.Status  Inspection
-                                                </td> 
-                                                <td>
-                                                    <div class="d-flex gap-2">
-                                                        <div class="edit">
-                                                            @Html.ActionLink("Edit", "Edit",  new { id = item.id }, new { @class = "btn btn-sm btn-success " })
-                                                        </div>
-                                                        <div class="remove">
-                                                            @Html.ActionLink("Delete", "Delete", new { id = item.id }, new { @class = "btn btn-sm btn-danger ",@id= "deleteitem" })
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            Count++;
-                                        }
-                                    }
-                                }
-                            </tbody>
+                        <table class="table align-middle table-nowrap table-striped-columns mb-0" id="inwardDataTable">
                         </table>
                     </div>
                 </div>
@@ -229,89 +164,108 @@
         </div>
     </div>
 </div>
-<script>
-    $(document).ready(function () {
-        debugger
-            var successMessage = '@TempData["SuccessMessage"]';
-        var WarningMessage = '@TempData["WarningMessage"]';
 
-            if (successMessage) {
-                Swal.fire({
-                    html: '<div class="mt-3">' +
-                        '<lord-icon src="https://cdn.lordicon.com/lupuorrc.json" trigger="loop" colors="primary:#0ab39c,secondary:#405189" style="width:120px;height:120px"></lord-icon>' +
-                        '<div class="mt-4 pt-2 fs-15">' +
-                        '<h4>Well done !</h4>' +
-                        '<p class="text-muted mx-4 mb-0">' + successMessage + '</p>' +
-                        '</div>' +
-                        '</div>',
-                    showCancelButton: true,
-                    showConfirmButton: false,
-                    cancelButtonClass: 'btn btn-primary w-xs mb-1',
-                    cancelButtonText: 'Back',
-                    buttonsStyling: false,
-                    showCloseButton: true
-                });
-            }
-            else if (WarningMessage) {
+<div class="">
+    <button type="button" class="btn btn-primary waves-effect waves-light" onclick="finalsubmitdata()">Submit</button>
+</div>
 
-                Swal.fire({
-                    html: '<div class="mt-3">' +
-                        '<lord-icon src="https://cdn.lordicon.com/tdrtiskw.json" trigger="loop" colors="primary:#f06548,secondary:#f7b84b" style="width:120px;height:120px"></lord-icon>' +
-                        '<div class="mt-4 pt-2 fs-15">' +
-                        '<h4>Oops...! Something went Wrong !</h4>' +
-                        '<p class="text-muted mx-4 mb-0">' + WarningMessage + '</p>' +
-                        '</div>' +
-                        '</div>',
-                    showCancelButton: true,
-                    showConfirmButton: false,
-                    cancelButtonClass: 'btn btn-primary w-xs mb-1',
-                    cancelButtonText: 'Dismiss',
-                    buttonsStyling: false,
-                    showCloseButton: true
-                })
-
-            }
-
-            document.getElementById("deleteitem").addEventListener("click", function () {
-                Swal.fire({
-                    title: "Are you sure?",
-                    text: "You won't be able to revert this!",
-                    icon: "warning",
-                    showCancelButton: true,
-                    confirmButtonClass: 'btn btn-primary w-xs me-2 mt-2',
-                    cancelButtonClass: 'btn btn-danger w-xs mt-2',
-                    confirmButtonText: "Yes, delete it!",
-                    buttonsStyling: false,
-                    showCloseButton: true
-                }).then(function (result) {
-                    if (result.value) {
-                        Swal.fire({
-                            title: 'Deleted!',
-                            text: 'Your file has been deleted.',
-                            icon: 'success',
-                            confirmButtonClass: 'btn btn-primary w-xs mt-2',
-                            buttonsStyling: false
-                        })
-                    }
-                });
-            });
-        });
-</script>
 
 <script>
-
-
     document.getElementById("idjobnumber").addEventListener("keydown", function (event) {
         if (event.key === "Tab") {
             myFunction();
         }
     });
 
+     
+
+    function finalsubmitdata() {
+        var dataToSend = JSON.parse(localStorage.getItem('inwardData'));
+
+        if (dataToSend) {
+            var formData = new FormData();
+            formData.append('jsonData', JSON.stringify(dataToSend));
+
+            $.ajax({
+                type: 'POST',
+                url: '/Inward/finalinwarddata',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    debugger
+                    if (response.successMessage) {
+
+                        Swal.fire({
+                            html: '<div class="mt-3">' +
+                                '<lord-icon src="https://cdn.lordicon.com/lupuorrc.json" trigger="loop" colors="primary:#0ab39c,secondary:#405189" style="width:120px;height:120px"></lord-icon>' +
+                                '<div class="mt-4 pt-2 fs-15">' +
+                                '<h4>Well done..! Data Saved Successfually!</h4>' +
+                                '<p class="text-muted mx-4 mb-0"></p>' +
+                                '</div>' +
+                                '</div>',
+                            showCancelButton: true,
+                            showConfirmButton: false,
+                            cancelButtonClass: 'btn btn-primary w-xs mb-1',
+                            cancelButtonText: 'Back',
+                            buttonsStyling: false,
+                            showCloseButton: true
+                        });
+                    }
+                    else if (response.warningMessage) {
+
+                        Swal.fire({
+                            html: '<div class="mt-3">' +
+                                '<lord-icon src="https://cdn.lordicon.com/tdrtiskw.json" trigger="loop" colors="primary:#f06548,secondary:#f7b84b" style="width:120px;height:120px"></lord-icon>' +
+                                '<div class="mt-4 pt-2 fs-15">' +
+                                '<h4>Oops...! JobNumber is Allready exist !</h4>' +
+                                '<p class="text-muted mx-4 mb-0"></p>' +
+                                '</div>' +
+                                '</div>',
+                            showCancelButton: true,
+                            showConfirmButton: false,
+                            cancelButtonClass: 'btn btn-primary w-xs mb-1',
+                            cancelButtonText: 'Back',
+                            buttonsStyling: false,
+                            showCloseButton: true
+                        })
+                    }
+                    else {
+
+                        Swal.fire({
+                            html: '<div class="mt-3">' +
+                                '<lord-icon src="https://cdn.lordicon.com/tdrtiskw.json" trigger="loop" colors="primary:#f06548,secondary:#f7b84b" style="width:120px;height:120px"></lord-icon>' +
+                                '<div class="mt-4 pt-2 fs-15">' +
+                                '<h4>Oops...! Something went Wrong !</h4>' +
+                                '<p class="text-muted mx-4 mb-0">' + response.errormessage + '</p>' +
+                                '</div>' +
+                                '</div>',
+                            showCancelButton: true,
+                            showConfirmButton: false,
+                            cancelButtonClass: 'btn btn-primary w-xs mb-1',
+                            cancelButtonText: 'Back',
+                            buttonsStyling: false,
+                            showCloseButton: true
+                        })
+                    }
+                    
+                    setTimeout(function () {
+                        location.reload();
+                    }, 5000);
+                },
+                error: function (error) {
+                    console.error('Error sending data:', error);
+                }
+            });
+        } else {
+            console.warn('No data found in local storage');
+        }
+
+    }
+
     function myFunction() {
-        // Get the element by its id
         var element = document.getElementById("idjobnumber");
 
-        // Get the value of the element
         var value = element.value;
 
         $.getJSON('/Inward/GetPartnorevno', { idjobnumber: value }, function (data) {
@@ -324,4 +278,243 @@
             }
         });
     }
+</script>
+<script>
+    $(document).ready(function () {
+        debugger
+        localStorage.clear();
+
+        $("#inwardForm").submit(function (e) {
+            debugger
+            var checkbtn = $("#btninwrad").text();
+
+            debugger
+            e.preventDefault();
+            if (checkbtn == "Save") {
+                submitForm();
+            }
+            else {
+                UpdateForm();
+
+            }
+
+        });
+
+        document.getElementById("deleteitem").addEventListener("click", function () {
+            Swal.fire({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonClass: 'btn btn-primary w-xs me-2 mt-2',
+                cancelButtonClass: 'btn btn-danger w-xs mt-2',
+                confirmButtonText: "Yes, delete it!",
+                buttonsStyling: false,
+                showCloseButton: true
+            }).then(function (result) {
+                if (result.value) {
+                    Swal.fire({
+                        title: 'Deleted!',
+                        text: 'Your file has been deleted.',
+                        icon: 'success',
+                        confirmButtonClass: 'btn btn-primary w-xs mt-2',
+                        buttonsStyling: false
+                    })
+                }
+            });
+        });
+
+        function UpdateForm() {
+            debugger
+            var indexToUpdate = parseInt($("#hiddenidinward").val());
+            var storedData = JSON.parse(localStorage.getItem("inwardData")) || [];
+            if (indexToUpdate >= 0 && indexToUpdate < storedData.length) {
+
+                storedData[indexToUpdate].find(d => d.name === "_INWARD.InwardDate").value = $("#Inwarddate").val(); // Update with your new value
+                storedData[indexToUpdate].find(d => d.name === "_INWARD.InwardTime").value = $("#Inputdatetime").val(); // Update with your new value
+                storedData[indexToUpdate].find(d => d.name === "_INWARD.JobNo").value = $("#idjobnumber").val(); // Update with your new value
+                storedData[indexToUpdate].find(d => d.name === "_INWARD.Partno").value = $("#idpartnumber").val(); // Update with your new value
+                storedData[indexToUpdate].find(d => d.name === "_INWARD.Qty").value = $("#Inputqty").val(); // Update with your new value
+                storedData[indexToUpdate].find(d => d.name === "_INWARD.ERev").value = $("#idrev").val(); // Update with your new value
+                storedData[indexToUpdate].find(d => d.name === "_INWARD.ActualRev").value = $("#Inputact").val(); // Update with your new value
+                storedData[indexToUpdate].find(d => d.name === "_INWARD.InspectionType").value = $("#Inputinstype").val(); // Update with your new value
+                var selectedStageText = $("#Inputstage option:selected").text();
+                storedData[indexToUpdate].find(d => d.name === "_INWARD.ProcessStage").value = selectedStageText; // Update with the selected stage text
+                var selectedStageText = $("#InputstageQuality option:selected").text();
+                storedData[indexToUpdate].find(d => d.name === "_INWARD.QualityStage").value = selectedStageText; // Update with the selected stage text
+
+
+                localStorage.setItem("inwardData", JSON.stringify(storedData));
+
+                displayDataInTable();
+
+                $("#btninwrad").text("Save");
+                $("#hiddenidinward").val("");
+                $("#inwardForm")[0].reset();
+
+            } else {
+                console.error("Invalid index to update");
+            }
+        }
+
+
+        function submitForm() {
+            debugger
+
+            if (!validateForm()) {
+                return;
+            }
+
+            var formData = $("#inwardForm").serializeArray();
+            console.log(formData);
+
+            var existingData = JSON.parse(localStorage.getItem("inwardData")) || [];
+
+
+            existingData.push(formData);
+            debugger
+
+            localStorage.setItem("inwardData", JSON.stringify(existingData));
+
+
+            displayDataInTable();
+            // $("#inwardForm")[0].reset();
+        }
+
+
+        function displayDataInTable() {
+
+            debugger
+            var table = $("#inwardDataTable");
+
+
+            table.empty();
+
+
+            console.log(localStorage);
+            var storedData = JSON.parse(localStorage.getItem("inwardData")) || [];
+            console.log(storedData);
+
+            table.append("<thead>" +
+                "<tr>" +
+                "<th> Delete</th> " +
+                "<th> Edit</th> " +
+                "<th> Id</th > " +
+                "<th> InwardDate</th > " +
+                "<th> InwardTime</th > " +
+                "<th> JobNo</th> " +
+                "<th> Partno</th> " +
+                "<th> Qty</th> " +
+                "<th> ERev</th> " +
+                "<th> ActualRev</th> " +
+                "<th> InspectionType</th> " +
+                "<th> ProcessStage</th> " +
+                "<th> QualityStage</th> " +
+                "</tr> " +
+                "</thead> ");
+
+
+            var tbody = $("<tbody></tbody>");
+            let count = 1;
+            for (var i = 0; i < storedData.length; i++) {
+                var row = $("<tr></tr>");
+                row.append("<td><button class='btn btn-danger delete-btn' data-index='" + i + "'>Delete</button></td>");
+                row.append("<td><button class='btn btn-success edit-btn' data-index='" + i + "'>Edit</button></td>");
+                for (var j = 0; j < storedData[i].length; j++) {
+
+                    if (storedData[i][j].name == "_INWARD.id") {
+                        row.append("<td>" + count + "</td>")
+                    } else {
+                        row.append("<td>" + storedData[i][j].value + "</td>")
+                    }
+
+                }
+                tbody.append(row);
+                count++;
+            }
+            table.append(tbody);
+
+            $(".delete-btn").click(function () {
+                var index = $(this).data("index");
+
+                storedData.splice(index, 1);
+
+                localStorage.setItem("inwardData", JSON.stringify(storedData));
+
+
+                displayDataInTable();
+            });
+
+            $(".edit-btn").click(function () {
+                var index = $(this).data("index");
+                $("#hiddenidinward").val(index);
+                var dataForEdit = storedData[index];
+                populateFormForEdit(dataForEdit);
+                $("#btninwrad").text("Update");
+            });
+        }
+
+        displayDataInTable();
+    });
+
+    function populateFormForEdit(data) {
+        $("#Inwarddate").val(data.find(d => d.name === "_INWARD.InwardDate").value);
+        $("#Inputdatetime").val(data.find(d => d.name === "_INWARD.InwardTime").value);
+        $("#idjobnumber").val(data.find(d => d.name === "_INWARD.JobNo").value);
+        $("#idpartnumber").val(data.find(d => d.name === "_INWARD.Partno").value);
+        $("#Inputqty").val(data.find(d => d.name === "_INWARD.Qty").value);
+        $("#idrev").val(data.find(d => d.name === "_INWARD.ERev").value);
+        $("#Inputact").val(data.find(d => d.name === "_INWARD.ActualRev").value);
+        $("#Inputinstype").val(data.find(d => d.name === "_INWARD.InspectionType").value);
+        $("#Inputstage").val(data.find(d => d.name === "_INWARD.ProcessStage").value);
+        $("#InputstageQuality").val(data.find(d => d.name === "_INWARD.QualityStage").value);
+    }
+
+
+
+    function saveChanges(index) {
+        for (var j = 0; j < storedData[index].length; j++) {
+            storedData[index][j].value = $("tr").eq(index + 1).find(".edit-input").eq(j).val();
+        }
+
+        localStorage.setItem("inwardData", JSON.stringify(storedData));
+
+        displayDataInTable();
+    }
+
+    function validateForm() {
+        debugger
+        var Inwarddate = $("#Inwarddate").val();
+        var Inputdatetime = $("#Inputdatetime").val();
+        var idjobnumber = $("#idjobnumber").val();
+        var idpartnumber = $("#idpartnumber").val();
+        var QTY = $("#Inputqty").val();
+        var Arev = $("#Inputact").val();
+        if (!Inwarddate) {
+            alert("Inwarddate is required");
+            return false;
+        }
+        if (!Inputdatetime) {
+            alert("Inputtime is required");
+            return false;
+        }
+        if (!idjobnumber) {
+            alert("JobNo is required");
+            return false;
+        }
+        if (!idpartnumber) {
+            alert("idpartnumber is required");
+            return false;
+        }
+        if (!QTY) {
+            alert("QTY is required");
+            return false;
+        }
+        if (!Arev) {
+            alert("Actualrevision is required");
+            return false;
+        }
+        return true;
+    }
+
 </script>

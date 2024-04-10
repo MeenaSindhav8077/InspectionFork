@@ -1,15 +1,15 @@
-[   
-    {
-        "id": 1,
-        "name": "Lisa Parker",
-        "status": "online",
-        "profile": "assets/images/users/avatar-2.jpg"
-    },
+[
+  {
+    "id": 1,
+    "name": "Lisa Parker",
+    "status": "online",
+    "profile": "Content/assets/images/users/avatar-2.jpg"
+  },
     {
         "id": 2,
         "name": "Frank Thomas",
         "status": "online",
-        "profile": "assets/images/users/avatar-3.jpg",
+        "profile": "Content/assets/images/users/avatar-3.jpg",
         "messagecount" : 8
     },
     {

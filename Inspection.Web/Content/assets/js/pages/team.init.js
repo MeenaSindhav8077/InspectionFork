@@ -38,7 +38,7 @@ function onButtonGroupClick(event) {
 
 
 
-var url="/assets/json/";
+var url ="/Content/assets/json/";
 var allmemberlist = '';
 
 // Reading JSON with Fetch API
@@ -167,7 +167,7 @@ function editMemberList() {
                     document.getElementById("addNewMember").innerHTML = "Save";
 
                     if(item.memberImg == ""){
-                        document.getElementById("member-img").src = "/assets/images/users/user-dummy-img.jpg";
+                        document.getElementById("member-img").src = "/Content/assets/images/users/user-dummy-img.jpg";
                     }else{
                         document.getElementById("member-img").src = item.memberImg;
                     }
@@ -207,8 +207,8 @@ Array.from(document.querySelectorAll(".addMembers-modal")).forEach(function (ele
       document.getElementById("teammembersName").value = "";
       document.getElementById("designation").value = "";
 
-      document.getElementById("cover-img").src = "/assets/images/small/img-9.jpg";
-      document.getElementById("member-img").src = "/assets/images/users/user-dummy-img.jpg";
+        document.getElementById("cover-img").src = "/Content/assets/images/small/img-9.jpg";
+        document.getElementById("member-img").src = "/Content/assets/images/users/user-dummy-img.jpg";
 
       document.getElementById("memberlist-form").classList.remove('was-validated');
     });
@@ -240,7 +240,7 @@ Array.from(document.querySelectorAll(".addMembers-modal")).forEach(function (ele
                     );
 
                     var memberImageValue
-                    if(memberImgValue == "/assets/images/users/user-dummy-img.jpg"){
+                    if (memberImgValue == "/Content/assets/images/users/user-dummy-img.jpg"){
                         memberImageValue = ""
                     }else{
                         memberImageValue = memberImg
@@ -364,7 +364,7 @@ function memberDetailShow() {
             if(item.querySelector(".member-img")){
                 memberProfileImg = item.querySelector(".member-img").src;
             }else{
-                memberProfileImg = "/assets/images/users/user-dummy-img.jpg"
+                memberProfileImg = "/Content/assets/images/users/user-dummy-img.jpg"
             }
             var memberCoverImg = item.querySelector(".team-cover img").src;
             var memberProject = item.querySelector(".projects-num").innerHTML;

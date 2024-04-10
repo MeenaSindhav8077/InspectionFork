@@ -57,7 +57,7 @@ if (chartDonutBasicColors) {
     chart.render();
 }
 
-var url = "/assets/json/";
+var url = "/Content/assets/json/";
 var allJobList = '';
 var editList = false;
 
@@ -392,7 +392,7 @@ searchElementList.addEventListener("keyup", function () {
 
 // clearFields
 function clearFields() {
-    document.getElementById("companylogo-img").src = "/assets/images/users/multi-user.jpg";
+    document.getElementById("companylogo-img").src = "/Content/assets/images/users/multi-user.jpg";
     document.getElementById("jobtitle-field").value = "";
     document.getElementById("companyname-field").value = "";
     document.getElementById("job_type-field").value = "Full Time";

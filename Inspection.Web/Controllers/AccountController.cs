@@ -55,7 +55,6 @@ namespace Inspection.Web.Controllers
 
             return RedirectToAction("Login", "Account");
 
-
         }
     }
 }

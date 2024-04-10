@@ -20,32 +20,43 @@ namespace Inspection.Web.Controllers
         {
             try
             {
+                var query = (from model in DB.Final_Inspection_Data
+                             group model by model.JobNum into g
+                             select new
+                             {
+                                 JobNo = g.Key,
+                                 id = g.Max(p => p.ID),
+                                 InwardTime = g.Max(p => p.Inward_Time),
+                                 InwardDate = g.Max(p => p.Inward_Date),
+                                 Partno = g.Max(p => p.PartNum),
+                                 ERev = g.Max(p => p.EpiRev),
+                                 ActualRev = g.Max(p => p.ActRev),
+                                 Qty = g.Max(p => p.qty),
+                                 Statuschange = g.Select(p => p.Statuschange).All(s => s == true), // Adjust as needed
+                                 InspectionTypes = g.Select(p => p.Inspection_Type).ToList(),
+                                 ProcessStages = g.Select(p => p.Stage).ToList(),
+                             }).ToList();
 
-                List = (from model in DB.Final_Inspection_Data.OrderByDescending(p=>p.ID)
-                        select new InwardDataModel
-                        {
-                            id = model.ID,
-                            InwardTime = model.Inward_Time,    
-                            InwardDate = model.Inward_Date,
-                            JobNo = model.JobNum,
-                            Partno = model.PartNum,
-                            Stage = model.Stage,
-                            ERev = model.EpiRev,
-                            ActualRev = model.ActRev,
-                            Qty = model.qty,
-                            Status = model.Status,
-                            threadinspection = model.Thread_Inspection,
-                            visualinspection = model.Visual_Inspection,
-                            humidity = model.Humidity_Inspection,
-                            finalinspection = model.Final_Inspection
+                List = query.Select(item => new InwardDataModel     
+                {
+                    JobNo = item.JobNo,
+                    id = item.id,
+                    InwardTime = item.InwardTime,
+                    InwardDate = item.InwardDate,
+                    Partno = item.Partno,
+                    ERev = item.ERev,
+                    ActualRev = item.ActualRev,
+                    Qty = item.Qty,
+                    Statuschange = item.Statuschange,
+                    InspectionType = string.Join(",", item.InspectionTypes),
+                    ProcessStage = string.Join(",", item.ProcessStages),
+                }).OrderByDescending(model => model.id)
+                  .ThenBy(model => model.JobNo)
+                  .ToList();
 
-                        }
-                        ).ToList();
-               
-            }
+            }   
             catch (Exception ex)
             {
-                throw;
             }
 
             return PartialView("Index", List);

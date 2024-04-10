@@ -18,12 +18,31 @@
 
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.2.2/css/buttons.dataTables.min.css">
 }
+<style>
+#box1 {
+   
+    background-color: #FFCCCC; /* Light red as the initial color */
+    animation-name: animate1;
+    animation-duration: 1s;
+    animation-iteration-count: infinite; /* Loop the animation infinitely */
+    animation-timing-function: linear; /* Use linear timing for smooth transition */
+}
+
+@@keyframes animate1 {
+    0%   {background-color: #FFCCCC;}
+    20%  {background-color: #FFFFCC;}
+    40%  {background-color: #CCFFFF;}
+    60%  {background-color: #CCFFCC;}
+    80%  {background-color: #FFCCCC;}
+    100% {background-color: #FFCCCC;}
+}
+</style>
 
 <div class="row">
     <div class="col-lg-12">
-        <div class="card"> 
+        <div class="card">
             <div class="card-header">
-                <h5 class="card-title mb-0">Alternative Pagination</h5>
+                <h5 class="card-title mb-0">Inspection Process</h5>
             </div>
             <div class="card-body">
                 <table id="alternative-pagination" class="table nowrap dt-responsive align-middle table-hover table-bordered" style="width:100%">
@@ -34,95 +53,58 @@
                             <th>Inward Time</th>
                             <th>Job No.</th>
                             <th>Part No</th>
-                            <th>Stage</th>
+                            <th>Inspection Type</th>
+                            <th>Quality Stage</th>
                             <th>Rev</th>
-                            <th>ActualRev</th>
-                            <th>Inward qty</th>
-                            <th>Status</th>
+                            <th>Actual Rev</th>
+                            <th>Inward Qty</th>
                             <th>Go</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach (var item in Model)
                         {
-                            List<string> mm = new List<string>();
-                            mm.Add("Select....");
+                            if (item.Statuschange == false)
+                            {
+                                <tr id="box1">
+                                    <td>@Html.DisplayFor(modelItem => Count)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.InwardDate, "{0:dd, MMM yyyy}")</td>
+                                    <td>@Html.DisplayFor(modelItem => item.InwardTime)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.JobNo)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Partno)</td>
 
-                            if(item.finalinspection ==true)
-                            {
-                                mm.Add("Final Inspection");
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.InspectionType) <br>
+                                        @Html.DisplayFor(modelItem => item.ProcessStage)
+                                    </td>
+                                    <td>@Html.DisplayFor(modelItem => item.QualityStage)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.ERev)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.ActualRev)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Qty)</td>
+                                    <td><button onclick="gobutton('@item.id','@item.InspectionType','@item.JobNo')" class="btn rounded-pill btn-primary waves-effect waves-light">Go</button></td>
+                                </tr>
                             }
-                            if (item.visualinspection == true)
+                            else
                             {
-                                mm.Add("Visual Inspection");
-                            }
-                            if (item.humidity == true)
-                            {
-                                mm.Add("Huminity");
-                            }
-                            if (item.threadinspection == true)
-                            {
-                                mm.Add("Thred Inspection");
-                            }
-                            <tr>
-                                <td>
-                                    @Html.DisplayFor(modelItem => Count)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.InwardDate, "{0:dd, MMM yyyy}")
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.InwardTime)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.JobNo)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Partno)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Stage)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.ERev)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.ActualRev)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Qty)
-                                </td>
-                                <td>
-                                    @if (item.Status.ToString().Trim() == "Humidity")
-                                    {
-                                        <div class="badge bg-success">
-                                            @Html.DisplayFor(modelItem => item.Status) Inspection
-                                        </div>
-                                    }
-                                    else if (item.Status.ToString().Trim() == "Final")
-                                    {
-                                        <div class="badge bg-warning">
-                                            @Html.DisplayFor(modelItem => item.Status) Inspection
-                                        </div>
+                                <tr>
+                                    <td>@Html.DisplayFor(modelItem => Count)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.InwardDate, "{0:dd, MMM yyyy}")</td>
+                                    <td>@Html.DisplayFor(modelItem => item.InwardTime)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.JobNo)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Partno)</td>
 
-                                    }
-                                    else if (item.Status.ToString().Trim() == "Visual")
-                                    {
-                                        <div class="badge bg-danger">
-                                            @Html.DisplayFor(modelItem => item.Status) Inspection
-                                        </div>
-                                    }
-                                    else
-                                    {
-                                        <div class="badge bg-info">
-                                            @item.Status  Inspection
-                                        </div>
-                                    }
-                                </td>
-                                <td>
-                                    <button onclick="gobutton('@item.id','@item.Status')" class="btn rounded-pill btn-primary waves-effect waves-light">Go</button>
-                                </td>
-                            </tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.InspectionType) <br>
+                                        @Html.DisplayFor(modelItem => item.ProcessStage)
+                                    </td>
+                                    <td>@Html.DisplayFor(modelItem => item.QualityStage)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.ERev)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.ActualRev)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Qty)</td>
+                                    <td><button onclick="gobutton('@item.id','@item.InspectionType','@item.JobNo')" class="btn rounded-pill btn-primary waves-effect waves-light">Go</button></td>
+                                </tr>
+                            }
+
                             Count++;
                         }
                     </tbody>
@@ -132,14 +114,48 @@
     </div>
 </div>
 
-<script  src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+
+<!--<div class="modal fade" id="quantityModal" tabindex="-1" role="dialog" aria-labelledby="quantityModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-light p-3">
+                <h5 class="modal-title" id="exampleModalLabel">Add Sample Quantity </h5>-->
+@*<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="close-modal"></button>*@
+<!--</div>
+<div class="modal-body">
+    <label for="qtyInput">Quantity:</label>
+    <input type="number" id="qtyInput" class="form-control" placeholder="Enter Quantity">
+</div>
+<div class="modal-footer">-->
+@*<button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>*@
+<!--<button type="submit" class="btn btn-success" id="add-btn" onclick="saveQuantity()">Update</button>
+            </div>
+        </div>
+    </div>
+</div>-->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script>
-    function gobutton(id,status) {
+     @*function openQuantityModal(id, status) {
+        $('#quantityModal').modal('show');
+        $('#qtyInput').val(''); // Clear the input field
+        $('#qtyInput').attr('data-id', id); // Set data attribute for ID
+        $('#qtyInput').attr('data-status', status); // Set data attribute for status
+    }
+
+    function saveQuantity() {
+        var id = $('#qtyInput').attr('data-id');
+        var status = $('#qtyInput').attr('data-status');
+        var qty = $('#qtyInput').val();
+        var url = '@Url.Action("Index", "visualinspection"  )' + '?id=' + id + '&value=' + status + '&qty=' + qty;
+        window.location.href = url;
+    }*@
+    function gobutton(id, status, jobNo) {
         debugger
         var selectvalue = status;
-        var url = '@Url.Action("Index", "visualinspection")' + '?id=' + id + '&value=' + selectvalue;
+         var url = '@Url.Action("Index", "visualinspection")' + '?id=' + id + '&value=' + selectvalue + '&jobNo=' + jobNo;
         window.location.href = url;
-        
+
     }
 </script>
 

@@ -17,19 +17,8 @@ namespace Inspection.Web
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
         }
+       
 
-        void Session_End(object sender, EventArgs e)
-        {
-            string lastUrl = Session["LastUrl"] as string;
-
-            if (!string.IsNullOrEmpty(lastUrl))
-            {
-                Context.Response.Redirect(lastUrl, true);
-            }
-            else
-            {
-                Context.Response.Redirect("~/Login/Account", true);
-            }
-        }
+        
     }
 }

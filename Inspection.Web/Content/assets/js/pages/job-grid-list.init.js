@@ -6,7 +6,7 @@ Contact: Themesbrand@gmail.com
 File: job grid list Js File
 */
 
-var url = "/assets/json/";
+var url = "/Content/assets/json/";
 var allJobList = '';
 
 var prevButton = document.getElementById('page-prev');

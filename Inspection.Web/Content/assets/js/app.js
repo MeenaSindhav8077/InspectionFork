@@ -59,7 +59,7 @@ File: Main Js File
 		language == null ? setLanguage(default_lang) : false;
 		var request = new XMLHttpRequest();
 		// Instantiating the request object
-		request.open("GET", "/assets/lang/" + language + ".json");
+		request.open("GET", "/Content/assets/lang/" + language + ".json");
 		// Defining event listener for readystatechange event
 		request.onreadystatechange = function () {
 			// Check if the request is compete and was successful
@@ -372,7 +372,7 @@ File: Main Js File
 				document.querySelector(".navbar-menu").innerHTML = navbarMenuHTML;
 			}
 			var ul = document.createElement("ul");
-			ul.innerHTML = '<a href="#" class="logo"><img src="/assets/images/logo-sm.png" alt="" height="22"></a>';
+			ul.innerHTML = '<a href="#" class="logo"><img src="/Content/assets/images/logo-sm.png" alt="" height="22"></a>';
 			Array.from(document.getElementById("navbar-nav").querySelectorAll(".menu-link")).forEach(function (item) {
 				ul.className = "twocolumn-iconview";
 				var li = document.createElement("li");

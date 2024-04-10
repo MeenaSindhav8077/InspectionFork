@@ -7,7 +7,7 @@ File: job companies list init js
 */
 
 
-var url = "/assets/json/";
+var url = "/Content/assets/json/";
 var allCompaniesList = '';
 
 var prevButton = document.getElementById('page-prev');

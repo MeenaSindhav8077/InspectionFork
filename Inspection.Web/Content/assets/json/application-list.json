@@ -1,7 +1,7 @@
 [
     {
         "id": "002",
-        "company": ["assets/images/brands/slack.png", "Plunkett Infotech"],
+        "company": ["Content/assets/images/brands/slack.png", "Plunkett Infotech"],
         "designation": "Product Designer",
         "date": "26 Sep, 2022",
         "contacts": "734-544-2407",

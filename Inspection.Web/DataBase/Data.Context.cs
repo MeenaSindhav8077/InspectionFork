@@ -29,9 +29,11 @@ namespace Inspection.Web.DataBase
     
         public virtual DbSet<Final_Inspection_Data> Final_Inspection_Data { get; set; }
         public virtual DbSet<Final_Inspection_Mrb_Data> Final_Inspection_Mrb_Data { get; set; }
+        public virtual DbSet<Final_Inspection_MRB_Decision> Final_Inspection_MRB_Decision { get; set; }
         public virtual DbSet<Final_Inspection_Mrb_Rcode> Final_Inspection_Mrb_Rcode { get; set; }
         public virtual DbSet<Final_Inspection_Process> Final_Inspection_Process { get; set; }
         public virtual DbSet<Final_Inspection_Process_Rework> Final_Inspection_Process_Rework { get; set; }
+        public virtual DbSet<Final_Inspection_RCode> Final_Inspection_RCode { get; set; }
         public virtual DbSet<Final_Inspection_Rework> Final_Inspection_Rework { get; set; }
         public virtual DbSet<Final_Inspection_Stage_Master> Final_Inspection_Stage_Master { get; set; }
         public virtual DbSet<Final_Inspection_UserList> Final_Inspection_UserList { get; set; }

@@ -5,14 +5,14 @@
         "id": 1,
         "name": "Lisa Parker",
         "status": "online",
-        "profile": "assets/images/users/avatar-2.jpg"
+        "profile": "Content/assets/images/users/avatar-2.jpg"
       },
       {
         "id": 2,
         "name": "Frank Thomas",
         "status": "online",
-        "profile": "assets/images/users/avatar-3.jpg",
-        "messagecount" : 8
+        "profile": "Content/assets/images/users/avatar-3.jpg",
+        "messagecount": 8
       },
       {
         "id": 3,

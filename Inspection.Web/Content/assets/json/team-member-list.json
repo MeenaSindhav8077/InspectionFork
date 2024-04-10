@@ -1,14 +1,14 @@
 [
-	{
-        "id": 12,
-        "coverImg": "/assets/images/small/img-9.jpg",
-        "bookmark": false,
-        "memberImg": "assets/images/users/avatar-2.jpg",
-        "memberName": "Nancy Martino",
-        "position": "Team Leader & HR",
-        "projects": "225",
-        "tasks": "197"
-    },{
+  {
+    "id": 12,
+    "coverImg": "/Content/assets/images/small/img-9.jpg",
+    "bookmark": false,
+    "memberImg": "Content/assets/images/users/avatar-2.jpg",
+    "memberName": "Nancy Martino",
+    "position": "Team Leader & HR",
+    "projects": "225",
+    "tasks": "197"
+  },{
         "id": 11,
         "coverImg": "/assets/images/small/img-12.jpg",
         "bookmark": true,

@@ -27,11 +27,11 @@ namespace Inspection.Web.Controllers
                         InwardDate = model.Inspection_date,
                         JobNo = model.JobNum,
                         Partno = model.PartNum,
-                        Stage = model.Stage,
+                        ProcessStage = model.Stage,
                         // ERev = model.e,
                         //  ActualRev = model.ActRev,
                         IQTY = model.Inspection_Qty,
-                        Status = model.Inspection_Type,
+                        InspectionType = model.Inspection_Type,
                         RequideMrb = model.CkMRB ?? false,
                        // RequideMrb = model.ch
                     }

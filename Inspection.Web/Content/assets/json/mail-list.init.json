@@ -1,18 +1,18 @@
 [
     {
         "primary": [
-            {
-                "id": 1,
-                "starred": true,
-                "readed" : true,
-                "name": "Peter, me",
-                "title": "Hello",
-                "description" : "Trip home from Colombo has been arranged, then Jenna will come get me from Stockholm. :)",
-                "date" : "Mar 7",
-                "tabtype" : "Inbox",
-                "userImg": "/assets/images/users/avatar-2.jpg",
-                "labeltype": "Support"
-            },
+          {
+            "id": 1,
+            "starred": true,
+            "readed": true,
+            "name": "Peter, me",
+            "title": "Hello",
+            "description": "Trip home from Colombo has been arranged, then Jenna will come get me from Stockholm. :)",
+            "date": "Mar 7",
+            "tabtype": "Inbox",
+            "userImg": "Content/assets/images/users/avatar-2.jpg",
+            "labeltype": "Support"
+          },
             {
                 "id": 2,
                 "starred": true,

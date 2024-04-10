@@ -44,8 +44,15 @@ namespace Inspection.Web.DataBase
         public string accept_mrb { get; set; }
         public string reject_mrb { get; set; }
         public string rework_mrb { get; set; }
-        public string status { get; set; }
         public string Stage { get; set; }
         public Nullable<bool> CkMRB { get; set; }
+        public Nullable<bool> Statuschange { get; set; }
+        public string QualityStage { get; set; }
+        public Nullable<bool> waitingMRB { get; set; }
+        public Nullable<bool> waitngsorting { get; set; }
+        public Nullable<bool> deviation { get; set; }
+        public Nullable<bool> reworkWAITING { get; set; }
+        public Nullable<bool> packingwaiting { get; set; }
+        public Nullable<bool> rejectwaiting { get; set; }
     }
 }

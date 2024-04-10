@@ -105,6 +105,6 @@ document.addEventListener('DOMContentLoaded', function () {
 //buttons exmples
 document.addEventListener('DOMContentLoaded', function () {
   let table = new DataTable('#ajax-datatables', {
-        "ajax": 'assets/json/datatable.json'
+      "ajax": 'Content/assets/json/datatable.json'
     });
 }); 

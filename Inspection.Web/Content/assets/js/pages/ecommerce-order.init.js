@@ -130,7 +130,7 @@ xhttp.onload = function () {
     });
     orderList.remove("id", `<a href="apps-ecommerce-order-details.html" class="fw-medium link-primary">#VZ2101</a>`);
 }
-xhttp.open("GET", "/assets/json/orders-list.init.json");
+xhttp.open("GET", "/Content/assets/json/orders-list.init.json");
 xhttp.send();
 
 isCount = new DOMParser().parseFromString(

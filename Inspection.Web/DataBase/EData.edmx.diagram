@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="b77cb73cc70e41deb483fa11b9a5980a" Name="Diagram1" ZoomLevel="18">
+      <Diagram DiagramId="b77cb73cc70e41deb483fa11b9a5980a" Name="Diagram1" ZoomLevel="16">
         <EntityTypeShape EntityType="EpicorERPModel.JobHead" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="EpicorERPModel.APInvHed" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="EpicorERPModel.BankAcct" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />

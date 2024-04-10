@@ -20,7 +20,7 @@
                 <div class="col-xxl-2 col-md-6">
                     <div>
                         <label>Inward Date</label>
-                        @Html.TextBoxFor(model => model._INWARD.InwardDate, new { @disabled = "disabled", @class = "aspNetDisabled form-control" })
+                        @Html.TextBoxFor(model => model._INWARD.InwardDate, "{0:dd, MMM yyyy}", new { @disabled = "disabled", @class = "aspNetDisabled form-control invdate" })
                     </div>
                 </div>
                 <div class="col-xxl-2 col-md-6">
@@ -43,8 +43,8 @@
                 </div>
                 <div class="col-xxl-2 col-md-6">
                     <div>
-                        <label>Stage</label>
-                        @Html.TextBoxFor(model => model._INWARD.Stage, new { @disabled = "disabled", @class = "aspNetDisabled form-control" })
+                        <label>Inspection Type</label>
+                        @Html.TextBoxFor(model => model._INWARD.InspectionType, new { @disabled = "disabled", @class = "aspNetDisabled form-control" })
                     </div>
                 </div>
                 <div class="col-xxl-1 col-md-6">
@@ -62,13 +62,13 @@
                 <div class="col-xxl-2 col-md-6">
                     <div>
                         <label>Qty</label>
-                        @Html.TextBoxFor(model => model._INWARD.Qty, new { @disabled = "disabled", @class = "aspNetDisabled form-control" })
+                        @Html.TextBoxFor(model => model._INWARD.Qty, new { @disabled = "disabled", @class = "aspNetDisabled form-control", @id = "mainqty" })
                     </div>
                 </div>
                 <div class="col-xxl-2 col-md-6">
                     <div>
                         <label>Stage</label>
-                        @Html.TextBoxFor(model => model._INWARD.Stage, new { @disabled = "disabled", @class = "aspNetDisabled form-control" })
+                        @Html.TextBoxFor(model => model._INWARD.ProcessStage, new { @disabled = "disabled", @class = "aspNetDisabled form-control" })
                     </div>
                 </div>
             </div>
@@ -89,11 +89,7 @@
 
     </div>
 </div>
-
-
-
 @section styles{
-    <!-- Sweet Alert css-->
     <link href="~/Content/assets/libs/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css" />
 
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
@@ -111,165 +107,1549 @@
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-    <!--jquery cdn-->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-    <!--select2 cdn-->
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
     <script src="~/Content/assets/js/pages/select2.init.js"></script>
 
-    <!-- App js -->
     <script src="~/Content/assets/js/app.js"></script>
 
-    <!-- Sweet Alerts js -->
     <script src="~/Content/assets/libs/sweetalert2/sweetalert2.min.js"></script>
 
-    <!-- Sweet alert init js-->
     <script src="~/Content/assets/js/pages/sweetalerts.init.js"></script>
 
-    <!-- App js -->
     <script src="~/Content/assets/js/app.js"></script>
 
 }
 @{
     int Count = 1;
+    var inspectionservice = new Inspection.Web.Scripts.Inspectionservice();
+    var inspectiontype = TempData.Peek("inspectiontype")?.ToString();
 }
 
-<div class="row">
-    <div class="col-lg-12">
-        <div class="card">
-            <div class="card-body">
-                @using (Html.BeginForm("AddData", "visualinspection", FormMethod.Post))
-                {
-                    <div class="live-preview">
+@if (!string.IsNullOrEmpty(inspectiontype))
+{
+    string current_type = inspectiontype;
+    int n = 0;
+
+    if ((current_type == "Final" && Model._INWARD.finalinspection == Model.TOTALfinalQTY) && (Model.finalstatus == false || Model.finalstatus == null))
+    {
+        n = 1;
+    }
+    else if ((current_type == "Thread" && Model._INWARD.threadinspection == Model.TOTALtharedQTY) && (Model.tharedstatus == false || Model.tharedstatus == null))
+    {
+
+        n = 2;
+
+    }
+    else if ((current_type == "Visual" && Model._INWARD.visualinspection == Model.TOTALvisualQTY) && (Model.visualstatus == false || Model.visualstatus == null))
+    {
+
+        n = 3;
+    }
+    else if ((current_type == "Humidity" && Model._INWARD.humidity == Model.TOTALhumidityQTY) && (Model.humiditystatus == false || Model.humiditystatus == null))
+    {
+        n = 4;
+    }
+
+    bool Visibility = (n > 0);
+
+    if (Visibility)
+    {
+        <div class="modal fade  show" id="showModalhhh" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header bg-light p-3">
+                        <h5 class="modal-title" id="exampleModalLabel">@inspectiontype Inspection</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                                id="close-modal"></button>
+                    </div>
+                    @using (Html.BeginForm("statuschange", "visualinspection", FormMethod.Post))
+                    {
+                        Model._INWARD.InspectionType = inspectiontype;
                         @Html.HiddenFor(model => Model._INWARD.id)
+                        @Html.HiddenFor(model => Model._INWARD.InspectionType)
                         @Html.HiddenFor(model => Model._INWARD.JobNo)
                         @Html.HiddenFor(model => Model._INWARD.Partno)
-                        @Html.HiddenFor(model => Model._INWARD.Stage)
-                        @Html.HiddenFor(model => Model._INWARD.Status)
-                        <div class="row align-items-center g-3">
-                            <div class="col-lg-2">
-                                <div>
-                                    @Html.LabelFor(model => model._submodel.inspectiondate, "Inspection Date", new { @class = "form-label" })
-                                    @Html.EditorFor(model => model._submodel.inspectiondate, new { htmlAttributes = new { @class = "form-control", @type = "date", @placeholder = "Select Date", @required = "required" } })
-                                </div>
-                            </div>
-                            <div class="col-lg-2">
-                                <div>
-                                    @Html.LabelFor(model => model._submodel.StartTime, "Start Date", new { @class = "form-label" })
-                                    @Html.EditorFor(model => model._submodel.StartTime, new { htmlAttributes = new { @class = "form-control", @type = "time", @placeholder = "Select Time", @required = "required" } })
-                                </div>
-                            </div>
-                            <div class="col-lg-2">
-                                @Html.LabelFor(model => model._submodel.InspectionBy, new { @class = "form-label" })
+                        @Html.HiddenFor(model => Model._INWARD.ProcessStage)
+                        @Html.HiddenFor(model => Model._INWARD.InspectionType)
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                @Html.LabelFor(model => model._submodel.Stage, new { @class = "form-label" })
                                 @{
-                                    var inspectionservice = new Inspection.Web.Scripts.Inspectionservice();
-                                    var userSelectList = inspectionservice.Getuser();
+                                    var STAGESelectList = inspectionservice.GetInspectiontype();
                                 }
 
-                                @Html.DropDownListFor(model => model._submodel.InspectionBy, new SelectList(userSelectList, "Value", "Text"), "Select", new { @class = "form-select ", id = "disabledInput" })
-                                @Html.ValidationMessageFor(model => model._submodel.InspectionBy, "", new { @class = "text-danger" })
-                            </div>
-                            <div class="col" style="margin-left:684px; margin-top:24px">
-                                <button type="submit" class="btn btn-success " id="add-btn">Add</button>
+                                @Html.DropDownListFor(model => model._submodel.Stage, new SelectList(STAGESelectList, "Value", "Text"), "Select", new { @class = "form-select ", id = "disabledInput" })
+                                @Html.ValidationMessageFor(model => model._submodel.Stage, "", new { @class = "text-danger" })
                             </div>
                         </div>
+                        <div class="modal-footer">
+                            <div class="hstack gap-2 justify-content-end">
+                                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-success">Save</button>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+}
+
+<div class="modal fade" id="SHOWMODELTOGETSQTY" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-light p-3">
+                <h5 class="modal-title" id="exampleModalLabel">Add Sample Quantity</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                        id="close-modal"></button>
+            </div>
+            @using (Html.BeginForm("Addsampleqty", "visualinspection", FormMethod.Post))
+            {
+
+                @Html.HiddenFor(model => model._INWARD.typevalue, new { id = "hiddenTypeValue" })
+                @Html.HiddenFor(model => Model._INWARD.id)
+                @Html.HiddenFor(model => Model._INWARD.JobNo)
+                @Html.HiddenFor(model => Model._INWARD.Partno)
+                @Html.HiddenFor(model => Model._INWARD.ProcessStage)
+                @Html.HiddenFor(model => Model._INWARD.InspectionType)
+                <div class="modal-body">
+                    <div class="mb-3">
+                        @Html.LabelFor(model => model._submodel.SampleQuantity, new { @class = "form-label" })
+
+                        @Html.TextBoxFor(model => model._submodel.SampleQuantity, new { @class = "form-control " })
+                        @Html.ValidationMessageFor(model => model._submodel.SampleQuantity, "", new { @class = "text-danger" })
                     </div>
 
-                }
+                    @{
+                        var staticData = new List<SelectListItem>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         {
+                             new SelectListItem { Value = "select..", Text = "select.." },
+                             new SelectListItem { Value = "Yes ", Text = "Yes" },
+                             new SelectListItem { Value = "No ", Text = "No" },
+
+                        };
+                    }
+                    <div class="mb-3">
+                        @Html.LabelFor(model => model._submodel.MES, new { @class = "form-label" })
+                        @Html.DropDownListFor(model => model._submodel.MES, staticData, new { @class = "form-select mb-3 js-example-basic-single" })
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="hstack gap-2 justify-content-end">
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-success">Save</button>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-xxl-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="row">
+                            @{
+                                var stage = Model._INWARDList.Any(p => p.InspectionType == "Final") ? Model._INWARDList.FirstOrDefault(p => p.InspectionType == "Final")?.ProcessStage : "";
+                                var qty = Model._INWARDList.Any(p => p.InspectionType == "Final") ? Model._INWARDList.FirstOrDefault(p => p.InspectionType == "Final")?.SampleQuantity : "";
+                            }
+                            @if (!string.IsNullOrEmpty(stage))
+                            {
+                                if (Model._INWARD.finalinspection == Model.TOTALfinalQTY && Model.finalstatus == true)
+                                {
+                                    <div class="col-12 " id="myDivfinal">
+                                        <div class="card border card-border-primary alert alert-primary border-5">
+                                            <div class="card-header">
+
+                                                <h6 class="card-title mb-0">
+                                                    Final Inspection <span class="badge badge-gradient-danger ">@stage</span>
+                                                    @if (qty != null)
+                                                    {
+                                                        <button type="button" value="@qty" id="smainqtyFinal" class="btn btn-outline-primary waves-effect waves-light">
+                                                            @qty
+                                                        </button>
+                                                    }
+                                                    else
+                                                    {
+                                                        <button type="button" class="btn btn-outline-primary waves-effect waves-light" onclick="openModalWithValues('Final')">
+                                                            Sample Qty
+                                                        </button>
+                                                    }
+                                                </h6>
+                                            </div>
+                                            @if (qty != null)
+                                            {
+                                                <div class="card-body">
+                                                    <div class="row">
+                                                        <div class="col-lg-12">
+                                                            <div class="card">
+                                                                <div class="card-body">
+                                                                    @using (Html.BeginForm("AddData", "visualinspection", FormMethod.Post, new { id = "myFormvs" }))
+                                                                    {
+                                                                        Model._INWARD.InspectionType = "Final";
+                                                                        <div class="live-preview">
+                                                                            @Html.HiddenFor(model => Model._INWARD.id)
+                                                                            @Html.HiddenFor(model => Model._INWARD.JobNo)
+                                                                            @Html.HiddenFor(model => Model._INWARD.Partno)
+                                                                            @Html.HiddenFor(model => Model._INWARD.ProcessStage)
+                                                                            @Html.HiddenFor(model => Model._INWARD.InspectionType)
+                                                                            <div class="row align-items-center g-3">
+                                                                                <div class="col-lg-2">
+                                                                                    <div>
+                                                                                        @Html.LabelFor(model => model._submodel.inspectiondate, "Inspection Date", new { @class = "form-label" })
+                                                                                        @Html.EditorFor(model => model._submodel.inspectiondate, new { htmlAttributes = new { @class = "form-control fdate", @type = "date", @placeholder = "Select Date", @required = "required" } })
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-lg-2">
+                                                                                    <div>
+                                                                                        @Html.LabelFor(model => model._submodel.StartTime, "Start Time", new { @class = "form-label" })
+                                                                                        @Html.EditorFor(model => model._submodel.StartTime, new { htmlAttributes = new { @class = "form-control", @type = "time", @placeholder = "Select Time", @required = "required" } })
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-lg-2">
+                                                                                    @Html.LabelFor(model => model._submodel.InspectionBy, new { @class = "form-label" })
+                                                                                    @{
+
+                                                                                        var userSelectList = inspectionservice.Getuser();
+                                                                                    }
+
+                                                                                    @Html.DropDownListFor(model => model._submodel.InspectionBy, new SelectList(userSelectList, "Value", "Text"), "Select", new { @class = "form-select ", id = "disabledInput" })
+                                                                                    @Html.ValidationMessageFor(model => model._submodel.InspectionBy, "", new { @class = "text-danger" })
+                                                                                </div>
+                                                                                @if (Model._INWARD.SampleQuantity == Model.TOTALfinalQTY)
+                                                                                {
+                                                                                    <div class="col" style="margin-top:41px">
+                                                                                        <button type="submit" class="btn btn-primary" disabled id="add-btn">Add</button>
+                                                                                    </div>
+                                                                                }
+                                                                                else
+                                                                                {
+                                                                                    <div class="col" style="margin-top:41px">
+                                                                                        <button type="submit" class="btn btn-primary " disabled id="add-btn">Add</button>
+                                                                                    </div>
+                                                                                }
+                                                                            </div>
+                                                                        </div>
+                                                                    }
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="">
+                                                        <div class="col-lg-12">
+                                                            <div class="" id="leadsList">
+                                                                <div class="card-body">
+                                                                    <div>
+                                                                        <div class="table-responsive table-card">
+                                                                            <table class="table align-middle ccssb" id="FinalTables">
+                                                                                <thead class="table-light">
+                                                                                    <tr>
+                                                                                        <th class="" data-sort="name">Sr No.</th>
+                                                                                        <th class="" data-sort="leads_score">Inspection Date</th>
+                                                                                        <th class="" data-sort="phone">Start Time</th>
+                                                                                        <th class="" data-sort="location">End Time</th>
+                                                                                        <th class="" data-sort="tags">Inspection  Qty</th>
+                                                                                        <th class="" data-sort="date">Ins By</th>
+                                                                                        <th class="" data-sort="action">Action</th>
+                                                                                    </tr>
+                                                                                </thead>
+                                                                                <tbody class="list form-check-all">
+                                                                                    @if (Model != null && Model.SUBMODEL != null && Model.SUBMODEL.Count > 0)
+                                                                                    {
+                                                                                        foreach (var item in Model.SUBMODEL.Where(item => item.InspectionTYPE == "Final"))
+                                                                                        {
+                                                                                            <tr>
+                                                                                                <td>
+                                                                                                    @Html.DisplayFor(modelItem => Count)
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                    @Html.DisplayFor(modelItem => item.inspectiondate)
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                    @Html.DisplayFor(modelItem => item.StartTime)
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                    @if (item.EndTime != null && item.InspectedQty != null)
+                                                                                                    {
+                                                                                                        @Html.TextBoxFor(model => item.EndTime, new { @class = "aspNetDisabled form-control", @type = "time" })
+                                                                                                    }
+                                                                                                    else
+                                                                                                    {
+                                                                                                        @Html.TextBoxFor(model => item.EndTime, new { @class = "aspNetDisabled form-control endtime-input", @type = "time" })
+                                                                                                    }
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                    @if (item.EndTime != null && item.InspectedQty != null)
+                                                                                                    {
+                                                                                                        @Html.TextBoxFor(model => item.InspectedQty, new { @class = "aspNetDisabled form-control", @id = "insqttyFinal" })
+                                                                                                    }
+                                                                                                    else
+                                                                                                    {
+                                                                                                        @Html.TextBoxFor(model => item.InspectedQty, new { @class = "aspNetDisabled form-control quantity-input" })
+                                                                                                    }
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                    @Html.DisplayFor(modelItem => item.InspectionBy)
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                    @if (item.EndTime != null && item.InspectedQty != null)
+                                                                                                    {
+                                                                                                        <button type="submit" class="btn rounded-pill btn-danger waves-effect waves-light" disabled>Close</button>
+                                                                                                    }
+                                                                                                    else
+                                                                                                    {
+                                                                                                        <button type="button" id="openbtn" class="btn rounded-pill btn-success waves-effect waves-light openbtn">Open</button>
+                                                                                                    }
+                                                                                                    <button type="submit" class="btn rounded-pill btn-danger waves-effect waves-light closebtn" onclick="getendidqty(@item.id,'Final')">Close</button>
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            Count++;
+                                                                                        }
+                                                                                    }
+                                                                                </tbody>
+                                                                            </table>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            }
+
+                                        </div>
+                                    </div>
+
+                                }
+                                else
+                                {
+                                    <div class="col-12">
+                                        <div class="card border card-border-primary">
+                                            <div class="card-header">
+
+                                                <h6 class="card-title mb-0">
+                                                    Final Inspection <span class="badge badge-gradient-danger ">@stage</span>
+                                                    @if (qty != null)
+                                                    {
+                                                        <button type="button" value="@qty" id="smainqtyFinal" class="btn btn-outline-primary waves-effect waves-light">
+                                                            @qty
+                                                        </button>
+                                                    }
+                                                    else
+                                                    {
+                                                        <button type="button" class="btn btn-outline-primary waves-effect waves-light" onclick="openModalWithValues('Final')">
+                                                            Sample Qty
+                                                        </button>
+                                                    }
+                                                </h6>
+                                            </div>
+                                            @if (qty != null)
+                                            {
+                                                <div class="card-body">
+                                                    <div class="row">
+                                                        <div class="col-lg-12">
+                                                            <div class="card">
+                                                                <div class="card-body">
+                                                                    @using (Html.BeginForm("AddData", "visualinspection", FormMethod.Post, new { id = "myFormvs" }))
+                                                                    {
+                                                                        Model._INWARD.InspectionType = "Final";
+                                                                        <div class="live-preview">
+                                                                            @Html.HiddenFor(model => Model._INWARD.id)
+                                                                            @Html.HiddenFor(model => Model._INWARD.JobNo)
+                                                                            @Html.HiddenFor(model => Model._INWARD.Partno)
+                                                                            @Html.HiddenFor(model => Model._INWARD.ProcessStage)
+                                                                            @Html.HiddenFor(model => Model._INWARD.InspectionType)
+                                                                            <div class="row align-items-center g-3">
+                                                                                <div class="col-lg-2">
+                                                                                    <div>
+                                                                                        @Html.LabelFor(model => model._submodel.inspectiondate, "Inspection Date", new { @class = "form-label" })
+                                                                                        @Html.EditorFor(model => model._submodel.inspectiondate, new { htmlAttributes = new { @class = "form-control fdate", @type = "date", @placeholder = "Select Date", @required = "required" } })
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-lg-2">
+                                                                                    <div>
+                                                                                        @Html.LabelFor(model => model._submodel.StartTime, "Start Time", new { @class = "form-label" })
+                                                                                        @Html.EditorFor(model => model._submodel.StartTime, new { htmlAttributes = new { @class = "form-control", @type = "time", @placeholder = "Select Time", @required = "required" } })
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-lg-2">
+                                                                                    @Html.LabelFor(model => model._submodel.InspectionBy, new { @class = "form-label" })
+                                                                                    @{
+
+                                                                                        var userSelectList = inspectionservice.Getuser();
+                                                                                    }
+
+                                                                                    @Html.DropDownListFor(model => model._submodel.InspectionBy, new SelectList(userSelectList, "Value", "Text"), "Select", new { @class = "form-select ", id = "disabledInput" })
+                                                                                    @Html.ValidationMessageFor(model => model._submodel.InspectionBy, "", new { @class = "text-danger" })
+                                                                                </div>
+                                                                                @if (Model._INWARD.SampleQuantity == Model.TOTALfinalQTY)
+                                                                                {
+                                                                                    <div class="col" style="margin-top:41px">
+                                                                                        <button type="submit" class="btn btn-primary" id="add-btn">Add</button>
+                                                                                    </div>
+                                                                                }
+                                                                                else
+                                                                                {
+                                                                                    <div class="col" style="margin-top:41px">
+                                                                                        <button type="submit" class="btn btn-primary " id="add-btn">Add</button>
+                                                                                    </div>
+                                                                                }
+                                                                            </div>
+                                                                        </div>
+                                                                    }
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="">
+                                                        <div class="col-lg-12">
+                                                            <div class="" id="leadsList">
+                                                                <div class="card-body">
+                                                                    <div>
+                                                                        <div class="table-responsive table-card">
+                                                                            <table class="table align-middle ccssb" id="FinalTables">
+                                                                                <thead class="table-light">
+                                                                                    <tr>
+                                                                                        <th class="" data-sort="name">Sr No.</th>
+                                                                                        <th class="" data-sort="leads_score">Inspection Date</th>
+                                                                                        <th class="" data-sort="phone">Start Time</th>
+                                                                                        <th class="" data-sort="location">End Time</th>
+                                                                                        <th class="" data-sort="tags">Inspection  Qty</th>
+                                                                                        <th class="" data-sort="date">Ins By</th>
+                                                                                        <th class="" data-sort="action">Action</th>
+                                                                                    </tr>
+                                                                                </thead>
+                                                                                <tbody class="list form-check-all">
+                                                                                    @if (Model != null && Model.SUBMODEL != null && Model.SUBMODEL.Count > 0)
+                                                                                    {
+                                                                                        foreach (var item in Model.SUBMODEL.Where(item => item.InspectionTYPE == "Final"))
+                                                                                        {
+                                                                                            <tr>
+                                                                                                <td>
+                                                                                                    @Html.DisplayFor(modelItem => Count)
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                    @Html.DisplayFor(modelItem => item.inspectiondate)
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                    @Html.DisplayFor(modelItem => item.StartTime)
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                    @if (item.EndTime != null && item.InspectedQty != null)
+                                                                                                    {
+                                                                                                        @Html.TextBoxFor(model => item.EndTime, new { @class = "aspNetDisabled form-control", @type = "time" })
+                                                                                                    }
+                                                                                                    else
+                                                                                                    {
+                                                                                                        @Html.TextBoxFor(model => item.EndTime, new { @class = "aspNetDisabled form-control endtime-input", @type = "time" })
+                                                                                                    }
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                    @if (item.EndTime != null && item.InspectedQty != null)
+                                                                                                    {
+                                                                                                        @Html.TextBoxFor(model => item.InspectedQty, new { @class = "aspNetDisabled form-control", @id = "insqttyFinal" })
+                                                                                                    }
+                                                                                                    else
+                                                                                                    {
+                                                                                                        @Html.TextBoxFor(model => item.InspectedQty, new { @class = "aspNetDisabled form-control quantity-input" })
+                                                                                                    }
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                    @Html.DisplayFor(modelItem => item.InspectionBy)
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                    @if (item.EndTime != null && item.InspectedQty != null)
+                                                                                                    {
+                                                                                                        <button type="submit" class="btn rounded-pill btn-danger waves-effect waves-light" disabled>Close</button>
+                                                                                                    }
+                                                                                                    else
+                                                                                                    {
+                                                                                                        <button type="button" id="openbtn" class="btn rounded-pill btn-success waves-effect waves-light openbtn">Open</button>
+                                                                                                    }
+                                                                                                    <button type="submit" class="btn rounded-pill btn-danger waves-effect waves-light closebtn" onclick="getendidqty(@item.id,'Final')">Close</button>
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            Count++;
+                                                                                        }
+                                                                                    }
+                                                                                </tbody>
+                                                                            </table>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            }
+
+                                        </div>
+                                    </div>
+                                }
+
+                            }
+                            @{
+                                var stage1 = Model._INWARDList.Any(p => p.InspectionType == "Thread") ? Model._INWARDList.FirstOrDefault(p => p.InspectionType == "Thread")?.ProcessStage : "";
+                                var qty1 = Model._INWARDList.Any(p => p.InspectionType == "Thread") ? Model._INWARDList.FirstOrDefault(p => p.InspectionType == "Thread")?.SampleQuantity : "";
+                            }
+                            @if (!string.IsNullOrEmpty(stage1))
+                            {
+                                if (Model._INWARD.threadinspection == Model.TOTALtharedQTY && Model.tharedstatus == true)
+                                {
+                                    <div class="col-12" id="myDivthared">
+                                        <div class="card border card-border-success alert alert-success">
+                                            <div class="card-header">
+
+                                                <h6 class="card-title mb-0">
+                                                    Thraed Inspection <span class="badge badge-gradient-danger "> @stage1</span>
+                                                    @if (qty1 != null)
+                                                    {
+                                                        <button type="button" value="@qty1" id="smainqtyThread" class="btn btn-outline-success waves-effect waves-light">
+                                                            @qty1
+                                                        </button>
+                                                    }
+                                                    else
+                                                    {
+                                                        <button type="button" class="btn btn-outline-success waves-effect waves-light" onclick="openModalWithValues('Thread')">
+                                                            Sample Qty
+                                                        </button>
+                                                    }
+                                                </h6>
+                                            </div>
+                                            @if (qty1 != null)
+                                            {
+                                                <div class="card-body">
+                                                    <div class="row">
+                                                        <div class="col-lg-12">
+                                                            <div class="card">
+                                                                <div class="card-body">
+                                                                    @using (Html.BeginForm("AddData", "visualinspection", FormMethod.Post, new { id = "myFormvs" }))
+                                                                    {
+                                                                        Model._INWARD.InspectionType = "Thread";
+                                                                        <div class="live-preview">
+                                                                            @Html.HiddenFor(model => Model._INWARD.id)
+                                                                            @Html.HiddenFor(model => Model._INWARD.JobNo)
+                                                                            @Html.HiddenFor(model => Model._INWARD.Partno)
+                                                                            @Html.HiddenFor(model => Model._INWARD.ProcessStage)
+                                                                            @Html.HiddenFor(model => Model._INWARD.InspectionType)
+                                                                            <div class="row align-items-center g-3">
+                                                                                <div class="col-lg-2">
+                                                                                    <div>
+                                                                                        @Html.LabelFor(model => model._submodel.inspectiondate, "Inspection Date", new { @class = "form-label" })
+                                                                                        @Html.EditorFor(model => model._submodel.inspectiondate, new { htmlAttributes = new { @class = "form-control fdate", @type = "date", @placeholder = "Select Date", @required = "required" } })
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-lg-2">
+                                                                                    <div>
+                                                                                        @Html.LabelFor(model => model._submodel.StartTime, "Start Time", new { @class = "form-label" })
+                                                                                        @Html.EditorFor(model => model._submodel.StartTime, new { htmlAttributes = new { @class = "form-control", @type = "time", @placeholder = "Select Time", @required = "required" } })
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-lg-2">
+                                                                                    @Html.LabelFor(model => model._submodel.InspectionBy, new { @class = "form-label" })
+                                                                                    @{
+
+                                                                                        var userSelectList = inspectionservice.Getuser();
+                                                                                    }
+
+                                                                                    @Html.DropDownListFor(model => model._submodel.InspectionBy, new SelectList(userSelectList, "Value", "Text"), "Select", new { @class = "form-select ", id = "disabledInput" })
+                                                                                    @Html.ValidationMessageFor(model => model._submodel.InspectionBy, "", new { @class = "text-danger" })
+                                                                                </div>
+                                                                                @if (Model._INWARD.Qty == Model.TOTALtharedQTY)
+                                                                                {
+                                                                                    <div class="col" style="margin-top:41px">
+                                                                                        <button type="submit" class="btn btn-success" disabled id="add-btn">Add</button>
+                                                                                    </div>
+                                                                                }
+                                                                                else
+                                                                                {
+                                                                                    <div class="col" style="margin-top:41px">
+                                                                                        <button type="submit" class="btn btn-success " disabled id="add-btn">Add</button>
+                                                                                    </div>
+                                                                                }
+                                                                            </div>
+                                                                        </div>
+                                                                    }
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="">
+                                                        <div class="col-lg-12">
+                                                            <div class="" id="leadsList">
+                                                                <div class="card-body">
+                                                                    <div>
+                                                                        <div class="table-responsive table-card">
+                                                                            <table class="table align-middle ccssb" id="ThreadTables">
+                                                                                <thead class="table-light">
+                                                                                    <tr>
+                                                                                        <th class="" data-sort="name">Sr No.</th>
+                                                                                        <th class="" data-sort="leads_score">Inspection Date</th>
+                                                                                        <th class="" data-sort="phone">Start Time</th>
+                                                                                        <th class="" data-sort="location">End Time</th>
+                                                                                        <th class="" data-sort="tags">Inspection  Qty</th>
+                                                                                        <th class="" data-sort="date">Ins By</th>
+                                                                                        <th class="" data-sort="action">Action</th>
+                                                                                    </tr>
+                                                                                </thead>
+                                                                                <tbody class="list form-check-all">
+                                                                                    @if (Model != null && Model.SUBMODEL != null && Model.SUBMODEL.Count > 0)
+                                                                                    {
+                                                                                        foreach (var item in Model.SUBMODEL.Where(item => item.InspectionTYPE == "Thread"))
+                                                                                        {
+                                                                                            <tr>
+                                                                                                <td>
+                                                                                                    @Html.DisplayFor(modelItem => Count)
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                    @Html.DisplayFor(modelItem => item.inspectiondate)
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                    @Html.DisplayFor(modelItem => item.StartTime)
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                    @if (item.EndTime != null && item.InspectedQty != null)
+                                                                                                    {
+                                                                                                        @Html.TextBoxFor(model => item.EndTime, new { @class = "aspNetDisabled form-control", @type = "time" })
+                                                                                                    }
+                                                                                                    else
+                                                                                                    {
+                                                                                                        @Html.TextBoxFor(model => item.EndTime, new { @class = "aspNetDisabled form-control endtime-input", @type = "time" })
+                                                                                                    }
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                    @if (item.EndTime != null && item.InspectedQty != null)
+                                                                                                    {
+                                                                                                        @Html.TextBoxFor(model => item.InspectedQty, new { @class = "aspNetDisabled form-control", @id = "insqttyThread" })
+                                                                                                    }
+                                                                                                    else
+                                                                                                    {
+                                                                                                        @Html.TextBoxFor(model => item.InspectedQty, new { @class = "aspNetDisabled form-control quantity-input" })
+                                                                                                    }
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                    @Html.DisplayFor(modelItem => item.InspectionBy)
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                    @if (item.EndTime != null && item.InspectedQty != null)
+                                                                                                    {
+                                                                                                        <button type="submit" class="btn rounded-pill btn-danger waves-effect waves-light" disabled>Close</button>
+                                                                                                    }
+                                                                                                    else
+                                                                                                    {
+                                                                                                        <button type="button" id="openbtn" class="btn rounded-pill btn-success waves-effect waves-light openbtn">Open</button>
+                                                                                                    }
+                                                                                                    <button type="submit" class="btn rounded-pill btn-danger waves-effect waves-light closebtn" onclick="getendidqty(@item.id,'Thread')">Close</button>
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            Count++;
+                                                                                        }
+                                                                                    }
+                                                                                </tbody>
+                                                                            </table>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            }
+
+                                        </div>
+                                    </div>
+
+                                }
+                                else
+                                {
+                                    <div class="col-12">
+                                        <div class="card border card-border-success">
+                                            <div class="card-header">
+
+                                                <h6 class="card-title mb-0">
+                                                    Thraed Inspection <span class="badge badge-gradient-danger "> @stage1</span>
+                                                    @if (qty1 != null)
+                                                    {
+                                                        <button type="button" value="@qty1" id="smainqtyThread" class="btn btn-outline-success waves-effect waves-light">
+                                                            @qty1
+                                                        </button>
+                                                    }
+                                                    else
+                                                    {
+                                                        <button type="button" class="btn btn-outline-success waves-effect waves-light" onclick="openModalWithValues('Thread')">
+                                                            Sample Qty
+                                                        </button>
+                                                    }
+                                                </h6>
+                                            </div>
+                                            @if (qty1 != null)
+                                            {
+                                                <div class="card-body">
+                                                    <div class="row">
+                                                        <div class="col-lg-12">
+                                                            <div class="card">
+                                                                <div class="card-body">
+                                                                    @using (Html.BeginForm("AddData", "visualinspection", FormMethod.Post, new { id = "myFormvs" }))
+                                                                    {
+                                                                        Model._INWARD.InspectionType = "Thread";
+                                                                        <div class="live-preview">
+                                                                            @Html.HiddenFor(model => Model._INWARD.id)
+                                                                            @Html.HiddenFor(model => Model._INWARD.JobNo)
+                                                                            @Html.HiddenFor(model => Model._INWARD.Partno)
+                                                                            @Html.HiddenFor(model => Model._INWARD.ProcessStage)
+                                                                            @Html.HiddenFor(model => Model._INWARD.InspectionType)
+                                                                            <div class="row align-items-center g-3">
+                                                                                <div class="col-lg-2">
+                                                                                    <div>
+                                                                                        @Html.LabelFor(model => model._submodel.inspectiondate, "Inspection Date", new { @class = "form-label" })
+                                                                                        @Html.EditorFor(model => model._submodel.inspectiondate, new { htmlAttributes = new { @class = "form-control fdate", @type = "date", @placeholder = "Select Date", @required = "required" } })
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-lg-2">
+                                                                                    <div>
+                                                                                        @Html.LabelFor(model => model._submodel.StartTime, "Start Time", new { @class = "form-label" })
+                                                                                        @Html.EditorFor(model => model._submodel.StartTime, new { htmlAttributes = new { @class = "form-control", @type = "time", @placeholder = "Select Time", @required = "required" } })
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-lg-2">
+                                                                                    @Html.LabelFor(model => model._submodel.InspectionBy, new { @class = "form-label" })
+                                                                                    @{
+
+                                                                                        var userSelectList = inspectionservice.Getuser();
+                                                                                    }
+
+                                                                                    @Html.DropDownListFor(model => model._submodel.InspectionBy, new SelectList(userSelectList, "Value", "Text"), "Select", new { @class = "form-select ", id = "disabledInput" })
+                                                                                    @Html.ValidationMessageFor(model => model._submodel.InspectionBy, "", new { @class = "text-danger" })
+                                                                                </div>
+                                                                                @if (Model._INWARD.Qty == Model.TOTALtharedQTY)
+                                                                                {
+                                                                                    <div class="col" style="margin-top:41px">
+                                                                                        <button type="submit" class="btn btn-success" id="add-btn">Add</button>
+                                                                                    </div>
+                                                                                }
+                                                                                else
+                                                                                {
+                                                                                    <div class="col" style="margin-top:41px">
+                                                                                        <button type="submit" class="btn btn-success " id="add-btn">Add</button>
+                                                                                    </div>
+                                                                                }
+                                                                            </div>
+                                                                        </div>
+                                                                    }
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="">
+                                                        <div class="col-lg-12">
+                                                            <div class="" id="leadsList">
+                                                                <div class="card-body">
+                                                                    <div>
+                                                                        <div class="table-responsive table-card">
+                                                                            <table class="table align-middle ccssb" id="ThreadTables">
+                                                                                <thead class="table-light">
+                                                                                    <tr>
+                                                                                        <th class="" data-sort="name">Sr No.</th>
+                                                                                        <th class="" data-sort="leads_score">Inspection Date</th>
+                                                                                        <th class="" data-sort="phone">Start Time</th>
+                                                                                        <th class="" data-sort="location">End Time</th>
+                                                                                        <th class="" data-sort="tags">Inspection  Qty</th>
+                                                                                        <th class="" data-sort="date">Ins By</th>
+                                                                                        <th class="" data-sort="action">Action</th>
+                                                                                    </tr>
+                                                                                </thead>
+                                                                                <tbody class="list form-check-all">
+                                                                                    @if (Model != null && Model.SUBMODEL != null && Model.SUBMODEL.Count > 0)
+                                                                                    {
+                                                                                        foreach (var item in Model.SUBMODEL.Where(item => item.InspectionTYPE == "Thread"))
+                                                                                        {
+                                                                                            <tr>
+                                                                                                <td>
+                                                                                                    @Html.DisplayFor(modelItem => Count)
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                    @Html.DisplayFor(modelItem => item.inspectiondate)
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                    @Html.DisplayFor(modelItem => item.StartTime)
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                    @if (item.EndTime != null && item.InspectedQty != null)
+                                                                                                    {
+                                                                                                        @Html.TextBoxFor(model => item.EndTime, new { @class = "aspNetDisabled form-control", @type = "time" })
+                                                                                                    }
+                                                                                                    else
+                                                                                                    {
+                                                                                                        @Html.TextBoxFor(model => item.EndTime, new { @class = "aspNetDisabled form-control endtime-input", @type = "time" })
+                                                                                                    }
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                    @if (item.EndTime != null && item.InspectedQty != null)
+                                                                                                    {
+                                                                                                        @Html.TextBoxFor(model => item.InspectedQty, new { @class = "aspNetDisabled form-control", @id = "insqttyThread" })
+                                                                                                    }
+                                                                                                    else
+                                                                                                    {
+                                                                                                        @Html.TextBoxFor(model => item.InspectedQty, new { @class = "aspNetDisabled form-control quantity-input" })
+                                                                                                    }
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                    @Html.DisplayFor(modelItem => item.InspectionBy)
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                    @if (item.EndTime != null && item.InspectedQty != null)
+                                                                                                    {
+                                                                                                        <button type="submit" class="btn rounded-pill btn-danger waves-effect waves-light" disabled>Close</button>
+                                                                                                    }
+                                                                                                    else
+                                                                                                    {
+                                                                                                        <button type="button" id="openbtn" class="btn rounded-pill btn-success waves-effect waves-light openbtn">Open</button>
+                                                                                                    }
+                                                                                                    <button type="submit" class="btn rounded-pill btn-danger waves-effect waves-light closebtn" onclick="getendidqty(@item.id,'Thread')">Close</button>
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            Count++;
+                                                                                        }
+                                                                                    }
+                                                                                </tbody>
+                                                                            </table>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            }
+
+                                        </div>
+                                    </div>
+                                }
+
+                            }
+                            @{
+                                var stage2 = Model._INWARDList.Any(p => p.InspectionType == "Visual") ? Model._INWARDList.FirstOrDefault(p => p.InspectionType == "Visual")?.ProcessStage : "";
+                                var qty2 = Model._INWARDList.Any(p => p.InspectionType == "Visual") ? Model._INWARDList.FirstOrDefault(p => p.InspectionType == "Visual")?.SampleQuantity : "";
+                            }
+                            @if (!string.IsNullOrEmpty(stage2))
+                            {
+                                if (Model._INWARD.visualinspection == Model.TOTALvisualQTY && Model.visualstatus == true)
+                                {
+                                    <div class="col-12" id="myDivvisual">
+                                        <div class="card border card-border-info alert alert-info">
+                                            <div class="card-header">
+
+                                                <h6 class="card-title mb-0">
+                                                    Visual Inspection <span class="badge badge-gradient-danger">@stage2</span>
+                                                    @if (qty2 != null)
+                                                    {
+                                                        <button type="button" id="smainqtyVisual" value="@qty2" class="btn btn-outline-info waves-effect waves-light">
+                                                            @qty2
+                                                        </button>
+                                                    }
+                                                    else
+                                                    {
+                                                        <button type="button" class="btn btn-outline-info waves-effect waves-light" onclick="openModalWithValues('Visual')">
+                                                            Sample Qty
+                                                        </button>
+                                                    }
+
+                                                </h6>
+                                            </div>
+                                            @if (qty2 != null)
+                                            {
+                                                <div class="card-body">
+                                                    <div class="row">
+                                                        <div class="col-lg-12">
+                                                            <div class="card">
+                                                                <div class="card-body">
+                                                                    @using (Html.BeginForm("AddData", "visualinspection", FormMethod.Post, new { id = "myFormvs" }))
+                                                                    {
+                                                                        Model._INWARD.InspectionType = "Visual";
+                                                                        <div class="live-preview">
+                                                                            @Html.HiddenFor(model => Model._INWARD.id)
+                                                                            @Html.HiddenFor(model => Model._INWARD.JobNo)
+                                                                            @Html.HiddenFor(model => Model._INWARD.Partno)
+                                                                            @Html.HiddenFor(model => Model._INWARD.ProcessStage)
+                                                                            @Html.HiddenFor(model => Model._INWARD.InspectionType)
+                                                                            <div class="row align-items-center g-3">
+                                                                                <div class="col-lg-2">
+                                                                                    <div>
+                                                                                        @Html.LabelFor(model => model._submodel.inspectiondate, "Inspection Date", new { @class = "form-label" })
+                                                                                        @Html.EditorFor(model => model._submodel.inspectiondate, new { htmlAttributes = new { @class = "form-control fdate", @type = "date", @placeholder = "Select Date", @required = "required" } })
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-lg-2">
+                                                                                    <div>
+                                                                                        @Html.LabelFor(model => model._submodel.StartTime, "Start Time", new { @class = "form-label" })
+                                                                                        @Html.EditorFor(model => model._submodel.StartTime, new { htmlAttributes = new { @class = "form-control", @type = "time", @placeholder = "Select Time", @required = "required" } })
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-lg-2">
+                                                                                    @Html.LabelFor(model => model._submodel.InspectionBy, new { @class = "form-label" })
+                                                                                    @{
+
+                                                                                        var userSelectList = inspectionservice.Getuser();
+                                                                                    }
+
+                                                                                    @Html.DropDownListFor(model => model._submodel.InspectionBy, new SelectList(userSelectList, "Value", "Text"), "Select", new { @class = "form-select ", id = "disabledInput" })
+                                                                                    @Html.ValidationMessageFor(model => model._submodel.InspectionBy, "", new { @class = "text-danger" })
+                                                                                </div>
+                                                                                @if (Model._INWARD.Qty == Model.TOTALvisualQTY)
+                                                                                {
+                                                                                    <div class="col" style="margin-top:41px">
+                                                                                        <button type="submit" class="btn btn-info" disabled id="add-btn">Add</button>
+                                                                                    </div>
+                                                                                }
+                                                                                else
+                                                                                {
+                                                                                    <div class="col" style="margin-top:41px">
+                                                                                        <button type="submit" class="btn btn-info " disabled id="add-btn">Add</button>
+                                                                                    </div>
+                                                                                }
+                                                                            </div>
+                                                                        </div>
+                                                                    }
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="">
+                                                        <div class="col-lg-12">
+                                                            <div class="" id="leadsList">
+                                                                <div class="card-body">
+                                                                    <div>
+                                                                        <div class="table-responsive table-card">
+                                                                            <table class="table align-middle ccssb" id="VisualTables">
+                                                                                <thead class="table-light">
+                                                                                    <tr>
+                                                                                        <th class="" data-sort="name">Sr No.</th>
+                                                                                        <th class="" data-sort="leads_score">Inspection Date</th>
+                                                                                        <th class="" data-sort="phone">Start Time</th>
+                                                                                        <th class="" data-sort="location">End Time</th>
+                                                                                        <th class="" data-sort="tags">Inspection  Qty</th>
+                                                                                        <th class="" data-sort="date">Ins By</th>
+                                                                                        <th class="" data-sort="action">Action</th>
+                                                                                    </tr>
+                                                                                </thead>
+                                                                                <tbody class="list form-check-all">
+                                                                                    @if (Model != null && Model.SUBMODEL != null && Model.SUBMODEL.Count > 0)
+                                                                                    {
+                                                                                        foreach (var item in Model.SUBMODEL.Where(item => item.InspectionTYPE == "Visual"))
+                                                                                        {
+                                                                                            <tr>
+                                                                                                <td>
+                                                                                                    @Html.DisplayFor(modelItem => Count)
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                    @Html.DisplayFor(modelItem => item.inspectiondate)
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                    @Html.DisplayFor(modelItem => item.StartTime)
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                    @if (item.EndTime != null && item.InspectedQty != null)
+                                                                                                    {
+                                                                                                        @Html.TextBoxFor(model => item.EndTime, new { @class = "aspNetDisabled form-control", @type = "time" })
+                                                                                                    }
+                                                                                                    else
+                                                                                                    {
+                                                                                                        @Html.TextBoxFor(model => item.EndTime, new { @class = "aspNetDisabled form-control endtime-input", @type = "time" })
+                                                                                                    }
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                    @if (item.EndTime != null && item.InspectedQty != null)
+                                                                                                    {
+                                                                                                        @Html.TextBoxFor(model => item.InspectedQty, new { @class = "aspNetDisabled form-control", @id = "insqttyVisual" })
+                                                                                                    }
+                                                                                                    else
+                                                                                                    {
+                                                                                                        @Html.TextBoxFor(model => item.InspectedQty, new { @class = "aspNetDisabled form-control quantity-input" })
+                                                                                                    }
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                    @Html.DisplayFor(modelItem => item.InspectionBy)
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                    @if (item.EndTime != null && item.InspectedQty != null)
+                                                                                                    {
+                                                                                                        <button type="submit" class="btn rounded-pill btn-danger waves-effect waves-light" disabled>Close</button>
+                                                                                                    }
+                                                                                                    else
+                                                                                                    {
+                                                                                                        <button type="button" id="openbtn" class="btn rounded-pill btn-success waves-effect waves-light openbtn">Open</button>
+                                                                                                    }
+                                                                                                    <button type="submit" class="btn rounded-pill btn-danger waves-effect waves-light closebtn" onclick="getendidqty(@item.id,'Visual')">Close</button>
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            Count++;
+                                                                                        }
+                                                                                    }
+                                                                                </tbody>
+                                                                            </table>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            }
+
+                                        </div>
+                                    </div>
+
+                                }
+                                else
+                                {
+                                    <div class="col-12">
+                                        <div class="card border card-border-info">
+                                            <div class="card-header">
+
+                                                <h6 class="card-title mb-0">
+                                                    Visual Inspection <span class="badge badge-gradient-danger">@stage2</span>
+                                                    @if (qty2 != null)
+                                                    {
+                                                        <button type="button" id="smainqtyVisual" value="@qty2" class="btn btn-outline-info waves-effect waves-light">
+                                                            @qty2
+                                                        </button>
+                                                    }
+                                                    else
+                                                    {
+                                                        <button type="button" class="btn btn-outline-info waves-effect waves-light" onclick="openModalWithValues('Visual')">
+                                                            Sample Qty
+                                                        </button>
+                                                    }
+
+                                                </h6>
+                                            </div>
+                                            @if (qty2 != null)
+                                            {
+                                                <div class="card-body">
+                                                    <div class="row">
+                                                        <div class="col-lg-12">
+                                                            <div class="card">
+                                                                <div class="card-body">
+                                                                    @using (Html.BeginForm("AddData", "visualinspection", FormMethod.Post, new { id = "myFormvs" }))
+                                                                    {
+                                                                        Model._INWARD.InspectionType = "Visual";
+                                                                        <div class="live-preview">
+                                                                            @Html.HiddenFor(model => Model._INWARD.id)
+                                                                            @Html.HiddenFor(model => Model._INWARD.JobNo)
+                                                                            @Html.HiddenFor(model => Model._INWARD.Partno)
+                                                                            @Html.HiddenFor(model => Model._INWARD.ProcessStage)
+                                                                            @Html.HiddenFor(model => Model._INWARD.InspectionType)
+                                                                            <div class="row align-items-center g-3">
+                                                                                <div class="col-lg-2">
+                                                                                    <div>
+                                                                                        @Html.LabelFor(model => model._submodel.inspectiondate, "Inspection Date", new { @class = "form-label" })
+                                                                                        @Html.EditorFor(model => model._submodel.inspectiondate, new { htmlAttributes = new { @class = "form-control fdate", @type = "date", @placeholder = "Select Date", @required = "required" } })
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-lg-2">
+                                                                                    <div>
+                                                                                        @Html.LabelFor(model => model._submodel.StartTime, "Start Time", new { @class = "form-label" })
+                                                                                        @Html.EditorFor(model => model._submodel.StartTime, new { htmlAttributes = new { @class = "form-control", @type = "time", @placeholder = "Select Time", @required = "required" } })
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-lg-2">
+                                                                                    @Html.LabelFor(model => model._submodel.InspectionBy, new { @class = "form-label" })
+                                                                                    @{
+
+                                                                                        var userSelectList = inspectionservice.Getuser();
+                                                                                    }
+
+                                                                                    @Html.DropDownListFor(model => model._submodel.InspectionBy, new SelectList(userSelectList, "Value", "Text"), "Select", new { @class = "form-select ", id = "disabledInput" })
+                                                                                    @Html.ValidationMessageFor(model => model._submodel.InspectionBy, "", new { @class = "text-danger" })
+                                                                                </div>
+                                                                                @if (Model._INWARD.Qty == Model.TOTALvisualQTY)
+                                                                                {
+                                                                                    <div class="col" style="margin-top:41px">
+                                                                                        <button type="submit" class="btn btn-info" id="add-btn">Add</button>
+                                                                                    </div>
+                                                                                }
+                                                                                else
+                                                                                {
+                                                                                    <div class="col" style="margin-top:41px">
+                                                                                        <button type="submit" class="btn btn-info " id="add-btn">Add</button>
+                                                                                    </div>
+                                                                                }
+                                                                            </div>
+                                                                        </div>
+                                                                    }
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="">
+                                                        <div class="col-lg-12">
+                                                            <div class="" id="leadsList">
+                                                                <div class="card-body">
+                                                                    <div>
+                                                                        <div class="table-responsive table-card">
+                                                                            <table class="table align-middle ccssb" id="VisualTables">
+                                                                                <thead class="table-light">
+                                                                                    <tr>
+                                                                                        <th class="" data-sort="name">Sr No.</th>
+                                                                                        <th class="" data-sort="leads_score">Inspection Date</th>
+                                                                                        <th class="" data-sort="phone">Start Time</th>
+                                                                                        <th class="" data-sort="location">End Time</th>
+                                                                                        <th class="" data-sort="tags">Inspection  Qty</th>
+                                                                                        <th class="" data-sort="date">Ins By</th>
+                                                                                        <th class="" data-sort="action">Action</th>
+                                                                                    </tr>
+                                                                                </thead>
+                                                                                <tbody class="list form-check-all">
+                                                                                    @if (Model != null && Model.SUBMODEL != null && Model.SUBMODEL.Count > 0)
+                                                                                    {
+                                                                                        foreach (var item in Model.SUBMODEL.Where(item => item.InspectionTYPE == "Visual"))
+                                                                                        {
+                                                                                            <tr>
+                                                                                                <td>
+                                                                                                    @Html.DisplayFor(modelItem => Count)
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                    @Html.DisplayFor(modelItem => item.inspectiondate)
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                    @Html.DisplayFor(modelItem => item.StartTime)
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                    @if (item.EndTime != null && item.InspectedQty != null)
+                                                                                                    {
+                                                                                                        @Html.TextBoxFor(model => item.EndTime, new { @class = "aspNetDisabled form-control", @type = "time" })
+                                                                                                    }
+                                                                                                    else
+                                                                                                    {
+                                                                                                        @Html.TextBoxFor(model => item.EndTime, new { @class = "aspNetDisabled form-control endtime-input", @type = "time" })
+                                                                                                    }
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                    @if (item.EndTime != null && item.InspectedQty != null)
+                                                                                                    {
+                                                                                                        @Html.TextBoxFor(model => item.InspectedQty, new { @class = "aspNetDisabled form-control", @id = "insqttyVisual" })
+                                                                                                    }
+                                                                                                    else
+                                                                                                    {
+                                                                                                        @Html.TextBoxFor(model => item.InspectedQty, new { @class = "aspNetDisabled form-control quantity-input" })
+                                                                                                    }
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                    @Html.DisplayFor(modelItem => item.InspectionBy)
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                    @if (item.EndTime != null && item.InspectedQty != null)
+                                                                                                    {
+                                                                                                        <button type="submit" class="btn rounded-pill btn-danger waves-effect waves-light" disabled>Close</button>
+                                                                                                    }
+                                                                                                    else
+                                                                                                    {
+                                                                                                        <button type="button" id="openbtn" class="btn rounded-pill btn-success waves-effect waves-light openbtn">Open</button>
+                                                                                                    }
+                                                                                                    <button type="submit" class="btn rounded-pill btn-danger waves-effect waves-light closebtn" onclick="getendidqty(@item.id,'Visual')">Close</button>
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            Count++;
+                                                                                        }
+                                                                                    }
+                                                                                </tbody>
+                                                                            </table>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            }
+
+                                        </div>
+                                    </div>
+                                }
+
+                            }
+                            @{
+                                var stage3 = Model._INWARDList.Any(p => p.InspectionType == "Humidity") ? Model._INWARDList.FirstOrDefault(p => p.InspectionType == "Humidity")?.ProcessStage : "";
+                                var qty3 = Model._INWARDList.Any(p => p.InspectionType == "Humidity") ? Model._INWARDList.FirstOrDefault(p => p.InspectionType == "Humidity")?.SampleQuantity : "";
+                            }
+                            @if (!string.IsNullOrEmpty(stage3))
+                            {
+                                if (Model._INWARD.humidity == Model.TOTALhumidityQTY && Model.humiditystatus == true)
+                                {
+                                    <div class="col-12" id="myDivhumidity">
+                                        <div class="card border card-border-danger alert alert-danger">
+                                            <div class="card-header">
+
+                                                <h6 class="card-title mb-0">
+                                                    Humidity Inspection <span class="badge badge-gradient-danger">@stage3</span>
+                                                    @if (qty3 != null)
+                                                    {
+                                                        <button type="button" id="smainqtyHumidity" value="@qty3" class="btn btn-outline-danger waves-effect waves-light">
+                                                            @qty3
+                                                        </button>
+                                                    }
+                                                    else
+                                                    {
+                                                        <button type="button" class="btn btn-outline-danger waves-effect waves-light" onclick="openModalWithValues('Humidity')">
+                                                            Sample Qty
+                                                        </button>
+                                                    }
+
+                                                </h6>
+                                            </div>
+                                            @if (qty3 != null)
+                                            {
+                                                <div class="card-body">
+                                                    <div class="row">
+                                                        <div class="col-lg-12">
+                                                            <div class="card">
+                                                                <div class="card-body">
+                                                                    @using (Html.BeginForm("AddData", "visualinspection", FormMethod.Post, new { id = "myFormvs" }))
+                                                                    {
+                                                                        Model._INWARD.InspectionType = "Humidity";
+                                                                        <div class="live-preview">
+                                                                            @Html.HiddenFor(model => Model._INWARD.id)
+                                                                            @Html.HiddenFor(model => Model._INWARD.JobNo)
+                                                                            @Html.HiddenFor(model => Model._INWARD.Partno)
+                                                                            @Html.HiddenFor(model => Model._INWARD.ProcessStage)
+                                                                            @Html.HiddenFor(model => Model._INWARD.InspectionType)
+                                                                            <div class="row align-items-center g-3">
+                                                                                <div class="col-lg-2">
+                                                                                    <div>
+                                                                                        @Html.LabelFor(model => model._submodel.inspectiondate, "Inspection Date", new { @class = "form-label" })
+                                                                                        @Html.EditorFor(model => model._submodel.inspectiondate, new { htmlAttributes = new { @class = "form-control fdate", @type = "date", @placeholder = "Select Date", @required = "required" } })
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-lg-2">
+                                                                                    <div>
+                                                                                        @Html.LabelFor(model => model._submodel.StartTime, "Start Time", new { @class = "form-label" })
+                                                                                        @Html.EditorFor(model => model._submodel.StartTime, new { htmlAttributes = new { @class = "form-control", @type = "time", @placeholder = "Select Time", @required = "required" } })
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-lg-2">
+                                                                                    @Html.LabelFor(model => model._submodel.InspectionBy, new { @class = "form-label" })
+                                                                                    @{
+
+                                                                                        var userSelectList = inspectionservice.Getuser();
+                                                                                    }
+
+                                                                                    @Html.DropDownListFor(model => model._submodel.InspectionBy, new SelectList(userSelectList, "Value", "Text"), "Select", new { @class = "form-select ", id = "disabledInput" })
+                                                                                    @Html.ValidationMessageFor(model => model._submodel.InspectionBy, "", new { @class = "text-danger" })
+                                                                                </div>
+                                                                                @if (Model._INWARD.Qty == Model.TOTALhumidityQTY)
+                                                                                {
+                                                                                    <div class="col" style="margin-top:41px">
+                                                                                        <button type="submit" class="btn btn-danger" disabled id="add-btn">Add</button>
+                                                                                    </div>
+                                                                                }
+                                                                                else
+                                                                                {
+                                                                                    <div class="col" style="margin-top:41px">
+                                                                                        <button type="submit" class="btn btn-danger " disabled id="add-btn">Add</button>
+                                                                                    </div>
+                                                                                }
+                                                                            </div>
+                                                                        </div>
+                                                                    }
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="">
+                                                        <div class="col-lg-12">
+                                                            <div class="" id="leadsList">
+                                                                <div class="card-body">
+                                                                    <div>
+                                                                        <div class="table-responsive table-card">
+                                                                            <table class="table align-middle ccssb" id="HumidityTables">
+                                                                                <thead class="table-light">
+                                                                                    <tr>
+                                                                                        <th class="" data-sort="name">Sr No.</th>
+                                                                                        <th class="" data-sort="leads_score">Inspection Date</th>
+                                                                                        <th class="" data-sort="phone">Start Time</th>
+                                                                                        <th class="" data-sort="location">End Time</th>
+                                                                                        <th class="" data-sort="tags">Inspection  Qty</th>
+                                                                                        <th class="" data-sort="date">Ins By</th>
+                                                                                        <th class="" data-sort="action">Action</th>
+                                                                                    </tr>
+                                                                                </thead>
+                                                                                <tbody class="list form-check-all">
+                                                                                    @if (Model != null && Model.SUBMODEL != null && Model.SUBMODEL.Count > 0)
+                                                                                    {
+                                                                                        foreach (var item in Model.SUBMODEL.Where(item => item.InspectionTYPE == "Humidity"))
+                                                                                        {
+                                                                                            <tr>
+                                                                                                <td>
+                                                                                                    @Html.DisplayFor(modelItem => Count)
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                    @Html.DisplayFor(modelItem => item.inspectiondate)
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                    @Html.DisplayFor(modelItem => item.StartTime)
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                    @if (item.EndTime != null && item.InspectedQty != null)
+                                                                                                    {
+                                                                                                        @Html.TextBoxFor(model => item.EndTime, new { @class = "aspNetDisabled form-control", @type = "time" })
+                                                                                                    }
+                                                                                                    else
+                                                                                                    {
+                                                                                                        @Html.TextBoxFor(model => item.EndTime, new { @class = "aspNetDisabled form-control endtime-input", @type = "time" })
+                                                                                                    }
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                    @if (item.EndTime != null && item.InspectedQty != null)
+                                                                                                    {
+                                                                                                        @Html.TextBoxFor(model => item.InspectedQty, new { @class = "aspNetDisabled form-control", @id = "insqttyHumidity" })
+                                                                                                    }
+                                                                                                    else
+                                                                                                    {
+                                                                                                        @Html.TextBoxFor(model => item.InspectedQty, new { @class = "aspNetDisabled form-control quantity-input" })
+                                                                                                    }
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                    @Html.DisplayFor(modelItem => item.InspectionBy)
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                    @if (item.EndTime != null && item.InspectedQty != null)
+                                                                                                    {
+                                                                                                        <button type="submit" class="btn rounded-pill btn-danger waves-effect waves-light" disabled>Close</button>
+                                                                                                    }
+                                                                                                    else
+                                                                                                    {
+                                                                                                        <button type="button" id="openbtn" class="btn rounded-pill btn-success waves-effect waves-light openbtn">Open</button>
+                                                                                                    }
+                                                                                                    <button type="submit" class="btn rounded-pill btn-danger waves-effect waves-light closebtn" onclick="getendidqty(@item.id,'Humidity')">Close</button>
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            Count++;
+                                                                                        }
+                                                                                    }
+                                                                                </tbody>
+                                                                            </table>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            }
+
+                                        </div>
+                                    </div>
+
+                                }
+                                else
+                                {
+                                    <div class="col-12">
+                                        <div class="card border card-border-danger">
+                                            <div class="card-header">
+
+                                                <h6 class="card-title mb-0">
+                                                    Humidity Inspection <span class="badge badge-gradient-danger">@stage3</span>
+                                                    @if (qty3 != null)
+                                                    {
+                                                        <button type="button" id="smainqtyHumidity" value="@qty3" class="btn btn-outline-danger waves-effect waves-light">
+                                                            @qty3
+                                                        </button>
+                                                    }
+                                                    else
+                                                    {
+                                                        <button type="button" class="btn btn-outline-danger waves-effect waves-light" onclick="openModalWithValues('Humidity')">
+                                                            Sample Qty
+                                                        </button>
+                                                    }
+
+                                                </h6>
+                                            </div>
+                                            @if (qty3 != null)
+                                            {
+                                                <div class="card-body">
+                                                    <div class="row">
+                                                        <div class="col-lg-12">
+                                                            <div class="card">
+                                                                <div class="card-body">
+                                                                    @using (Html.BeginForm("AddData", "visualinspection", FormMethod.Post, new { id = "myFormvs" }))
+                                                                    {
+                                                                        Model._INWARD.InspectionType = "Humidity";
+                                                                        <div class="live-preview">
+                                                                            @Html.HiddenFor(model => Model._INWARD.id)
+                                                                            @Html.HiddenFor(model => Model._INWARD.JobNo)
+                                                                            @Html.HiddenFor(model => Model._INWARD.Partno)
+                                                                            @Html.HiddenFor(model => Model._INWARD.ProcessStage)
+                                                                            @Html.HiddenFor(model => Model._INWARD.InspectionType)
+                                                                            <div class="row align-items-center g-3">
+                                                                                <div class="col-lg-2">
+                                                                                    <div>
+                                                                                        @Html.LabelFor(model => model._submodel.inspectiondate, "Inspection Date", new { @class = "form-label" })
+                                                                                        @Html.EditorFor(model => model._submodel.inspectiondate, new { htmlAttributes = new { @class = "form-control fdate", @type = "date", @placeholder = "Select Date", @required = "required" } })
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-lg-2">
+                                                                                    <div>
+                                                                                        @Html.LabelFor(model => model._submodel.StartTime, "Start Time", new { @class = "form-label" })
+                                                                                        @Html.EditorFor(model => model._submodel.StartTime, new { htmlAttributes = new { @class = "form-control", @type = "time", @placeholder = "Select Time", @required = "required" } })
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-lg-2">
+                                                                                    @Html.LabelFor(model => model._submodel.InspectionBy, new { @class = "form-label" })
+                                                                                    @{
+
+                                                                                        var userSelectList = inspectionservice.Getuser();
+                                                                                    }
+
+                                                                                    @Html.DropDownListFor(model => model._submodel.InspectionBy, new SelectList(userSelectList, "Value", "Text"), "Select", new { @class = "form-select ", id = "disabledInput" })
+                                                                                    @Html.ValidationMessageFor(model => model._submodel.InspectionBy, "", new { @class = "text-danger" })
+                                                                                </div>
+                                                                                @if (Model._INWARD.Qty == Model.TOTALhumidityQTY)
+                                                                                {
+                                                                                    <div class="col" style="margin-top:41px">
+                                                                                        <button type="submit" class="btn btn-danger" id="add-btn">Add</button>
+                                                                                    </div>
+                                                                                }
+                                                                                else
+                                                                                {
+                                                                                    <div class="col" style="margin-top:41px">
+                                                                                        <button type="submit" class="btn btn-danger" id="add-btn">Add</button>
+                                                                                    </div>
+                                                                                }
+                                                                            </div>
+                                                                        </div>
+                                                                    }
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="">
+                                                        <div class="col-lg-12">
+                                                            <div class="" id="leadsList">
+                                                                <div class="card-body">
+                                                                    <div>
+                                                                        <div class="table-responsive table-card">
+                                                                            <table class="table align-middle ccssb" id="HumidityTables">
+                                                                                <thead class="table-light">
+                                                                                    <tr>
+                                                                                        <th class="" data-sort="name">Sr No.</th>
+                                                                                        <th class="" data-sort="leads_score">Inspection Date</th>
+                                                                                        <th class="" data-sort="phone">Start Time</th>
+                                                                                        <th class="" data-sort="location">End Time</th>
+                                                                                        <th class="" data-sort="tags">Inspection  Qty</th>
+                                                                                        <th class="" data-sort="date">Ins By</th>
+                                                                                        <th class="" data-sort="action">Action</th>
+                                                                                    </tr>
+                                                                                </thead>
+                                                                                <tbody class="list form-check-all">
+                                                                                    @if (Model != null && Model.SUBMODEL != null && Model.SUBMODEL.Count > 0)
+                                                                                    {
+                                                                                        foreach (var item in Model.SUBMODEL.Where(item => item.InspectionTYPE == "Humidity"))
+                                                                                        {
+                                                                                            <tr>
+                                                                                                <td>
+                                                                                                    @Html.DisplayFor(modelItem => Count)
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                    @Html.DisplayFor(modelItem => item.inspectiondate)
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                    @Html.DisplayFor(modelItem => item.StartTime)
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                    @if (item.EndTime != null && item.InspectedQty != null)
+                                                                                                    {
+                                                                                                        @Html.TextBoxFor(model => item.EndTime, new { @class = "aspNetDisabled form-control", @type = "time" })
+                                                                                                    }
+                                                                                                    else
+                                                                                                    {
+                                                                                                        @Html.TextBoxFor(model => item.EndTime, new { @class = "aspNetDisabled form-control endtime-input", @type = "time" })
+                                                                                                    }
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                    @if (item.EndTime != null && item.InspectedQty != null)
+                                                                                                    {
+                                                                                                        @Html.TextBoxFor(model => item.InspectedQty, new { @class = "aspNetDisabled form-control", @id = "insqttyHumidity" })
+                                                                                                    }
+                                                                                                    else
+                                                                                                    {
+                                                                                                        @Html.TextBoxFor(model => item.InspectedQty, new { @class = "aspNetDisabled form-control quantity-input" })
+                                                                                                    }
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                    @Html.DisplayFor(modelItem => item.InspectionBy)
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                    @if (item.EndTime != null && item.InspectedQty != null)
+                                                                                                    {
+                                                                                                        <button type="submit" class="btn rounded-pill btn-danger waves-effect waves-light" disabled>Close</button>
+                                                                                                    }
+                                                                                                    else
+                                                                                                    {
+                                                                                                        <button type="button" id="openbtn" class="btn rounded-pill btn-success waves-effect waves-light openbtn">Open</button>
+                                                                                                    }
+                                                                                                    <button type="submit" class="btn rounded-pill btn-danger waves-effect waves-light closebtn" onclick="getendidqty(@item.id,'Humidity')">Close</button>
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            Count++;
+                                                                                        }
+                                                                                    }
+                                                                                </tbody>
+                                                                            </table>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            }
+
+                                        </div>
+                                    </div>
+                                }
+
+                            }
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
-<div class="row">
-    <div class="col-lg-12">
-        <div class="card" id="leadsList">
-            <div class="card-body">
-                <div>
-                    <div class="table-responsive table-card">
-                        <table class="table align-middle ccssb" id="customerTables">
-                            <thead class="table-light">
-                                <tr>
-                                    <th class="" data-sort="name">Sr No.</th>
-                                    <th class="" data-sort="leads_score">Inspection Date</th>
-                                    <th class="" data-sort="phone">Start Time</th>
-                                    <th class="" data-sort="location">End Time</th>
-                                    <th class="" data-sort="tags">Inspection  Qty</th>
-                                    <th class="" data-sort="date">Ins By</th>
-                                    <th class="" data-sort="action">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody class="list form-check-all">
+<script>
 
-                                @if (Model != null)
-                                {
-                                    if (Model.SUBMODEL != null && Model.SUBMODEL.Count > 0)
-                                    {
-
-                                        foreach (var item in Model.SUBMODEL)
-                                        {
-                                            <tr>
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => Count)
-                                                </td>
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.inspectiondate)
-                                                </td>
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.StartTime)
-                                                </td>
-                                                @if (item.EndTime != null && item.InspectedQty != null)
-                                                {
-                                                    <td>
-                                                        @Html.TextBoxFor(model => item.EndTime, new { @class = "aspNetDisabled form-control", @type = "time", })
-                                                    </td>
-                                                    <td>
-                                                        @Html.TextBoxFor(model => item.InspectedQty, new { @class = "aspNetDisabled form-control" })
-                                                    </td>
-                                                }
-                                                else
-                                                {
-                                                    <td>
-                                                        @Html.TextBoxFor(model => item.EndTime, new { @class = "aspNetDisabled form-control  endtime-input", @type = "time", })
-                                                    </td>
-                                                    <td>
-                                                        @Html.TextBoxFor(model => item.InspectedQty, new { @class = "aspNetDisabled form-control quantity-input" })
-                                                    </td>
-                                                }
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.InspectionBy)
-                                                </td>
-                                                <td>
-                                                    @if (item.EndTime != null && item.InspectedQty != null)
-                                                    {
-                                                        <button type="submit" class="btn rounded-pill btn-danger waves-effect waves-light" disabled>Close</button>
-                                                    }
-                                                    else
-                                                    {
-                                                        <button type="button" id="openbtn" class="btn rounded-pill btn-success waves-effect waves-light openbtn">Open</button>
-                                                    }
-                                                    <button type="submit" class="btn rounded-pill btn-danger waves-effect waves-light closebtn" onclick="getendidqty(@item.id)">Close</button>
-                                                </td>
-                                            </tr>
-
-                                            Count++;
-                                        }
-                                    }
-                                }
-                            </tbody>
-
-                        </table>
-                    </div>
-                </div>
-            </div>
-            <!--end col-->
-        </div>
-
-        <!--end row-->
-
-        <script>
     $(document).ready(function () {
+        debugger
+        function validateAndSubmitForm() {
+            debugger
+            var Fdate = $('.invdate').val();
+            var date = $('.fdate').val();
+            var parsedFdate = new Date(Fdate);
+            var parsedDate = new Date(date);
+            var form = document.getElementById("myFormvs");
+
+            if (parsedFdate <= parsedDate) {
+                form.submit();
+            } else {
+                alert("please enter valid date");
+                console.log("Form is invalid");
+            }
+        }
+        $('#showModalhhh').modal('show');
+
+        $("#add-btn").on("click", function (e) {
+            e.preventDefault();
+            validateAndSubmitForm();
+        });
+
+
         $(".endtime-input").hide();
         $(".quantity-input").hide();
         $(".closebtn").hide();
@@ -281,7 +1661,6 @@
             row.find('.openbtn').hide();
             row.find('.closebtn').show();
         });
-
 
 
             var successMessage = '@TempData["SuccessMessage"]';
@@ -325,38 +1704,115 @@
         }
     });
 
-        </script>
-        <script>
-            function getendidqty(id) {
+</script>
 
-                var endt = $('.endtime-input').val();
-                var qty = $('.quantity-input').val();
+<script>
 
-                $.ajax({
-                    url: '/visualinspection/ENDTIMEQTY?id=' + id + '&endtime=' + endt + '&qty=' + qty,
-                    type: 'POST',
-                    success: function (response) {
-                        location.reload();
-                    },
-                    error: function (error) {
-                        // Handle error if needed
-                        console.error(error);
-                    }
-                });
+    function openModalWithValues(typevalue) {
+        debugger
+        document.getElementById('hiddenTypeValue').value = typevalue;
+        var myModal = new bootstrap.Modal(document.getElementById('SHOWMODELTOGETSQTY'));
+        myModal.show();
+    }
+
+    function getendidqty(id, typevalue) {
+        debugger
+        var inspectiontype = typevalue;
+
+        var endt = $('.endtime-input').val();
+        var qty = $('.quantity-input').val();
+        var MSqty = "";
+        var quantities = [];
+        let sum = parseInt(qty);
+
+        if (typevalue == "Final") {
+            var finaltable = document.getElementById("FinalTables");
+            MSqty = $('#smainqtyFinal').val();
+            for (var i = 1; i < finaltable.rows.length; i++) {
+
+                var finals = finaltable.rows[i].querySelector('input[id="insqttyFinal"]');
+                if (finals != null) {
+                    quantities.push(parseFloat(finals.value) || 0);
+                }
             }
-
-        </script>
-        @section scripts{
-            <!-- list.js min js -->
-            <script src="~/Content/assets/libs/list.js/list.min.js"></script>
-            <script src="~/Content/assets/libs/list.pagination.js/list.pagination.min.js"></script>
-
-            <!-- Sweet Alerts js -->
-            <script src="~/Content/assets/libs/sweetalert2/sweetalert2.min.js"></script>
-            <!-- crm leads init -->
-            <script src="~/Content/assets/js/pages/crm-leads.init.js"></script>
-
-            <!-- App js -->
-            <script src="~/Content/assets/js/app.js"></script>
         }
+        else if (typevalue == "Visual") {
+            var Visualtable = document.getElementById("VisualTables");
+            MSqty = $('#smainqtyVisual').val();
+            for (var i = 1; i < Visualtable.rows.length; i++) {
+
+                var visual = Visualtable.rows[i].querySelector('input[id="insqttyVisual"]');
+                if (visual != null) {
+                    quantities.push(parseFloat(visual.value) || 0);
+                }
+            }
+        }
+        else if (typevalue == "Thread") {
+            var Threadtable = document.getElementById("ThreadTables");
+            MSqty = $('#smainqtyThread').val();
+            for (var i = 1; i < Threadtable.rows.length; i++) {
+
+                var thared = Threadtable.rows[i].querySelector('input[id="insqttyThread"]');
+                if (thared != null) {
+                    quantities.push(parseFloat(thared.value) || 0);
+                }
+            }
+        }
+        else if (typevalue == "Humidity") {
+            var Humiditytable = document.getElementById("HumidityTables");
+            MSqty = $('#smainqtyHumidity').val();
+            for (var i = 1; i < Humiditytable.rows.length; i++) {
+
+                var humidity = Humiditytable.rows[i].querySelector('input[id="insqttyHumidity"]');
+                if (humidity != null) {
+                    quantities.push(parseFloat(humidity.value) || 0);
+                }
+            }
+        }
+
+        quantities.forEach(num => {
+            sum += num;
+        })
+
+        console.log(quantities);
+
+        if (sum <= MSqty) {
+
+            $.ajax({
+                url: '/visualinspection/ENDTIMEQTY?id=' + id + '&endtime=' + endt + '&qty=' + qty + '&instype=' + inspectiontype,
+                type: 'POST',
+                success: function (response) {
+                    location.reload();
+                },
+                error: function (error) {
+
+                    console.error(error);
+                }
+            });
+        }
+        else {
+            alert("Enter valid Quantity")
+        }
+    }
+
+</script>
+@section scripts{
+    <!-- list.js min js -->
+    <script src="~/Content/assets/libs/list.js/list.min.js"></script>
+    <script src="~/Content/assets/libs/list.pagination.js/list.pagination.min.js"></script>
+
+    <!-- Sweet Alerts js -->
+    <script src="~/Content/assets/libs/sweetalert2/sweetalert2.min.js"></script>
+    <!-- crm leads init -->
+    <script src="~/Content/assets/js/pages/crm-leads.init.js"></script>
+
+    <!-- App js -->
+    <script src="~/Content/assets/js/app.js"></script>
+
+    <!-- prismjs plugin -->
+    <script src="~/Content/assets/libs/prismjs/prism.js"></script>
+
+    <!-- App js -->
+    <script src="~/Content/assets/js/app.js"></script>
+}
 

@@ -98,7 +98,7 @@ xhttp.onload = function () {
   });
   customerList.remove("id", '<a href="javascript:void(0);" class="fw-medium link-primary">#VZ2101</a>');
 }
-xhttp.open("GET", "/assets/json/table-customer-list.json");
+xhttp.open("GET", "/Content/assets/json/table-customer-list.json");
 xhttp.send();
 
 isCount = new DOMParser().parseFromString(
@@ -434,7 +434,7 @@ var attrList = new List('users', attroptions);
 attrList.add({
     name: 'Leia',
     born: '1954',
-    image: '/assets/images/users/avatar-5.jpg',
+    image: '/Content/assets/images/users/avatar-5.jpg',
     id: 5,
     timestamp: '67893'
 });

@@ -1,21 +1,25 @@
 ﻿using Inspection.Web.DataBase;
 using Inspection.Web.Models;
 using Inspection.Web.Scripts;
+using Newtonsoft.Json;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data.Entity.Infrastructure;
+using System.Data.Entity.Validation;
+using System.Drawing.Text;
 using System.Linq;
 using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Services.Description;
+using static Inspection.Web.Controllers.InwardController;
 
 namespace Inspection.Web.Controllers
 {
     [Authorize]
     public class InwardController : Controller
     {
-        // GET: Inward
         ITe_INDIAEntities DB = new ITe_INDIAEntities();
         public ActionResult _AddInward()
         {
@@ -32,10 +36,10 @@ namespace Inspection.Web.Controllers
                             InwardTime = modal.Inward_Time,
                             JobNo = modal.JobNum,
                             Partno = modal.PartNum,
-                            Stage = modal.Stage,
+                            ProcessStage = modal.Stage,
                             ERev = modal.EpiRev,
                             ActualRev = modal.ActRev,
-                            Status = modal.Status,
+                            InspectionType = modal.Inspection_Type,
                         }
                        ).ToList();
 
@@ -69,16 +73,16 @@ namespace Inspection.Web.Controllers
                            _data.Inward_Date = model._INWARD.InwardDate;
                            _data.JobNum = model._INWARD.JobNo;
                            _data.PartNum = model._INWARD.Partno;
-                           _data.Stage = model._INWARD.Stage;
+                           _data.Stage = model._INWARD.ProcessStage;
                            _data.EpiRev = model._INWARD.ERev;
                            _data.ActRev = model._INWARD.ActualRev;
                            _data.qty = model._INWARD.Qty;
-                           _data.Status = model._INWARD.Status;
-                           _data.Inspection_Type = model._INWARD.Status;
+                           _data.Statuschange = false;
+                           _data.Inspection_Type = model._INWARD.InspectionType;
                             _data.CurrentDate = DateTime.Now;
                             DB.SaveChanges();
 
-                            TempData["SuccessMessage"] = "Data Updated successfully.";
+                           // TempData["SuccessMessage"] = "Data Updated successfully.";
 
                         }
                         else
@@ -90,11 +94,11 @@ namespace Inspection.Web.Controllers
                                 model._INWARD.Partno = _job.PartNum;
                                 model._INWARD.ERev = _job.RevisionNum;
                             }
-                            int stage = Convert.ToInt32(model._INWARD.Stage);
+                            int stage = Convert.ToInt32(model._INWARD.ProcessStage);
                             Final_Inspection_Stage_Master _stage = DB.Final_Inspection_Stage_Master.Where(v => v.Stage == stage).FirstOrDefault();
                             if (_stage != null)
                             {
-                                model._INWARD.Stage = $"{_stage.stage_part_status.Trim()} - {_stage.Stage}";
+                                model._INWARD.ProcessStage = $"{_stage.stage_part_status.Trim()} - {_stage.Stage}";
                             }
 
                             int ID = DB.Final_Inspection_Data.Where(p => p.MID == 1).Count() > 0 ? Convert.ToInt32(DB.Final_Inspection_Data.Where(p => p.MID == 1).Max(p => p.ID) + 1) : 1;
@@ -104,19 +108,15 @@ namespace Inspection.Web.Controllers
                             _Inspection_Data.MID = 1;
                             _Inspection_Data.Inspection_ID = "Insp" + ID;
                             _Inspection_Data.Inward_Time = model._INWARD.InwardTime;
-                            _Inspection_Data.Inward_Date = model._INWARD.InwardDate;
+                            _Inspection_Data.Inward_Date = model._INWARD.InwardDate;//InwardDate = Convert.ToDateTime(model.Inward_Date).ToString("yyyy-MM-dd"),
                             _Inspection_Data.JobNum = model._INWARD.JobNo;
                             _Inspection_Data.PartNum = model._INWARD.Partno;
-                            _Inspection_Data.Stage = model._INWARD.Stage;
+                            _Inspection_Data.Stage = model._INWARD.ProcessStage;
                             _Inspection_Data.EpiRev = model._INWARD.ERev;
                             _Inspection_Data.ActRev = model._INWARD.ActualRev;
                             _Inspection_Data.qty = model._INWARD.Qty;
-                            _Inspection_Data.Status = model._INWARD.Status;
-                            _Inspection_Data.Inspection_Type = model._INWARD.Status;
-                            //_Inspection_Data.Final_Inspection = _model.finalinspection;
-                            //_Inspection_Data.Humidity_Inspection = _model.humidity;
-                            //_Inspection_Data.Thread_Inspection = _model.threadinspection;
-                            //_Inspection_Data.Visual_Inspection = _model.visualinspection;
+                            _Inspection_Data.Statuschange = false;
+                            _Inspection_Data.Inspection_Type = model._INWARD.InspectionType;
                             _Inspection_Data.CurrentDate = DateTime.Now;
                             _Inspection_Data.Active = true;
                             _Inspection_Data.Delete = false;
@@ -143,7 +143,7 @@ namespace Inspection.Web.Controllers
 
         public ActionResult Edit(int id)
         {
-            MainInwardModel model = new MainInwardModel();
+            MainInwardModel models = new MainInwardModel();
             InwardDataModel _model = new InwardDataModel();
             List<InwardDataModel> List = new List<InwardDataModel>();
             try
@@ -159,10 +159,10 @@ namespace Inspection.Web.Controllers
                         {
                             _model.id = _data.ID;
                             _model.InwardDate = _data.Inward_Date;
-                            _model.Status = _data.Status;
+                            _model.InspectionType = _data.Inspection_Type;
                             _model.JobNo = _data.JobNum;
                             _model.Partno = _data.PartNum;
-                            _model.Stage =_model.Stage;
+                            _model.ProcessStage = _model.ProcessStage;
                             _model.ERev = _data.EpiRev;
                             _model.ActualRev = _data.ActRev;
                             _model.Qty = _data.qty;
@@ -177,10 +177,10 @@ namespace Inspection.Web.Controllers
                                     InwardTime = modal.Inward_Time,
                                     JobNo = modal.JobNum,
                                     Partno = modal.PartNum,
-                                    Stage = modal.Stage,
+                                    ProcessStage = modal.Stage,
                                     ERev = modal.EpiRev,
                                     ActualRev = modal.ActRev,
-                                    Status = modal.Status,
+                                    InspectionType = modal.Inspection_Type,
                                 }
                      ).ToList();
 
@@ -188,8 +188,6 @@ namespace Inspection.Web.Controllers
                     catch (Exception ex)
                     {
                     }
-                   
-                   
                 }
             }
             catch (Exception ex)
@@ -233,10 +231,10 @@ namespace Inspection.Web.Controllers
                                     InwardTime = modal.Inward_Time,
                                     JobNo = modal.JobNum,
                                     Partno = modal.PartNum,
-                                    Stage = modal.Stage,
+                                    ProcessStage = modal.Stage,
                                     ERev = modal.EpiRev,
                                     ActualRev = modal.ActRev,
-                                    Status = modal.Status,
+                                    InspectionType = modal.Inspection_Type,
                                 }
                      ).ToList();
 
@@ -284,5 +282,85 @@ namespace Inspection.Web.Controllers
             return Json(null, JsonRequestBehavior.AllowGet);
         }
 
+        public ActionResult finalinwarddata(FormCollection form)
+        {
+            string successMessage = "";
+            string warningMessage = "";
+            string errormessage = "";
+
+            string jsonData = form["jsonData"];
+            List<List<InwardItem>> yourData = JsonConvert.DeserializeObject<List<List<InwardItem>>>(jsonData);
+            var jobno = yourData.SelectMany(list => list).FirstOrDefault(item => item.name == "_INWARD.JobNo").value;
+
+            Final_Inspection_Data _datas = DB.Final_Inspection_Data.Where(l => l.JobNum == jobno).FirstOrDefault();
+            if (_datas == null)
+            {
+                foreach (var item in yourData)
+                {
+                    try
+                    {
+
+                        Final_Inspection_Data _data = new Final_Inspection_Data();
+
+                        int ID = DB.Final_Inspection_Data.Where(p => p.MID == 1).Count() > 0 ? Convert.ToInt32(DB.Final_Inspection_Data.Where(p => p.MID == 1).Max(p => p.ID) + 1) : 1;
+                        _data.ID = ID;
+                        _data.MID = 1;
+                        _data.Inspection_ID = "Insp" + ID;
+                        _data.Inward_Time = item.First(i => i.name == "_INWARD.InwardTime").value;
+                        _data.Inward_Date = DateTime.Parse(item.First(i => i.name == "_INWARD.InwardDate").value);
+                        _data.JobNum = item.First(i => i.name == "_INWARD.JobNo").value;
+                        _data.PartNum = item.First(i => i.name == "_INWARD.Partno").value;
+                        _data.Stage = item.First(i => i.name == "_INWARD.ProcessStage").value;
+                        _data.QualityStage = item.First(i => i.name == "_INWARD.QualityStage").value;
+                        _data.EpiRev = item.First(i => i.name == "_INWARD.ERev").value;
+                        _data.ActRev = item.First(i => i.name == "_INWARD.ActualRev").value;
+                        _data.qty = item.First(i => i.name == "_INWARD.Qty").value;
+                        _data.Statuschange = false;
+                        _data.Inspection_Type = item.First(i => i.name == "_INWARD.InspectionType").value.Trim();
+                        _data.CurrentDate = DateTime.Now;
+                        DB.Final_Inspection_Data.Add(_data);
+                        DB.SaveChanges();
+
+                        successMessage = "Data Saved Successfually!";
+
+                    }
+
+                    catch (DbEntityValidationException ex)
+                    {
+                        errormessage = ex.Message;
+
+                        foreach (var validationErrors in ex.EntityValidationErrors)
+                        {
+                            foreach (var validationError in validationErrors.ValidationErrors)
+                            {
+                                Console.WriteLine($"Property: {validationError.PropertyName}, Error: {validationError.ErrorMessage}");
+                            }
+                        }
+                    }
+
+                }
+            }
+            else
+            {
+                warningMessage = "JobNo is all ready Exist!";
+            }
+            var response = new
+            {
+                
+                successMessage = successMessage,
+                errormessage = errormessage,
+                warningMessage = warningMessage,
+                
+            };
+
+            return Json(response, JsonRequestBehavior.AllowGet);
+        }
+
+
+        public class InwardItem
+        {
+            public string name { get; set; }
+            public string value { get; set; }
+        }
     }
 }

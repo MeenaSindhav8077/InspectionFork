@@ -20,6 +20,9 @@ namespace Inspection.Web.DataBase
         public string Remark { get; set; }
         public Nullable<bool> Active { get; set; }
         public Nullable<bool> Deleted { get; set; }
-        public Nullable<int> Qty { get; set; }
+        public string Desicion { get; set; }
+        public string Rcode { get; set; }
+        public string SubQty { get; set; }
+        public string DesicionSubQty { get; set; }
     }
 }

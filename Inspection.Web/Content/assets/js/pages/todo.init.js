@@ -12,10 +12,10 @@ var todoList = [{
     'todo': 'Added Email Templates',
     "assignedto": [{
             "assigneeName": "Curtis Saenz",
-            "assigneeImg": "assets/images/users/avatar-1.jpg",
+            "assigneeImg": "Content/assets/images/users/avatar-1.jpg",
         },{
             "assigneeName": "John Robles",
-            "assigneeImg": "assets/images/users/avatar-3.jpg",
+        "assigneeImg": "/Content/assets/images/users/avatar-3.jpg",
         }
     ],
     'dueDate': '03 Apr, 2022',
@@ -66,7 +66,7 @@ var todoList = [{
     'todo': 'Added new tabs styles',
     "assignedto": [{
             "assigneeName": "James Forbes",
-            "assigneeImg": "assets/images/users/avatar-2.jpg",
+        "assigneeImg": "Content/assets/images/users/avatar-2.jpg",
         }
     ],
     'dueDate': '01 May, 2022',
@@ -192,13 +192,13 @@ var todoList = [{
     'todo': 'Brand Logo design',
     "assignedto": [{
             "assigneeName": "James Forbes",
-            "assigneeImg": "assets/images/users/avatar-2.jpg",
+        "assigneeImg": "Content/assets/images/users/avatar-2.jpg",
         },{
             "assigneeName": "Anthony Mills",
-            "assigneeImg": "assets/images/users/avatar-10.jpg",
+        "assigneeImg": "Content/assets/images/users/avatar-10.jpg",
         },{
             "assigneeName": "Diego Norris",
-            "assigneeImg": "assets/images/users/avatar-9.jpg",
+        "assigneeImg": "Content/assets/images/users/avatar-9.jpg",
         }
     ],
     'dueDate': '25 Apr, 2022',

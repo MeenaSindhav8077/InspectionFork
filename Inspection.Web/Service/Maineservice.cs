@@ -18,8 +18,9 @@ namespace Inspection.Web.Service
 
             List<SelectListItem> selectListItems = dbData.Select(tol => new SelectListItem
             {
-                Value = tol.Stage.ToString(),
-                Text = $"{tol.stage_part_status} - {tol.Stage}"
+                Value = tol.stage_part_status.ToString(),
+                //Text = $"{tol.stage_part_status} - {tol.Stage}"
+                Text = tol.stage_part_status.ToString(),
             }).ToList();
 
             return selectListItems;

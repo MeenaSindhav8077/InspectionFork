@@ -1,0 +1,256 @@
+﻿@model Inspection.Web.Models.mrbmainmodel
+@using Inspection.Web.Service
+@{
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section styles{
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+    <!-- dropzone css -->
+    <link rel="stylesheet" href="~/Content/assets/libs/dropzone/dropzone.css" type="text/css" />
+
+    <!-- Sweet Alert css-->
+    <link href="~/Content/assets/libs/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css" />
+}
+@{
+    int count = 1;
+    var inspectionservice = new Inspection.Web.Scripts.Inspectionservice();
+}
+
+<div id="yourDivId">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header align-items-center d-flex">
+                    <h4 class="card-title mb-0 flex-grow-1">MRb Ragister</h4>
+                    <div class="flex-shrink-0">
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="live-preview">
+                        <div class="row gy-4">
+                            <div class="col-xxl-3 col-md-6">
+                                <div>
+                                    <div>
+                                        <label>Job No</label>
+                                        @Html.TextBoxFor(model => model._MrbModel.jobno, new { @disabled = "disabled", @class = "aspNetDisabled form-control" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xxl-3 col-md-6">
+                                <div>
+                                    <label>Part No</label>
+                                    @Html.TextBoxFor(model => model._MrbModel.partno, new { @disabled = "disabled", @class = "form-control", id = "exampleInputdate" })
+                                </div>
+                            </div>
+                            <div class="col-xxl-3 col-md-6">
+                                <div>
+                                    <label>Qty</label>
+                                    @Html.TextBoxFor(model => model._MrbModel.Qty, new { @disabled = "disabled", @class = "form-control", id = "exampleInputdate" })
+                                </div>
+                            </div>
+                            <div class="col-xxl-3 col-md-6">
+                                <div>
+                                    <label>Inspection Type</label>
+                                    @Html.TextBoxFor(model => model._MrbModel.status, new { @disabled = "disabled", @class = "form-control", id = "exampleInputdate" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>=
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-body p-4">
+            @using (Html.BeginForm("AddDesicion", "MRB", FormMethod.Post))
+            {
+                @Html.HiddenFor(model => model._MrbModel.Id)
+                for (int i = 0; i < Model.mrbdecisioModel.Count; i++)
+                {
+                    @Html.HiddenFor(model => model.mrbdecisioModel[i].Id)
+                }
+                <div class="table-responsive">
+                    <table class="table table-bordered border-secondary table-nowrap align-middle mb-0">
+                        <thead class="align-middle">
+                            <tr class="table-active">
+                                <th scope="col">Sr No</th>
+                                <th scope="col">Quantity</th>
+                                <th scope="col">RCode</th>
+                                <th scope="col">Defect</th>
+                                <th scope="col">Location</th>
+                                <th scope="col">MRB Decision</th>
+                            </tr>
+                        </thead>
+                        <tbody id="">
+                            @foreach (var item in Model.mrbdecisioModel)
+                            {
+                                <tr id="1" class="">
+                                    <th scope="row" class="product-id">@count</th>
+
+                                    <td class="text-start">
+                                        <div class="mb-2">
+                                            <input type="text" class="form-control" value="@item.Qty" name="Qty" id="productName-1" required />
+                                        </div>
+                                    </td>
+                                    <td>
+                                        @{
+                                            List<SelectListItem> desSelectList = inspectionservice.GetDescription();
+                                            List<SelectListItem> rcodeSelectList = inspectionservice.GetRcodes();
+                                            List<SelectListItem> desicionSelectList = inspectionservice.Getdesicion();
+                                        }
+                                        @foreach (var rcods in item.Rcode)
+                                        {
+                                            @Html.TextBoxFor(model => rcods, new { @class = "form-control product-location", @name = "rcode", @id = "productLocation-1" })
+                                        }
+                                    </td>
+                                    <td>
+                                        @foreach (var des in item.Description)
+                                        {
+                                            @Html.TextBoxFor(model => des, new { @class = "form-control product-location", @name = "desc", @id = "productLocation-1" })
+                                        }
+                                    </td>
+                                    <td>
+                                        @foreach (var ls in item.location)
+                                        {
+                                            @Html.TextBoxFor(model => ls, new { @class = "form-control product-location", @name = "location", @id = "productLocation-1" })
+                                        }
+                                    </td>
+                                    @if (item?.Desicion != null && item.Desicion.Any(decision => decision != null))
+                                    {
+                                        <td>
+                                            @foreach (var desss in item.Desicion)
+                                            {
+                                                @Html.TextBoxFor(model => desss, new { @class = "form-control product-location", @name = "desicion", @id = "productLocation-1" })
+                                            }
+                                        </td>
+                                    }
+                                    else
+                                    {
+                                        <td>
+                                            @for (var i = 0; i < item.location.Count; i++)
+                                            {
+                                                @Html.DropDownListFor(model => model.Mrbdecisio, new SelectList(desicionSelectList, "Text", "Text"), new { @class = "form-control product-location", @name = "desicion", @id = "productLocation-1" })
+                                            }
+                                        </td>
+                                    }
+                                </tr>
+                                count++;
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-xxl-3 md-6">
+                    <button id="generatePdfBtn">Generate PDF</button>
+                </div>
+                <div class="col-xxl-3 md-6">
+                </div>
+                <div class="col-xxl-3 md-6">
+                    <button type="submit" class="btn btn-primary waves-effect waves-light" style="margin-left: 1482px; margin-top: 100px;">Update</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script src="~/Content/assets/libs/prismjs/prism.js"></script>
+
+    <script src="~/Content/assets/js/app.js"></script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="~/Content/assets/js/pages/select2.init.js"></script>
+    <script src="~/Content/assets/js/app.js"></script>
+    <script src="~/Content/assets/libs/dropzone/dropzone-min.js"></script>
+    <script src="~/Content/assets/libs/cleave.js/cleave.min.js"></script>
+    <script src="~/Content/assets/js/pages/invoicecreate.init.js"></script>
+    <script src="~/Content/assets/libs/sweetalert2/sweetalert2.min.js"></script>
+    <script src="~/Content/assets/js/pages/sweetalerts.init.js"></script>
+    <script src="~/Content/assets/js/app.js"></script>
+    <script src="~/Content/assets/libs/dropzone/dropzone-min.js"></script>
+    <script src="~/Content/assets/libs/cleave.js/cleave.min.js"></script>
+    <script src="~/Content/assets/js/pages/invoicecreate.init.js"></script>
+    <script src="~/Content/assets/libs/sweetalert2/sweetalert2.min.js"></script>
+    <script src="~/Content/assets/js/app.js"></script>
+}
+@{
+    int countw = Model.mrbdecisioModel.Count;
+}
+
+<script>
+    document.getElementById('generatePdfBtn').addEventListener('click', function () {
+        var pdf = new jsPDF();
+
+        // Get the content of the div you want to convert
+        var content = document.getElementById('yourDivId');
+
+        // Use jsPDF's html function to add the content to the PDF
+        pdf.html(content, {
+            callback: function (pdf) {
+                // Save or display the generated PDF
+                pdf.save('YourPdfFileName.pdf');
+            }
+        });
+    });
+</script>
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+    var count = Number(@countw); // Assuming countw is a Razor variable
+    var id = document.getElementById("productRate-" + count);
+    console.log(id);
+    for (var i = 0; i < count; i++) {
+        var id = document.getElementById("productRate-" + i);
+        console.log(id);
+    }
+});
+
+
+</script>
+<script>
+    function test() {
+        // Prevent the default form submission
+        console.log();
+
+        // Gather form data
+        var formData = $("form").serialize();
+        console.log(formData);
+
+        // Parse the serialized form data into an object
+        var formDataObject = {};
+        formData.split("&").forEach(function (pair) {
+            var keyValue = pair.split("=");
+            formDataObject[keyValue[0]] = decodeURIComponent(keyValue[1] || "");
+        });
+
+        // Create the desired object structure
+        var resultObject = {
+            Qty: formDataObject["Qty"],
+            Rcode: formDataObject["Rcode"],
+            Location: formDataObject["location"]
+        };
+
+        console.log(resultObject);
+        console.log(formData);
+        // AJAX request to submit form data
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("AddMrbdata", "MRB")",
+            data: formData,
+            success: function (response) {
+                // Handle the response if needed
+                console.log(response);
+                // Call the test function
+                test();
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
+</script>

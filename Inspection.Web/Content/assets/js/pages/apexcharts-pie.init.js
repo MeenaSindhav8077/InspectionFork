@@ -270,7 +270,7 @@ var options = {
         type: 'image',
         opacity: 0.85,
         image: {
-            src: ['/assets/images/small/img-1.jpg', '/assets/images/small/img-2.jpg', '/assets/images/small/img-3.jpg', '/assets/images/small/img-4.jpg'],
+            src: ['/Content/assets/images/small/img-1.jpg', '/Content/assets/images/small/img-2.jpg', '/Content/assets/images/small/img-3.jpg', '/Content/assets/images/small/img-4.jpg'],
             width: 25,
             imagedHeight: 25
         },

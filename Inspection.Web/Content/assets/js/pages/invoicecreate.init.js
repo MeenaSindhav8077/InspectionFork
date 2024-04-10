@@ -1,6 +1,13 @@
+/*
+Template Name: Velzon - Admin & Dashboard Template
+Author: Themesbrand
+Website: https://Themesbrand.com/
+Contact: Themesbrand@gmail.com
+File: Invoice create init Js File
+*/
 var paymentSign = "$";
 Array.from(document.getElementsByClassName("product-line-price")).forEach(function (item) {
-	item.value = paymentSign + "0.00"
+	item.value = paymentSign +"0.00"
 });
 function otherPayment() {
 	var paymentType = document.getElementById("choices-payment-currency").value;
@@ -8,9 +15,9 @@ function otherPayment() {
 
 
 	Array.from(document.getElementsByClassName("product-line-price")).forEach(function (item) {
-		isUpdate = item.value.slice(1);
-		item.value = paymentSign + isUpdate;
-	});
+			isUpdate = item.value.slice(1);
+			item.value = paymentSign + isUpdate;
+		});
 
 	recalculateCart();
 }
@@ -31,7 +38,6 @@ document
 			"load",
 			function () {
 				preview.src = reader.result;
-				//localStorage.setItem("invoiceLogo", reader.result);
 			},
 			false
 		);
@@ -88,15 +94,14 @@ function isData() {
 
 var count = 1;
 
-
 function new_link() {
 	if (typeof count === 'undefined') {
 		debugger;
-		count = 2;
+		count = 1;
 	}
 	count++;
 	var tr1 = document.createElement("tr");
-	tr1.id = "row-" + count; // Use a consistent format for IDs
+	tr1.id = count;
 	tr1.className = "product";
 
 	var delLink =
@@ -106,53 +111,165 @@ function new_link() {
 		"</th>" +
 		'<td class="text-start">' +
 		'<div class="mb-2">' +
-		'<input class="form-control bg-light border-0" type="text" id="productName-' + count + '">' +
+		'<input class="form-control " type="text" name="Qty" id="productName-' + count + '">' +
 		'</div>' +
 		"</div>" +
 		"</td>" +
 		"<td>" +
-		'<input class="form-control bg-light border-0 product-price" type="number" id="productRate-' + count + '">' +
-		// Plus button for RCode
+		'<select class="form-control product-price" name="Rcode-' + count + '" type="number"  onchange="updateDefectOptions(this.value, ' + count + ')" id="productRate-' + count + '">' +
+		'<option value="R1">R 1</option>' +
+		'<option value="R2">R 2</option>' +
+		'<option value="R3">R 3</option>' +
+		'<option value="R4">R 4</option>' +
+		'<option value="R5">R 5</option>' +
+		'<option value="R6">R 6</option>' +
+		'<option value="R7">R 7</option>' +
+		'<option value="R8">R 8</option>' +
+		'<option value="R9">R 9</option>' +
+		'<option value="R10">R 10</option>' +
+		'<option value="R11">R 11</option>' +
+		'<option value="R12">R 12</option>' +
+		'<option value="R13">R 13</option>' +
+		'<option value="R14">R 14</option>' +
+		'<option value="R15">R 15</option>' +
+		'<option value="R16">R 16</option>' +
+		'<option value="R17">R 17</option>' +
+		'<option value="R18">R 18</option>' +
+		'<option value="R19">R 19</option>' +
+		'<option value="R20">R 20</option>' +
+		'<option value="R21">R 21</option>' +
+		'<option value="R22">R 22</option>' +
+		'<option value="R23">R 23</option>' +
+		'<option value="R23">R 23</option>' +
+		'<option value="R24">R 24</option>' +
+		'<option value="R25">R 25</option>' +
+		'<option value="R26">R 26</option>' +
+		'<option value="R27">R 27</option>' +
+		'</select>' +
 		"</td>" +
 		"<td>" +
 		'<div class="">' +
-		'<input type="number" class=" form-control bg-light border-0 product-quantity" id="productQty-' + count + '" >' +
+		'<select class="form-control " name="Defect-' + count + '"  product-quantity" id="productQty-' + count + '" >' +
+		'</select>' +
 		"</div>" +
 		"</td>" +
 		'<td class="text-end">' +
 		"<div>" +
-		'<input type="text" class="form-control bg-light border-0 product-line-price" id="productPrice-' + count + '"/>' +
+		'<input type="text" class="form-control  product-line-price" name="location-' + count + '" id="productLocation-' + count + '"/>' +
+		"</div>" +
+		"</td>" +
+		'<td class="text-end">' +
+		"<div>" +
+		'<input type="text" class="form-control  product-line-price" name="subqty-' + count + '" id="subqty-' + count + '"/>' +
 		"</div>" +
 		"</td>" +
 		'<td class="">' +
-		// Plus button for the new row
-		'<a href="javascript:void(0)" onclick="addSubRow(\'productRate-' + count + '\', \'productQty-' + count + '\', ' + count + ')" class="btn btn-success"><i class="ri-add-fill me-1 align-bottom"></i></a>' +
+		'<button type="button" name="Plusbuton" value="' + count + '" , onclick="addSubRow(\'productRate-' + count + '\', \'productQty-' + count + '\', \'productLocation-' + count + '\',\'subqty-' + count + '\', ' + count + ')" class="btn btn-success">'
+		+ '<input type="hidden" name="ButtonValue" value="' + count + '">'
+		+ '<i class="ri-add-fill me-1 align-bottom"></i></button>' +
+		"</td>" +
+		'<td class="product-removal">' +
+			'<a href="javascript:void(0)" class="btn btn-danger">Delete</a>'
 		"</td>" +
 		"</tr>";
 
 	tr1.innerHTML = document.getElementById("newForm").innerHTML + delLink;
 
 	document.getElementById("newlink").appendChild(tr1);
+	var genericExamples = document.querySelectorAll("[data-trigger]");
+	Array.from(genericExamples).forEach(function (genericExamp) {
+		var element = genericExamp;
+		new Choices(element, {
+			placeholderValue: "This is a placeholder set in the config",
+			searchPlaceholderValue: "This is a search placeholder",
+		});
+	});
 
 	isData();
 	remove();
 	amountKeyup();
-	resetRow();
+	resetRow()
 }
-function addSubRow(parentId, parentCount) {
+
+
+function addSubRow(id1, id2, id3, id4 ,count) {
 	debugger
-	var parentElement = document.getElementById(parentId);
+
+	var parentElement1 = document.getElementById(id1);
 
 	// Create a sub-row with a textbox for RCode
-	var subRow = document.createElement("tr");
-	subRow.innerHTML =
-		'<td colspan="5"></td>' +
-		'<td colspan="2">' +
-		'<input type="text" class="form-control bg-light border-0 product-line-price" />' +
-		'</td>';
+	var subRow1 = document.createElement("tr");
+	subRow1.innerHTML =
+		'<td>' +
+	'<select class="form-control  product-line-price"  name="Rcode' + id1 + '" placeholder="RCode" onchange="updateDefectOptionsinside(this.value, ' + count + ')" >' +
+		'<option value="R1">R 1</option>' +
+		'<option value="R2">R 2</option>' +
+		'<option value="R3">R 3</option>' +
+		'<option value="R4">R 4</option>' +
+		'<option value="R5">R 5</option>' +
+		'<option value="R6">R 6</option>' +
+		'<option value="R7">R 7</option>' +
+		'<option value="R8">R 8</option>' +
+		'<option value="R9">R 9</option>' +
+		'<option value="R10">R 10</option>' +
+		'<option value="R11">R 11</option>' +
+		'<option value="R12">R 12</option>' +
+		'<option value="R13">R 13</option>' +
+		'<option value="R14">R 14</option>' +
+		'<option value="R15">R 15</option>' +
+		'<option value="R16">R 16</option>' +
+		'<option value="R17">R 17</option>' +
+		'<option value="R18">R 18</option>' +
+		'<option value="R19">R 19</option>' +
+		'<option value="R20">R 20</option>' +
+		'<option value="R21">R 21</option>' +
+		'<option value="R22">R 22</option>' +
+		'<option value="R23">R 23</option>' +
+		'<option value="R23">R 23</option>' +
+		'<option value="R24">R 24</option>' +
+		'<option value="R25">R 25</option>' +
+		'<option value="R26">R 26</option>' +
+		'<option value="R27">R 27</option>' +
+		'</select>' +
+		'<td>';
+	// Insert the sub-row after the parent element
+	parentElement1.parentNode.insertBefore(subRow1, parentElement1.nextSibling);
+
+	var parentElement2 = document.getElementById(id2);
+
+	// Create a sub-row with a textbox for RCode
+	var subRow2 = document.createElement("tr");
+	subRow2.innerHTML =
+		'<td>' +
+		'<select class="form-control product-line-price"  id="insidedes-' + count + '" name="Defect - ' + count + '" placeholder="Defect">' +
+		'</select>' +
+		'<td>';
 
 	// Insert the sub-row after the parent element
-	parentElement.parentNode.insertBefore(subRow, parentElement.nextSibling);
+	parentElement2.parentNode.insertBefore(subRow2, parentElement2.nextSibling);
+
+	var parentElement3 = document.getElementById(id3);
+
+	// Create a sub-row with a textbox for RCode
+	var subRow3 = document.createElement("tr");
+	subRow3.innerHTML =
+		'<td><input type="text" class="form-control"  name="Location' + id3 +'" product-line-price"  /></td>'
+
+
+	// Insert the sub-row after the parent element
+	parentElement3.parentNode.insertBefore(subRow3, parentElement3.nextSibling);
+
+	var parentElement4 = document.getElementById(id4);
+
+	// Create a sub-row with a textbox for RCode
+	var subRow4 = document.createElement("tr");
+	subRow4.innerHTML =
+		'<td><input type="text" class="form-control"  name="subqty' + id4 + '" /></td>'
+
+
+	parentElement4.parentNode.insertBefore(subRow4, parentElement4.nextSibling);
+
+	return false;
 }
 
 remove();
@@ -179,6 +296,30 @@ function resetRow() {
 	});
 }
 
+
+function updateDescription(selectedValue) {
+	debugger
+	var defectDropdown = $('.description');
+
+	// Clear existing options
+	defectDropdown.empty();
+
+	// Make an AJAX request to get data from the server based on the selected value
+	$.ajax({
+		url:"/GetDescription/MRB",
+		method: 'GET',
+		data: { Rcode: selectedValue },
+		success: function (data) {
+			defectDropdown.append($('<option>', {
+				value: data,
+				text: data
+			}));
+		},
+		error: function (error) {
+			console.error('Error fetching data:', error);
+		}
+	});
+}
 /* Recalculate cart */
 function recalculateCart() {
 	var subtotal = 0;
@@ -302,14 +443,14 @@ var invoices = JSON.parse(invoices_list);
 if (localStorage.getItem("invoice_no") === null && localStorage.getItem("option") === null) {
 	viewobj = '';
 	var value = "#VL" + Math.floor(11111111 + Math.random() * 99999999);
-	document.getElementById("invoicenoInput").value = value;
+    document.getElementById("invoicenoInput").value = value;
 } else {
-	viewobj = invoices.find(o => o.invoice_no === invoice_no);
+    viewobj = invoices.find(o => o.invoice_no === invoice_no);
 }
 
 // Invoice Data Load On Form
 if ((viewobj != '') && (options == "edit-invoice")) {
-
+	
 	document.getElementById("registrationNumber").value = viewobj.company_details.legal_registration_no;
 	document.getElementById("companyEmail").value = viewobj.company_details.email;
 	document.getElementById('companyWebsite').value = viewobj.company_details.website;
@@ -322,12 +463,12 @@ if ((viewobj != '') && (options == "edit-invoice")) {
 	document.getElementById("companyaddpostalcode").value = viewobj.company_details.zip_code;
 
 	var preview = document.querySelectorAll(".user-profile-image");
-	if (viewobj.img !== '') {
-		preview.src = viewobj.img;
-	}
+    if (viewobj.img !== ''){
+        preview.src = viewobj.img;
+    }
 
 	document.getElementById("invoicenoInput").value = "#VAL" + viewobj.invoice_no;
-	document.getElementById("invoicenoInput").setAttribute('readonly', true);
+	document.getElementById("invoicenoInput").setAttribute('readonly',true);
 	document.getElementById("date-field").value = viewobj.date;
 	document.getElementById("choices-payment-status").value = viewobj.status;
 	document.getElementById("totalamountInput").value = "$" + viewobj.order_summary.total_amount;
@@ -356,8 +497,8 @@ if ((viewobj != '') && (options == "edit-invoice")) {
 	do {
 		counter++;
 		if (paroducts_list.length > 1) {
-			document.getElementById("add-item").click();
-		}
+            document.getElementById("add-item").click();
+        }
 	} while (paroducts_list.length - 1 >= counter);
 
 	var counter_1 = 1;
@@ -407,24 +548,24 @@ document.addEventListener("DOMContentLoaded", function () {
 		var i_no = (document.getElementById("invoicenoInput").value).slice(4);
 		var email = document.getElementById("companyEmail").value;
 		var date = document.getElementById("date-field").value;
-		var invoice_amount = (document.getElementById("totalamountInput").value).slice(1);
-		var status = document.getElementById("choices-payment-status").value;
-		var billing_address_full_name = document.getElementById("billingName").value;
-		var billing_address_address = document.getElementById("billingAddress").value;
-		var billing_address_phone = (document.getElementById("billingPhoneno").value).replace(/[^0-9]/g, "");
-		var billing_address_tax = document.getElementById("billingTaxno").value;
-		var shipping_address_full_name = document.getElementById("shippingName").value;
-		var shipping_address_address = document.getElementById("shippingAddress").value;
-		var shipping_address_phone = (document.getElementById("shippingPhoneno").value).replace(/[^0-9]/g, "");
-		var shipping_address_tax = document.getElementById("shippingTaxno").value;
-		var payment_details_payment_method = document.getElementById("choices-payment-type").value;
-		var payment_details_card_holder_name = document.getElementById("cardholderName").value;
-		var payment_details_card_number = (document.getElementById("cardNumber").value).replace(/[^0-9]/g, "");
-		var payment_details_total_amount = (document.getElementById("amountTotalPay").value).slice(1);
-		var company_details_legal_registration_no = (document.getElementById("registrationNumber").value).replace(/[^0-9]/g, "");
-		var company_details_email = document.getElementById("companyEmail").value;
-		var company_details_website = document.getElementById('companyWebsite').value;
-		var company_details_contact_no = (document.getElementById("compnayContactno").value).replace(/[^0-9]/g, "");
+        var invoice_amount = (document.getElementById("totalamountInput").value).slice(1);
+        var status = document.getElementById("choices-payment-status").value;
+        var billing_address_full_name = document.getElementById("billingName").value;
+        var billing_address_address = document.getElementById("billingAddress").value;
+        var billing_address_phone = (document.getElementById("billingPhoneno").value).replace(/[^0-9]/g, "");
+        var billing_address_tax = document.getElementById("billingTaxno").value;
+        var shipping_address_full_name = document.getElementById("shippingName").value;
+        var shipping_address_address = document.getElementById("shippingAddress").value;
+        var shipping_address_phone = (document.getElementById("shippingPhoneno").value).replace(/[^0-9]/g, "");
+        var shipping_address_tax = document.getElementById("shippingTaxno").value;
+        var payment_details_payment_method = document.getElementById("choices-payment-type").value;
+        var payment_details_card_holder_name = document.getElementById("cardholderName").value;
+        var payment_details_card_number = (document.getElementById("cardNumber").value).replace(/[^0-9]/g, "");
+        var payment_details_total_amount = (document.getElementById("amountTotalPay").value).slice(1);
+        var company_details_legal_registration_no = (document.getElementById("registrationNumber").value).replace(/[^0-9]/g, "");
+        var company_details_email = document.getElementById("companyEmail").value;
+        var company_details_website = document.getElementById('companyWebsite').value;
+        var company_details_contact_no = (document.getElementById("compnayContactno").value).replace(/[^0-9]/g, "");
 		var company_details_address = document.getElementById("companyAddress").value;
 		var company_details_zip_code = document.getElementById("companyaddpostalcode").value;
 		var order_summary_sub_total = (document.getElementById("cart-subtotal").value).slice(1);
@@ -439,12 +580,12 @@ document.addEventListener("DOMContentLoaded", function () {
 		var count = 1;
 		var new_product_obj = [];
 		Array.from(products).forEach(element => {
-			var product_name = element.querySelector("#productName-" + count).value;
-			var product_details = element.querySelector("#productDetails-" + count).value;
-			var product_rate = parseInt(element.querySelector("#productRate-" + count).value);
-			var product_qty = parseInt(element.querySelector("#product-qty-" + count).value);
-			var product_price = (element.querySelector("#productPrice-" + count).value).split("$");;
-
+			var product_name = element.querySelector("#productName-"+count).value;
+			var product_details = element.querySelector("#productDetails-"+count).value;
+			var product_rate = parseInt(element.querySelector("#productRate-"+count).value);
+			var product_qty = parseInt(element.querySelector("#product-qty-"+count).value);
+			var product_price = (element.querySelector("#productPrice-"+count).value).split("$");;
+			
 			var product_obj = {
 				product_name: product_name,
 				product_details: product_details,
@@ -455,7 +596,7 @@ document.addEventListener("DOMContentLoaded", function () {
 			new_product_obj.push(product_obj);
 			count++;
 		});
-
+		
 		if (formEvent.checkValidity() === false) {
 			formEvent.classList.add("was-validated");
 		} else {
@@ -544,7 +685,7 @@ document.addEventListener("DOMContentLoaded", function () {
 						address: company_details_address,
 						zip_code: company_details_zip_code
 					},
-					order_summary: {
+					order_summary:{
 						sub_total: order_summary_sub_total,
 						estimated_tex: order_summary_estimated_tex,
 						discount: order_summary_discount,

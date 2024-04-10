@@ -30,13 +30,13 @@ if (TableProductListAll) {
                 formatter: (function (cell) {
                     return gridjs.html('<div class="d-flex align-items-center">' +
                         '<div class="flex-shrink-0 me-3">' +
-                        '<div class="avatar-sm bg-light rounded p-1"><img src="assets/images/products/' + cell[0] + '" alt="" class="img-fluid d-block"></div>' +
+                        '<div class="avatar-sm bg-light rounded p-1"><img src="Content/assets/images/products/' + cell[0] + '" alt="" class="img-fluid d-block"></div>' +
                         '</div>' +
                         '<div class="flex-grow-1">' +
                         '<h5 class="fs-14 mb-1"><a href="apps-ecommerce-product-details.html" class="text-dark">' + cell[1] + '</a></h5>' +
                         '<p class="text-muted mb-0">Category : <span class="fw-medium">' + cell[2] + '</span></p>' +
                         '</div>' +
-                        '</div>');
+                        '</div>'); 
                 })
             },
 

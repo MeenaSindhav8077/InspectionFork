@@ -23,14 +23,14 @@
 	},
 	{
 		"id": "3",
-		"image_src": "/assets/images/users/avatar-2.jpg",
+		"image_src": "Content/assets/images/users/avatar-2.jpg",
 		"name": "Nancy Martino",
 		"company_name": "Syntyce Solutions",
 		"date": "02 Jan, 2022",
 		"leads_score": "159",
 		"phone": "786-253-9927",
 		"location": "London, UK",
-		"tags": ["Lead", "Partner"]
+		"tags": [ "Lead", "Partner" ]
 	},
 	{
 		"id": "4",

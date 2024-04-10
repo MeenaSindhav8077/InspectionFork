@@ -114,7 +114,7 @@ xhttp.onload = function () {
     });
     tasksList.remove("id", `<a href="apps-tasks-details.html" class="fw-medium link-primary">#VLZ501</a>`);
 }
-xhttp.open("GET", "/assets/json/tasks-list.json");
+xhttp.open("GET", "Content/assets/json/tasks-list.json");
 xhttp.send();
 
 isCount = new DOMParser().parseFromString(

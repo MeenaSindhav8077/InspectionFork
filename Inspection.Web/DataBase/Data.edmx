@@ -23,7 +23,6 @@
           <Property Name="ActRev" Type="nvarchar" MaxLength="50" />
           <Property Name="Sample_Qty" Type="nvarchar" MaxLength="50" />
           <Property Name="MES" Type="nvarchar" MaxLength="50" />
-          <Property Name="Status" Type="nvarchar" MaxLength="50" />
           <Property Name="Reject_Qty" Type="int" />
           <Property Name="Accept_Qty" Type="int" />
           <Property Name="Rework_Qty" Type="int" />
@@ -38,24 +37,30 @@
           <Property Name="Active" Type="bit" />
           <Property Name="Delete" Type="bit" />
           <Property Name="Is_Submiteed" Type="bit" />
+          <Property Name="Statuschange" Type="bit" />
+          <Property Name="QualityStage" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="Final_Inspection_Mrb_Data">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="SerialNo" Type="int" Nullable="false" />
-          <Property Name="Qty" Type="decimal" Precision="18" Scale="0" Nullable="false" />
-          <Property Name="RCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="Qty" Type="int" Nullable="false" />
           <Property Name="Desccription" Type="nvarchar(max)" />
           <Property Name="location" Type="nvarchar(max)" />
           <Property Name="Active" Type="bit" />
           <Property Name="Deleted" Type="bit" />
           <Property Name="Stage" Type="varchar(max)" />
-          <Property Name="Partno" Type="nvarchar" MaxLength="1" />
-          <Property Name="Jobno" Type="nvarchar" MaxLength="1" />
-          <Property Name="ERev" Type="nvarchar" MaxLength="1" />
           <Property Name="Gid" Type="int" />
+          <Property Name="JobNo" Type="nvarchar" MaxLength="100" />
+          <Property Name="PartNo" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Final_Inspection_MRB_Decision">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MRBDecision" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="Final_Inspection_Mrb_Rcode">
           <Key>
@@ -67,7 +72,10 @@
           <Property Name="Remark" Type="nvarchar(max)" />
           <Property Name="Active" Type="bit" />
           <Property Name="Deleted" Type="bit" />
-          <Property Name="Qty" Type="int" />
+          <Property Name="Desicion" Type="nvarchar" MaxLength="100" />
+          <Property Name="Rcode" Type="nvarchar" MaxLength="100" />
+          <Property Name="SubQty" Type="nvarchar(max)" />
+          <Property Name="DesicionSubQty" Type="varchar" MaxLength="255" />
         </EntityType>
         <EntityType Name="Final_Inspection_Process">
           <Key>
@@ -106,9 +114,16 @@
           <Property Name="accept_mrb" Type="nvarchar(max)" />
           <Property Name="reject_mrb" Type="nvarchar(max)" />
           <Property Name="rework_mrb" Type="nvarchar(max)" />
-          <Property Name="status" Type="nvarchar" MaxLength="50" />
           <Property Name="Stage" Type="varchar(max)" />
           <Property Name="CkMRB" Type="bit" />
+          <Property Name="Statuschange" Type="bit" />
+          <Property Name="QualityStage" Type="nvarchar(max)" />
+          <Property Name="waitingMRB" Type="bit" />
+          <Property Name="waitngsorting" Type="bit" />
+          <Property Name="deviation" Type="bit" />
+          <Property Name="reworkWAITING" Type="bit" />
+          <Property Name="packingwaiting" Type="bit" />
+          <Property Name="rejectwaiting" Type="bit" />
         </EntityType>
         <EntityType Name="Final_Inspection_Process_Rework">
           <Key>
@@ -138,6 +153,14 @@
           <Property Name="decision_of_MRB" Type="nvarchar" MaxLength="500" />
           <Property Name="MRB_Comment" Type="nvarchar" MaxLength="500" />
           <Property Name="MRB_Date" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Final_Inspection_RCode">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RCode" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="100" Nullable="false" />
         </EntityType>
         <EntityType Name="Final_Inspection_Rework">
           <Key>
@@ -250,9 +273,11 @@
         <EntityContainer Name="ITe_INDIAModelStoreContainer">
           <EntitySet Name="Final_Inspection_Data" EntityType="Self.Final_Inspection_Data" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Final_Inspection_Mrb_Data" EntityType="Self.Final_Inspection_Mrb_Data" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Final_Inspection_MRB_Decision" EntityType="Self.Final_Inspection_MRB_Decision" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Final_Inspection_Mrb_Rcode" EntityType="Self.Final_Inspection_Mrb_Rcode" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Final_Inspection_Process" EntityType="Self.Final_Inspection_Process" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Final_Inspection_Process_Rework" EntityType="Self.Final_Inspection_Process_Rework" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Final_Inspection_RCode" EntityType="Self.Final_Inspection_RCode" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Final_Inspection_Rework" EntityType="Self.Final_Inspection_Rework" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Final_Inspection_Stage_Master" EntityType="Self.Final_Inspection_Stage_Master" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Final_Inspection_UserList" EntityType="Self.Final_Inspection_UserList" Schema="dbo" store:Type="Tables" />
@@ -309,9 +334,11 @@
           <FunctionImport Name="sp_viewInvoiceData" ReturnType="Collection(ITe_INDIAModel.sp_viewInvoiceData_Result)" />
           <EntitySet Name="Final_Inspection_Data" EntityType="ITe_INDIAModel.Final_Inspection_Data" />
           <EntitySet Name="Final_Inspection_Mrb_Data" EntityType="ITe_INDIAModel.Final_Inspection_Mrb_Data" />
+          <EntitySet Name="Final_Inspection_MRB_Decision" EntityType="ITe_INDIAModel.Final_Inspection_MRB_Decision" />
           <EntitySet Name="Final_Inspection_Mrb_Rcode" EntityType="ITe_INDIAModel.Final_Inspection_Mrb_Rcode" />
           <EntitySet Name="Final_Inspection_Process" EntityType="ITe_INDIAModel.Final_Inspection_Process" />
           <EntitySet Name="Final_Inspection_Process_Rework" EntityType="ITe_INDIAModel.Final_Inspection_Process_Rework" />
+          <EntitySet Name="Final_Inspection_RCode" EntityType="ITe_INDIAModel.Final_Inspection_RCode" />
           <EntitySet Name="Final_Inspection_Rework" EntityType="ITe_INDIAModel.Final_Inspection_Rework" />
           <EntitySet Name="Final_Inspection_Stage_Master" EntityType="ITe_INDIAModel.Final_Inspection_Stage_Master" />
           <EntitySet Name="Final_Inspection_UserList" EntityType="ITe_INDIAModel.Final_Inspection_UserList" />
@@ -550,7 +577,6 @@
           <Property Name="ActRev" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Sample_Qty" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="MES" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Reject_Qty" Type="Int32" />
           <Property Name="Accept_Qty" Type="Int32" />
           <Property Name="Rework_Qty" Type="Int32" />
@@ -565,24 +591,30 @@
           <Property Name="Active" Type="Boolean" />
           <Property Name="Delete" Type="Boolean" />
           <Property Name="Is_Submiteed" Type="Boolean" />
+          <Property Name="Statuschange" Type="Boolean" />
+          <Property Name="QualityStage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Final_Inspection_Mrb_Data">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="SerialNo" Type="Int32" Nullable="false" />
-          <Property Name="Qty" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
-          <Property Name="RCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Qty" Type="Int32" Nullable="false" />
           <Property Name="Desccription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="location" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Active" Type="Boolean" />
           <Property Name="Deleted" Type="Boolean" />
           <Property Name="Stage" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="Partno" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
-          <Property Name="Jobno" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
-          <Property Name="ERev" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
           <Property Name="Gid" Type="Int32" />
+          <Property Name="JobNo" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="PartNo" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Final_Inspection_MRB_Decision">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MRBDecision" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Final_Inspection_Mrb_Rcode">
           <Key>
@@ -594,7 +626,10 @@
           <Property Name="Remark" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Active" Type="Boolean" />
           <Property Name="Deleted" Type="Boolean" />
-          <Property Name="Qty" Type="Int32" />
+          <Property Name="Desicion" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Rcode" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="SubQty" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DesicionSubQty" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Final_Inspection_Process">
           <Key>
@@ -633,9 +668,16 @@
           <Property Name="accept_mrb" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="reject_mrb" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="rework_mrb" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Stage" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="CkMRB" Type="Boolean" />
+          <Property Name="Statuschange" Type="Boolean" />
+          <Property Name="QualityStage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="waitingMRB" Type="Boolean" />
+          <Property Name="waitngsorting" Type="Boolean" />
+          <Property Name="deviation" Type="Boolean" />
+          <Property Name="reworkWAITING" Type="Boolean" />
+          <Property Name="packingwaiting" Type="Boolean" />
+          <Property Name="rejectwaiting" Type="Boolean" />
         </EntityType>
         <EntityType Name="Final_Inspection_Process_Rework">
           <Key>
@@ -665,6 +707,14 @@
           <Property Name="decision_of_MRB" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="MRB_Comment" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="MRB_Date" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="Final_Inspection_RCode">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Final_Inspection_Rework">
           <Key>
@@ -1018,6 +1068,8 @@
           <EntitySetMapping Name="Final_Inspection_Data">
             <EntityTypeMapping TypeName="ITe_INDIAModel.Final_Inspection_Data">
               <MappingFragment StoreEntitySet="Final_Inspection_Data">
+                <ScalarProperty Name="QualityStage" ColumnName="QualityStage" />
+                <ScalarProperty Name="Statuschange" ColumnName="Statuschange" />
                 <ScalarProperty Name="Is_Submiteed" ColumnName="Is_Submiteed" />
                 <ScalarProperty Name="Delete" ColumnName="Delete" />
                 <ScalarProperty Name="Active" ColumnName="Active" />
@@ -1032,7 +1084,6 @@
                 <ScalarProperty Name="Rework_Qty" ColumnName="Rework_Qty" />
                 <ScalarProperty Name="Accept_Qty" ColumnName="Accept_Qty" />
                 <ScalarProperty Name="Reject_Qty" ColumnName="Reject_Qty" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="MES" ColumnName="MES" />
                 <ScalarProperty Name="Sample_Qty" ColumnName="Sample_Qty" />
                 <ScalarProperty Name="ActRev" ColumnName="ActRev" />
@@ -1051,18 +1102,23 @@
           <EntitySetMapping Name="Final_Inspection_Mrb_Data">
             <EntityTypeMapping TypeName="ITe_INDIAModel.Final_Inspection_Mrb_Data">
               <MappingFragment StoreEntitySet="Final_Inspection_Mrb_Data">
+                <ScalarProperty Name="PartNo" ColumnName="PartNo" />
+                <ScalarProperty Name="JobNo" ColumnName="JobNo" />
                 <ScalarProperty Name="Gid" ColumnName="Gid" />
-                <ScalarProperty Name="ERev" ColumnName="ERev" />
-                <ScalarProperty Name="Jobno" ColumnName="Jobno" />
-                <ScalarProperty Name="Partno" ColumnName="Partno" />
                 <ScalarProperty Name="Stage" ColumnName="Stage" />
                 <ScalarProperty Name="Deleted" ColumnName="Deleted" />
                 <ScalarProperty Name="Active" ColumnName="Active" />
                 <ScalarProperty Name="location" ColumnName="location" />
                 <ScalarProperty Name="Desccription" ColumnName="Desccription" />
-                <ScalarProperty Name="RCode" ColumnName="RCode" />
                 <ScalarProperty Name="Qty" ColumnName="Qty" />
-                <ScalarProperty Name="SerialNo" ColumnName="SerialNo" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Final_Inspection_MRB_Decision">
+            <EntityTypeMapping TypeName="ITe_INDIAModel.Final_Inspection_MRB_Decision">
+              <MappingFragment StoreEntitySet="Final_Inspection_MRB_Decision">
+                <ScalarProperty Name="MRBDecision" ColumnName="MRBDecision" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1070,7 +1126,10 @@
           <EntitySetMapping Name="Final_Inspection_Mrb_Rcode">
             <EntityTypeMapping TypeName="ITe_INDIAModel.Final_Inspection_Mrb_Rcode">
               <MappingFragment StoreEntitySet="Final_Inspection_Mrb_Rcode">
-                <ScalarProperty Name="Qty" ColumnName="Qty" />
+                <ScalarProperty Name="DesicionSubQty" ColumnName="DesicionSubQty" />
+                <ScalarProperty Name="SubQty" ColumnName="SubQty" />
+                <ScalarProperty Name="Rcode" ColumnName="Rcode" />
+                <ScalarProperty Name="Desicion" ColumnName="Desicion" />
                 <ScalarProperty Name="Deleted" ColumnName="Deleted" />
                 <ScalarProperty Name="Active" ColumnName="Active" />
                 <ScalarProperty Name="Remark" ColumnName="Remark" />
@@ -1083,9 +1142,16 @@
           <EntitySetMapping Name="Final_Inspection_Process">
             <EntityTypeMapping TypeName="ITe_INDIAModel.Final_Inspection_Process">
               <MappingFragment StoreEntitySet="Final_Inspection_Process">
+                <ScalarProperty Name="rejectwaiting" ColumnName="rejectwaiting" />
+                <ScalarProperty Name="packingwaiting" ColumnName="packingwaiting" />
+                <ScalarProperty Name="reworkWAITING" ColumnName="reworkWAITING" />
+                <ScalarProperty Name="deviation" ColumnName="deviation" />
+                <ScalarProperty Name="waitngsorting" ColumnName="waitngsorting" />
+                <ScalarProperty Name="waitingMRB" ColumnName="waitingMRB" />
+                <ScalarProperty Name="QualityStage" ColumnName="QualityStage" />
+                <ScalarProperty Name="Statuschange" ColumnName="Statuschange" />
                 <ScalarProperty Name="CkMRB" ColumnName="CkMRB" />
                 <ScalarProperty Name="Stage" ColumnName="Stage" />
-                <ScalarProperty Name="status" ColumnName="status" />
                 <ScalarProperty Name="rework_mrb" ColumnName="rework_mrb" />
                 <ScalarProperty Name="reject_mrb" ColumnName="reject_mrb" />
                 <ScalarProperty Name="accept_mrb" ColumnName="accept_mrb" />
@@ -1142,6 +1208,15 @@
                 <ScalarProperty Name="Inspection_ID" ColumnName="Inspection_ID" />
                 <ScalarProperty Name="MID" ColumnName="MID" />
                 <ScalarProperty Name="PID" ColumnName="PID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Final_Inspection_RCode">
+            <EntityTypeMapping TypeName="ITe_INDIAModel.Final_Inspection_RCode">
+              <MappingFragment StoreEntitySet="Final_Inspection_RCode">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="RCode" ColumnName="RCode" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

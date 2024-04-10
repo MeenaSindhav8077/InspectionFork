@@ -36,6 +36,47 @@ namespace Inspection.Web.Scripts
             return selectListItems;
         }
 
+        public List<SelectListItem> GetRcodes()
+        {
+            ITe_INDIAEntities DB = new ITe_INDIAEntities();
+
+            List<SelectListItem> selectListItems = DB.Final_Inspection_RCode.GroupBy(tol => tol.RCode.Trim()).Select(group => group.FirstOrDefault()).OrderBy(k=>k.RCode)
+                .Select(tol => new SelectListItem
+                {
+                    Value = tol.ID.ToString(),
+                    Text = tol.RCode.ToString()
+                }).OrderBy(p=>p.Value).ToList();
+
+            return selectListItems;
+        }
+        public List<SelectListItem> GetDescription()
+        {
+            ITe_INDIAEntities DB = new ITe_INDIAEntities();
+
+            List<SelectListItem> selectListItems = DB.Final_Inspection_RCode.GroupBy(tol => tol.RCode.Trim()).Select(group => group.FirstOrDefault())
+                .Select(tol => new SelectListItem
+                {
+                    Value = tol.ID.ToString(),
+                    Text = tol.Description.ToString()
+                }).ToList();
+
+            return selectListItems;
+        }
+
+        public List<SelectListItem> Getdesicion()
+        {
+            ITe_INDIAEntities DB = new ITe_INDIAEntities();
+
+            List<SelectListItem> selectListItems = DB.Final_Inspection_MRB_Decision.GroupBy(tol => tol.MRBDecision.Trim()).Select(group => group.FirstOrDefault())
+                .Select(tol => new SelectListItem
+                {
+                    Value = tol.ID.ToString(),
+                    Text = tol.MRBDecision.ToString()
+                }).ToList();
+
+            return selectListItems;
+        }
+
         //public List<SelectListItem> Getstatusdrp()
         //{
         //    ITe_INDIAEntities DB = new ITe_INDIAEntities();

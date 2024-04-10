@@ -26,7 +26,6 @@ namespace Inspection.Web.DataBase
         public string ActRev { get; set; }
         public string Sample_Qty { get; set; }
         public string MES { get; set; }
-        public string Status { get; set; }
         public Nullable<int> Reject_Qty { get; set; }
         public Nullable<int> Accept_Qty { get; set; }
         public Nullable<int> Rework_Qty { get; set; }
@@ -41,5 +40,7 @@ namespace Inspection.Web.DataBase
         public Nullable<bool> Active { get; set; }
         public Nullable<bool> Delete { get; set; }
         public Nullable<bool> Is_Submiteed { get; set; }
+        public Nullable<bool> Statuschange { get; set; }
+        public string QualityStage { get; set; }
     }
 }

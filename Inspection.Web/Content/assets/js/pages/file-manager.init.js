@@ -57,7 +57,7 @@ if (chartDonutBasicColors) {
   chart.render();
 }
 
-var url="/assets/json/";
+var url ="/Content/assets/json/";
 var allFileList = '';
 var editFlag = false;
 
