@@ -32,9 +32,10 @@ namespace Inspection.Web.Controllers
                                  ERev = g.Max(p => p.EpiRev),
                                  ActualRev = g.Max(p => p.ActRev),
                                  Qty = g.Max(p => p.qty),
-                                 Statuschange = g.Select(p => p.Statuschange).All(s => s == true), // Adjust as needed
+                                 Statuschange = g.Select(p => p.Statuschange).All(s => s == true), 
                                  InspectionTypes = g.Select(p => p.Inspection_Type).ToList(),
                                  ProcessStages = g.Select(p => p.Stage).ToList(),
+                                 quiality = g.Select(p => p.QualityStage).ToList(),
                              }).ToList();
 
                 List = query.Select(item => new InwardDataModel     
@@ -50,6 +51,7 @@ namespace Inspection.Web.Controllers
                     Statuschange = item.Statuschange,
                     InspectionType = string.Join(",", item.InspectionTypes),
                     ProcessStage = string.Join(",", item.ProcessStages),
+                    QualityStage = string.Join(",", item.quiality),
                 }).OrderByDescending(model => model.id)
                   .ThenBy(model => model.JobNo)
                   .ToList();

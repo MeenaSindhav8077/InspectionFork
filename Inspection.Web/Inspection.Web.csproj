@@ -4689,6 +4689,8 @@
     <Content Include="Views\MRB\MrbDecisionPDF.cshtml" />
     <Content Include="Views\Home\Getdatatables.cshtml" />
     <Content Include="Views\Home\PartHistory.cshtml" />
+    <Content Include="Views\visualinspection\_Edit.cshtml" />
+    <Content Include="Views\visualinspection\_Editinward.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

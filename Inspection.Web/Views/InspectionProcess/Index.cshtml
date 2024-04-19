@@ -59,6 +59,7 @@
                             <th>Actual Rev</th>
                             <th>Inward Qty</th>
                             <th>Go</th>
+                            <th>Edit</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -82,6 +83,7 @@
                                     <td>@Html.DisplayFor(modelItem => item.ActualRev)</td>
                                     <td>@Html.DisplayFor(modelItem => item.Qty)</td>
                                     <td><button onclick="gobutton('@item.id','@item.InspectionType','@item.JobNo')" class="btn rounded-pill btn-primary waves-effect waves-light">Go</button></td>
+                                    <td><button onclick="editbutton('@item.JobNo')" class="btn rounded-pill btn-primary waves-effect waves-light">Edit</button></td>
                                 </tr>
                             }
                             else
@@ -102,6 +104,7 @@
                                     <td>@Html.DisplayFor(modelItem => item.ActualRev)</td>
                                     <td>@Html.DisplayFor(modelItem => item.Qty)</td>
                                     <td><button onclick="gobutton('@item.id','@item.InspectionType','@item.JobNo')" class="btn rounded-pill btn-primary waves-effect waves-light">Go</button></td>
+                                    <td><button onclick="editbutton('@item.JobNo')" class="btn rounded-pill btn-primary waves-effect waves-light">Edit</button></td>
                                 </tr>
                             }
 
@@ -157,6 +160,12 @@
         window.location.href = url;
 
     }
+    function editbutton(jobNo) {
+    debugger
+     var url = '@Url.Action("Edit", "visualinspection")' + '?jobNo=' + jobNo;
+    window.location.href = url;
+
+}
 </script>
 
 @section scripts{

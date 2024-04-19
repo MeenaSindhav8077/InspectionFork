@@ -1,0 +1,174 @@
+﻿@model  Inspection.Web.Models.MainInwardModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    int Count = 1;
+}
+
+@section styles{
+    <!--datatable css-->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css" />
+    <!--datatable responsive css-->
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.2.2/css/buttons.dataTables.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.0/xlsx.full.min.js"></script>
+}
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">Edit Data</h5>
+            </div>
+            <div class="card-body">
+                <table id="alternative-pagination" class="table nowrap dt-responsive align-middle table-hover table-bordered" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>Sr No</th>
+                            <th>Inward Date</th>
+                            <th>Inward Time</th>
+                            <th>JobNo</th>
+                            <th>PartNo</th>
+                            <th>QTY</th>
+                            <th>Inspection Type</th>
+                            <th>Redirect Inward</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model._INWARDList != null)
+                        {
+                            foreach (var item in Model._INWARDList)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => Count)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.InwardDate)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.InwardTime)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.JobNo)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Partno)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.IQTY)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.InspectionType)
+                                    </td>
+                                    <td>
+                                        @{
+                                            string type = item.InspectionType;
+                                            string jobno = item.JobNo;
+                                        }
+
+                                        <a class="btn btn-primary" onclick="openModaleditValues('@type','@jobno');">
+                                            Edit
+                                        </a>
+
+                                    </td>
+                                </tr>
+
+                                Count++;
+                            }
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="modalContent">
+    @Html.Partial("_EditInward", Model)
+</div>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<!-- Sweet Alerts js -->
+<script src="~/Content/assets/libs/sweetalert2/sweetalert2.min.js"></script>
+<link href="~/Content/assets/libs/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css" />
+<script src="~/Content/assets/libs/sweetalert2/sweetalert2.min.js"></script>
+<script src="~/Content/assets/js/pages/sweetalerts.init.js"></script>
+<script>
+
+        var successMessage = '@TempData["SuccessMessage"]';
+     var WarningMessage = '@TempData["WarningMessage"]';
+
+if (successMessage) {
+    Swal.fire({
+        html: '<div class="mt-3">' +
+            '<lord-icon src="https://cdn.lordicon.com/lupuorrc.json" trigger="loop" colors="primary:#0ab39c,secondary:#405189" style="width:120px;height:120px"></lord-icon>' +
+            '<div class="mt-4 pt-2 fs-15">' +
+            '<h4>Well done !</h4>' +
+            '<p class="text-muted mx-4 mb-0">' + successMessage + '</p>' +
+            '</div>' +
+            '</div>',
+        showCancelButton: true,
+        showConfirmButton: false,
+        cancelButtonClass: 'btn btn-primary w-xs mb-1',
+        cancelButtonText: 'Back',
+        buttonsStyling: false,
+        showCloseButton: true
+    });
+}
+else if (WarningMessage) {
+
+    Swal.fire({
+        html: '<div class="mt-3">' +
+            '<lord-icon src="https://cdn.lordicon.com/tdrtiskw.json" trigger="loop" colors="primary:#f06548,secondary:#f7b84b" style="width:120px;height:120px"></lord-icon>' +
+            '<div class="mt-4 pt-2 fs-15">' +
+            '<h4>Oops...! Something went Wrong !</h4>' +
+            '<p class="text-muted mx-4 mb-0">' + WarningMessage + '</p>' +
+            '</div>' +
+            '</div>',
+        showCancelButton: true,
+        showConfirmButton: false,
+        cancelButtonClass: 'btn btn-primary w-xs mb-1',
+        cancelButtonText: 'Dismiss',
+        buttonsStyling: false,
+        showCloseButton: true
+    })
+
+}
+    $(document).ready(function () {
+        //$('#editinwarddata').modal('hide'); // Show the modal
+    });
+
+    function openModaleditValues(jobNo, inspectionType) {
+        debugger
+        $.ajax({
+            url: '/visualinspection/_Edit',
+            type: 'GET',
+            data: { jobno: jobNo, inspectiontype: inspectionType },
+            success: function (data) {
+                debugger
+                $('#modalContent').html(data);
+                $('#editinwarddata').modal('show');
+            },
+            error: function (xhr, status, error) {
+                console.error(error);
+            }
+        });
+    }
+</script>
+
+@section scripts{
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.2.2/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.print.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.html5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="~/Content/assets/js/pages/datatables.init.js"></script>
+    <script src="~/Content/assets/js/app.js"></script>
+}
+

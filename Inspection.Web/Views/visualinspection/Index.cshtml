@@ -231,10 +231,6 @@
 
                         };
                     }
-                    <div class="mb-3">
-                        @Html.LabelFor(model => model._submodel.MES, new { @class = "form-label" })
-                        @Html.DropDownListFor(model => model._submodel.MES, staticData, new { @class = "form-select mb-3 js-example-basic-single" })
-                    </div>
                 </div>
                 <div class="modal-footer">
                     <div class="hstack gap-2 justify-content-end">
@@ -381,7 +377,7 @@
                                                                                                     }
                                                                                                     else
                                                                                                     {
-                                                                                                        @Html.TextBoxFor(model => item.EndTime, new { @class = "aspNetDisabled form-control endtime-input", @type = "time" })
+                                                                                                        @Html.TextBoxFor(model => item.EndTime, new { @class = "aspNetDisabled form-control endtime-inputfinal", @id= "Finalendtime", @type = "time" })
                                                                                                     }
                                                                                                 </td>
                                                                                                 <td>
@@ -391,7 +387,7 @@
                                                                                                     }
                                                                                                     else
                                                                                                     {
-                                                                                                        @Html.TextBoxFor(model => item.InspectedQty, new { @class = "aspNetDisabled form-control quantity-input" })
+                                                                                                        @Html.TextBoxFor(model => item.InspectedQty, new { @class = "aspNetDisabled form-control quantity-input" ,@id= "FinalQty" })
                                                                                                     }
                                                                                                 </td>
                                                                                                 <td>
@@ -547,7 +543,7 @@
                                                                                                     }
                                                                                                     else
                                                                                                     {
-                                                                                                        @Html.TextBoxFor(model => item.EndTime, new { @class = "aspNetDisabled form-control endtime-input", @type = "time" })
+                                                                                                        @Html.TextBoxFor(model => item.EndTime, new { @class = "aspNetDisabled form-control endtime-input", @id= "Finalendtime", @type = "time" })
                                                                                                     }
                                                                                                 </td>
                                                                                                 <td>
@@ -557,7 +553,7 @@
                                                                                                     }
                                                                                                     else
                                                                                                     {
-                                                                                                        @Html.TextBoxFor(model => item.InspectedQty, new { @class = "aspNetDisabled form-control quantity-input" })
+                                                                                                        @Html.TextBoxFor(model => item.InspectedQty, new { @class = "aspNetDisabled form-control quantity-input" ,@id= "FinalQty" })
                                                                                                     }
                                                                                                 </td>
                                                                                                 <td>
@@ -573,6 +569,7 @@
                                                                                                         <button type="button" id="openbtn" class="btn rounded-pill btn-success waves-effect waves-light openbtn">Open</button>
                                                                                                     }
                                                                                                     <button type="submit" class="btn rounded-pill btn-danger waves-effect waves-light closebtn" onclick="getendidqty(@item.id,'Final')">Close</button>
+                                                                                                    <button type="submit" class="btn rounded-pill btn-danger waves-effect waves-light closebtn" onclick="getendidqty(@item.id,'Final')">Edit</button>
                                                                                                 </td>
                                                                                             </tr>
                                                                                             Count++;
@@ -720,7 +717,7 @@
                                                                                                     }
                                                                                                     else
                                                                                                     {
-                                                                                                        @Html.TextBoxFor(model => item.EndTime, new { @class = "aspNetDisabled form-control endtime-input", @type = "time" })
+                                                                                                        @Html.TextBoxFor(model => item.EndTime, new { @class = "aspNetDisabled form-control endtime-input", @type = "time" ,@id= "Threadenddate" })
                                                                                                     }
                                                                                                 </td>
                                                                                                 <td>
@@ -730,7 +727,7 @@
                                                                                                     }
                                                                                                     else
                                                                                                     {
-                                                                                                        @Html.TextBoxFor(model => item.InspectedQty, new { @class = "aspNetDisabled form-control quantity-input" })
+                                                                                                        @Html.TextBoxFor(model => item.InspectedQty, new { @class = "aspNetDisabled form-control quantity-input" ,@id= "Threadqty" })
                                                                                                     }
                                                                                                 </td>
                                                                                                 <td>
@@ -886,7 +883,7 @@
                                                                                                     }
                                                                                                     else
                                                                                                     {
-                                                                                                        @Html.TextBoxFor(model => item.EndTime, new { @class = "aspNetDisabled form-control endtime-input", @type = "time" })
+                                                                                                        @Html.TextBoxFor(model => item.EndTime, new { @class = "aspNetDisabled form-control endtime-input", @type = "time", @id = "Threadenddate" })
                                                                                                     }
                                                                                                 </td>
                                                                                                 <td>
@@ -896,7 +893,7 @@
                                                                                                     }
                                                                                                     else
                                                                                                     {
-                                                                                                        @Html.TextBoxFor(model => item.InspectedQty, new { @class = "aspNetDisabled form-control quantity-input" })
+                                                                                                        @Html.TextBoxFor(model => item.InspectedQty, new { @class = "aspNetDisabled form-control quantity-input", @id = "Threadqty" })
                                                                                                     }
                                                                                                 </td>
                                                                                                 <td>
@@ -1060,7 +1057,7 @@
                                                                                                     }
                                                                                                     else
                                                                                                     {
-                                                                                                        @Html.TextBoxFor(model => item.EndTime, new { @class = "aspNetDisabled form-control endtime-input", @type = "time" })
+                                                                                                        @Html.TextBoxFor(model => item.EndTime, new { @class = "aspNetDisabled form-control endtime-input", @type = "time" ,@id= "Visualendtime" })
                                                                                                     }
                                                                                                 </td>
                                                                                                 <td>
@@ -1070,7 +1067,7 @@
                                                                                                     }
                                                                                                     else
                                                                                                     {
-                                                                                                        @Html.TextBoxFor(model => item.InspectedQty, new { @class = "aspNetDisabled form-control quantity-input" })
+                                                                                                        @Html.TextBoxFor(model => item.InspectedQty, new { @class = "aspNetDisabled form-control quantity-input",@id= "Visualqty" })
                                                                                                     }
                                                                                                 </td>
                                                                                                 <td>
@@ -1227,7 +1224,7 @@
                                                                                                     }
                                                                                                     else
                                                                                                     {
-                                                                                                        @Html.TextBoxFor(model => item.EndTime, new { @class = "aspNetDisabled form-control endtime-input", @type = "time" })
+                                                                                                        @Html.TextBoxFor(model => item.EndTime, new { @class = "aspNetDisabled form-control endtime-input", @type = "time", @id = "Visualendtime" })
                                                                                                     }
                                                                                                 </td>
                                                                                                 <td>
@@ -1237,7 +1234,7 @@
                                                                                                     }
                                                                                                     else
                                                                                                     {
-                                                                                                        @Html.TextBoxFor(model => item.InspectedQty, new { @class = "aspNetDisabled form-control quantity-input" })
+                                                                                                        @Html.TextBoxFor(model => item.InspectedQty, new { @class = "aspNetDisabled form-control quantity-input", @id = "Visualqty" })
                                                                                                     }
                                                                                                 </td>
                                                                                                 <td>
@@ -1401,7 +1398,7 @@
                                                                                                     }
                                                                                                     else
                                                                                                     {
-                                                                                                        @Html.TextBoxFor(model => item.EndTime, new { @class = "aspNetDisabled form-control endtime-input", @type = "time" })
+                                                                                                        @Html.TextBoxFor(model => item.EndTime, new { @class = "aspNetDisabled form-control endtime-input", @type = "time", @id = "Humidityendtime" })
                                                                                                     }
                                                                                                 </td>
                                                                                                 <td>
@@ -1411,7 +1408,7 @@
                                                                                                     }
                                                                                                     else
                                                                                                     {
-                                                                                                        @Html.TextBoxFor(model => item.InspectedQty, new { @class = "aspNetDisabled form-control quantity-input" })
+                                                                                                        @Html.TextBoxFor(model => item.InspectedQty, new { @class = "aspNetDisabled form-control quantity-input", @id = "Humidityqty" })
                                                                                                     }
                                                                                                 </td>
                                                                                                 <td>
@@ -1568,7 +1565,7 @@
                                                                                                     }
                                                                                                     else
                                                                                                     {
-                                                                                                        @Html.TextBoxFor(model => item.EndTime, new { @class = "aspNetDisabled form-control endtime-input", @type = "time" })
+                                                                                                        @Html.TextBoxFor(model => item.EndTime, new { @class = "aspNetDisabled form-control endtime-input", @type = "time", @id = "Humidityendtime" })
                                                                                                     }
                                                                                                 </td>
                                                                                                 <td>
@@ -1578,7 +1575,7 @@
                                                                                                     }
                                                                                                     else
                                                                                                     {
-                                                                                                        @Html.TextBoxFor(model => item.InspectedQty, new { @class = "aspNetDisabled form-control quantity-input" })
+                                                                                                        @Html.TextBoxFor(model => item.InspectedQty, new { @class = "aspNetDisabled form-control quantity-input", @id = "Humidityqty" })
                                                                                                     }
                                                                                                 </td>
                                                                                                 <td>
@@ -1719,15 +1716,18 @@
         debugger
         var inspectiontype = typevalue;
 
-        var endt = $('.endtime-input').val();
-        var qty = $('.quantity-input').val();
+        var endt = "";
+        var qty = "";
         var MSqty = "";
         var quantities = [];
-        let sum = parseInt(qty);
+        let sum = 0;
 
         if (typevalue == "Final") {
             var finaltable = document.getElementById("FinalTables");
+            endt = $('#Finalendtime').val();
+            qty = $('#FinalQty').val();
             MSqty = $('#smainqtyFinal').val();
+            sum = parseInt(qty);
             for (var i = 1; i < finaltable.rows.length; i++) {
 
                 var finals = finaltable.rows[i].querySelector('input[id="insqttyFinal"]');
@@ -1739,6 +1739,9 @@
         else if (typevalue == "Visual") {
             var Visualtable = document.getElementById("VisualTables");
             MSqty = $('#smainqtyVisual').val();
+            endt = $('#Visualendtime').val();
+            qty = $('#Visualqty').val();
+            sum = parseInt(qty);
             for (var i = 1; i < Visualtable.rows.length; i++) {
 
                 var visual = Visualtable.rows[i].querySelector('input[id="insqttyVisual"]');
@@ -1750,6 +1753,9 @@
         else if (typevalue == "Thread") {
             var Threadtable = document.getElementById("ThreadTables");
             MSqty = $('#smainqtyThread').val();
+            endt = $('#Threadenddate').val();
+            qty = $('#Threadqty').val();
+            sum = parseInt(qty);
             for (var i = 1; i < Threadtable.rows.length; i++) {
 
                 var thared = Threadtable.rows[i].querySelector('input[id="insqttyThread"]');
@@ -1761,6 +1767,9 @@
         else if (typevalue == "Humidity") {
             var Humiditytable = document.getElementById("HumidityTables");
             MSqty = $('#smainqtyHumidity').val();
+            endt = $('#Humidityendtime').val();
+            qty = $('#Humidityqty').val();
+            sum = parseInt(qty);
             for (var i = 1; i < Humiditytable.rows.length; i++) {
 
                 var humidity = Humiditytable.rows[i].querySelector('input[id="insqttyHumidity"]');

@@ -1,0 +1,141 @@
+﻿@model  Inspection.Web.Models.MainInwardModel
+@{
+    ViewBag.Title = "_Editinward";
+}
+
+
+<div class="modal fade" id="editinwarddata" tabindex="-1"
+     aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-light p-3">
+                    <h5 class="modal-title" id="exampleModalLabel"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close" id="close-modal"></button>
+                </div>
+                @using (Html.BeginForm("EditInwardData", "visualinspection", FormMethod.Post))
+                {
+                    @Html.HiddenFor(model => model._INWARD.InspectionType)
+                    @Html.HiddenFor(model => Model._INWARD.JobNo)
+                    <div class="modal-body">
+                        <div class="row gy-4">
+                            <div class="col-xxl-6 col-md-6">
+                                <div>
+                                    @Html.LabelFor(model => model._INWARD.InwardDate, new { @class = "form-label" })
+                                    @Html.TextBoxFor(model => model._INWARD.InwardDate, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "Date", id = "Inwarddate" })
+                                </div>
+                            </div>
+                            <div class="col-xxl-6 col-md-6">
+                                <div>
+                                    @Html.LabelFor(model => model._INWARD.InwardTime, new { @class = "form-label" })
+                                    @Html.TextBoxFor(model => model._INWARD.InwardTime, new { @class = "form-control", type = "time", id = "Inputdatetime" })
+                                </div>
+                            </div>
+                            <div class="col-xxl-6 col-md-6">
+                                <div>
+                                    @Html.LabelFor(model => model._INWARD.JobNo, new { @class = "form-label" })
+                                    @Html.TextBoxFor(model => model._INWARD.JobNo, new { @class = "form-control", id = "idjobnumber", disabled = "disabled" })
+                                </div>
+                            </div>
+                            <div class="col-xxl-6 col-md-6">
+                                <div>
+                                    @Html.LabelFor(model => model._INWARD.Partno, new { @class = "form-label", @disabled = "disabled" })
+                                    @Html.TextBoxFor(model => model._INWARD.Partno, new { @class = "form-control", id = "idpartnumber", disabled = "disabled" })
+                                </div>
+                            </div>
+                            <div class="col-xxl-6 col-md-6">
+                                <div>
+                                    @Html.LabelFor(model => model._INWARD.Qty, new { @class = "form-label" })
+                                    @Html.TextBoxFor(model => model._INWARD.Qty, new { @class = "form-control", id = "Inputqty" })
+                                </div>
+                            </div>
+
+                            <div class="col-xxl-6 col-md-6">
+                                <div>
+                                    @Html.LabelFor(model => model._INWARD.ERev, new { @class = "form-label" })
+                                    @Html.TextBoxFor(model => model._INWARD.ERev, new { @class = "form-control", id = "idrev", disabled = "disabled" })
+                                </div>
+                            </div>
+                            <div class="col-xxl-6 col-md-6">
+                                <div>
+                                    @Html.LabelFor(model => model._INWARD.ActualRev, new { @class = "form-label" })
+                                    @Html.TextBoxFor(model => model._INWARD.ActualRev, new { @class = "form-control", id = "Inputact" })
+                                </div>
+                            </div>
+                            <div class="col-xxl-6 col-md-6">
+                                @{
+                                    var _DropDownListService = new Inspection.Web.Service.Maineservice();
+                                    var _TypeList = _DropDownListService.GetInspectiontype();
+
+                                    var staticData = new List<SelectListItem>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   {
+                                      new SelectListItem { Value = "Final", Text = "Final Inspection" },
+                                      new SelectListItem { Value = "Humidity ", Text = "Humidity Inspection" },
+                                      new SelectListItem { Value = "Thread ", Text = "Thread Inspection" },
+                                      new SelectListItem { Value = "Visual ", Text = "Visual Inspection" }
+
+                                    };
+
+                                    var qualitystage = new List<SelectListItem>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             {
+                                        new SelectListItem { Value = "N/A ", Text = "N/A" },
+                                        new SelectListItem { Value = "AFTER PRIMARY PASSIVATION ", Text = "AFTER PRIMARY PASSIVATION" },
+                                        new SelectListItem { Value = "AFTER CHROME,LM &amp; SECONDARY PASSIVATION  ", Text = "AFTER CHROME,LM &amp; SECONDARY PASSIVATION " },
+                                        new SelectListItem { Value = "BEFORE ZINC PLATTING  ", Text = "BEFORE ZINC PLATTING " },
+                                        new SelectListItem { Value = "AFTER LM &amp; SECONDARY PASSIVATION ", Text = "AFTER LM &amp; SECONDARY PASSIVATION " },
+                                        new SelectListItem { Value = "BEFORE HT ", Text = "BEFORE HT" },
+                                        new SelectListItem { Value = "AFTER BRUSHFINISH ", Text = "AFTER BRUSHFINISH" },
+                                        new SelectListItem { Value = "AFTER EDM ", Text = "AFTER EDM" },
+                                        new SelectListItem { Value = "AFTER GB ", Text = "AFTER GB " },
+                                        new SelectListItem { Value = "AFTER HT ", Text = "AFTER HT" },
+                                        new SelectListItem { Value = "AFTER GB &amp; BRUSHFINISH ", Text = "AFTER GB &amp; BRUSHFINISH" },
+                                        new SelectListItem { Value = "BEFORE BLACKOXIDE ", Text = "BEFORE BLACKOXIDE" },
+                                        new SelectListItem { Value = "AFTER ASSEMBLY ", Text = "AFTER ASSEMBLY" },
+                                        new SelectListItem { Value = "BEFORE GB ", Text = "BEFORE GB" },
+                                        new SelectListItem { Value = "BEFORE PASSIVATION ", Text = "BEFORE PASSIVATION" },
+                                        new SelectListItem { Value = "AFTER BLACKOXIDE ", Text = "AFTER BLACKOXIDE" },
+                                        new SelectListItem { Value = "BEFORE BRUSHFINISH ", Text = "BEFORE BRUSHFINISH" },
+                                        new SelectListItem { Value = "AFTER SECONDARY PASSIVATION ", Text = "AFTER SECONDARY PASSIVATION" },
+                                        new SelectListItem { Value = "AFTER CHROME ", Text = "AFTER CHROME" },
+                                        new SelectListItem { Value = "AFTER ZINC PLATTING ", Text = "AFTER ZINC PLATTING" },
+                                        new SelectListItem { Value = "BEFORE ASSEMBLY ", Text = "BEFORE ASSEMBLY" },
+                                        new SelectListItem { Value = "AFTER ELECTROPOLISH ", Text = "AFTER ELECTROPOLISH" },
+                                        new SelectListItem { Value = "AFTER ASSEMBLY &amp; LM ", Text = "AFTER ASSEMBLY &amp; LM" },
+                                        new SelectListItem { Value = "PROTOTYPE ", Text = "PROTOTYPE" }
+
+                                };
+                                }
+                                @if (Model._INWARD != null)
+                                {
+                                    @Html.LabelFor(model => model._INWARD.InspectionType, new { @class = "form-label" })
+                                    @Html.DropDownListFor(model => model._INWARD.InspectionType, staticData, Model._INWARD.InspectionType, new { @class = "form-select mb-3 js-example-basic-single", id = "Inputinstype", disabled = "disabled" })
+
+                                }
+                            </div>
+                            @if (Model._INWARD != null)
+                            {
+                                <div class="col-xxl-6 col-md-6">
+                                    @Html.LabelFor(model => model._INWARD.ProcessStage, new { @class = "form-label" })
+                                    @Html.DropDownListFor(model => model._INWARD.ProcessStage, _TypeList, Model._INWARD.ProcessStage, new { @class = "form-select mb-3 js-example-basic-single", id = "Inputstage" })
+                                </div>
+                                <div class="col-xxl-6 col-md-6">
+                                    @Html.LabelFor(model => model._INWARD.QualityStage, new { @class = "form-label" })
+                                    @Html.DropDownListFor(model => model._INWARD.QualityStage, qualitystage, Model._INWARD.QualityStage, new { @class = "form-select mb-3 js-example-basic-single", id = "InputstageQuality" })
+                                </div>
+                            }
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="hstack gap-2 justify-content-end">
+                            <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-success">Save</button>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+
+

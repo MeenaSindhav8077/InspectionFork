@@ -77,33 +77,33 @@ namespace Inspection.Web.Controllers
 
                 maindata.visualpendinginspection = _modelvisual.PartsWaitingForFinalCount + _modelvisual.PartsWaitingForSortingCount + _modelvisual.ReworkcompleteandwaitingforinspectionCount;
 
-                _modelthared.PartsWaitingForFinalCount                              = THARED.Where(k => k.Stage.Trim() == "1 - Parts Waiting For Final").Count();
-                _modelthared.PartsWaitingForMRBCount                                = THARED.Where(k => k.Stage.Trim() == "2 - Parts waiting for MRB").Count();
-                _modelthared.PartsWaitingForSortingCount                            = THARED.Where(k => k.Stage.Trim() == "3 - Parts waitng for sorting").Count();
-                _modelthared.PartsWaitingForReworkCount                             = THARED.Where(k => k.Stage.Trim() == "4 - Parts waiting for rework").Count();
-                _modelthared.PartsinreworkCount                                     = THARED.Where(k => k.Stage.Trim() == "5 - Parts in rework").Count();
-                _modelthared.ReworkcompleteandwaitingforinspectionCount             = THARED.Where(k => k.Stage.Trim() == "6 - Rework complete and waiting for inspection").Count();
-                _modelthared.Partsindeviationcount                                  = THARED.Where(k => k.Stage.Trim() == "7 - Parts in deviation").Count();
-                _modelthared.PartdonothaveunitpriceandrevissueCount                 = THARED.Where(k => k.Stage.Trim() == "8 - Part donot have unit price and rev issue").Count();
+                _modelthared.PartsWaitingForFinalCount = THARED.Where(k => k.Stage.Trim() == "1 - Parts Waiting For Final").Count();
+                _modelthared.PartsWaitingForMRBCount = THARED.Where(k => k.Stage.Trim() == "2 - Parts waiting for MRB").Count();
+                _modelthared.PartsWaitingForSortingCount = THARED.Where(k => k.Stage.Trim() == "3 - Parts waitng for sorting").Count();
+                _modelthared.PartsWaitingForReworkCount = THARED.Where(k => k.Stage.Trim() == "4 - Parts waiting for rework").Count();
+                _modelthared.PartsinreworkCount = THARED.Where(k => k.Stage.Trim() == "5 - Parts in rework").Count();
+                _modelthared.ReworkcompleteandwaitingforinspectionCount = THARED.Where(k => k.Stage.Trim() == "6 - Rework complete and waiting for inspection").Count();
+                _modelthared.Partsindeviationcount= THARED.Where(k => k.Stage.Trim() == "7 - Parts in deviation").Count();
+                _modelthared.PartdonothaveunitpriceandrevissueCount= THARED.Where(k => k.Stage.Trim() == "8 - Part donot have unit price and rev issue").Count();
                 _modelthared.PartsInspectioncompletedandwaitingforfilecompleteCount = THARED.Where(k => k.Stage.Trim() == "9 - Parts Inspection completed and waiting for file complete").Count();
-                _modelthared.PartsReadyForpackingCount                              = THARED.Where(k => k.Stage.Trim() == "10 - Parts Ready For packing").Count();
-                _modelthared.PartsmovedfromqualityCount                             = THARED.Where(k => k.Stage.Trim() == "11 - Parts moved from quality").Count();
+                _modelthared.PartsReadyForpackingCount = THARED.Where(k => k.Stage.Trim() == "10 - Parts Ready For packing").Count();
+                _modelthared.PartsmovedfromqualityCount = THARED.Where(k => k.Stage.Trim() == "11 - Parts moved from quality").Count();
                 _modelthared.PartsWaitingForHumidityCount = THARED.Where(k => k.Stage.Trim() == "12 -  Parts Waiting For Humidity").Count();
                 maindata.Thread = _modelthared;
 
                 maindata.tharedpendinginspection = _modelthared.PartsWaitingForFinalCount + _modelthared.PartsWaitingForSortingCount + _modelthared.ReworkcompleteandwaitingforinspectionCount;
 
-                _modelhumidity.PartsWaitingForFinalCount                              = HUMIDITY.Where(k => k.Stage.Trim() == "1 - Parts Waiting For Final").Count();
-                _modelhumidity.PartsWaitingForMRBCount                                = HUMIDITY.Where(k => k.Stage.Trim() == "2 - Parts waiting for MRB").Count();
-                _modelhumidity.PartsWaitingForSortingCount                            = HUMIDITY.Where(k => k.Stage.Trim() == "3 - Parts waitng for sorting").Count();
-                _modelhumidity.PartsWaitingForReworkCount                             = HUMIDITY.Where(k => k.Stage.Trim() == "4 - Parts waiting for rework").Count();
-                _modelhumidity.PartsinreworkCount                                     = HUMIDITY.Where(k => k.Stage.Trim() == "5 - Parts in rework").Count();
-                _modelhumidity.ReworkcompleteandwaitingforinspectionCount             = HUMIDITY.Where(k => k.Stage.Trim() == "6 - Rework complete and waiting for inspection").Count();
-                _modelhumidity.Partsindeviationcount                                  = HUMIDITY.Where(k => k.Stage.Trim() == "7 - Parts in deviation").Count();
-                _modelhumidity.PartdonothaveunitpriceandrevissueCount                 = HUMIDITY.Where(k => k.Stage.Trim() == "8 - Part donot have unit price and rev issue").Count();
+                _modelhumidity.PartsWaitingForFinalCount= HUMIDITY.Where(k => k.Stage.Trim() == "1 - Parts Waiting For Final").Count();
+                _modelhumidity.PartsWaitingForMRBCount = HUMIDITY.Where(k => k.Stage.Trim() == "2 - Parts waiting for MRB").Count();
+                _modelhumidity.PartsWaitingForSortingCount= HUMIDITY.Where(k => k.Stage.Trim() == "3 - Parts waitng for sorting").Count();
+                _modelhumidity.PartsWaitingForReworkCount= HUMIDITY.Where(k => k.Stage.Trim() == "4 - Parts waiting for rework").Count();
+                _modelhumidity.PartsinreworkCount= HUMIDITY.Where(k => k.Stage.Trim() == "5 - Parts in rework").Count();
+                _modelhumidity.ReworkcompleteandwaitingforinspectionCount = HUMIDITY.Where(k => k.Stage.Trim() == "6 - Rework complete and waiting for inspection").Count();
+                _modelhumidity.Partsindeviationcount = HUMIDITY.Where(k => k.Stage.Trim() == "7 - Parts in deviation").Count();
+                _modelhumidity.PartdonothaveunitpriceandrevissueCount = HUMIDITY.Where(k => k.Stage.Trim() == "8 - Part donot have unit price and rev issue").Count();
                 _modelhumidity.PartsInspectioncompletedandwaitingforfilecompleteCount = HUMIDITY.Where(k => k.Stage.Trim() == "9 - Parts Inspection completed and waiting for file complete").Count();
-                _modelhumidity.PartsReadyForpackingCount                              = HUMIDITY.Where(k => k.Stage.Trim() == "10 - Parts Ready For packing").Count();
-                _modelhumidity.PartsmovedfromqualityCount                             = HUMIDITY.Where(k => k.Stage.Trim() == "11 - Parts moved from quality").Count();
+                _modelhumidity.PartsReadyForpackingCount = HUMIDITY.Where(k => k.Stage.Trim() == "10 - Parts Ready For packing").Count();
+                _modelhumidity.PartsmovedfromqualityCount= HUMIDITY.Where(k => k.Stage.Trim() == "11 - Parts moved from quality").Count();
                 _modelhumidity.PartsWaitingForHumidityCount = HUMIDITY.Where(k => k.Stage.Trim() == "12 - Parts Waiting For Humidity").Count();
                 maindata.Humidity = _modelhumidity;
 
@@ -128,9 +128,11 @@ namespace Inspection.Web.Controllers
             return PartialView("Getdatatables", _Data);
         }
 
-        public ActionResult PartHistory()
+        public ActionResult PartHistory(string jobnum,int id, string type)
         {
-            ViewBag.Message = "Your contact page.";
+            Final_Inspection_Data _datas = DB.Final_Inspection_Data.Where(v=> v.JobNum == jobnum && v.Inspection_Type == type).FirstOrDefault();
+
+            List<Final_Inspection_Process> _dt = DB.Final_Inspection_Process.Where(l=>l.PID == _datas.ID).ToList();
 
             return View();
         }

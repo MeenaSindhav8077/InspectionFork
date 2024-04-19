@@ -22,7 +22,7 @@ namespace Inspection.Web.Controllers
 
        [Authorize]
         public ActionResult Index(int? id, string value, string jobno)
-         {
+        {
 
             int? totalfinalInspectedQty = null;
             int? totalvisualInspectedQty = null;
@@ -342,8 +342,6 @@ namespace Inspection.Web.Controllers
                     }
                     DB.SaveChanges();
 
-                    TempData["SuccessMessage"] = "Data saved Successfually.";
-
                     return RedirectToAction("Index");
                 }
             }
@@ -352,6 +350,86 @@ namespace Inspection.Web.Controllers
                 TempData["WarningMessage"] = "Warning: Something went wrong Data Not Saved.";
             }
             return RedirectToAction("Index");
+        }
+
+
+        public ActionResult Edit(string jobno)
+        {
+            MainInwardModel _Model = new MainInwardModel();
+
+            _Model._INWARDList = (from model in DB.Final_Inspection_Data.Where(p => p.JobNum == jobno)
+                    select new InwardDataModel
+                    {
+                        id = model.ID,
+                        InwardTime = model.Inward_Time,
+                        InwardDate = model.Inward_Date,
+                        JobNo = model.JobNum,
+                        Partno = model.PartNum,
+                        ProcessStage = model.Stage,
+                        ERev = model.EpiRev,
+                        ActualRev = model.ActRev,
+                        Qty = model.qty,
+                        InspectionType = model.Inspection_Type,
+                        Statuschange = model.Statuschange,
+                        SampleQuantity = model.Sample_Qty,
+                    }
+                        ).ToList();
+
+            return PartialView("_Edit", _Model);
+        }
+
+
+        public ActionResult _Edit(string jobno, string inspectiontype)
+        {
+            MainInwardModel _Model = new MainInwardModel();
+            InwardDataModel Model = new InwardDataModel();
+
+            Final_Inspection_Data _data = DB.Final_Inspection_Data.Where(l=>l.JobNum == inspectiontype && l.Inspection_Type == jobno).FirstOrDefault();
+
+            if (_data != null) {
+                Model.InwardDate = _data.Inward_Date;
+                Model.InwardTime = _data.Inward_Time;
+                Model.JobNo = _data.JobNum;
+                Model.Partno = _data.PartNum;
+                Model.Qty = _data.qty;
+                Model.InspectionType = _data.Inspection_Type;
+                Model.ProcessStage = _data.Stage;
+                Model.QualityStage = _data.QualityStage;
+                Model.ActualRev = _data.ActRev;
+                Model.ERev = _data.EpiRev;
+            }
+            _Model._INWARD = Model;
+            return PartialView("_Editinward", _Model);
+        }
+
+        public ActionResult EditInwardData(MainInwardModel _model)
+        {
+            try
+            {
+                if (_model != null)
+                {
+                    Final_Inspection_Data _data = DB.Final_Inspection_Data.Where(k => k.JobNum == _model._INWARD.JobNo && k.Inspection_Type == _model._INWARD.InspectionType).FirstOrDefault();
+                    if (_data != null)
+                    {
+                        _data.Inward_Date = _model._INWARD.InwardDate;
+                        _data.Inward_Time = _model._INWARD.InwardTime;
+                        _data.qty = _model._INWARD.Qty;
+                        _data.ActRev = _model._INWARD.ActualRev;
+                        _data.Stage = _model._INWARD.ProcessStage;
+                        _data.QualityStage = _model._INWARD.QualityStage;
+                        DB.SaveChanges();
+                    }
+
+                    TempData["SuccessMessage"] = "Data Updeted successfully.";
+
+                    return RedirectToAction("Edit", new { jobno = _model._INWARD.JobNo });
+                }
+            }
+            catch (Exception)
+            {
+                TempData["WarningMessage"] = "Warning: Something went wrong Data Not Saved.";
+            }
+            return RedirectToAction("Edit");
         }
     }
 }
