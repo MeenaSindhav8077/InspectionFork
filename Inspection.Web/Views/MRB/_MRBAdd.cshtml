@@ -9,8 +9,35 @@
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/Content/assets/libs/dropzone/dropzone.css" type="text/css" />
     <link href="~/Content/assets/libs/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css" />
-}
+    <style>
+        .loader-container {
+            display: none; /* Initially hide loader */
+            position: fixed;
+            z-index: 9999; /* Ensure loader is on top of other content */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.7); /* Semi-transparent background */
+            text-align: center;
+        }
 
+        .loader {
+            border: 6px solid #f3f3f3; /* Light grey border */
+            border-top: 6px solid #3498db; /* Blue top border */
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite; /* Spin animation */
+            margin: auto;
+        }
+
+       
+    </style>
+}
+<div id="loader" class="loader-container">
+    <div class="loader"></div>
+</div>
 <div class="row">
     <div class="col-lg-12">
         <div class="card">
@@ -38,14 +65,38 @@
                         </div>
                         <div class="col-xxl-3 col-md-6">
                             <div>
-                                <label>Qty</label>
-                                @Html.TextBoxFor(model => model._MrbModel.Qty, new { @disabled = "disabled", @class = "form-control", id = "exampleInputqty" })
+                                <label>Inward Qty</label>
+                                @Html.TextBoxFor(model => model._MrbModel.qty, new { @disabled = "disabled", @class = "form-control", id = "inwardqty" })
+                            </div>
+                        </div>
+                        <div class="col-xxl-3 col-md-6">
+                            <div>
+                                <label>Sample Qty</label>
+                                @Html.TextBoxFor(model => model._MrbModel.Sampleqty, new { @disabled = "disabled", @class = "form-control", id = "" })
+                            </div>
+                        </div>
+                        <div class="col-xxl-3 col-md-6">
+                            <div>
+                                <label>Note</label>
+                                @Html.TextBoxFor(model => model._MrbModel.note, new { @disabled = "disabled", @class = "form-control", id = "exampleInputqty" })
                             </div>
                         </div>
                         <div class="col-xxl-3 col-md-6">
                             <div>
                                 <label>Inspection Type</label>
                                 @Html.TextBoxFor(model => model._MrbModel.inspectiontype, new { @disabled = "disabled", @class = "form-control", id = "exampleInputdate" })
+                            </div>
+                        </div>
+                        <div class="col-xxl-3 col-md-6">
+                            <div>
+                                <label>Quality stage</label>
+                                @Html.TextAreaFor(model => model._MrbModel.Qualitystage, new { @disabled = "disabled", @class = "form-control", id = "exampleInputdate" })
+                            </div>
+                        </div>
+                        <div class="col-xxl-3 col-md-6">
+                            <div>
+                                <label>Quality stage</label>
+                                @Html.TextAreaFor(model => model._MrbModel.Qualitystage, new { @disabled = "disabled", @class = "form-control", id = "exampleInputdate" })
                             </div>
                         </div>
                     </div>
@@ -65,13 +116,14 @@
     <div class="card-body p-4">
         <div class="d-flex align-items-center mb-4">
             <h5 class="card-title flex-grow-1 mb-0"></h5>
-            
+
         </div>
         @using (Html.BeginForm("AddMrbdata", "MRB", FormMethod.Post))
         {
             @Html.HiddenFor(model => model._MrbModel.jobno)
             @Html.HiddenFor(model => model._MrbModel.partno)
             @Html.HiddenFor(model => model._MrbModel.Id)
+            @Html.HiddenFor(model => model._MrbModel.Qualitystage)
             int counts = 1;
             <div class="table-responsive">
                 <table class="table table-bordered align-middle table-nowrap mb-0" id="myTable">
@@ -91,13 +143,14 @@
                         <tr id="1" class="product">
                             <th scope="row" class="product-id">1</th>
 
-                            <td class="text-start">
+                            <td class="text-start" style="vertical-align:top">
                                 <div class="mb-2">
                                     <input type="text" class="form-control" name="Qty" id="productName-1" required />
                                 </div>
                             </td>
                             <td>
                                 <select class="form-control product-price" name="Rcode" id="productRate-1" onchange="updateDefectOptions(this.value, @counts)">
+                                    
                                     @foreach (var rcode in rcodeSelectList)
                                     {
                                         <option value="@rcode.Text">@rcode.Text</option>
@@ -107,6 +160,7 @@
                             </td>
                             <td>
                                 <select class="form-control product-quantity" name="Defect" id="productQty-1">
+                                    <option value="Dimensional rejection in outer diameter">Dimensional rejection in outer diameter</option>
                                     <option></option>
 
                                 </select>
@@ -118,11 +172,8 @@
                                 <input type="text" class="form-control product-subqty" name="subqty" id="productSubqty-1" />
                             </td>
 
-                            <td class="">
-                                <a href="javascript:void(0)" onclick="addSubRow('productRate-1', 'productQty-1', 'productLocation-1', 'productSubqty-1' )" class="btn btn-success"><i class="ri-add-fill me-1 align-bottom"></i></a>
-                            </td>
-                            <td class="product-removal">
-                                <a href="javascript:void(0)" class="btn btn-danger">Delete</a>
+                            <td class="" style="vertical-align:top">
+                                <a href="javascript:void(0)" name="plusbtn" id="plusbtn-1" onclick="addSubRow('productRate-1', 'productQty-1', 'productLocation-1', 'productSubqty-1','plusbtn-1' )" class="btn btn-success"><i class="ri-add-fill me-1 align-bottom"></i></a>
                             </td>
                         </tr>
                     </tbody>
@@ -145,6 +196,7 @@
         }
     </div>
 </div>
+
 @section scripts{
     @Scripts.Render("~/bundles/jqueryval")
 
@@ -171,6 +223,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 }
 <script>
+   
     function updateDefectOptions(selectedValue, count) {
         debugger
 
@@ -178,7 +231,7 @@
 
 
         defectDropdown.empty();
-
+        
 
         $.ajax({
             url: "@Url.Action("GetDescription", "MRB")",
@@ -189,9 +242,11 @@
                     value: data,
                     text: data
                 }));
+               
             },
             error: function (error) {
                 console.error('Error fetching data:', error);
+                
             }
         });
     }
@@ -202,31 +257,38 @@
 
 
          defectDropdowninside.empty();
-
-
-     $.ajax({
-         url: "@Url.Action("GetDescription", "MRB")",
-         method: 'GET',
-         data: { Rcode: selectedValue },
-         success: function (data) {
-             defectDropdowninside.append($('<option>', {
-                 value: data,
-                 text: data
-             }));unn
-         },
-         error: function (error) {
-             console.error('Error fetching data:', error);
-         }
-     });
- }
+         $.ajax({
+             url: "@Url.Action("GetDescription", "MRB")",
+             method: 'GET',
+             data: { Rcode: selectedValue },
+             success: function (data) {
+                 defectDropdowninside.append($('<option>', {
+                     value: data,
+                     text: data
+                 }));unn
+             },
+             error: function (error) {
+                 console.error('Error fetching data:', error);
+             }
+         });
+     }
 </script>
 <script>
+
+        function showLoader() {
+            $('#loader').fadeIn();
+        }
+
+        // Function to hide loader
+        function hideLoader() {
+            $('#loader').fadeOut();
+        }
 
     function test() {
 
         var table = document.getElementById("myTable");
         var qty = document.getElementById("exampleInputqty").value;
-
+        qty = document.getElementById("inwardqty").value;
 
         var quantities = [];
         let sum = 0;
@@ -261,12 +323,14 @@
 
              console.log(resultObject);
              console.log(formData);
-             // AJAX request to submit form data
+            // AJAX request to submit form data
+            showLoader();
              $.ajax({
                  type: "POST",
-                 url: "@Url.Action("AddMrbdata", "MRB")",
+                 url: "@Url.Action("_AddMrbdatanew", "MRB")",
                  data: formData,
                  success: function (response) {
+                     hideLoader();
                      Swal.fire({
                          html: '<div class="mt-3">' +
                              '<lord-icon src="https://cdn.lordicon.com/lupuorrc.json" trigger="loop" colors="primary:#0ab39c,secondary:#405189" style="width:120px;height:120px"></lord-icon>' +
@@ -280,7 +344,8 @@
                          cancelButtonClass: 'btn btn-primary w-xs mb-1',
                          cancelButtonText: 'Back',
                          buttonsStyling: false,
-                         showCloseButton: true
+                         showCloseButton: true,
+
                      }).then((result) => {
                          debugger
                             if (result.dismiss === Swal.DismissReason.cancel) {
@@ -290,8 +355,11 @@
                     },
                  error: function (error) {
                      console.log(error);
+                     hideLoader();
                  }
              });
+
+             window.location.href = "@Url.Action("Index", "MRB")";
         }
         else {
             alert("Please enter Valid Qty.")

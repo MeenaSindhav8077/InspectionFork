@@ -627,7 +627,6 @@ function editEvent(data) {
         eventClicked();
     }
 }
-
 function eventTyped() {
     document.getElementById('form-event').classList.remove("view-event");
     document.getElementById("event-title").classList.replace("d-none", "d-block");
@@ -647,8 +646,6 @@ function eventTyped() {
     document.getElementById("event-description-tag").classList.replace("d-block", "d-none");
     document.getElementById('btn-save-event').removeAttribute("hidden");
 }
-
-// upcoming Event
 function upcomingEvent(a) {
     a.sort(function (o1, o2) {
         return (new Date(o1.start)) - (new Date(o2.start));

@@ -1,5 +1,6 @@
 ﻿using Inspection.Web.DataBase;
 using Inspection.Web.Models;
+using Inspection.Web.Service;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections;
@@ -14,53 +15,35 @@ namespace Inspection.Web.Controllers
     public class AfterInspectionController : Controller
     {
         // GET: AfterInspection
-        ITe_INDIAEntities DB = new ITe_INDIAEntities();
+        ITe_INDIAEntities1 DB = new ITe_INDIAEntities1();
         List<InwardDataModel> _List = new List<InwardDataModel>();
+        LogService logService = new LogService();
         [Authorize]
         public ActionResult Index()
         {
-            _List = (from model in DB.Final_Inspection_Process.OrderByDescending(p => p.ID)
-                    select new InwardDataModel
-                    {
-                        id = model.ID,
-                        InwardTime = model.starttime,
-                        InwardDate = model.Inspection_date,
-                        JobNo = model.JobNum,
-                        Partno = model.PartNum,
-                        ProcessStage = model.Stage,
-                        // ERev = model.e,
-                        //  ActualRev = model.ActRev,
-                        IQTY = model.Inspection_Qty,
-                        InspectionType = model.Inspection_Type,
-                        RequideMrb = model.CkMRB ?? false,
-                       // RequideMrb = model.ch
-                    }
-                        ).ToList();
-
-            return View(_List);
-        }
-
-        
-        [Authorize]
-        public ActionResult Mrbrequred(String id)
-        {
             try
             {
-                int ID = Convert .ToInt32(id);  
-                Final_Inspection_Process _data = DB.Final_Inspection_Process.Where(v => v.ID == ID).FirstOrDefault();
-
-                if (_data != null)
-                {
-                    _data.CkMRB = true;
-                    DB.SaveChanges();
-                }
-                TempData["SuccessMessage"] = "Data saved successfully.";
+                _List = (from model in DB.Final_Inspection_Data.Where(p=>p.Active == true && p.closerequest == true).OrderByDescending(p => p.ID)
+                         select new InwardDataModel
+                         {
+                             id = model.ID,
+                             InwardTime = model.Inward_Time,
+                             InwardDate = model.Inward_Date,
+                             JobNo = model.JobNum,
+                             Partno = model.PartNum,
+                             ProcessStage = model.Stage,
+                             ERev = model.EpiRev,
+                             ActualRev = model.ActRev,
+                             Qty = model.Inspection_Qty,
+                             InspectionType = model.Inspection_Type,
+                         }).ToList();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                TempData["WarningMessage"] = "Warning: Something went wrong Data Not Saved.";
+                logService.AddLog(ex, "Index", "AfterInspectionController");
             }
-            return RedirectToAction("Index");
+
+            return View(_List);
         }
     }
 }

@@ -1,0 +1,65 @@
+﻿@model  Inspection.Web.Models.Decisionmodel
+@{
+    ViewBag.Title = "_AddSorting";
+}
+
+@{
+    var inspectionservice = new Inspection.Web.Scripts.Inspectionservice();
+}
+
+<div class="modal-content border-0">
+    <div class="modal-header p-3 bg-soft-info">
+        <h5 class="modal-title" id="exampleModalLabel">Add Sorting</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="close-modal"></button>
+    </div>
+    @using (Html.BeginForm("Addsorting", "Home", FormMethod.Post))
+    {
+
+        @Html.HiddenFor(model => model.id, new { id = "hiddenId" })
+        @Html.HiddenFor(model => model.InspectionTYPE, new { id = "hiddentype" })
+
+        <div class="modal-body">
+            <div class="mb-3">
+                @Html.LabelFor(model => model.StartDate, new { @class = "form-label" })
+                @Html.TextBoxFor(model => model.StartDate, new { @class = "form-control", type = "datetime-local" })
+                @Html.ValidationMessageFor(model => model.StartDate, "", new { @class = "text-danger" })
+            </div>
+            @*<div class="mb-3">
+                @Html.LabelFor(model => model.StartTime, new { @class = "form-label" })
+                @Html.TextBoxFor(model => model.StartTime, new { @class = "form-control", type = "time" })
+                @Html.ValidationMessageFor(model => model.StartTime, "", new { @class = "text-danger" })
+            </div>*@
+            <div class="mb-3">
+                <label for="clientName-field" class="form-label">Sorting</label>
+                @Html.TextBoxFor(model => model.OkQty, new { @class = "form-control", name = "OkQty", @id = "okqtydata" })
+                @Html.ValidationMessageFor(model => model.OkQty, "", new { @class = "text-danger" })
+            </div>
+            <div class="mb-3">
+                @Html.LabelFor(model => model.RejectQty, new { @class = "form-label" })
+                @Html.TextBoxFor(model => model.RejectQty, new { @class = "form-control", name = "RejectQty" })
+                @Html.ValidationMessageFor(model => model.RejectQty, "", new { @class = "text-danger" })
+            </div>
+            <div class="mb-3">
+                @Html.LabelFor(model => model.Remark, new { @class = "form-label" })
+                @Html.TextAreaFor(model => model.Remark, new { @class = "form-control", row = 5 })
+                @Html.ValidationMessageFor(model => model.Remark, "", new { @class = "text-danger" })
+            </div>
+            <div class="mb-3">
+                <label for="clientName-field" class="form-label">Select stage to move next</label>
+                @{
+                    var STAGESelectList = inspectionservice.GetInspectiontype();
+                }
+
+                @Html.DropDownListFor(model => model.stage, new SelectList(STAGESelectList, "Value", "Text"), "Select", new { @class = "form-select ", id = "disabledInput" })
+                @Html.ValidationMessageFor(model => model.stage, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="modal-footer">
+            <div class="hstack gap-2 justify-content-end">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-success" oncancel="submitForm()"> Save</button>
+            </div>
+        </div>
+    }
+</div>

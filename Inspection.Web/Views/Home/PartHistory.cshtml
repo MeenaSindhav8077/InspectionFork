@@ -1,4 +1,4 @@
-﻿
+﻿@model Inspection.Web.Models.MainInwardModel
 @{
     ViewBag.Title = "PartHistory";
 }
@@ -10,105 +10,105 @@
 <div class="row mt-4">
     <div class="col-lg-12">
         <div>
-            <div class="horizontal-timeline my-3">
-                <div class="swiper timelineSlider">
-                    <div class="swiper-wrapper">
-                        <div class="swiper-slide">
-                            <div class="card pt-2 border-0 item-box text-center">
-                                <div class="timeline-content p-3 rounded">
+            @if (Model != null && Model._INWARD != null)
+            {
+                <div class="card">
+                    <div class="card-body">
+                        <div class="live-preview">
+                            <div class="row gy-4">
+
+                                <div class="col-xxl-3 col-md-6">
                                     <div>
-                                        <p class="text-muted mb-0">December, 2020</p>
-                                        <h6 class="fs-15 mb-0">Plateform Development</h6>
+                                        <label>Job No</label>
+                                        @Html.TextBoxFor(model => model._INWARD.JobNo, new { @disabled = "disabled", @class = "aspNetDisabled form-control job-input alert alert-success" })
                                     </div>
                                 </div>
-                                <div class="time"><span class="badge bg-success">10 : 35 PM</span></div>
-                            </div>
-                        </div><!--end swiper-slide-->
-                        <div class="swiper-slide">
-                            <div class="card pt-2 border-0 item-box text-center">
-                                <div class="timeline-content p-3 rounded">
+                                <div class="col-xxl-3 col-md-6">
                                     <div>
-                                        <p class="text-muted mb-1">January, 2021</p>
-                                        <h6 class="fs-15 mb-0">Release Bank & Cards Phase</h6>
+                                        <label>Part No</label>
+                                        @Html.TextBoxFor(model => model._INWARD.Partno, new { @disabled = "disabled", @class = "aspNetDisabled form-control alert alert-success" })
                                     </div>
                                 </div>
-                                <div class="time"><span class="badge bg-success">8 : 10 AM</span></div>
-                            </div>
-                        </div><!--end swiper-slide-->
-                        <div class="swiper-slide">
-                            <div class="card pt-2 border-0 item-box text-center">
-                                <div class="timeline-content p-3 rounded">
+                                <div class="col-xxl-3 col-md-6">
                                     <div>
-                                        <p class="text-muted mb-1">March, 2021</p>
-                                        <h6 class="fs-15 mb-0">Beta Launch of Plateform</h6>
+                                        <label>Inspection Type</label>
+                                        @Html.TextBoxFor(model => model._INWARD.InspectionType, new { @disabled = "disabled", @class = "aspNetDisabled form-control alert alert-success" })
                                     </div>
                                 </div>
-                                <div class="time"><span class="badge bg-success">01 : 47 AM</span></div>
-                            </div>
-                        </div><!--end swiper-slide-->
-                        <div class="swiper-slide">
-                            <div class="card pt-2 border-0 item-box text-center">
-                                <div class="timeline-content p-3 rounded">
+                                <div class="col-xxl-3 col-md-6">
                                     <div>
-                                        <p class="text-muted mb-1">April, 2021</p>
-                                        <h6 class="fs-15 mb-0">First Crypto Bank Transfers</h6>
+                                        <label>Stage</label>
+                                        @Html.TextBoxFor(model => model._INWARD.ProcessStage, new { @disabled = "disabled", @class = "aspNetDisabled form-control alert alert-success" })
                                     </div>
                                 </div>
-                                <div class="time"><span class="badge bg-success">07 : 53 AM</span></div>
                             </div>
-                        </div><!--end swiper-slide-->
-                        <div class="swiper-slide">
-                            <div class="card pt-2 border-0 item-box text-center">
-                                <div class="timeline-content p-3 rounded">
-                                    <div>
-                                        <p class="text-muted mb-1">May, 2021</p>
-                                        <h6 class="fs-15 mb-0">Launch Ethbay Services</h6>
-                                    </div>
-                                </div>
-                                <div class="time"><span class="badge bg-success">4 : 05 AM</span></div>
-                            </div>
-                        </div><!--end swiper-slide-->
-                        <div class="swiper-slide">
-                            <div class="card pt-2 border-0 item-box text-center">
-                                <div class="timeline-content p-3 rounded">
-                                    <div>
-                                        <p class="text-muted mb-1">June, 2021</p>
-                                        <h6 class="fs-15 mb-0">Fastest Crypto Transaction</h6>
-                                    </div>
-                                </div>
-                                <div class="time"><span class="badge bg-success">02 : 40 AM</span></div>
-                            </div>
-                        </div><!--end swiper-slide-->
-                        <div class="swiper-slide">
-                            <div class="card pt-2 border-0 item-box text-center">
-                                <div class="timeline-content p-3 rounded">
-                                    <div>
-                                        <p class="text-muted mb-1">July, 2021</p>
-                                        <h6 class="fs-15 mb-0">Crypto Blockchain Release</h6>
-                                    </div>
-                                </div>
-                                <div class="time"><span class="badge bg-success">9 : 27 AM</span></div>
-                            </div>
-                        </div><!--end swiper-slide-->
-                        <div class="swiper-slide">
-                            <div class="card pt-2 border-0 item-box text-center">
-                                <div class="timeline-content p-3 rounded">
-                                    <div>
-                                        <p class="text-muted mb-1">August, 2021</p>
-                                        <h6 class="fs-15 mb-0">Launch Ethereum Classifieds</h6>
-                                    </div>
-                                </div>
-                                <div class="time"><span class="badge bg-success">06 : 19 AM</span></div>
-                            </div>
-                        </div><!--end swiper-slide-->
+                        </div>
                     </div>
-                    <div class="swiper-button-next"></div>
-                    <div class="swiper-button-prev"></div>
                 </div>
-            </div><!--end timeline-->
+
+                <div class="horizontal-timeline my-3">
+                    <div class="swiper timelineSlider">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide">
+                                <div class="card pt-2 border-0 item-box text-center">
+                                    <div class="timeline-content p-3 rounded">
+                                        <div>
+                                            <p class="text-muted mb-0">@Model._INWARD.JobNo</p>
+                                            <h6 class="fs-15 mb-0">@Model._INWARD.ProcessStage</h6>
+                                        </div>
+                                    </div>
+                                    @{
+                                        string date = Model._INWARD.InwardDate.ToString();
+                                        string[] _date = date.Split(' ');
+                                    }
+                                    <div class="time"><span class="badge bg-success">@_date[0] , @Model._INWARD.InwardTime </span></div>
+                                </div>
+                            </div>
+                            @if (Model._INWARDListdata.Count > 0)
+                            {
+                                foreach (var items in Model._INWARDListdata)
+                                {
+                                    <div class="swiper-slide">
+                                        <div class="card pt-2 border-0 item-box text-center">
+                                            <div class="timeline-content p-3 rounded">
+                                                <div>
+                                                    <p class="text-muted mb-1">@Model._INWARD.JobNo</p>
+                                                    <h6 class="fs-15 mb-0">@items.ProcessStage</h6>
+                                                </div>
+                                            </div>
+                                            <div class="time"><span class="badge bg-success">@items.InwardTime </span></div>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                            @if (Model._submodel.Count > 0)
+                            {
+                                foreach (var item in Model._submodel)
+                                {
+                                    <div class="swiper-slide">
+                                        <div class="card pt-2 border-0 item-box text-center">
+                                            <div class="timeline-content p-3 rounded">
+                                                <div>
+                                                    <p class="text-muted mb-1">@Model._INWARD.JobNo</p>
+                                                    <h6 class="fs-15 mb-0">@item.Stage</h6>
+                                                </div>
+                                            </div>
+                                            <div class="time"><span class="badge bg-success">@item.StartTime , @item.StartTime</span></div>
+                                        </div>
+                                    </div>
+                                }
+                            }
+
+                        </div>
+                        <div class="swiper-button-next"></div>
+                        <div class="swiper-button-prev"></div>
+                    </div>
+                </div>
+            }
+
         </div>
-    </div><!--end col-->
-</div><!--end row-->
+    </div>
+</div>
 
 @section scripts{
     <script src="~/Content/assets/libs/swiper/swiper-bundle.min.js"></script>
@@ -117,4 +117,8 @@
 
     <!-- App js -->
     <script src="~/Content/assets/js/app.js"></script>
-}
+
+
+
+
+

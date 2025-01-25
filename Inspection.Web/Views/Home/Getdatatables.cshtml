@@ -1,4 +1,5 @@
-﻿@model  List<Inspection.Web.DataBase.Final_Inspection_Data>
+﻿@*@model  Inspection.Web.Models.finalinspectionmodel*@
+@model  Inspection.Web.Models.AddDecisionmodel
 
 @{
 
@@ -6,85 +7,756 @@
 }
 @{
     int Count = 1;
+    var inspectionservice = new Inspection.Web.Scripts.Inspectionservice();
 }
 
 @section styles{
-    <!--datatable css-->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css" />
-    <!--datatable responsive css-->
     <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.bootstrap.min.css" />
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.2.2/css/buttons.dataTables.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.0/xlsx.full.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link href="~/Content/assets/libs/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css" />
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="~/Content/assets/libs/prismjs/prism.js"></script>
+    <script src="~/Content/assets/js/app.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="~/Content/assets/js/pages/select2.init.js"></script>
+    <script src="~/Content/assets/js/app.js"></script>
+    <script src="~/Content/assets/libs/sweetalert2/sweetalert2.min.js"></script>
+    <script src="~/Content/assets/js/pages/sweetalerts.init.js"></script>
 }
+
 <div class="row">
     <div class="col-lg-12">
         <div class="card">
-            @if (Model.Count != 0)
+            @if (Model._INWARDList.Count != 0)
             {
                 <div class="card-header">
-                    <h4 class="card-title mb-0">@Model[0].Inspection_Type  Inspection <h4><span class="badge bg-info-subtle text-info" style="width:100%">@Model[0].Stage</span> </h4></h4>
+                    <h4 class="card-title mb-0">@Model._INWARDList[0].InspectionType  Inspection <h4><span class="badge bg-info-subtle text-info" style="width:100%">@Model._INWARDList[0]._Stage</span> </h4></h4>
                 </div>
                 <div class="card-body">
-                    <table id="alternative-pagination" class="table nowrap dt-responsive align-middle table-hover table-bordered" style="width:100%">
+                    <table id="alternative-pagination" class="table nowrap dt-responsive align-middle table-hover table-bordered">
                         <thead>
                             <tr>
                                 <th>Sr No</th>
-                                <th>Inspection Date</th>
+                                <th>Inward Date</th>
+                                @*<th>Inward Time</th>*@
                                 <th>JobNo</th>
                                 <th>PartNo</th>
                                 <th>QTY</th>
                                 <th>Inspection Type</th>
-                                <th>Redirect Inward</th>
+                                <th>Quality Stage</th>
                                 <th></th>
                             </tr>
                         </thead>
                         <tbody>
-                            @if (Model != null)
+                            @if (Model._INWARDList != null)
                             {
-                                foreach (var item in Model)
+                                foreach (var item in Model._INWARDList)
                                 {
-                                    <tr>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => Count)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.Inward_Date)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.Inward_Time)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.PartNum)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.JobNum)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.qty)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.Inspection_Type)
-                                        </td>
-                                        <td>
-                                            @Html.ActionLink("History", "PartHistory", "Home", new { jobnum = item.JobNum , id = item.ID , type= item.Inspection_Type}, new { @class = "btn btn-sm btn-primary " })
-                                        </td>
-                                    </tr>
+                                    if (item.Note != "Out source parts")
+                                    {
+                                        <tr>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => Count)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.InwardDate)
+                                            </td>
+                                            @*<td>
+            @Html.DisplayFor(modelItem => item.InwardTime)
+        </td>*@
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.JobNo)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Partno)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Qty)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.InspectionType)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.QualityStage)
+                                            </td>
+                                            @{
+                                                var STAGESelectList = inspectionservice.GetInspectiontype();
+                                            }
+                                            @Html.HiddenFor(modelItem => item.id, new { id = "ItemId" })
 
-                                    Count++;
+                                            <td>
+                                                @if (item.currentstage == "9")
+                                                {
+
+                                                    <button class="btn btn-danger add-btn" onclick="StartInspection(@item.reworkqty, @item.id, 'Rework')">
+                                                        <i class="ri-add-line align-bottom me-1"></i> Start Inspection
+                                                    </button>
+
+                                                }
+                                                else if (item.currentstage == "7")
+                                                {
+
+                                                    <input type="checkbox" class="form-check-input" style="width:30px;height:30px" onchange="handleCheckboxChange(this, '@item.id', 'Rework')">
+                                                    <label class="form-check-label" for="reworkCheckbox">Move to in rework</label>
+
+
+                                                }
+                                                else if (item.currentstage == "10")
+                                                {
+
+                                                    <button class="btn btn-danger add-btn" onclick="adddeviationdata(@item.deviationqty, @item.id , 'Daviation')">
+                                                        <i class="ri-add-line align-bottom me-1"></i> Deviation Form
+                                                    </button>
+
+                                                    <button class="btn btn-danger add-btn" onclick="StartDaviation(@item.deviationqty, @item.id , 'Daviation')">
+                                                        <i class="ri-add-line align-bottom me-1"></i> Start Deviation
+                                                    </button>
+
+                                                }
+                                                else if (item.currentstage == "8")
+                                                {
+
+                                                    <button class="btn btn-danger add-btn" onclick="addreworkdata(@item.reworkqty, @item.id, 'Rework','@item.InspectionType')">
+                                                        <i class="ri-add-line align-bottom me-1"></i> Rework Form
+                                                    </button>
+
+                                                }
+                                                else if (item.currentstage == "6")
+                                                {
+
+                                                    <button class="btn btn-danger add-btn" onclick="addsorting(@item.sortingqty, @item.id, 'Sorting')">
+                                                        <i class="ri-add-line align-bottom me-1"></i> Sorting Form
+                                                    </button>
+
+
+                                                }
+                                                else if (item.currentstage == "12")
+                                                {
+
+                                                    <button class="btn btn-danger add-btn" onclick="DocumentVerification(@item.id , 'Document')">
+                                                        <i class="ri-add-line align-bottom me-1"></i> Start Document Verification
+                                                    </button>
+
+                                                }
+                                                else if (item.currentstage == "13")
+                                                {
+
+                                                    <input type="checkbox" class="form-check-input" style="width:30px;height:30px" onchange="handleCheckboxChange(this, '@item.id', 'Packing')">
+                                                    <label class="form-check-label" for="reworkCheckbox">Move to Last Stge</label>
+
+                                                }
+                                                else if (item.currentstage == "14")
+                                                {
+
+                                                    <button class="btn btn-danger add-btn" onclick="CloseInspection(@item.id, '@item.JobNo','@item.QualityStage')">
+                                                        End Process
+                                                    </button>
+
+                                                }
+                                                else if (item.currentstage == "18")
+                                                {
+
+                                                    <input type="checkbox" class="form-check-input" style="width:30px;height:30px" onchange="stageChangedata(this, '@item.id', 'redynextoperation')">
+                                                    <label class="form-check-label" for="reworkCheckbox">Move to in Last Stage</label>
+
+                                                }
+                                                else if (item.currentstage == "1")
+                                                {
+                                                    @*<td>
+                 @Html.DropDownListFor(modelItem => item.ProcessStage, STAGESelectList, "select...", new { @class = "form-select mb-3 js-example-basic-single", id = "Inputinstype" })
+                </td>
+                <td>
+                    @Html.TextBoxFor(modelItem => item.IQTY, new { @class = "form-control mb-3", id = "Inputinsqty" })
+                </td>
+                <td>
+                    <button class="btn btn-primary" onclick="handleChangedata();">Save</button>
+                </td>*@
+                                                }
+
+                                                @Html.ActionLink("History", "PartHistory", "Home", new { jobnum = item.JobNo, id = item.id, type = item.InspectionType, stage = item.QualityStage }, new { @class = "btn  btn-primary " })
+                                            </td>
+                                        </tr>
+                                        Count++;
+                                    }
+                                    else
+                                    {
+                                        <tr style="background-color:mediumseagreen">
+                                            <td>
+                                                @Html.DisplayFor(modelItem => Count)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.InwardDate)
+                                            </td>
+                                            @*<td>
+                                                @Html.DisplayFor(modelItem => item.InwardTime)
+                                            </td>*@
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.JobNo)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Partno)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Qty)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.InspectionType)
+                                            </td>
+                                            @{
+                                                var STAGESelectList = inspectionservice.GetInspectiontype();
+                                            }
+                                            @Html.HiddenFor(modelItem => item.id, new { id = "ItemId" })
+
+                                            <td>
+                                                @if (item.currentstage == "9")
+                                                {
+
+                                                    <button class="btn btn-danger add-btn" onclick="StartInspection(@item.reworkqty, @item.id, 'Rework')">
+                                                        <i class="ri-add-line align-bottom me-1"></i> Start Inspection
+                                                    </button>
+
+                                                }
+                                                else if (item.currentstage == "7")
+                                                {
+
+                                                    <input type="checkbox" class="form-check-input" style="width:30px;height:30px" onchange="handleCheckboxChange(this, '@item.id', 'Rework')">
+                                                    <label class="form-check-label" for="reworkCheckbox">Move to in rework</label>
+
+
+                                                }
+                                                else if (item.currentstage == "10")
+                                                {
+
+                                                    <button class="btn btn-danger add-btn" onclick="adddeviationdata(@item.deviationqty, @item.id , 'Daviation')">
+                                                        <i class="ri-add-line align-bottom me-1"></i> Deviation Form
+                                                    </button>
+
+                                                    <button class="btn btn-danger add-btn" onclick="StartDaviation(@item.deviationqty, @item.id , 'Daviation')">
+                                                        <i class="ri-add-line align-bottom me-1"></i> Start Deviation
+                                                    </button>
+
+                                                }
+                                                else if (item.currentstage == "8")
+                                                {
+
+                                                    <button class="btn btn-danger add-btn" onclick="addreworkdata(@item.reworkqty, @item.id, 'Rework','@item.InspectionType')">
+                                                        <i class="ri-add-line align-bottom me-1"></i> Rework Form
+                                                    </button>
+
+                                                }
+                                                else if (item.currentstage == "6")
+                                                {
+
+                                                    <button class="btn btn-danger add-btn" onclick="addsorting(@item.sortingqty, @item.id, 'Sorting')">
+                                                        <i class="ri-add-line align-bottom me-1"></i> Sorting Form
+                                                    </button>
+
+
+                                                }
+                                                else if (item.currentstage == "12")
+                                                {
+
+                                                    <button class="btn btn-danger add-btn" onclick="DocumentVerification(@item.id , 'Document')">
+                                                        <i class="ri-add-line align-bottom me-1"></i> Start Document Verification
+                                                    </button>
+
+                                                }
+                                                else if (item.currentstage == "13")
+                                                {
+
+                                                    <input type="checkbox" class="form-check-input" style="width:30px;height:30px" onchange="handleCheckboxChange(this, '@item.id', 'Packing')">
+                                                    <label class="form-check-label" for="reworkCheckbox">Move to Last Stge</label>
+
+                                                }
+                                                else if (item.currentstage == "14")
+                                                {
+
+                                                    <button class="btn btn-danger add-btn" onclick="CloseInspection(@item.id, '@item.JobNo','@item.QualityStage')">
+                                                        End Process
+                                                    </button>
+
+                                                }
+                                                else if (item.currentstage == "18")
+                                                {
+
+                                                    <input type="checkbox" class="form-check-input" style="width:30px;height:30px" onchange="stageChangedata(this, '@item.id', 'redynextoperation')">
+                                                    <label class="form-check-label" for="reworkCheckbox">Move to in Last Stage</label>
+
+                                                }
+                                                else if (item.currentstage == "1")
+                                                {
+                                                    @*<td>
+                                 @Html.DropDownListFor(modelItem => item.ProcessStage, STAGESelectList, "select...", new { @class = "form-select mb-3 js-example-basic-single", id = "Inputinstype" })
+                                </td>
+                                <td>
+                                    @Html.TextBoxFor(modelItem => item.IQTY, new { @class = "form-control mb-3", id = "Inputinsqty" })
+                                </td>
+                                <td>
+                                    <button class="btn btn-primary" onclick="handleChangedata();">Save</button>
+                                </td>*@
+                                                }
+
+                                                @Html.ActionLink("History", "PartHistory", "Home", new { jobnum = item.JobNo, id = item.id, type = item.InspectionType, stage = item.QualityStage }, new { @class = "btn  btn-primary " })
+                                            </td>
+                                        </tr>
+                                        Count++;
+                                    }
+
                                 }
                             }
-
                         </tbody>
                     </table>
                 </div>
             }
             else
             {
-
+                <div class="layout-wrapper landing">
+                    <section class="section job-hero-section bg-light pb-0" id="hero">
+                        <div class="container">
+                            <div class="row justify-content-between align-items-center">
+                                <div class="col-lg-6">
+                                    <div>
+                                        <h1 class="display-6 fw-semibold text-capitalize mb-12 lh-base">Data Not Found.</h1>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="position-relative home-img text-center mt-5 mt-lg-0">
+                                        <img src="~/Content/assets/images/job-profile2.png" alt="" class="user-img">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
             }
         </div>
     </div>
 </div>
+<div class="modal fade zoomIn" id="showModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0">
+            <div class="modal-header p-3 bg-soft-info">
+                <h5 class="modal-title" id="exampleModalLabel">Sorting Add</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="close-modal"></button>
+            </div>
+            @using (Html.BeginForm("Addsorting", "Home", FormMethod.Post))
+            {
+
+                @Html.HiddenFor(model => model._submodeldata.id, new { id = "hiddenId" })
+                @Html.HiddenFor(model => model._submodeldata.InspectionTYPE, new { id = "hiddentype" })
+
+                <div class="modal-body">
+                    <div class="mb-3">
+                        @Html.LabelFor(model => model._submodeldata.StartDate, new { @class = "form-label" })
+                        @Html.TextBoxFor(model => model._submodeldata.StartDate, new { @class = "form-control", type = "datetime-local" })
+                        @Html.ValidationMessageFor(model => model._submodeldata.StartDate, "", new { @class = "text-danger" })
+                    </div>
+                    @*<div class="mb-3">
+                        @Html.LabelFor(model => model._submodeldata.StartTime, new { @class = "form-label" })
+                        @Html.TextBoxFor(model => model._submodeldata.StartTime, new { @class = "form-control", type = "time" })
+                        @Html.ValidationMessageFor(model => model._submodeldata.StartTime, "", new { @class = "text-danger" })
+                    </div>*@
+                    <div class="mb-3">
+                        <label for="clientName-field" class="form-label" id="dynamiclable"> Sorting Qty</label>
+                        @Html.TextBoxFor(model => model._submodeldata.OkQty, new { @class = "form-control", name = "OkQty", @id = "okqtydata" })
+                        @Html.ValidationMessageFor(model => model._submodeldata.OkQty, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="mb-3">
+                        @Html.LabelFor(model => model._submodeldata.Remark, new { @class = "form-label" })
+                        @Html.TextAreaFor(model => model._submodeldata.Remark, new { @class = "form-control", row = 5 })
+                        @Html.ValidationMessageFor(model => model._submodeldata.Remark, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="mb-3">
+                        <label for="clientName-field" class="form-label">Select stage to move next</label>
+                        @{
+                            var STAGESelectList = inspectionservice.GetInspectiontype();
+                        }
+                        @Html.DropDownListFor(model => model._submodeldata.stage, new SelectList(STAGESelectList, "Value", "Text"), "Select", new { @class = "form-select ", id = "disabledInput" })
+                        @Html.ValidationMessageFor(model => model._submodeldata.stage, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <div class="hstack gap-2 justify-content-end">
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-success" oncancel="submitForm()"> Save</button>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+<div class="modal fade zoomIn" id="showModalrework" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0">
+            <div class="modal-header p-3 bg-soft-info">
+                <h5 class="modal-title" id="exampleModalLabel"> Rework Add</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="close-modal"></button>
+            </div>
+            @using (Html.BeginForm("Addsorting", "Home", FormMethod.Post))
+            {
+
+                @Html.HiddenFor(model => model._submodeldata.id, new { id = "hiddenIdrework" })
+                @Html.HiddenFor(model => model._submodeldata.InspectionTYPE, new { id = "reworkinstype" })
+                @Html.HiddenFor(model => model._submodeldata.TYPE, new { id = "reworktype" })
+
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="clientName-field" class="form-label"> After Rework Inward Date</label>
+                        @Html.TextBoxFor(model => model._submodeldata.StartDate, new { @class = "form-control", type = "datetime-local" })
+                        @Html.ValidationMessageFor(model => model._submodeldata.StartDate, "", new { @class = "text-danger" })
+                    </div>
+                    @*<div class="mb-3">
+                        @Html.LabelFor(model => model._submodeldata.StartTime, new { @class = "form-label" })
+                        @Html.TextBoxFor(model => model._submodeldata.StartTime, new { @class = "form-control", type = "time" })
+                        @Html.ValidationMessageFor(model => model._submodeldata.StartTime, "", new { @class = "text-danger" })
+                    </div>*@
+                    <div class="mb-3">
+                        <label for="clientName-field" class="form-label" id="dynamiclable"> Rework Qty</label>
+                        @Html.TextBoxFor(model => model._submodeldata.OkQty, new { @class = "form-control", name = "OkQty", @id = "okqtydatarework" })
+                        @Html.ValidationMessageFor(model => model._submodeldata.OkQty, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="mb-3">
+                        @Html.LabelFor(model => model._submodeldata.RejectQty, new { @class = "form-label" })
+                        @Html.TextBoxFor(model => model._submodeldata.RejectQty, new { @class = "form-control", name = "RejectQty", id = "RejectQty" })
+                        @Html.ValidationMessageFor(model => model._submodeldata.RejectQty, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="mb-3" id="remarkDiv" style="display:none;">
+                        @Html.LabelFor(model => model._submodeldata.Remark, new { @class = "form-label" })
+                        @Html.TextAreaFor(model => model._submodeldata.Remark, new { @class = "form-control", row = 5 })
+                        @Html.ValidationMessageFor(model => model._submodeldata.Remark, "", new { @class = "text-danger" })
+                    </div>
+                    @*<div class="mb-3">
+                            <label for="clientName-field" class="form-label"> stage to move next</label>
+                            @Html.TextBoxFor(model => model._submodeldata.RejectQty, new { @class = "form-control", name = "fgfdgf", id = "nextstage", value = "9 - Rework complete and waiting for inspection" })
+                        </div>*@
+                </div>
+                <div class="modal-footer">
+                    <div class="hstack gap-2 justify-content-end">
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-success" oncancel="submitForm()"> Save</button>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<script>
+    $('#RejectQty').on('keypress', function (e) {
+        if (e.which == 13) { // Enter key pressed
+            var rejectQty = $(this).val();
+            if (rejectQty) {
+                $('#remarkDiv').show();
+            } else {
+                $('#remarkDiv').hide();
+            }
+            e.preventDefault(); // Prevent form submission on Enter key
+        }
+    });
+
+    function adddeviationdata(okqty, id, type) {
+        debugger
+        document.getElementById("okqtydata").value = okqty;
+        document.getElementById("hiddenId").value = id;
+        document.getElementById("hiddentype").value = type;
+        document.getElementById("exampleModalLabel").innerText = type + "Add";
+        document.getElementById("dynamiclable").innerText = type + "Qty";
+        $('#showModal').modal('show');
+
+    }
+</script>
+<script type="text/javascript">
+    function addsorting(okqty, id, type) {
+        debugger
+        if (okqty != null && id != null) {
+
+            document.getElementById("okqtydata").value = okqty;
+            document.getElementById("hiddenId").value = id;
+            document.getElementById("hiddentype").value = type;
+            document.getElementById("exampleModalLabel").innerText = type + "Add";
+            document.getElementById("dynamiclable").innerText = type + "Qty";
+            $('#showModal').modal('show');
+        }
+    }
+    function addreworkdata(okqty,id, type, instype) {
+        debugger
+        if (id != null) {
+
+            document.getElementById("okqtydatarework").value = okqty;
+            document.getElementById("hiddenIdrework").value = id;
+            document.getElementById("reworktype").value = type;
+            document.getElementById("exampleModalLabel").innerText = type + "Add";
+            document.getElementById("dynamiclable").innerText = type + "Qty";
+            document.getElementById("reworkinstype").value = instype;
+            $('#showModalrework').modal('show');
+        }
+    }
+    function handleCheckboxChange(checkbox, id, type) {
+        debugger
+        if (checkbox != null && id != null && type != null) {
+            var checkValue = checkbox.checked ? "1" : "0";
+            $.ajax({
+                url: '@Url.Action("INReworkData", "Home")',
+                type: 'GET',
+                data: { check: checkValue, id: id, instype: type },
+                success: function (response) {
+                    if (response.successMessage) {
+                        Swal.fire({
+                            html: '<div class="mt-3">' +
+                                '<lord-icon src="https://cdn.lordicon.com/lupuorrc.json" trigger="loop" colors="primary:#0ab39c,secondary:#405189" style="width:120px;height:120px"></lord-icon>' +
+                                '<div class="mt-4 pt-2 fs-15">' +
+                                '<h4>Well done..! Status Changed Successfually!</h4>' +
+                                '<p class="text-muted mx-4 mb-0"></p>' +
+                                '</div>' +
+                                '</div>',
+                            showCancelButton: true,
+                            showConfirmButton: false,
+                            cancelButtonClass: 'btn btn-primary w-xs mb-1',
+                            cancelButtonText: 'Back',
+                            buttonsStyling: false,
+                            showCloseButton: true,
+                        });
+                    }
+                    else {
+
+                        Swal.fire({
+                            html: '<div class="mt-3">' +
+                                '<lord-icon src="https://cdn.lordicon.com/tdrtiskw.json" trigger="loop" colors="primary:#f06548,secondary:#f7b84b" style="width:120px;height:120px"></lord-icon>' +
+                                '<div class="mt-4 pt-2 fs-15">' +
+                                '<h4>Oops...! Status Not Changed!</h4>' +
+                                '<p class="text-muted mx-4 mb-0"></p>' +
+                                '</div>' +
+                                '</div>',
+                            showCancelButton: true,
+                            showConfirmButton: false,
+                            cancelButtonClass: 'btn btn-primary w-xs mb-1',
+                            cancelButtonText: 'Back',
+                            buttonsStyling: false,
+                            showCloseButton: true,
+
+                        })
+                    }
+                    setTimeout(function () {
+                        location.reload();
+                    }, 5000);
+
+                },
+                error: function (xhr, status, error) {
+                    console.error("AJAX call error:", error);
+                }
+            });
+        }
+    }
+    function stageChangedata(checkbox, id, type) {
+    debugger
+    if (checkbox != null && id != null && type != null) {
+        var checkValue = checkbox.checked ? 1 : 0;
+        $.ajax({
+            url: '@Url.Action("stageChangedata", "Home")',
+            type: 'POST',
+            data: { check: checkValue, id: id, instype: type },
+            success: function (response) {
+                if (response.successMessage) {
+                    Swal.fire({
+                        html: '<div class="mt-3">' +
+                            '<lord-icon src="https://cdn.lordicon.com/lupuorrc.json" trigger="loop" colors="primary:#0ab39c,secondary:#405189" style="width:120px;height:120px"></lord-icon>' +
+                            '<div class="mt-4 pt-2 fs-15">' +
+                            '<h4>Well done..! Status Changed Successfually!</h4>' +
+                            '<p class="text-muted mx-4 mb-0"></p>' +
+                            '</div>' +
+                            '</div>',
+                        showCancelButton: true,
+                        showConfirmButton: false,
+                        cancelButtonClass: 'btn btn-primary w-xs mb-1',
+                        cancelButtonText: 'Back',
+                        buttonsStyling: false,
+                        showCloseButton: true,
+                    });
+                }
+                else {
+
+                    Swal.fire({
+                        html: '<div class="mt-3">' +
+                            '<lord-icon src="https://cdn.lordicon.com/tdrtiskw.json" trigger="loop" colors="primary:#f06548,secondary:#f7b84b" style="width:120px;height:120px"></lord-icon>' +
+                            '<div class="mt-4 pt-2 fs-15">' +
+                            '<h4>Oops...! Status Not Changed!</h4>' +
+                            '<p class="text-muted mx-4 mb-0"></p>' +
+                            '</div>' +
+                            '</div>',
+                        showCancelButton: true,
+                        showConfirmButton: false,
+                        cancelButtonClass: 'btn btn-primary w-xs mb-1',
+                        cancelButtonText: 'Back',
+                        buttonsStyling: false,
+                        showCloseButton: true,
+
+                    })
+                }
+                setTimeout(function () {
+                    location.reload();
+                }, 5000);
+
+            },
+            error: function (xhr, status, error) {
+                console.error("AJAX call error:", error);
+            }
+        });
+    }
+}
+
+    function CloseInspection(id,Jobno,stage) {
+        debugger
+        if (id != null && Jobno != null) {
+                 $.ajax({
+                     url: '@Url.Action("CloseInspection", "Home")',
+                     type: 'POST',
+                     data: { id: id, Jobno: Jobno, stage: stage },
+                     success: function (response) {
+                         debugger
+                         if (response.successMessage) {
+
+                             Swal.fire({
+                                 html: '<div class="mt-3">' +
+                                     '<lord-icon src="https://cdn.lordicon.com/lupuorrc.json" trigger="loop" colors="primary:#0ab39c,secondary:#405189" style="width:120px;height:120px"></lord-icon>' +
+                                     '<div class="mt-4 pt-2 fs-15">' +
+                                     '<h4>Well done..! Status Changed Successfually!</h4>' +
+                                     '<p class="text-muted mx-4 mb-0"></p>' +
+                                     '</div>' +
+                                     '</div>',
+                                 showCancelButton: true,
+                                 showConfirmButton: false,
+                                 cancelButtonClass: 'btn btn-primary w-xs mb-1',
+                                 cancelButtonText: 'Back',
+                                 buttonsStyling: false,
+                                 showCloseButton: true,
+
+                             });
+                         }
+                         else {
+
+                             Swal.fire({
+                                 html: '<div class="mt-3">' +
+                                     '<lord-icon src="https://cdn.lordicon.com/tdrtiskw.json" trigger="loop" colors="primary:#f06548,secondary:#f7b84b" style="width:120px;height:120px"></lord-icon>' +
+                                     '<div class="mt-4 pt-2 fs-15">' +
+                                     '<h4> '+ response.warningMessage+' </h4>' +
+                                     '<p class="text-muted mx-4 mb-0"></p>' +
+                                     '</div>' +
+                                     '</div>',
+                                 showCancelButton: true,
+                                 showConfirmButton: false,
+                                 cancelButtonClass: 'btn btn-primary w-xs mb-1',
+                                 cancelButtonText: 'Back',
+                                 buttonsStyling: false,
+                                 showCloseButton: true,
+
+                             })
+                         }
+                         setTimeout(function () {
+                             location.reload();
+                         }, 10000);
+
+                     },
+                     error: function (xhr, status, error) {
+                         console.error("AJAX call error:", error);
+                     }
+                 });
+            }
+    }
+
+    function StartInspection(rqty, id, type) {
+        if (rqty != null && id != null && type != null) {
+            document.getElementById("hiddenId").value = id;
+            var nextPageUrl = '@Url.Action("reworkpagePage", "Home")?id=' + id;
+            window.location.href = nextPageUrl;
+        }
+    }
+
+
+
+    function DocumentVerification(id, type) {
+
+     if (id != null && type != null) {
+         document.getElementById("hiddenId").value = id;
+         var nextPageUrl = '@Url.Action("Index", "DocumentVerification")?id=' + id;
+         window.location.href = nextPageUrl;
+     }
+ }
+
+    function StartDaviation(rqty, id, type) {
+    if (rqty != null && id != null && type != null) {
+        document.getElementById("hiddenId").value = id;
+        var nextPageUrl = '@Url.Action("DaviationPage", "Home")?id=' + id;
+        window.location.href = nextPageUrl;
+    }
+}
+</script>
+<script>
+    function handleChangedata() {
+        debugger
+         var selectedValue = $('#Inputinstype').val();;
+         var insqty = $('#Inputinsqty').val();
+         var itemId = $('#ItemId').val();
+        $.ajax({
+            url: '@Url.Action("Stagechange", "Home")',
+            type: 'POST',
+            data: { selectedValue: selectedValue, id: itemId, qty : insqty },
+            success: function (response) {
+                if (response.successMessage) {
+
+                    Swal.fire({
+                        html: '<div class="mt-3">' +
+                            '<lord-icon src="https://cdn.lordicon.com/lupuorrc.json" trigger="loop" colors="primary:#0ab39c,secondary:#405189" style="width:120px;height:120px"></lord-icon>' +
+                            '<div class="mt-4 pt-2 fs-15">' +
+                            '<h4>Well done..! Status Changed Successfually!</h4>' +
+                            '<p class="text-muted mx-4 mb-0"></p>' +
+                            '</div>' +
+                            '</div>',
+                        showCancelButton: true,
+                        showConfirmButton: false,
+                        cancelButtonClass: 'btn btn-primary w-xs mb-1',
+                        cancelButtonText: 'Back',
+                        buttonsStyling: false,
+                        showCloseButton: true,
+
+                    });
+                }
+                else {
+
+                    Swal.fire({
+                        html: '<div class="mt-3">' +
+                            '<lord-icon src="https://cdn.lordicon.com/tdrtiskw.json" trigger="loop" colors="primary:#f06548,secondary:#f7b84b" style="width:120px;height:120px"></lord-icon>' +
+                            '<div class="mt-4 pt-2 fs-15">' +
+                            '<h4>Oops...! Status Not Changed!</h4>' +
+                            '<p class="text-muted mx-4 mb-0"></p>' +
+                            '</div>' +
+                            '</div>',
+                        showCancelButton: true,
+                        showConfirmButton: false,
+                        cancelButtonClass: 'btn btn-primary w-xs mb-1',
+                        cancelButtonText: 'Back',
+                        buttonsStyling: false,
+                        showCloseButton: true,
+
+                    })
+                }
+                location.reload();
+
+            },
+            error: function (xhr, status, error) {
+                console.error("AJAX call error:", error);
+            }
+        });
+    }
+
+</script>
 
 @section scripts{
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>

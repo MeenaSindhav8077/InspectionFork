@@ -18,22 +18,22 @@ namespace Inspection.Web.DataBase
         public int PID { get; set; }
         public int MID { get; set; }
         public string Inspection_ID { get; set; }
-        public string Process { get; set; }
         public string JobNum { get; set; }
         public string PartNum { get; set; }
         public string Inspection_Type { get; set; }
         public Nullable<System.DateTime> Inspection_date { get; set; }
-        public string starttime { get; set; }
-        public string endtime { get; set; }
+        public string DecisionType { get; set; }
+        public Nullable<System.DateTime> endtime { get; set; }
         public Nullable<decimal> Qty { get; set; }
         public Nullable<decimal> reject_qty { get; set; }
         public Nullable<System.DateTime> sent_date { get; set; }
         public Nullable<System.DateTime> received_date { get; set; }
         public string done_by { get; set; }
-        public Nullable<int> non_conformance_no_of_part { get; set; }
-        public string non_con_defect { get; set; }
         public string decision_of_MRB { get; set; }
         public string MRB_Comment { get; set; }
         public Nullable<System.DateTime> MRB_Date { get; set; }
+        public Nullable<bool> CompleteRework { get; set; }
+        public Nullable<int> Inspectionqty { get; set; }
+        public string Qualitystage { get; set; }
     }
 }

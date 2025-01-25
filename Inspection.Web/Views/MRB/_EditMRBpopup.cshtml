@@ -1,0 +1,280 @@
+﻿@model Inspection.Web.Models.MrbModel
+
+@{
+    ViewBag.Title = "_EditMRB";
+}
+<div class="modal fade" id="mrbdesiciondataedit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-light p-3">
+                <h5 class="modal-title" id="exampleModalLabel">Edit Mrb Decision</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="close-modal"></button>
+            </div>
+            <div style="background-color:aliceblue">
+                <div id="yourDivId">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card" style=" background-color:white">
+                                <div class="card-header align-items-center d-flex">
+                                </div>
+                                @using (Html.BeginForm("Editmrbdata", "MRB", FormMethod.Post))
+                                {
+                                    @Html.HiddenFor(model => model.Id)
+                                    @Html.HiddenFor(model => model.iId)
+
+                                    <div class="card-body" style=" background-color:white">
+                                        <div class="live-preview ">
+                                            <div class="row gy-4">
+                                                <div class="col-xxl-3 col-md-6">
+                                                    <div>
+                                                        <label>Rcode</label>
+                                                        @Html.TextBoxFor(model => model.Rcodes, new { @class = "aspNetDisabled form-control" })
+                                                    </div>
+                                                </div>
+                                                <div class="col-xxl-3 col-md-6">
+                                                    <div>
+                                                        <label>Location</label>
+                                                        @Html.TextBoxFor(model => model.Location, new { @class = "form-control", id = "exampleInputdate" })
+                                                    </div>
+                                                </div>
+                                                <div class="col-xxl-3 col-md-6">
+                                                    <div>
+                                                        <label>Subqty</label>
+                                                        @Html.TextBoxFor(model => model.subqty, new { @class = "form-control", id = "exampleInputdate" })
+                                                    </div>
+                                                </div>
+                                                <div class="col-xxl-3 col-md-6">
+                                                    <div>
+                                                        <label>Decision</label>
+                                                        @Html.TextBoxFor(model => model.note, new { @class = "form-control", id = "exampleInputdate" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div id="textBoxContainer" class="mt-5">
+                                                <div class="row gy-2">
+                                                    <div class="col-xxl-4 col-md-6">
+                                                        <div class="mb-4">
+                                                            <select class="form-select" name="DecisionItems[0].Decisionmrb" required>
+                                                                <option value="" selected disabled>Choose..</option>
+                                                                <option value="Reject">Reject </option>
+                                                                <option value="Accept">Accept </option>
+                                                                <option value="Rework">Rework </option>
+                                                                <option value="Sorting">Sorting</option>
+                                                                <option value="Re-sorting">Re-sorting </option>
+                                                                <option value="Deviation">Deviation </option>
+                                                                <option value="Rework in MRB">Rework in MRB </option>
+                                                                <option value="Re-Measured">Re-Measured </option>
+                                                                <option value="Split">Split </option>
+                                                                <option value="Hold">Hold</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xxl-4 col-md-6">
+                                                        <div>
+                                                            <input class="form-control" type="number" name="DecisionItems[0].SubQtyMrb" placeholder="0" required />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xxl-1 col-md-6">
+                                                        <div>
+                                                            <button class="btn btn-success" type="button" onclick="addTextBox()">+</button>
+                                                        </div>
+                                                    </div>
+                                                    <div class=" col-xxl-1 col-md-6">
+                                                        <div>
+                                                            <button class="btn btn-danger" type="button" onclick="removeTextBox()">-</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="mt-5">
+                                                <button class="btn btn-success" type="submit"> Update</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var count = 1;
+
+    function mrbdesicion() {
+        count++;
+        debugger
+        var newRow =
+            '<tr class="product">' +
+            '<th scope="row" class="product-id">' + count + '</th>' +
+            '<td class="text-start">' +
+            '<div class="mb-2">' +
+            '<select class="form-select" name="DecisionItems[' + (count - 1) + '].Decisionmrb" required>' +
+            '<option value="" selected disabled>Choose..</option>' +
+            '<option value="Reject">Reject</option>' +
+            '<option value="Accept">Accept</option>' +
+            '<option value="Rework">Rework</option>' +
+            '<option value="Sorting">Sorting</option>' +
+            '<option value="Re-sorting">Re-sorting</option>' +
+            '<option value="Deviation">Deviation</option>' +
+            '<option value="Rework in MRB">Rework in MRB</option>' +
+            '<option value="Re-Measured">Re-Measured</option>' +
+            '<option value="Split">Split</option>' +
+            '<option value="Hold">Hold</option>' +
+            '</select>' +
+            '</div>' +
+            '</td>' +
+            '<td>' +
+            '<input class="form-control" type="number" name="DecisionItems[' + (count - 1) + '].SubQtyMrb" placeholder="0" required />' +
+            '</td>' +
+            '<td class="product-removal">' +
+            '<a href="javascript:void(0)" class="btn btn-danger">-</a>' +
+            '</td>' +
+            '<td>' +
+            '<a href="javascript:mrbdesicion()" class="btn btn-success fw-medium">+</a>' +
+            '</td>' +
+            '</tr>';
+
+        //document.getElementById('newlink').append('beforeend', newRow);
+        document.getElementById("newlink").appendChild(newRow);
+        console.log(newRow);
+        //remove(); // Re-attach event listeners to the new remove buttons
+        //resetRow(); // Re-index the rows
+    }
+
+    function remove() {
+        Array.from(document.querySelectorAll(".product-removal a")).forEach(function (el) {
+            el.addEventListener("click", function (e) {
+                e.preventDefault();
+                e.target.closest('tr').remove();
+                resetRow();
+            });
+        });
+    }
+
+    function resetRow() {
+        Array.from(document.getElementById("newlink").querySelectorAll("tr")).forEach(function (subItem, index) {
+            var incid = index + 1;
+            subItem.querySelector('.product-id').innerHTML = incid;
+            subItem.querySelector('select').name = 'DecisionItems[' + index + '].Decisionmrb';
+            subItem.querySelector('input[type="number"]').name = 'DecisionItems[' + index + '].SubQtyMrb';
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        remove();
+    });
+</script>
+
+<script>
+    function addTextBox() {
+        // Find the number of existing .row elements inside #textBoxContainer
+        var container = document.getElementById("textBoxContainer");
+        var currentIndex = container.getElementsByClassName("row gy-2").length;
+
+        // Create the main container div
+        var newDiv = document.createElement("div");
+        newDiv.className = "row gy-2";
+
+        // Create the select box div
+        var selectDiv = document.createElement("div");
+        selectDiv.className = "col-xxl-4 col-md-6";
+        var selectInnerDiv = document.createElement("div");
+        selectInnerDiv.className = "mb-4";
+        var newSelect = document.createElement("select");
+        newSelect.className = "form-select";
+        newSelect.name = `DecisionItems[${currentIndex}].Decisionmrb`; // Use currentIndex for unique names
+        newSelect.required = true;
+
+        // Add options to the select element
+        var options = [
+            { value: "", text: "Choose..", disabled: true, selected: true },
+            { value: "Reject", text: "Reject" },
+            { value: "Accept", text: "Accept" },
+            { value: "Rework", text: "Rework" },
+            { value: "Sorting", text: "Sorting" },
+            { value: "Re-sorting", text: "Re-sorting" },
+            { value: "Deviation", text: "Deviation" },
+            { value: "Rework in MRB", text: "Rework in MRB" },
+            { value: "Re-Measured", text: "Re-Measured" },
+            { value: "Split", text: "Split" },
+            { value: "Hold", text: "Hold" }
+        ];
+
+        options.forEach(optionData => {
+            var option = document.createElement("option");
+            option.value = optionData.value;
+            option.text = optionData.text;
+            if (optionData.disabled) option.disabled = true;
+            if (optionData.selected) option.selected = true;
+            newSelect.appendChild(option);
+        });
+
+        selectInnerDiv.appendChild(newSelect);
+        selectDiv.appendChild(selectInnerDiv);
+
+        // Create the input box div
+        var inputDiv = document.createElement("div");
+        inputDiv.className = "col-xxl-4 col-md-6";
+        var inputInnerDiv = document.createElement("div");
+        var newInput = document.createElement("input");
+        newInput.className = "form-control";
+        newInput.type = "number";
+        newInput.name = `DecisionItems[${currentIndex}].SubQtyMrb`; // Use currentIndex for unique names
+        newInput.placeholder = "0";
+        newInput.required = true;
+
+        inputInnerDiv.appendChild(newInput);
+        inputDiv.appendChild(inputInnerDiv);
+
+        // Create the add button div
+        var addButtonDiv = document.createElement("div");
+        addButtonDiv.className = "col-xxl-1 col-md-6";
+        var addButtonInnerDiv = document.createElement("div");
+        var addButton = document.createElement("button");
+        addButton.className = "btn btn-success";
+        addButton.type = "button";
+        addButton.onclick = function () { addTextBox(); };
+        addButton.textContent = "+";
+
+        addButtonInnerDiv.appendChild(addButton);
+        addButtonDiv.appendChild(addButtonInnerDiv);
+
+        // Create the remove button div
+        var removeButtonDiv = document.createElement("div");
+        removeButtonDiv.className = "col-xxl-1 col-md-6";
+        var removeButtonInnerDiv = document.createElement("div");
+        var removeButton = document.createElement("button");
+        removeButton.className = "btn btn-danger";
+        removeButton.type = "button";
+        removeButton.onclick = function () { removeTextBox(newDiv); };
+        removeButton.textContent = "-";
+
+        removeButtonInnerDiv.appendChild(removeButton);
+        removeButtonDiv.appendChild(removeButtonInnerDiv);
+
+        // Append all created elements to the main container div
+        newDiv.appendChild(selectDiv);
+        newDiv.appendChild(inputDiv);
+        newDiv.appendChild(addButtonDiv);
+        newDiv.appendChild(removeButtonDiv);
+
+        // Append the new div to the container
+        container.appendChild(newDiv);
+    }
+
+    function removeTextBox(element) {
+        element.parentNode.removeChild(element);
+    }
+</script>
+
+
+
+
+
+
+
+

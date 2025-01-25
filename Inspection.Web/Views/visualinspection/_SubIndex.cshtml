@@ -19,6 +19,8 @@
                 @Html.HiddenFor(model => Model._INWARD.id)
                 @Html.HiddenFor(model => Model._INWARD.JobNo)
                 @Html.HiddenFor(model => Model._INWARD.Partno)
+                @Html.HiddenFor(model => Model._INWARD.QualityStage)
+                @Html.HiddenFor(model => Model._INWARD.SampleQuantity)
                 <div class="row g-3">
                     <div class="col-lg-12">
                         <div>
@@ -33,15 +35,15 @@
                         </div>
                     </div>
                     @*<div class="col-lg-12">
-                        <div>
-                            @Html.LabelFor(model => model._submodel.EndTime, "End Date", new { @class = "form-label" })
-                            @Html.EditorFor(model => model._submodel.EndTime, new { htmlAttributes = new { @class = "form-control", @type = "time", @placeholder = "Select Time", @required = "required" } })
-                        </div>
-                    </div>*@
+                <div>
+                    @Html.LabelFor(model => model._submodel.EndTime, "End Date", new { @class = "form-label" })
+                    @Html.EditorFor(model => model._submodel.EndTime, new { htmlAttributes = new { @class = "form-control", @type = "time", @placeholder = "Select Time", @required = "required" } })
+                </div>
+            </div>*@
                     @*<div>
-                        @Html.LabelFor(model => model._submodel.InspectedQty, "Inspection Qty", new { @class = "form-label" })
-                        @Html.EditorFor(model => model._submodel.InspectedQty, new { htmlAttributes = new { @class = "form-control", @placeholder = "Inspection Qty", @required = "required" } })
-                    </div>*@
+                @Html.LabelFor(model => model._submodel.InspectedQty, "Inspection Qty", new { @class = "form-label" })
+                @Html.EditorFor(model => model._submodel.InspectedQty, new { htmlAttributes = new { @class = "form-control", @placeholder = "Inspection Qty", @required = "required" } })
+            </div>*@
                     <div class="">
                         @Html.LabelFor(model => model._submodel.InspectionBy, new { @class = "form-label" })
                         @{

@@ -12,9 +12,18 @@ namespace Inspection.Web.DataBase
     using System;
     using System.Collections.Generic;
     
-    public partial class Final_Inspection_MRB_Decision
+    public partial class Final_Inspection_Document_Data
     {
         public int ID { get; set; }
-        public string MRBDecision { get; set; }
+        public int MID { get; set; }
+        public string DocumentName { get; set; }
+        public string VerifiactionInstruction { get; set; }
+        public string Comments { get; set; }
+        public string Passfail { get; set; }
+        public string AfterCorrectionpassfail { get; set; }
+        public Nullable<System.DateTime> CurrentDate { get; set; }
+        public Nullable<bool> Active { get; set; }
+        public Nullable<bool> Delete { get; set; }
+        public string Email { get; set; }
     }
 }

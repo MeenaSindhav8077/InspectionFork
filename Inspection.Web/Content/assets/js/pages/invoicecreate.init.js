@@ -7,7 +7,7 @@ File: Invoice create init Js File
 */
 var paymentSign = "$";
 Array.from(document.getElementsByClassName("product-line-price")).forEach(function (item) {
-	item.value = paymentSign +"0.00"
+	item.value = paymentSign + "0.00"
 });
 function otherPayment() {
 	var paymentType = document.getElementById("choices-payment-currency").value;
@@ -15,9 +15,9 @@ function otherPayment() {
 
 
 	Array.from(document.getElementsByClassName("product-line-price")).forEach(function (item) {
-			isUpdate = item.value.slice(1);
-			item.value = paymentSign + isUpdate;
-		});
+		isUpdate = item.value.slice(1);
+		item.value = paymentSign + isUpdate;
+	});
 
 	recalculateCart();
 }
@@ -94,6 +94,7 @@ function isData() {
 
 var count = 1;
 
+
 function new_link() {
 	if (typeof count === 'undefined') {
 		debugger;
@@ -109,11 +110,10 @@ function new_link() {
 		'<th scope="row" class="product-id">' +
 		count +
 		"</th>" +
-		'<td class="text-start">' +
+		'<td class="text-start" style="vertical-align:top">' +
 		'<div class="mb-2">' +
-		'<input class="form-control " type="text" name="Qty" id="productName-' + count + '">' +
+		'<input class="form-control" type="text" name="Qty" id="productName-' + count + '">' +
 		'</div>' +
-		"</div>" +
 		"</td>" +
 		"<td>" +
 		'<select class="form-control product-price" name="Rcode-' + count + '" type="number"  onchange="updateDefectOptions(this.value, ' + count + ')" id="productRate-' + count + '">' +
@@ -149,33 +149,34 @@ function new_link() {
 		"</td>" +
 		"<td>" +
 		'<div class="">' +
-		'<select class="form-control " name="Defect-' + count + '"  product-quantity" id="productQty-' + count + '" >' +
+		'<select class="form-control" name="Defect-' + count + '" id="productQty-' + count + '" >' +
+		' <option value="Dimensional rejection in outer diameter">Dimensional rejection in outer diameter</option>'+
 		'</select>' +
 		"</div>" +
 		"</td>" +
 		'<td class="text-end">' +
 		"<div>" +
-		'<input type="text" class="form-control  product-line-price" name="location-' + count + '" id="productLocation-' + count + '"/>' +
+		'<input type="text" class="form-control product-line-price" name="location-' + count + '" id="productLocation-' + count + '"/>' +
 		"</div>" +
 		"</td>" +
 		'<td class="text-end">' +
 		"<div>" +
-		'<input type="text" class="form-control  product-line-price" name="subqty-' + count + '" id="subqty-' + count + '"/>' +
+		'<input type="text" class="form-control product-line-price" name="subqty-' + count + '" id="subqty-' + count + '"/>' +
 		"</div>" +
 		"</td>" +
-		'<td class="">' +
-		'<button type="button" name="Plusbuton" value="' + count + '" , onclick="addSubRow(\'productRate-' + count + '\', \'productQty-' + count + '\', \'productLocation-' + count + '\',\'subqty-' + count + '\', ' + count + ')" class="btn btn-success">'
+		'<td class="" style="vertical-align:top">' +
+		'<button type="button" name="plusbtn-' + count + '" id="plusbtn-' + count + '" value="' + count + '" onclick="addSubRow(\'productRate-' + count + '\', \'productQty-' + count + '\', \'productLocation-' + count + '\',\'subqty-' + count + '\',\'plusbtn-' + count + '\', ' + count + ')" class="btn btn-success">'
 		+ '<input type="hidden" name="ButtonValue" value="' + count + '">'
 		+ '<i class="ri-add-fill me-1 align-bottom"></i></button>' +
 		"</td>" +
-		'<td class="product-removal">' +
-			'<a href="javascript:void(0)" class="btn btn-danger">Delete</a>'
-		"</td>" +
+		'<td class="product-removal" style="vertical-align:top">' +
+		'<a href="javascript:void(0)" class="btn btn-danger">Delete</a>'
+	"</td>" +
 		"</tr>";
 
 	tr1.innerHTML = document.getElementById("newForm").innerHTML + delLink;
-
 	document.getElementById("newlink").appendChild(tr1);
+
 	var genericExamples = document.querySelectorAll("[data-trigger]");
 	Array.from(genericExamples).forEach(function (genericExamp) {
 		var element = genericExamp;
@@ -188,20 +189,22 @@ function new_link() {
 	isData();
 	remove();
 	amountKeyup();
-	resetRow()
+	//resetRow()
 }
 
 
-function addSubRow(id1, id2, id3, id4 ,count) {
-	debugger
+function addSubRow(id1, id2, id3, id4, id5, count) {
+	debugger;
+	// unique sub-row ID generation
+	var subRowCount = new Date().getTime();
 
 	var parentElement1 = document.getElementById(id1);
-
-	// Create a sub-row with a textbox for RCode
-	var subRow1 = document.createElement("tr");
-	subRow1.innerHTML =
-		'<td>' +
-	'<select class="form-control  product-line-price"  name="Rcode' + id1 + '" placeholder="RCode" onchange="updateDefectOptionsinside(this.value, ' + count + ')" >' +
+	if (parentElement1) {
+		var subRow1 = document.createElement("tr");
+		subRow1.id = 'subRow-' + subRowCount + '-1';
+		subRow1.innerHTML =
+			'<td>' +
+			'<select class="form-control product-line-price subRow-' + count + '" name="Rcode' + id1 + '" placeholder="RCode" onchange="updateDefectOptionsinside(this.value, ' + count + ')">' +
 		'<option value="R1">R 1</option>' +
 		'<option value="R2">R 2</option>' +
 		'<option value="R3">R 3</option>' +
@@ -230,46 +233,61 @@ function addSubRow(id1, id2, id3, id4 ,count) {
 		'<option value="R25">R 25</option>' +
 		'<option value="R26">R 26</option>' +
 		'<option value="R27">R 27</option>' +
-		'</select>' +
-		'<td>';
-	// Insert the sub-row after the parent element
-	parentElement1.parentNode.insertBefore(subRow1, parentElement1.nextSibling);
+			'</select>' +
+			'<td>';
+		parentElement1.parentNode.insertBefore(subRow1, parentElement1.nextSibling);
+	}
 
 	var parentElement2 = document.getElementById(id2);
-
-	// Create a sub-row with a textbox for RCode
-	var subRow2 = document.createElement("tr");
-	subRow2.innerHTML =
-		'<td>' +
-		'<select class="form-control product-line-price"  id="insidedes-' + count + '" name="Defect - ' + count + '" placeholder="Defect">' +
-		'</select>' +
-		'<td>';
-
-	// Insert the sub-row after the parent element
-	parentElement2.parentNode.insertBefore(subRow2, parentElement2.nextSibling);
+	if (parentElement2) {
+		var subRow2 = document.createElement("tr");
+		subRow2.id = 'subRow-' + subRowCount + '-2';
+		subRow2.innerHTML =
+			'<td>' +
+			'<select class="form-control product-line-price subRow-' + count + '" id="insidedes-' + count + '" name="Defect-' + count + '" placeholder="Defect">' +
+			'</select>' +
+			'<td>';
+		parentElement2.parentNode.insertBefore(subRow2, parentElement2.nextSibling);
+	}
 
 	var parentElement3 = document.getElementById(id3);
-
-	// Create a sub-row with a textbox for RCode
-	var subRow3 = document.createElement("tr");
-	subRow3.innerHTML =
-		'<td><input type="text" class="form-control"  name="Location' + id3 +'" product-line-price"  /></td>'
-
-
-	// Insert the sub-row after the parent element
-	parentElement3.parentNode.insertBefore(subRow3, parentElement3.nextSibling);
+	if (parentElement3) {
+		var subRow3 = document.createElement("tr");
+		subRow3.id = 'subRow-' + subRowCount + '-3';
+		subRow3.innerHTML =
+			'<td><input type="text" class="form-control subRow-' + count + '" name="Location' + id3 + '" product-line-price" /></td>';
+		parentElement3.parentNode.insertBefore(subRow3, parentElement3.nextSibling);
+	}
 
 	var parentElement4 = document.getElementById(id4);
+	if (parentElement4) {
+		var subRow4 = document.createElement("tr");
+		subRow4.id = 'subRow-' + subRowCount + '-4';
+		subRow4.innerHTML =
+			'<td><input type="text" class="form-control subRow-' + count + '" name="subqty' + id4 + '" /></td>';
+		parentElement4.parentNode.insertBefore(subRow4, parentElement4.nextSibling);
+	}
 
-	// Create a sub-row with a textbox for RCode
-	var subRow4 = document.createElement("tr");
-	subRow4.innerHTML =
-		'<td><input type="text" class="form-control"  name="subqty' + id4 + '" /></td>'
-
-
-	parentElement4.parentNode.insertBefore(subRow4, parentElement4.nextSibling);
+	var parentElement5 = document.getElementById(id5);
+	if (parentElement5) {
+		var subRow5 = document.createElement("tr");
+		subRow5.id = 'subRow-' + subRowCount + '-5';
+		subRow5.innerHTML =
+			'<td><button type="button" class="btn btn-danger subRow-' + count + '" onclick="removeSubRow(\'subRow-' + subRowCount + '\')">-</button></td>';
+		parentElement5.parentNode.insertBefore(subRow5, parentElement5.nextSibling);
+	}
 
 	return false;
+}
+
+function removeSubRow(subRowCount) {
+	debugger;
+	for (var i = 1; i <= 5; i++) {
+		var subRow = document.getElementById(subRowCount + '-' + i);
+		if (subRow) {
+			subRow.remove();
+		}
+	}
 }
 
 remove();
@@ -287,14 +305,14 @@ function remove() {
 	});
 }
 
-function resetRow() {
+//function resetRow() {
 
-	Array.from(document.getElementById("newlink").querySelectorAll("tr")).forEach(function (subItem, index) {
-		var incid = index + 1;
-		subItem.querySelector('.product-id').innerHTML = incid;
+//	Array.from(document.getElementById("newlink").querySelectorAll("tr")).forEach(function (subItem, index) {
+//		var incid = index + 1;
+//		subItem.querySelector('.product-id').innerHTML = incid;
 
-	});
-}
+//	});
+//}
 
 
 function updateDescription(selectedValue) {
@@ -306,7 +324,7 @@ function updateDescription(selectedValue) {
 
 	// Make an AJAX request to get data from the server based on the selected value
 	$.ajax({
-		url:"/GetDescription/MRB",
+		url: "/GetDescription/MRB",
 		method: 'GET',
 		data: { Rcode: selectedValue },
 		success: function (data) {
@@ -443,14 +461,14 @@ var invoices = JSON.parse(invoices_list);
 if (localStorage.getItem("invoice_no") === null && localStorage.getItem("option") === null) {
 	viewobj = '';
 	var value = "#VL" + Math.floor(11111111 + Math.random() * 99999999);
-    document.getElementById("invoicenoInput").value = value;
+	document.getElementById("invoicenoInput").value = value;
 } else {
-    viewobj = invoices.find(o => o.invoice_no === invoice_no);
+	viewobj = invoices.find(o => o.invoice_no === invoice_no);
 }
 
 // Invoice Data Load On Form
 if ((viewobj != '') && (options == "edit-invoice")) {
-	
+
 	document.getElementById("registrationNumber").value = viewobj.company_details.legal_registration_no;
 	document.getElementById("companyEmail").value = viewobj.company_details.email;
 	document.getElementById('companyWebsite').value = viewobj.company_details.website;
@@ -463,12 +481,12 @@ if ((viewobj != '') && (options == "edit-invoice")) {
 	document.getElementById("companyaddpostalcode").value = viewobj.company_details.zip_code;
 
 	var preview = document.querySelectorAll(".user-profile-image");
-    if (viewobj.img !== ''){
-        preview.src = viewobj.img;
-    }
+	if (viewobj.img !== '') {
+		preview.src = viewobj.img;
+	}
 
 	document.getElementById("invoicenoInput").value = "#VAL" + viewobj.invoice_no;
-	document.getElementById("invoicenoInput").setAttribute('readonly',true);
+	document.getElementById("invoicenoInput").setAttribute('readonly', true);
 	document.getElementById("date-field").value = viewobj.date;
 	document.getElementById("choices-payment-status").value = viewobj.status;
 	document.getElementById("totalamountInput").value = "$" + viewobj.order_summary.total_amount;
@@ -497,8 +515,8 @@ if ((viewobj != '') && (options == "edit-invoice")) {
 	do {
 		counter++;
 		if (paroducts_list.length > 1) {
-            document.getElementById("add-item").click();
-        }
+			document.getElementById("add-item").click();
+		}
 	} while (paroducts_list.length - 1 >= counter);
 
 	var counter_1 = 1;
@@ -548,24 +566,24 @@ document.addEventListener("DOMContentLoaded", function () {
 		var i_no = (document.getElementById("invoicenoInput").value).slice(4);
 		var email = document.getElementById("companyEmail").value;
 		var date = document.getElementById("date-field").value;
-        var invoice_amount = (document.getElementById("totalamountInput").value).slice(1);
-        var status = document.getElementById("choices-payment-status").value;
-        var billing_address_full_name = document.getElementById("billingName").value;
-        var billing_address_address = document.getElementById("billingAddress").value;
-        var billing_address_phone = (document.getElementById("billingPhoneno").value).replace(/[^0-9]/g, "");
-        var billing_address_tax = document.getElementById("billingTaxno").value;
-        var shipping_address_full_name = document.getElementById("shippingName").value;
-        var shipping_address_address = document.getElementById("shippingAddress").value;
-        var shipping_address_phone = (document.getElementById("shippingPhoneno").value).replace(/[^0-9]/g, "");
-        var shipping_address_tax = document.getElementById("shippingTaxno").value;
-        var payment_details_payment_method = document.getElementById("choices-payment-type").value;
-        var payment_details_card_holder_name = document.getElementById("cardholderName").value;
-        var payment_details_card_number = (document.getElementById("cardNumber").value).replace(/[^0-9]/g, "");
-        var payment_details_total_amount = (document.getElementById("amountTotalPay").value).slice(1);
-        var company_details_legal_registration_no = (document.getElementById("registrationNumber").value).replace(/[^0-9]/g, "");
-        var company_details_email = document.getElementById("companyEmail").value;
-        var company_details_website = document.getElementById('companyWebsite').value;
-        var company_details_contact_no = (document.getElementById("compnayContactno").value).replace(/[^0-9]/g, "");
+		var invoice_amount = (document.getElementById("totalamountInput").value).slice(1);
+		var status = document.getElementById("choices-payment-status").value;
+		var billing_address_full_name = document.getElementById("billingName").value;
+		var billing_address_address = document.getElementById("billingAddress").value;
+		var billing_address_phone = (document.getElementById("billingPhoneno").value).replace(/[^0-9]/g, "");
+		var billing_address_tax = document.getElementById("billingTaxno").value;
+		var shipping_address_full_name = document.getElementById("shippingName").value;
+		var shipping_address_address = document.getElementById("shippingAddress").value;
+		var shipping_address_phone = (document.getElementById("shippingPhoneno").value).replace(/[^0-9]/g, "");
+		var shipping_address_tax = document.getElementById("shippingTaxno").value;
+		var payment_details_payment_method = document.getElementById("choices-payment-type").value;
+		var payment_details_card_holder_name = document.getElementById("cardholderName").value;
+		var payment_details_card_number = (document.getElementById("cardNumber").value).replace(/[^0-9]/g, "");
+		var payment_details_total_amount = (document.getElementById("amountTotalPay").value).slice(1);
+		var company_details_legal_registration_no = (document.getElementById("registrationNumber").value).replace(/[^0-9]/g, "");
+		var company_details_email = document.getElementById("companyEmail").value;
+		var company_details_website = document.getElementById('companyWebsite').value;
+		var company_details_contact_no = (document.getElementById("compnayContactno").value).replace(/[^0-9]/g, "");
 		var company_details_address = document.getElementById("companyAddress").value;
 		var company_details_zip_code = document.getElementById("companyaddpostalcode").value;
 		var order_summary_sub_total = (document.getElementById("cart-subtotal").value).slice(1);
@@ -580,12 +598,12 @@ document.addEventListener("DOMContentLoaded", function () {
 		var count = 1;
 		var new_product_obj = [];
 		Array.from(products).forEach(element => {
-			var product_name = element.querySelector("#productName-"+count).value;
-			var product_details = element.querySelector("#productDetails-"+count).value;
-			var product_rate = parseInt(element.querySelector("#productRate-"+count).value);
-			var product_qty = parseInt(element.querySelector("#product-qty-"+count).value);
-			var product_price = (element.querySelector("#productPrice-"+count).value).split("$");;
-			
+			var product_name = element.querySelector("#productName-" + count).value;
+			var product_details = element.querySelector("#productDetails-" + count).value;
+			var product_rate = parseInt(element.querySelector("#productRate-" + count).value);
+			var product_qty = parseInt(element.querySelector("#product-qty-" + count).value);
+			var product_price = (element.querySelector("#productPrice-" + count).value).split("$");;
+
 			var product_obj = {
 				product_name: product_name,
 				product_details: product_details,
@@ -596,7 +614,7 @@ document.addEventListener("DOMContentLoaded", function () {
 			new_product_obj.push(product_obj);
 			count++;
 		});
-		
+
 		if (formEvent.checkValidity() === false) {
 			formEvent.classList.add("was-validated");
 		} else {
@@ -685,7 +703,7 @@ document.addEventListener("DOMContentLoaded", function () {
 						address: company_details_address,
 						zip_code: company_details_zip_code
 					},
-					order_summary:{
+					order_summary: {
 						sub_total: order_summary_sub_total,
 						estimated_tex: order_summary_estimated_tex,
 						discount: order_summary_discount,

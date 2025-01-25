@@ -45,15 +45,13 @@
 
         <!-- App js -->
         <script src="~/Content/assets/js/app.js"></script>
-
- 
 }
 
 <div class="row">
     <div class="col-lg-12">
         <div class="card">
             <div class="card-header">
-                <h5 class="card-title mb-0">Inspection Process</h5>
+                <h5 class="card-title mb-0">Completed Inspection Data</h5>
             </div>
             <div class="card-body">
                 <table id="alternative-pagination" class="table nowrap dt-responsive align-middle table-hover table-bordered" style="width:100%">
@@ -61,13 +59,11 @@
                         <tr>
                             <th>Sr.</th>
                             <th>Inward Date</th>
-                            <th>Inward Time</th>
+                            @*<th>Inward Time</th>*@
                             <th>Job No.</th>
                             <th>Part No</th>
-                            @*<th>Stage</th>*@
                             <th>Inspection Type</th>
                             <th>Qty</th>
-                            <th>Mrb Required</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -82,26 +78,20 @@
                                     <td>
                                         @Html.DisplayFor(modelItem => item.InwardDate, "{0:dd, MMM yyyy}")
                                     </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.InwardTime  )
-                                    </td>
+                                    @*<td>
+                                        @Html.DisplayFor(modelItem => item.InwardTime)
+                                    </td>*@
                                     <td>
                                         @Html.DisplayFor(modelItem => item.JobNo)
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.Partno)
                                     </td>
-                                    @*<td>
-                                            @Html.DisplayFor(modelItem => item.Stage)
-                                        </td>*@
                                     <td>
                                         @Html.DisplayFor(modelItem => item.InspectionType)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.IQTY)
-                                    </td>
-                                    <td>
-                                        @Html.CheckBoxFor(model => item.RequideMrb, new { @class = "form-check mb-3", onchange = $"handleCheckboxChange({item.id})", @checked = item.RequideMrb ? "checked" : "" })
+                                        @Html.DisplayFor(modelItem => item.Qty)
                                     </td>
                                 </tr>
                                 Count++;
@@ -148,7 +138,6 @@
             });
         }
     </script>
-
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>

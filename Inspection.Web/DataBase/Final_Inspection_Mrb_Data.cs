@@ -24,5 +24,7 @@ namespace Inspection.Web.DataBase
         public Nullable<int> Gid { get; set; }
         public string JobNo { get; set; }
         public string PartNo { get; set; }
+        public Nullable<bool> ReworkMrb { get; set; }
+        public string QualityStage { get; set; }
     }
 }

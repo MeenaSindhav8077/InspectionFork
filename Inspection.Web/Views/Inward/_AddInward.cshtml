@@ -25,7 +25,6 @@
     <script src="~/Content/assets/libs/sweetalert2/sweetalert2.min.js"></script>
     <script src="~/Content/assets/js/pages/sweetalerts.init.js"></script>
     <script src="~/Content/assets/js/app.js"></script>
-
 }
 <div class="row">
     <div class="col-lg-12">
@@ -42,15 +41,15 @@
                             <div class="col-xxl-3 col-md-6">
                                 <div>
                                     @Html.LabelFor(model => model._INWARD.InwardDate, new { @class = "form-label" })
-                                    @Html.TextBoxFor(model => model._INWARD.InwardDate, new { @class = "form-control", type = "Date", id = "Inwarddate" })
+                                    @Html.TextBoxFor(model => model._INWARD.InwardDate, new { @class = "form-control", type = "datetime-local", id = "Inwarddate" })
                                 </div>
                             </div>
-                            <div class="col-xxl-3 col-md-6">
-                                <div>
-                                    @Html.LabelFor(model => model._INWARD.InwardTime, new { @class = "form-label" })
-                                    @Html.TextBoxFor(model => model._INWARD.InwardTime, new { @class = "form-control", type = "time", id = "Inputdatetime" })
-                                </div>
-                            </div>
+                            @*<div class="col-xxl-3 col-md-6">
+                                    <div>
+                                        @Html.LabelFor(model => model._INWARD.InwardTime, new { @class = "form-label" })
+                                        @Html.TextBoxFor(model => model._INWARD.InwardTime, new { @class = "form-control", type = "datetime-local", id = "Inputdatetime" })
+                                    </div>
+                                </div>*@
                             <div class="col-xxl-3 col-md-6">
                                 <div>
                                     @Html.LabelFor(model => model._INWARD.JobNo, new { @class = "form-label" })
@@ -73,7 +72,6 @@
                                     @Html.TextBoxFor(model => model._INWARD.Qty, new { @class = "form-control", id = "Inputqty" })
                                 </div>
                             </div>
-
                             <div class="col-xxl-3 col-md-6">
                                 <div>
                                     @Html.LabelFor(model => model._INWARD.ERev, new { @class = "form-label" })
@@ -89,15 +87,16 @@
                             <div class="col-xxl-3 col-md-6">
                                 @{
                                     var staticData = new List<SelectListItem>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       {
-                                       new SelectListItem { Value = "Final", Text = "Final Inspection" },
-                                       new SelectListItem { Value = "Humidity ", Text = "Humidity Inspection" },
+
+                                                                                                {
                                        new SelectListItem { Value = "Thread ", Text = "Thread Inspection" },
-                                       new SelectListItem { Value = "Visual ", Text = "Visual Inspection" }
+                                       new SelectListItem { Value = "Visual ", Text = "Visual Inspection" },
+                                       new SelectListItem { Value = "Final", Text = "Final Inspection" },
+                                       new SelectListItem { Value = "Humidity ", Text = "Humidity Inspection" }
                                   };
 
                                     var qualitystage = new List<SelectListItem>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     {
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         {
                                          new SelectListItem { Value = "N/A ", Text = "N/A" },
                                          new SelectListItem { Value = "AFTER PRIMARY PASSIVATION ", Text = "AFTER PRIMARY PASSIVATION" },
                                          new SelectListItem { Value = "AFTER CHROME,LM &amp; SECONDARY PASSIVATION  ", Text = "AFTER CHROME,LM &amp; SECONDARY PASSIVATION " },
@@ -121,23 +120,41 @@
                                          new SelectListItem { Value = "BEFORE ASSEMBLY ", Text = "BEFORE ASSEMBLY" },
                                          new SelectListItem { Value = "AFTER ELECTROPOLISH ", Text = "AFTER ELECTROPOLISH" },
                                          new SelectListItem { Value = "AFTER ASSEMBLY &amp; LM ", Text = "AFTER ASSEMBLY &amp; LM" },
+                                         new SelectListItem { Value = "After machining", Text = "After machining" },
+                                         new SelectListItem { Value = "After gundrill ", Text = "After gundrill" },
+                                         new SelectListItem { Value = "After sterilization ", Text = "After sterilization" },
+                                         new SelectListItem { Value = "Purchase part ", Text = "Purchase part" },
+                                         new SelectListItem { Value = "After welding ", Text = "After welding" },
                                          new SelectListItem { Value = "PROTOTYPE ", Text = "PROTOTYPE" }
                                     };
+                                    var notedata = new List<SelectListItem>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      {
+                                          new SelectListItem { Value = "100% Visual/Gauge Inspection ", Text = "100% Visual/Gauge Inspection" },
+                                          new SelectListItem { Value = "Out source parts", Text = "Out source parts" },
+                                          new SelectListItem { Value = "Unit price zero", Text = "Unit price zero" },
+                                          new SelectListItem { Value = "Assembly part", Text = "Assembly part" },
+                                          new SelectListItem { Value = "Forecast", Text = "Forecast" },
+                                     };
                                 }
+                                @Html.LabelFor(model => model._INWARD.QualityStage, new { @class = "form-label" })
+                                @Html.DropDownListFor(model => model._INWARD.QualityStage, qualitystage, "select..", new { @class = "form-select mb-3 js-example-basic-single", id = "InputstageQuality" })
+                            </div>
+                            <div class="col-xxl-3 col-md-6">
+
+                                @Html.LabelFor(model => model._INWARD.Note, new { @class = "form-label" })
+                                @Html.DropDownListFor(model => model._INWARD.Note, notedata, "select...", new { @class = "form-select mb-3 js-example-basic-single", id = "Inputnote", onchange = "getsuuplierbxo(this)" })
+                            </div>
+                            <div class="col-xxl-3 col-md-6" id="supplierContainer" style="display: none;">
+                                @Html.LabelFor(model => model._INWARD.Supplier, new { @class = "form-label" })
+                                @Html.TextBoxFor(model => model._INWARD.Supplier, new { @class = "form-control", id = "supplierid" })
+                            </div>
+                            <div class="col-xxl-3 col-md-6">
                                 @Html.LabelFor(model => model._INWARD.InspectionType, new { @class = "form-label" })
-                                @Html.DropDownListFor(model => model._INWARD.InspectionType, staticData, new { @class = "form-select mb-3 js-example-basic-single", id = "Inputinstype" })
+                                @Html.DropDownListFor(model => model._INWARD.InspectionType, staticData, "select...", new { @class = "form-select mb-3 js-example-basic-single", id = "Inputinstype", onchange = "updateProcessStage()" })
+
                             </div>
                             <div class="col-xxl-3 col-md-6">
-                                @Html.LabelFor(model => model._INWARD.ProcessStage, new { @class = "form-label" })
-                                @Html.DropDownListFor(model => model._INWARD.ProcessStage, _TypeList, new { @class = "form-select mb-3 js-example-basic-single", id = "Inputstage" })
-                            </div>
-                            <div class="col-xxl-3 col-md-6">
-                             
-                                    @Html.LabelFor(model => model._INWARD.QualityStage, new { @class = "form-label" })
-                                    @Html.DropDownListFor(model => model._INWARD.QualityStage, qualitystage, new { @class = "form-select mb-3 js-example-basic-single", id = "InputstageQuality" })
-                            </div>
-                            <div class="col-xxl-3 md-6">
-                                <button type="submit" class="btn btn-primary waves-effect waves-light" id="btninwrad" style="float: right; margin: 20px 0 0;">Save</button>
+                                <button type="submit" class="btn btn-primary waves-effect waves-light" id="btninwrad" style="margin-top:28px;">Save</button>
                                 <input type="hidden" id="hiddenidinward" />
                             </div>
                         </div>
@@ -164,7 +181,6 @@
         </div>
     </div>
 </div>
-
 <div class="">
     <button type="button" class="btn btn-primary waves-effect waves-light" onclick="finalsubmitdata()">Submit</button>
 </div>
@@ -177,7 +193,36 @@
         }
     });
 
-     
+    function updateProcessStage() {
+        debugger
+        var inspectionType = document.getElementById("Inputinstype").value;
+        var processStageDropdown = document.getElementById("Inputstage");
+
+        // Set the value based on the selected inspection type
+        if (inspectionType === "Final") {
+            processStageDropdown.value = "1 - Parts waiting for Final  ";
+        } else if (inspectionType === "Humidity ") {
+            processStageDropdown.value = "1 - Parts waiting for Humidity  ";
+        } else if (inspectionType === "Thread ") {
+            processStageDropdown.value = "1 - Parts waiting for Thread  ";
+        } else if (inspectionType === "Visual ") {
+            processStageDropdown.value = "1 - Parts waiting for Visual";
+        } else {
+            processStageDropdown.value = "";
+        }
+    }
+
+    function getsuuplierbxo(drpvalue) {
+        debugger
+
+        var dppp = drpvalue.value;
+
+        if (dppp === 'Out source parts') {
+            $('#supplierContainer').show();
+        } else {
+            $('#supplierContainer').hide();
+        }
+    }
 
     function finalsubmitdata() {
         var dataToSend = JSON.parse(localStorage.getItem('inwardData'));
@@ -248,7 +293,7 @@
                             showCloseButton: true
                         })
                     }
-                    
+
                     setTimeout(function () {
                         location.reload();
                     }, 5000);
@@ -278,6 +323,7 @@
             }
         });
     }
+
 </script>
 <script>
     $(document).ready(function () {
@@ -338,10 +384,13 @@
                 storedData[indexToUpdate].find(d => d.name === "_INWARD.ERev").value = $("#idrev").val(); // Update with your new value
                 storedData[indexToUpdate].find(d => d.name === "_INWARD.ActualRev").value = $("#Inputact").val(); // Update with your new value
                 storedData[indexToUpdate].find(d => d.name === "_INWARD.InspectionType").value = $("#Inputinstype").val(); // Update with your new value
-                var selectedStageText = $("#Inputstage option:selected").text();
-                storedData[indexToUpdate].find(d => d.name === "_INWARD.ProcessStage").value = selectedStageText; // Update with the selected stage text
+                storedData[indexToUpdate].find(d => d.name === "_INWARD.Suppliername").value = $("#supplierid").val(); // Update with your new value
+                //var selectedStageText = $("#Inputstage option:selected").text();
+                //storedData[indexToUpdate].find(d => d.name === "_INWARD.ProcessStage").value = selectedStageText; // Update with the selected stage text
                 var selectedStageText = $("#InputstageQuality option:selected").text();
-                storedData[indexToUpdate].find(d => d.name === "_INWARD.QualityStage").value = selectedStageText; // Update with the selected stage text
+                storedData[indexToUpdate].find(d => d.name === "_INWARD.QualityStage").value = selectedStageText;
+                var selectedStageText = $("#Inputnote option:selected").text();
+                storedData[indexToUpdate].find(d => d.name === "_INWARD.Note").value = selectedStageText;
 
 
                 localStorage.setItem("inwardData", JSON.stringify(storedData));
@@ -386,11 +435,7 @@
 
             debugger
             var table = $("#inwardDataTable");
-
-
             table.empty();
-
-
             console.log(localStorage);
             var storedData = JSON.parse(localStorage.getItem("inwardData")) || [];
             console.log(storedData);
@@ -400,16 +445,17 @@
                 "<th> Delete</th> " +
                 "<th> Edit</th> " +
                 "<th> Id</th > " +
-                "<th> InwardDate</th > " +
-                "<th> InwardTime</th > " +
+                "<th> InwardDateTime</th > " +
+                /* "<th> InwardTime</th > " +*/
                 "<th> JobNo</th> " +
                 "<th> Partno</th> " +
                 "<th> Qty</th> " +
                 "<th> ERev</th> " +
                 "<th> ActualRev</th> " +
-                "<th> InspectionType</th> " +
-                "<th> ProcessStage</th> " +
+                /* "<th> ProcessStage</th> " +*/
                 "<th> QualityStage</th> " +
+                "<th> Note</th> " +
+                "<th> InspectionType</th> " +
                 "</tr> " +
                 "</thead> ");
 
@@ -453,7 +499,6 @@
                 $("#btninwrad").text("Update");
             });
         }
-
         displayDataInTable();
     });
 
@@ -469,8 +514,6 @@
         $("#Inputstage").val(data.find(d => d.name === "_INWARD.ProcessStage").value);
         $("#InputstageQuality").val(data.find(d => d.name === "_INWARD.QualityStage").value);
     }
-
-
 
     function saveChanges(index) {
         for (var j = 0; j < storedData[index].length; j++) {
@@ -492,10 +535,6 @@
         var Arev = $("#Inputact").val();
         if (!Inwarddate) {
             alert("Inwarddate is required");
-            return false;
-        }
-        if (!Inputdatetime) {
-            alert("Inputtime is required");
             return false;
         }
         if (!idjobnumber) {

@@ -1,0 +1,26 @@
+
+update document.Documents set SectionParaChanged ='N/A' ,  ModifiedDate = '10/12/2018 04:51:19 PM'  where DocumentId = 'WI-0314' and rev = 2
+
+update document.DocumentsLog set SectionParaChanged ='N/A' ,  ModifiedDate = '10/12/2018 04:51:19 PM' where DocumentId = 'WI-0314' and rev = 2
+
+
+
+update document.Documents set  ModifiedDate = '07/17/2017 04:55:47 PM'  where DocumentId = 'WI-0320' and rev = 2
+
+update document.DocumentsLog set  ModifiedDate = '07/17/2017 04:55:47 PM' where DocumentId = 'WI-0320' and rev = 2
+
+
+
+update document.Documents set CreatedDate='01-15-2024'  where DocumentId = 'WI-0323' 
+
+update document.DocumentsLog set CreatedDate='01-15-2024'  where DocumentId = 'WI-0323' 
+
+update document.Documents  set CreatedBy = '1384' where DocumentId = 'WI-0323'
+
+update document.DocumentsLog set CreatedBy = '1384' where DocumentId = 'WI-0323'
+
+delete from document.DocumentsLog where documentId = 'FCD-0489' and rev = 2
+
+delete from document.Documents where documentId = 'FCD-0489' and rev = 2	
+
+select * from emp.UserMaster where FirstName = 'Nikulsinh'

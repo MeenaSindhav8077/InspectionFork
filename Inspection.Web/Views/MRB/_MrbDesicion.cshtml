@@ -40,6 +40,13 @@
         word-wrap: break-word;
     }
 
+    hr {
+        margin: 4px;
+        color: inherit;
+        border: 0;
+        border-top: 1px solid;
+        opacity: .25;
+    }
 </style>
 <div class="col-xxl-3 md-6 mb-2">
     <button type="button" class="btn btn-success" id="generatePdfBtn">Generate PDF</button>
@@ -53,38 +60,71 @@
                         <h4 class="card-title mb-0 flex-grow-1">MRb Ragister</h4>
 
                     </div>
-                    <div class="card-body" style=" background-color:white">
-                        <div class="live-preview">
-                            <div class="row gy-4">
-                                <div class="col-xxl-3 col-md-6">
-                                    <div>
+                    @using (Html.BeginForm("AddDatetomrb", "MRB", FormMethod.Post))
+                    {
+
+                        @Html.HiddenFor(model => model._MrbModel.Id)
+
+                        <div class="card-body" style=" background-color:white">
+                            <div class="live-preview">
+                                <div class="row gy-4">
+                                    <div class="col-xxl-3 col-md-6">
                                         <div>
-                                            <label>Job No</label>
-                                            @Html.TextBoxFor(model => model._MrbModel.jobno, new { @disabled = "disabled", @class = "aspNetDisabled form-control" })
+                                            <div>
+                                                <label>Job No</label>
+                                                @Html.TextBoxFor(model => model._MrbModel.jobno, new { @disabled = "disabled", @class = "aspNetDisabled form-control" })
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-xxl-3 col-md-6">
-                                    <div>
-                                        <label>Part No</label>
-                                        @Html.TextBoxFor(model => model._MrbModel.partno, new { @disabled = "disabled", @class = "form-control", id = "exampleInputdate" })
+                                    <div class="col-xxl-3 col-md-6">
+                                        <div>
+                                            <label>Part No</label>
+                                            @Html.TextBoxFor(model => model._MrbModel.partno, new { @disabled = "disabled", @class = "form-control", id = "exampleInputdate" })
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-xxl-3 col-md-6">
-                                    <div>
-                                        <label>Qty</label>
-                                        @Html.TextBoxFor(model => model._MrbModel.Qty, new { @disabled = "disabled", @class = "form-control", id = "exampleInputdate" })
+                                    <div class="col-xxl-3 col-md-6">
+                                        <div>
+                                            <label>Qty</label>
+                                            @Html.TextBoxFor(model => model._MrbModel.qty, new { @disabled = "disabled", @class = "form-control", id = "exampleInputdate" })
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-xxl-3 col-md-6">
-                                    <div>
-                                        <label>Inspection Type</label>
-                                        @Html.TextBoxFor(model => model._MrbModel.inspectiontype, new { @disabled = "disabled", @class = "form-control", id = "exampleInputdate" })
+                                    <div class="col-xxl-3 col-md-6">
+                                        <div>
+                                            <label>Inspection Type</label>
+                                            @Html.TextBoxFor(model => model._MrbModel.inspectiontype, new { @disabled = "disabled", @class = "form-control", id = "exampleInputdate" })
+                                        </div>
                                     </div>
+                                    @if (Model._MrbModel.MRbDate == null)
+                                    {
+                                        <div class="col-xxl-3 col-md-6">
+                                            <div>
+                                                <label>MRB Date</label>
+                                                @Html.TextBoxFor(model => Model._MrbModel.MRbDate, new { @class = "form-control", id = "exampleInputdate", @type = "datetime-local", @required = "required" })
+                                            </div>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="col-xxl-3 col-md-6">
+                                            <div>
+                                                <label>MRB Date</label>
+                                                @Html.TextBoxFor(model => Model._MrbModel.MRbDate, new { @class = "form-control", id = "exampleInputdate" })
+                                            </div>
+                                        </div>
+                                    }
+
+                                    @if (Model._MrbModel.MRbDate == null)
+                                    {
+                                        <div class="col-xxl-3 col-md-6 mt-5">
+                                            <div>
+                                                <button type="submit" class="btn btn-primary">Save</button>
+                                            </div>
+                                        </div>
+                                    }
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    }
                 </div>
             </div>
         </div>
@@ -106,10 +146,10 @@
                                     <th width="10px">Quantity</th>
                                     <th width="50px">RCode</th>
                                     <th scope="col" width="600px">Defect</th>
-                                    <th scope="col"  width="150px" >Location</th>
+                                    <th scope="col" width="150px">Location</th>
                                     <th scope="col" width="100px">Sub Qty</th>
-                                    <th scope="col"  width="100px">MRB Decision</th>
-                                    <th scope="col"  width="30px"> Decision Qty</th>
+                                    <th scope="col" width="100px">MRB Decision</th>
+                                    <th width="20px">Action</th>
                                 </tr>
                             </thead>
                             <tbody id="">
@@ -120,14 +160,14 @@
 
                                         <td class="text-start">
                                             <div class="mb-2">
-                                                <input type="text" class="form-control" value="@item.Qty" name="Qty" id="productName-1" required disabled />
+                                                <input type="text" class="form-control" value="@item.Qtys" name="Qty" id="productName-1" required disabled />
                                             </div>
                                         </td>
                                         <td>
-                                            @{ 
+                                            @{
                                                 List<SelectListItem> desSelectList = inspectionservice.GetDescription();
                                                 List<SelectListItem> rcodeSelectList = inspectionservice.GetRcodes();
-                                                List<SelectListItem> desicionSelectList = inspectionservice.Getdesicion();
+                                               
                                             }
                                             @foreach (var rcods in item.Rcode)
                                             {
@@ -154,36 +194,77 @@
 
                                             }
                                         </td>
-                                        @if (item?.Desicion != null && item.Desicion.Any(decision => decision != null))
-                                        {
-                                            <td>
-                                                @foreach (var desss in item.Desicion)
+                                        <td>
+                                            @for (int i = 0; i < item.Reject.Count; i++)
+                                            {
+                                                if (item.Reject[i] != null)
                                                 {
-                                                    @Html.TextBoxFor(model => desss, new { @class = "form-control product-location", @name = "desicion", @id = "productLocation-1" })
+                                                    <label>Reject: @item.Reject[i]</label>
                                                 }
-                                            </td>
-                                            <td>
-                                                @foreach (var desss in item.inersubqty)
+
+                                                if (item.Accept[i] != null)
                                                 {
-                                                    @Html.TextBoxFor(model => desss, new { @class = "form-control product-location", @name = "desicion", @id = "productlocation-1" })
+                                                    <label>Accept: @item.Accept[i]</label>
                                                 }
-                                            </td>
-                                        }
-                                        else
-                                        {
-                                            <td>
-                                                @for (var i = 0; i < item.location.Count; i++)
+
+                                                if (item.Rework[i] != null)
                                                 {
-                                                    @Html.DropDownListFor(model => model.Mrbdecisio, new SelectList(desicionSelectList, "Text", "Text"), new { @class = "form-control product-location", @name = "desicion", @id = "productLocation-1" })
+                                                    <label>Rework: @item.Rework[i]</label>
                                                 }
-                                            </td>
-                                            <td>
-                                                @for (var i = 0; i < item.location.Count; i++)
+
+                                                if (item.Sorting[i] != null)
                                                 {
-                                                    @Html.TextBoxFor(model => model.mrbinersubqty,  new { @class = "form-control product-location", @name = "desicion", @id = "productLocation-1" })
+                                                    <label>Sorting: @item.Sorting[i]</label>
                                                 }
-                                            </td>
-                                        }
+
+                                                if (item.Resorting[i] != null)
+                                                {
+                                                    <label>Resorting: @item.Resorting[i]</label>
+                                                }
+
+                                                if (item.Deviation[i] != null)
+                                                {
+                                                    <label>Deviation: @item.Deviation[i]</label>
+                                                }
+
+                                                if (item.ReworkMRB[i] != null)
+                                                {
+                                                    <label>ReworkMRB: @item.ReworkMRB[i]</label>
+                                                }
+
+                                                if (item.ReMeasured[i] != null)
+                                                {
+                                                    <label>ReMeasured: @item.ReMeasured[i]</label>
+                                                }
+
+                                                if (item.Split[i] != null)
+                                                {
+                                                    <label>Split: @item.Split[i]</label>
+                                                }
+
+                                                if (item.Hold[i] != null)
+                                                {
+                                                    <label>Hold: @item.Hold[i]</label>
+                                                }
+                                                if (item.Reject[i] == null && item.Accept[i] == null && item.Rework[i] == null && item.Sorting[i] == null && item.Resorting[i] == null && item.Deviation[i] == null && item.ReworkMRB[i] == null && item.ReMeasured[i] == null && item.Split[i] == null && item.Hold[i] == null)
+                                                {
+                                                    <a class="btn btn-primary btn-sm mb-3" onclick="openModaldecision('@item.Qtys', @item.ids[i] ,'@Model._MrbModel.iId');">
+                                                        Decision
+                                                    </a>
+                                                    <br />
+                                                }
+                                                <hr />
+                                            }
+                                        </td>
+                                        <td>
+                                            @foreach (var idsa in item.ids)
+                                            {
+                                                <button type="button" class="btn btn-success" onclick="Editmrb(@idsa,@Model._MrbModel.iId);">Edit</button>
+                                                <button type="button" class="btn btn-danger" onclick="deletemrb(@idsa);">Delete</button>
+                                                <hr />
+                                            }
+
+                                        </td>
                                     </tr>
                                     count++;
                                 }
@@ -201,14 +282,25 @@
                     </div>
                     <div class="col-xxl-3 md-6">
                     </div>
-
                 }
             </div>
         </div>
     </div>
-    <div class="col-xxl-3 md-6">
-        <button type="button" class="btn btn-primary waves-effect waves-light" onclick="testinmrb()">Update</button>
-    </div>
+</div>
+
+<div id="modaldesicion">
+    @if (Model._MrbModel != null)
+    {
+        @Html.Partial("_mrbdesiciondata", Model._MrbModel)
+    }
+
+</div>
+<div id="modaleditmrb">
+    @if (Model._MrbModel != null)
+    {
+        @Html.Partial("_EditMRBpopup", Model._MrbModel)
+    }
+
 </div>
 
 
@@ -219,10 +311,7 @@
     @Scripts.Render("~/bundles/jqueryval")
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.min.js"></script>
     <script src="~/Content/assets/libs/prismjs/prism.js"></script>
-
     <script src="~/Content/assets/js/app.js"></script>
-
-
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script src="~/Content/assets/js/pages/select2.init.js"></script>
     <script src="~/Content/assets/js/app.js"></script>
@@ -257,6 +346,71 @@
             }
         }
     });
+
+    function openModaldecision(qty, id, iid) {
+        debugger
+        $.ajax({
+            url: '/MRB/_AddDesicion',
+            type: 'GET',
+            data: { qty: qty, id: id, iid: iid },
+            success: function (data) {
+                debugger
+                $('#modaldesicion').html(data);
+                $('#mrbdesiciondata').modal('show');
+            },
+            error: function (xhr, status, error) {
+                console.error(error);
+            }
+        });
+    }
+
+    function Editmrb(id , iid) {
+        debugger
+        $.ajax({
+            url: '/MRB/_EditMRB',
+            type: 'GET',
+            data: { id: id , iid : iid},
+            success: function (data) {
+                debugger
+                $('#modaleditmrb').html(data);
+                $('#mrbdesiciondataedit').modal('show');
+            },
+            error: function (xhr, status, error) {
+                console.error(error);
+            }
+        });
+    }
+
+    function deletemrb(id, iid) {
+        console.log('Editmrb function called with id:', id, 'and iid:', iid);
+        debugger
+        $.ajax({
+            url: '/MRB/_DeleteMRb',
+            type: 'GET',
+            data: { id: id },
+            success: function (data) {
+                Swal.fire({
+                    html: '<div class="mt-3">' +
+                        '<lord-icon src="https://cdn.lordicon.com/lupuorrc.json" trigger="loop" colors="primary:#0ab39c,secondary:#405189" style="width:120px;height:120px"></lord-icon>' +
+                        '<div class="mt-4 pt-2 fs-15">' +
+                        '<h4>Well done !</h4>' +
+                        '<p class="text-muted mx-4 mb-0">' + "Mrb Data Deleted Successfully." + '</p>' +
+                        '</div>' +
+                        '</div>',
+                    showCancelButton: true,
+                    showConfirmButton: false,
+                    cancelButtonClass: 'btn btn-primary w-xs mb-1',
+                    cancelButtonText: 'Back',
+                    buttonsStyling: false,
+                    showCloseButton: true
+                });
+            },
+            error: function (xhr, status, error) {
+                console.error(error);
+            }
+        });
+    }
+
 </script>
 
 <script>
@@ -270,10 +424,10 @@
             filename: pdfName,
             image: { type: 'jpeg', quality: 0.98 },
             html2canvas: { scale: 2 },
-            jsPDF: { format: 'a4', orientation: 'landscape' }, 
+            jsPDF: { format: 'a4', orientation: 'landscape' },
         };
 
-        
+
 
         html2pdf().from(content).set(options).save();
     });
@@ -281,7 +435,7 @@
 
 <script>
     function testinmrb() {
-
+        debugger
         var formData = $("form").serialize();
         console.log(formData);
         $.ajax({

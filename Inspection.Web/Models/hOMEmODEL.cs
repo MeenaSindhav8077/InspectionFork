@@ -11,24 +11,25 @@ namespace Inspection.Web.Models
     public class HOMEmODEL
     {
 
-        public int PartsWaitingForFinalCount                               { get; set; }
-        public int PartsWaitingForMRBCount                                { get; set; }
-        public int PartsWaitingForSortingCount                             { get; set; }
-        public int PartsWaitingForReworkCount                                 { get; set; }
-        public int PartsinreworkCount                                             { get; set; }
-        public int ReworkcompleteandwaitingforinspectionCount                         { get; set; }
-        public int Partsindeviationcount                                              { get; set; }
-        public int PartdonothaveunitpriceandrevissueCount                                     { get; set; }
-        public int PartsInspectioncompletedandwaitingforfilecompleteCount           { get; set; }
-        public int PartsReadyForpackingCount                                    { get; set; }
-        public int PartsmovedfromqualityCount                                   { get; set; }
-        public int PartsWaitingForHumidityCount                                     { get; set; }
-
-
+        public int PartsWaitingForFinalCount { get; set; }
+        public int PartsWaitingForMRBCount { get; set; }
+        public int PartsWaitingForSortingCount { get; set; }
+        public int PartsWaitingForReworkCount { get; set; }
+        public int PartsinreworkCount { get; set; }
+        public int ReworkcompleteandwaitingforinspectionCount { get; set; }
+        public int Partsindeviationcount { get; set; }
+        public int PartdonothaveunitpriceandrevissueCount { get; set; }
+        public int PartsInspectioncompletedandwaitingforfilecompleteCount { get; set; }
+        public int PartsReadyForpackingCount { get; set; }
+        public int PartsmovedfromqualityCount { get; set; }
+        public int VISUALTHAREDINSPECTIONCOMPLETEDCount { get; set; }
+        public int PartsWaitingForHumidityCount { get; set; }
+        public int PartsinholdCount { get; set; }
 
     }
     public class MainhOMEInwardModel
     {
+        public List<InwardDataModel> _DASHBOARDINWARD { get; set; }
         public HOMEmODEL Final { get; set; }
         public HOMEmODEL Visual { get; set; }
         public HOMEmODEL Thread { get; set; }
@@ -40,4 +41,6 @@ namespace Inspection.Web.Models
         public int humiditypendinginspection { get; set; }
 
     }
+
+    
 }

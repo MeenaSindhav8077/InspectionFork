@@ -12,12 +12,16 @@ namespace Inspection.Web.DataBase
     using System;
     using System.Collections.Generic;
     
-    public partial class userdata
+    public partial class Final_Inspection_Document_Varification
     {
-        public int MID { get; set; }
         public int ID { get; set; }
-        public string name { get; set; }
-        public string utype { get; set; }
-        public string active { get; set; }
+        public int IID { get; set; }
+        public int DocumentID { get; set; }
+        public string Comments { get; set; }
+        public string Passfail { get; set; }
+        public string AfterCorrectionpassfail { get; set; }
+        public Nullable<System.DateTime> CurrentDate { get; set; }
+        public Nullable<bool> Active { get; set; }
+        public Nullable<bool> Delete { get; set; }
     }
 }

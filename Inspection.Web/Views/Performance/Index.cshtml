@@ -1,0 +1,367 @@
+﻿@model  Inspection.Web.Models.PerformanceModel
+
+@{
+    ViewBag.Title = "Performance";
+    ViewBag.pTitle = "Performance";
+    ViewBag.pageTitle = " Inspector Performance";
+    ViewBag.Title = "Index";
+}
+@{
+    var inspectionservice = new Inspection.Web.Scripts.Inspectionservice();
+    var userSelectList = inspectionservice.Getuser();
+}
+<div class="card">
+    <div class="card-body">
+        <!-- Form to submit filter data -->
+        @using (Html.BeginForm("Index", "Performance", FormMethod.Post))
+        {
+            <div class="row g-3">
+                <div class="col-xl-4 col-md-6">
+                    @Html.DropDownListFor(model => model.inspector, new SelectList(userSelectList, "Value", "Text"), "All", new { @class = "form-select mb-3 js-example-basic-singlethared", id = "inspectorDropdown" })
+                </div>
+                <div class="col-xl-4 col-md-6">
+                    <div class="input-group">
+                        <input type="text" name="DateRange" class="form-control border-0 dash-filter-picker shadow flatpickr-input active" data-provider="flatpickr" data-range-date="true" data-date-format="d M, Y" data-deafult-date="@Model.DateRange">
+                        <div class="input-group-text bg-primary border-primary text-white">
+                            <i class="ri-calendar-2-line"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-2 col-md-4">
+                    <button type="submit" class="btn btn-success w-100">Apply Filters</button>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+<input type="hidden" id="inspectorid" value="@Model.inspector" />
+<div class="row">
+    <div class="col-xxl-2 col-md-4">
+        <div class="card overflow-hidden">
+            <div class="card-body bg-soft-success">
+                <h5 class="fs-17 text-center mb-0">Final Inspection</h5>
+            </div>
+        </div>
+        <div class="card mb-2 ribbon-box ribbon-fill right">
+            <div class="ribbon ribbon-info shadow-none"><i class="ri-flashlight-fill me-1"></i> 1</div>
+            <div class="card-body" onclick="showdetails('Final');">
+                <div class="d-flex justify-content-between">
+                    <div class="col col-lg border-end">
+                        <div class="mt-3 mt-md-0 py-4 px-3">
+                            <h4 class="text-muted text-uppercase fs-13"><b>Total Qty</b> </h4>
+                            <div class="d-flex align-items-center">
+                                <div class="flex-shrink-0">
+                                    <i class="ri-exchange-dollar-line display-6 text-muted"></i>
+                                </div>
+                                <div class="flex-grow-1 ms-3">
+                                    <h2 class="mb-0">@Model.Finalqty</h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body border-top border-top-dashed">
+                <div class="d-flex">
+                    <div class="flex-grow-1">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card mb-2 ribbon-box ribbon-fill right">
+            <div class="ribbon ribbon-info shadow-none"><i class="ri-flashlight-fill me-1"></i> 1</div>
+            <div class="card-body" onclick="showdetails('Final');">
+                <div class="d-flex justify-content-between">
+                    <div class="col col-lg border-end">
+                        <div class="mt-3 mt-md-0 py-4 px-3">
+                            <h5 class="text-muted text-uppercase fs-13"> Total Time </h5>
+                            <div class="d-flex align-items-center">
+                                <div class="flex-shrink-0">
+                                    <i class="ri-exchange-dollar-line display-6 text-muted"></i>
+                                </div>
+                                <div class="flex-grow-1 ms-3">
+                                    <h2 class="mb-0">@Model.FinalHours (hr)</h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body border-top border-top-dashed">
+                <div class="d-flex">
+                    <div class="flex-grow-1">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xxl-2 col-md-4">
+        <div class="card overflow-hidden">
+            <div class="card-body bg-soft-danger">
+                <h5 class="fs-17 text-center mb-0">Visual Inspection</h5>
+            </div>
+        </div>
+        <div class="card mb-2 ribbon-box ribbon-fill right">
+            <div class="ribbon ribbon-info shadow-none"><i class="ri-flashlight-fill me-1"></i> 1</div>
+            <div class="card-body" onclick="showdetails('Visual');">
+                <div class="d-flex justify-content-between">
+                    <div class="col col-lg border-end">
+                        <div class="mt-3 mt-md-0 py-4 px-3">
+                            <h5 class="text-muted text-uppercase fs-13">Total Qty </h5>
+                            <div class="d-flex align-items-center">
+                                <div class="flex-shrink-0">
+                                    <i class="ri-exchange-dollar-line display-6 text-muted"></i>
+                                </div>
+                                <div class="flex-grow-1 ms-3">
+                                    <h2 class="mb-0">@Model.Visualqty</h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body border-top border-top-dashed">
+                <div class="d-flex">
+                    <div class="flex-grow-1">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card mb-2 ribbon-box ribbon-fill right">
+            <div class="ribbon ribbon-info shadow-none"><i class="ri-flashlight-fill me-1"></i> 1</div>
+            <div class="card-body" onclick="showdetails('Visual');">
+                <div class="d-flex justify-content-between">
+                    <div class="col col-lg border-end">
+                        <div class="mt-3 mt-md-0 py-4 px-3">
+                            <h5 class="text-muted text-uppercase fs-13">Total Time </h5>
+                            <div class="d-flex align-items-center">
+                                <div class="flex-shrink-0">
+                                    <i class="ri-exchange-dollar-line display-6 text-muted"></i>
+                                </div>
+                                <div class="flex-grow-1 ms-3">
+                                    <h2 class="mb-0">@Model.VisualHours (hr)</h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body border-top border-top-dashed">
+                <div class="d-flex">
+                    <div class="flex-grow-1">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xxl-2 col-md-4">
+        <div class="card overflow-hidden">
+            <div class="card-body bg-soft-primary">
+                <h5 class="fs-17 text-center mb-0">Thared Inspection</h5>
+            </div>
+        </div>
+        <div class="card mb-2 ribbon-box ribbon-fill right">
+            <div class="ribbon ribbon-info shadow-none"><i class="ri-flashlight-fill me-1"></i> 1</div>
+            <div class="card-body" onclick="showdetails('Thared');">
+                <div class="d-flex justify-content-between">
+                    <div class="col col-lg border-end">
+                        <div class="mt-3 mt-md-0 py-4 px-3">
+                            <h5 class="text-muted text-uppercase fs-13">Total Qty </h5>
+                            <div class="d-flex align-items-center">
+                                <div class="flex-shrink-0">
+                                    <i class="ri-exchange-dollar-line display-6 text-muted"></i>
+                                </div>
+                                <div class="flex-grow-1 ms-3">
+                                    <h2 class="mb-0">@Model.Threadqty</h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body border-top border-top-dashed">
+                <div class="d-flex">
+                    <div class="flex-grow-1">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card mb-2 ribbon-box ribbon-fill right">
+            <div class="ribbon ribbon-info shadow-none"><i class="ri-flashlight-fill me-1"></i> 1</div>
+
+            <div class="card-body" onclick="showdetails('Thared');">
+                <div class="d-flex justify-content-between">
+                    <div class="col col-lg border-end">
+                        <div class="mt-3 mt-md-0 py-4 px-3">
+                            <h5 class="text-muted text-uppercase fs-13">Total Time </h5>
+                            <div class="d-flex align-items-center">
+                                <div class="flex-shrink-0">
+                                    <i class="ri-exchange-dollar-line display-6 text-muted"></i>
+                                </div>
+                                <div class="flex-grow-1 ms-3">
+                                    <h2 class="mb-0">@Model.ThreadHours (hr)</h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body border-top border-top-dashed">
+                <div class="d-flex">
+                    <div class="flex-grow-1">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xxl-2 col-md-4">
+        <div class="card overflow-hidden">
+            <div class="card-body bg-soft-info">
+                <h5 class="fs-17 text-center mb-0">Humidity Inspection</h5>
+            </div>
+        </div>
+        <div class="card mb-2 ribbon-box ribbon-fill right">
+            <div class="ribbon ribbon-info shadow-none"><i class="ri-flashlight-fill me-1"></i> 1</div>
+            <div class="card-body" onclick="showdetails('Humidity');">
+                <div class="d-flex justify-content-between">
+                    <div class="col col-lg border-end">
+                        <div class="mt-3 mt-md-0 py-4 px-3">
+                            <h5 class="text-muted text-uppercase fs-13">Total Qty </h5>
+                            <div class="d-flex align-items-center">
+                                <div class="flex-shrink-0">
+                                    <i class="ri-exchange-dollar-line display-6 text-muted"></i>
+                                </div>
+                                <div class="flex-grow-1 ms-3">
+                                    <h2 class="mb-0">@Model.Humidityqty</h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body border-top border-top-dashed">
+                <div class="d-flex">
+                    <div class="flex-grow-1">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card mb-2 ribbon-box ribbon-fill right">
+            <div class="ribbon ribbon-info shadow-none"><i class="ri-flashlight-fill me-1"></i> 2</div>
+            <div class="card-body" onclick="showdetails('Humidity');">
+                <div class="d-flex justify-content-between">
+                    <div class="col col-lg border-end">
+                        <div class="mt-3 mt-md-0 py-4 px-3">
+                            <h5 class="text-muted text-uppercase fs-13">Total Time </h5>
+                            <div class="d-flex align-items-center">
+                                <div class="flex-shrink-0">
+                                    <i class="ri-exchange-dollar-line display-6 text-muted"></i>
+                                </div>
+                                <div class="flex-grow-1 ms-3">
+                                    <h2 class="mb-0">@Model.HumidityHours (hr)</h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body border-top border-top-dashed">
+                <div class="d-flex">
+                    <div class="flex-grow-1">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xxl-3 col-md-4">
+        <div class="card overflow-hidden">
+            <div class="card-body bg-soft-secondary">
+                <h5 class="fs-17 text-center mb-0">Total Inspection</h5>
+            </div>
+        </div>
+        <div class="card mb-2 ribbon-box ribbon-fill right">
+            <div class="ribbon ribbon-info shadow-none"><i class="ri-flashlight-fill me-1"></i> 1</div>
+            <div class="card-body" onclick="showdetails('Total');">
+                <div class="d-flex justify-content-between">
+                    <div class="col col-lg border-end">
+                        <div class="mt-3 mt-md-0 py-4 px-3">
+                            <h5 class="text-muted text-uppercase fs-13">Total Qty </h5>
+                            <div class="d-flex align-items-center">
+                                <div class="flex-shrink-0">
+                                    <i class="ri-exchange-dollar-line display-6 text-muted"></i>
+                                </div>
+                                <div class="flex-grow-1 ms-3">
+                                    <h2 class="mb-0">@Model.Totalqty</h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body border-top border-top-dashed">
+                <div class="d-flex">
+                    <div class="flex-grow-1">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card mb-2 ribbon-box ribbon-fill right">
+            <div class="ribbon ribbon-info shadow-none"><i class="ri-flashlight-fill me-1"></i> 2</div>
+            <div class="card-body" onclick="showdetails('Total');">
+                <div class="d-flex justify-content-between">
+                    <div class="col col-lg border-end">
+                        <div class="mt-3 mt-md-0 py-4 px-3">
+                            <h5 class="text-muted text-uppercase fs-13">Total Time </h5>
+                            <div class="d-flex align-items-center">
+                                <div class="flex-shrink-0">
+                                    <i class="ri-exchange-dollar-line display-6 text-muted"></i>
+                                </div>
+                                <div class="flex-grow-1 ms-3">
+                                    <h2 class="mb-0">@Model.TotalHours (hr)</h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body border-top border-top-dashed">
+                <div class="d-flex">
+                    <div class="flex-grow-1">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script src="~/Content/assets/libs/apexcharts/apexcharts.min.js"></script>
+    <script src="~/Content/assets/libs/jsvectormap/js/jsvectormap.min.js"></script>
+    <script src="~/Content/assets/libs/jsvectormap/maps/world-merc.js"></script>
+    <script src="~/Content/assets/libs/swiper/swiper-bundle.min.js"></script>
+    <script src="~/Content/assets/js/pages/dashboard-ecommerce.init.js"></script>
+    <script src="~/Content/assets/js/app.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="~/Content/assets/js/app.js"></script>
+    <script>
+        function showdetails(type) {
+            debugger
+            //const inspector = document.getElementById("inspectorDropdown").value;
+            //$.ajax({
+            //    url: '/Performance/ShowDetails',
+            //    type: 'GET',
+            //    data: { type: type, inspector: inspector },
+            //    success: function (data) {
+            //    },
+            //    error: function (xhr, status, error) {
+            //        console.error(error);
+            //    }
+            //});
+
+            const inspector = document.getElementById("inspectorDropdown").value;
+            var url = '@Url.Action("ShowDetails", "Performance")' + '?type=' + type + '&inspector=' + inspector;
+            window.location.href = url;
+
+            }
+    </script>
+}

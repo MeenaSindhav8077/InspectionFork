@@ -29,18 +29,58 @@ namespace Inspection.Web.DataBase
         public Nullable<int> Reject_Qty { get; set; }
         public Nullable<int> Accept_Qty { get; set; }
         public Nullable<int> Rework_Qty { get; set; }
-        public Nullable<int> Inspection_Qty { get; set; }
+        public string Inspection_Qty { get; set; }
+        public Nullable<int> Sorting_Qty { get; set; }
+        public Nullable<int> Deviation_Qty { get; set; }
         public string Inspection_Type { get; set; }
-        public Nullable<bool> Final_Inspection { get; set; }
-        public Nullable<bool> Humidity_Inspection { get; set; }
-        public Nullable<bool> Thread_Inspection { get; set; }
-        public Nullable<bool> Visual_Inspection { get; set; }
         public Nullable<System.DateTime> CurrentDate { get; set; }
-        public string qty { get; set; }
         public Nullable<bool> Active { get; set; }
         public Nullable<bool> Delete { get; set; }
         public Nullable<bool> Is_Submiteed { get; set; }
         public Nullable<bool> Statuschange { get; set; }
         public string QualityStage { get; set; }
+        public Nullable<bool> waitingforfinal { get; set; }
+        public Nullable<bool> waitingforvisual { get; set; }
+        public Nullable<bool> waitingforthread { get; set; }
+        public Nullable<bool> waitingforhumidity { get; set; }
+        public Nullable<int> qty { get; set; }
+        public string Note { get; set; }
+        public Nullable<bool> waitingformrb { get; set; }
+        public Nullable<bool> waitingforsorting { get; set; }
+        public Nullable<bool> waitingforrework { get; set; }
+        public Nullable<bool> inrework { get; set; }
+        public Nullable<bool> completeandwaiting { get; set; }
+        public Nullable<bool> indeviation { get; set; }
+        public Nullable<bool> unitprice { get; set; }
+        public Nullable<bool> completedandwaiting { get; set; }
+        public Nullable<bool> readyforpacking { get; set; }
+        public Nullable<bool> split { get; set; }
+        public Nullable<bool> Hold { get; set; }
+        public Nullable<bool> movedfromquality { get; set; }
+        public Nullable<bool> visualcompleted { get; set; }
+        public Nullable<bool> threadcompleted { get; set; }
+        public Nullable<bool> closerequest { get; set; }
+        public Nullable<bool> FinalRuning { get; set; }
+        public string Suppliername { get; set; }
+        public Nullable<System.DateTime> MRBDate { get; set; }
+        public string CuurntCard { get; set; }
+        public Nullable<System.DateTime> CloseRequstDate { get; set; }
+        public Nullable<decimal> rejectpersentage { get; set; }
+        public Nullable<decimal> Reworkpersentage { get; set; }
+        public Nullable<decimal> Deviationpersentage { get; set; }
+        public string lotreject { get; set; }
+        public Nullable<decimal> TotalTimeinquality { get; set; }
+        public string InspectiontimeManpowerspendtime { get; set; }
+        public string TotalinspectiontimeManpowerspendtime { get; set; }
+        public string InspectiontimeQualitydivisionspendtimebypart { get; set; }
+        public string Totalinspectiontimequalitydivisionspendtimebypart { get; set; }
+        public string MRBTakentime { get; set; }
+        public Nullable<decimal> Reworktime { get; set; }
+        public Nullable<decimal> Sortingtime { get; set; }
+        public Nullable<decimal> Deviationwaitingtime { get; set; }
+        public Nullable<System.DateTime> InReworkDate { get; set; }
+        public Nullable<System.DateTime> InSortingDate { get; set; }
+        public Nullable<System.DateTime> InDaviationTime { get; set; }
+        public Nullable<System.DateTime> Mrb_Create_date { get; set; }
     }
 }

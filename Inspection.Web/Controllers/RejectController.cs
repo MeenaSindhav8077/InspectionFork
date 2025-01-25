@@ -11,14 +11,14 @@ namespace Inspection.Web.Controllers
     public class RejectController : Controller
     {
         // GET: Reject
-        ITe_INDIAEntities DB = new ITe_INDIAEntities();
+        ITe_INDIAEntities1 DB = new ITe_INDIAEntities1();
         public ActionResult Index()
         {
             List<InwardDataModel> inwardDataModel = new List<InwardDataModel>();
 
             try
             {
-                inwardDataModel = (from model in DB.Final_Inspection_Process.Where(l => l.rejectwaiting == true).OrderByDescending(p => p.ID)
+                inwardDataModel = (from model in DB.Final_Inspection_Process.OrderByDescending(p => p.ID)
                                    select new InwardDataModel
                                    {
                                        id = model.ID,

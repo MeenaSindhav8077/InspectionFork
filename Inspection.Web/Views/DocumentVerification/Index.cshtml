@@ -1,0 +1,125 @@
+﻿@model Inspection.Web.Models.Dmainmodel
+@{
+    ViewBag.Title = "Index";
+    int count = 1;
+    var passFailOptions = new List<SelectListItem>
+{
+        new SelectListItem { Value = "", Text = "Select..." },
+        new SelectListItem { Value = "PASS", Text = "PASS" },
+        new SelectListItem { Value = "FAIL", Text = "FAIL" },
+        new SelectListItem { Value = "Not Applicable", Text = "Not Applicable" },
+    };
+}
+
+@using (Html.BeginForm("SaveDecision", "DocumentVerification", FormMethod.Post))
+{
+    @Html.HiddenFor(model => model.Id)
+
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="card">
+                <div class="card-header align-items-center d-flex">
+                    <h4 class="card-title mb-0 flex-grow-1">Document Varification</h4>
+                </div>
+                <div class="card-body">
+                    <div class="live-preview">
+                        <div class="row gy-4">
+                            <div class="col-xxl-3 col-md-6">
+                                <div>
+                                    <label>Job No</label>
+                                    @Html.TextBoxFor(model => model.jobno, new { @disabled = "disabled", @class = "aspNetDisabled form-control" })
+                                </div>
+                            </div>
+                            <div class="col-xxl-3 col-md-6">
+                                <div>
+                                    <label>Part No</label>
+                                    @Html.TextBoxFor(model => model.partno, new { @disabled = "disabled", @class = "form-control", id = "exampleInputdate" })
+                                </div>
+                            </div>
+                            <div class="col-xxl-3 col-md-6">
+                                <div>
+                                    <label>Inward Qty</label>
+                                    @Html.TextBoxFor(model => model.qty, new { @disabled = "disabled", @class = "form-control", id = "inwardqty" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="live-preview">
+                        <div class="table-responsive table-card">
+                            <table class="table align-middle table-nowrap mb-0">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Sr. No.</th>
+                                        <th>Document Name</th>
+                                        <th>Verification Instruction</th>
+                                         <th>Comments</th>
+                                        <th>PASS/FAIL/N/A</th>
+                                        <th>PASS/FAIL/N/A after correction</th>
+                                       
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @for (int i = 0; i < Model.docmodels.Count; i++)
+                                    {
+                                        @Html.HiddenFor(model => Model.docmodels[i].Id)
+                                    <tr>
+                                        <td>@(i + 1)</td>
+                                        <td>@Model.docmodels[i].Documentname</td>
+                                        <td>@Model.docmodels[i].varificationinstuction</td>
+                                        <td>@Html.TextBoxFor(model => Model.docmodels[i].comment, new { @class = "form-control", id = "exampleInputComment" + i, @placeholder = "Enter comment" })</td>
+                                        @if (Model.docmodels[i].passfail != null)
+                                        {
+                                            <td>
+                                                @Html.TextBoxFor(model => Model.docmodels[i].passfail, new { @disabled = "disabled", @class = "aspNetDisabled form-control", @disable = "disabled" })
+                                            </td>
+
+
+                                        }
+                                        else
+                                        {
+                                            <td>
+                                                @Html.DropDownListFor(model => model.docmodels[i].passfail, new SelectList(passFailOptions, "Value", "Text"), new { @class = "form-control", id = "exampleInputPassFail" + i })
+                                                @Html.ValidationMessageFor(model => Model.docmodels[i].passfail, "", new { @class = "text-danger" })
+                                            </td>
+
+                                        }
+                                        @if (Model.docmodels[i].passfail == "FAIL")
+                                        {
+                                            if (Model.docmodels[i].aftercorectionpassfail != null)
+                                            {
+                                                <td>
+                                                    @Html.TextBoxFor(model => Model.docmodels[i].aftercorectionpassfail, new { @disabled = "disabled", @class = "aspNetDisabled form-control", @disable = "disabled" })
+                                                </td>
+                                            }
+                                            else
+                                            {
+                                                <td>
+                                                    @Html.DropDownListFor(model => model.docmodels[i].aftercorectionpassfail, new SelectList(passFailOptions, "Value", "Text"), new { @class = "form-control", id = "exampleInputAfterCorrectionPassFail" + i })
+                                                    @Html.ValidationMessageFor(model => model.docmodels[i].aftercorectionpassfail, "", new { @class = "text-danger" })
+                                                </td>
+                                            }
+                                        }
+
+
+
+                                    </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+}

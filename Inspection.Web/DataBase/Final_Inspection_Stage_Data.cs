@@ -12,19 +12,20 @@ namespace Inspection.Web.DataBase
     using System;
     using System.Collections.Generic;
     
-    public partial class ISUser
+    public partial class Final_Inspection_Stage_Data
     {
         public int ID { get; set; }
-        public Nullable<int> UserID { get; set; }
-        public string UserName { get; set; }
-        public string Password { get; set; }
-        public Nullable<int> UserType { get; set; }
-        public string PreviousQuantity { get; set; }
+        public int MID { get; set; }
+        public string Inspection_ID { get; set; }
+        public string CurrentDateTime { get; set; }
+        public string JobNum { get; set; }
+        public string PartNum { get; set; }
+        public string Stage { get; set; }
+        public string Qty { get; set; }
         public Nullable<bool> Active { get; set; }
         public Nullable<bool> Deleted { get; set; }
-        public Nullable<System.DateTime> CreatedDate { get; set; }
-        public Nullable<int> CreatedBy { get; set; }
-        public Nullable<System.DateTime> ModifyDate { get; set; }
-        public Nullable<int> ModifyBy { get; set; }
+        public string InspectionType { get; set; }
+        public string stageno { get; set; }
+        public string Qualitystage { get; set; }
     }
 }

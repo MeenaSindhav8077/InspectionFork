@@ -1,0 +1,264 @@
+﻿@model Inspection.Web.Models.mrbmainmodel
+@using Inspection.Web.Service
+@{
+    Layout = null;
+}
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mrb Register PDF</title>
+    <style>
+
+        .card-title {
+            color: darkblue;
+            font-size: 30px;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .logo {
+            height: 40px;
+            margin-right: 10px;
+        }
+
+        .card {
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+            .table th, .table td {
+                border: 1px solid #ddd;
+                padding: 8px;
+            }
+
+            .table th {
+                background-color: #f2f2f2;
+                text-align: left;
+            }
+
+            .table td {
+                text-align: left;
+            }
+
+        .form-control {
+            width: 100%;
+            padding: 6px 12px;
+            font-size: 14px;
+            line-height: 1.5;
+            color: #495057;
+            background-color: #fff;
+            background-clip: padding-box;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        }
+
+        .product-defect {
+            height: auto; /* Adjust height as needed */
+            resize: none; /* Disable textarea resizing */
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <img src="~/img/ssw.png" alt="S.S.White Technology Pvt Ltd." class="logo" />
+            <h1 class="card-title mb-0">S.S.White Technology Pvt Ltd.</h1>
+            <h1>Mrb Register</h1>
+        </div>
+
+        <div class="card">
+            <h2>Job Information</h2>
+            <div class="table-responsive">
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <th>Job No</th>
+                            <td>@Model._MrbModel.jobno</td>
+                            <th>Part No</th>
+                            <td>@Model._MrbModel.partno</td>
+                        </tr>
+                        <tr>
+                            <th>Total Qty</th>
+                            <td>@Model._MrbModel.Qty_qty</td>
+                            <th>Inspection Type</th>
+                            <td>@Model._MrbModel.inspectiontype</td>
+                        </tr>
+                        <tr>
+                            <th>Quality Stage</th>
+                            <td>@Model._MrbModel.Qualitystage</td>
+                            <th>Note</th>
+                            <td>@Model._MrbModel.note</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Decision Details</h2>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Sr No</th>
+                            <th>Quantity</th>
+                            <th>RCode</th>
+                            <th>Defect</th>
+                            <th>Location</th>
+                            <th>Sub Qty</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.mrbdecisioModel)
+                        {
+                            <tr>
+                                <td>@item.Id</td>
+                                <td>@item.Qtys</td>
+                                <td>
+                                    @foreach (var rcods in item.Rcode)
+                                    {
+                                        @Html.TextBoxFor(model => rcods, new { @class = "form-control product-location", @name = "rcode", @id = "rcode" })
+                                    }
+                                </td>
+
+                                <td>
+                                    @foreach (var des in item.Description)
+                                    {
+                                        @Html.TextAreaFor(model => des, new { @class = "form-control product-defect text-wrap", @disabled = "disabled", @name = "desc", @id = "description", @rows = 4, @style = "overflow: auto; resize: vertical;" })
+                                    }
+                                </td>
+                                <td>
+                                    @foreach (var ls in item.location)
+                                    {
+                                        @Html.TextBoxFor(model => ls, new { @class = "form-control product-location", @disabled = "disabled", @name = "location", @id = "productLocation-1" })
+
+                                    }
+                                </td>
+                                <td>
+                                    @foreach (var sqty in item.subqty)
+                                    {
+                                        @Html.TextBoxFor(model => sqty, new { @class = "form-control product-location", @disabled = "disabled", @name = "location", @id = "productLocation-1" })
+
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>FCD-0345 Rev01.</p>
+            <div>
+                <p>Production :</p>
+                <p>Quality :</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+<style>
+    .table table-bordered border-secondary table-nowrap align-middle mb-0 {
+        border: none;
+    }
+</style>
+@section styles{
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+    <!-- dropzone css -->
+    <link rel="stylesheet" href="~/Content/assets/libs/dropzone/dropzone.css" type="text/css" />
+
+    <!-- Sweet Alert css-->
+    <link href="~/Content/assets/libs/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+}
+@{
+    int count = 1;
+    var inspectionservice = new Inspection.Web.Scripts.Inspectionservice();
+}
+<style>
+    .containersign {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .left-side {
+        display: flex;
+        flex-direction: column;
+        padding-left: 20px;
+    }
+
+    .form-control.product-location.text-wrap {
+        word-wrap: break-word;
+    }
+
+    hr {
+        margin: 4px;
+        color: inherit;
+        border: 0;
+        border-top: 1px solid;
+        opacity: .25;
+    }
+
+    .card-header {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+    }
+
+    .header-content {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        position: relative;
+    }
+
+    .company-logo {
+        height: 40px;
+        margin-right: 20px; /* Adjust the margin as needed */
+    }
+
+    .card-title {
+        color: darkblue;
+        font-size: 30px;
+    }
+
+    .card-title1 {
+        text-align: left;
+    }
+</style>
+
+

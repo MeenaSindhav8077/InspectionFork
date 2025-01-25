@@ -12,13 +12,11 @@ namespace Inspection.Web.DataBase
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
-    using System.Data.Entity.Core.Objects;
-    using System.Linq;
     
-    public partial class ITe_INDIAEntities : DbContext
+    public partial class ITe_INDIAEntities1 : DbContext
     {
-        public ITe_INDIAEntities()
-            : base("name=ITe_INDIAEntities")
+        public ITe_INDIAEntities1()
+            : base("name=ITe_INDIAEntities1")
         {
         }
     
@@ -27,185 +25,21 @@ namespace Inspection.Web.DataBase
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Final_Inspection_Data> Final_Inspection_Data { get; set; }
+        public virtual DbSet<Final_Inspection_Document_Data> Final_Inspection_Document_Data { get; set; }
+        public virtual DbSet<Final_Inspection_Document_Varification> Final_Inspection_Document_Varification { get; set; }
+        public virtual DbSet<Final_Inspection_LogTable> Final_Inspection_LogTable { get; set; }
         public virtual DbSet<Final_Inspection_Mrb_Data> Final_Inspection_Mrb_Data { get; set; }
-        public virtual DbSet<Final_Inspection_MRB_Decision> Final_Inspection_MRB_Decision { get; set; }
+        public virtual DbSet<Final_Inspection_MRB_DecisionData> Final_Inspection_MRB_DecisionData { get; set; }
         public virtual DbSet<Final_Inspection_Mrb_Rcode> Final_Inspection_Mrb_Rcode { get; set; }
         public virtual DbSet<Final_Inspection_Process> Final_Inspection_Process { get; set; }
         public virtual DbSet<Final_Inspection_Process_Rework> Final_Inspection_Process_Rework { get; set; }
         public virtual DbSet<Final_Inspection_RCode> Final_Inspection_RCode { get; set; }
         public virtual DbSet<Final_Inspection_Rework> Final_Inspection_Rework { get; set; }
+        public virtual DbSet<Final_Inspection_Stage_Data> Final_Inspection_Stage_Data { get; set; }
         public virtual DbSet<Final_Inspection_Stage_Master> Final_Inspection_Stage_Master { get; set; }
         public virtual DbSet<Final_Inspection_UserList> Final_Inspection_UserList { get; set; }
-        public virtual DbSet<ISUser> ISUsers { get; set; }
+        public virtual DbSet<USER_MST> USER_MST { get; set; }
         public virtual DbSet<user_data> user_data { get; set; }
-    
-        public virtual ObjectResult<AllRating_Result> AllRating()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<AllRating_Result>("AllRating");
-        }
-    
-        public virtual ObjectResult<AllUdaiReqWithHistory_Result> AllUdaiReqWithHistory()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<AllUdaiReqWithHistory_Result>("AllUdaiReqWithHistory");
-        }
-    
-        public virtual ObjectResult<GetProductDesc_Result> GetProductDesc()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetProductDesc_Result>("GetProductDesc");
-        }
-    
-        public virtual ObjectResult<MonthlyAvgRating_Result> MonthlyAvgRating()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<MonthlyAvgRating_Result>("MonthlyAvgRating");
-        }
-    
-        public virtual ObjectResult<MonthlyDeliveryRating_Result> MonthlyDeliveryRating()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<MonthlyDeliveryRating_Result>("MonthlyDeliveryRating");
-        }
-    
-        public virtual ObjectResult<MonthlyExpense_Result> MonthlyExpense()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<MonthlyExpense_Result>("MonthlyExpense");
-        }
-    
-        public virtual ObjectResult<MonthlyQualityRating_Result> MonthlyQualityRating()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<MonthlyQualityRating_Result>("MonthlyQualityRating");
-        }
-    
-        public virtual ObjectResult<OTD_Report_Result> OTD_Report()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<OTD_Report_Result>("OTD_Report");
-        }
-    
-        public virtual ObjectResult<SelectQuery_Result> SelectQuery()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SelectQuery_Result>("SelectQuery");
-        }
-    
-        public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
-        {
-            var diagramnameParameter = diagramname != null ?
-                new ObjectParameter("diagramname", diagramname) :
-                new ObjectParameter("diagramname", typeof(string));
-    
-            var owner_idParameter = owner_id.HasValue ?
-                new ObjectParameter("owner_id", owner_id) :
-                new ObjectParameter("owner_id", typeof(int));
-    
-            var versionParameter = version.HasValue ?
-                new ObjectParameter("version", version) :
-                new ObjectParameter("version", typeof(int));
-    
-            var definitionParameter = definition != null ?
-                new ObjectParameter("definition", definition) :
-                new ObjectParameter("definition", typeof(byte[]));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_alterdiagram", diagramnameParameter, owner_idParameter, versionParameter, definitionParameter);
-        }
-    
-        public virtual int sp_creatediagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
-        {
-            var diagramnameParameter = diagramname != null ?
-                new ObjectParameter("diagramname", diagramname) :
-                new ObjectParameter("diagramname", typeof(string));
-    
-            var owner_idParameter = owner_id.HasValue ?
-                new ObjectParameter("owner_id", owner_id) :
-                new ObjectParameter("owner_id", typeof(int));
-    
-            var versionParameter = version.HasValue ?
-                new ObjectParameter("version", version) :
-                new ObjectParameter("version", typeof(int));
-    
-            var definitionParameter = definition != null ?
-                new ObjectParameter("definition", definition) :
-                new ObjectParameter("definition", typeof(byte[]));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_creatediagram", diagramnameParameter, owner_idParameter, versionParameter, definitionParameter);
-        }
-    
-        public virtual int sp_dropdiagram(string diagramname, Nullable<int> owner_id)
-        {
-            var diagramnameParameter = diagramname != null ?
-                new ObjectParameter("diagramname", diagramname) :
-                new ObjectParameter("diagramname", typeof(string));
-    
-            var owner_idParameter = owner_id.HasValue ?
-                new ObjectParameter("owner_id", owner_id) :
-                new ObjectParameter("owner_id", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_dropdiagram", diagramnameParameter, owner_idParameter);
-        }
-    
-        public virtual ObjectResult<sp_group_by_slip_no_Result> sp_group_by_slip_no()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_group_by_slip_no_Result>("sp_group_by_slip_no");
-        }
-    
-        public virtual ObjectResult<sp_group_by_slip_no_with_supplier_name_Result> sp_group_by_slip_no_with_supplier_name()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_group_by_slip_no_with_supplier_name_Result>("sp_group_by_slip_no_with_supplier_name");
-        }
-    
-        public virtual ObjectResult<sp_helpdiagramdefinition_Result> sp_helpdiagramdefinition(string diagramname, Nullable<int> owner_id)
-        {
-            var diagramnameParameter = diagramname != null ?
-                new ObjectParameter("diagramname", diagramname) :
-                new ObjectParameter("diagramname", typeof(string));
-    
-            var owner_idParameter = owner_id.HasValue ?
-                new ObjectParameter("owner_id", owner_id) :
-                new ObjectParameter("owner_id", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_helpdiagramdefinition_Result>("sp_helpdiagramdefinition", diagramnameParameter, owner_idParameter);
-        }
-    
-        public virtual ObjectResult<sp_helpdiagrams_Result> sp_helpdiagrams(string diagramname, Nullable<int> owner_id)
-        {
-            var diagramnameParameter = diagramname != null ?
-                new ObjectParameter("diagramname", diagramname) :
-                new ObjectParameter("diagramname", typeof(string));
-    
-            var owner_idParameter = owner_id.HasValue ?
-                new ObjectParameter("owner_id", owner_id) :
-                new ObjectParameter("owner_id", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_helpdiagrams_Result>("sp_helpdiagrams", diagramnameParameter, owner_idParameter);
-        }
-    
-        public virtual int sp_renamediagram(string diagramname, Nullable<int> owner_id, string new_diagramname)
-        {
-            var diagramnameParameter = diagramname != null ?
-                new ObjectParameter("diagramname", diagramname) :
-                new ObjectParameter("diagramname", typeof(string));
-    
-            var owner_idParameter = owner_id.HasValue ?
-                new ObjectParameter("owner_id", owner_id) :
-                new ObjectParameter("owner_id", typeof(int));
-    
-            var new_diagramnameParameter = new_diagramname != null ?
-                new ObjectParameter("new_diagramname", new_diagramname) :
-                new ObjectParameter("new_diagramname", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_renamediagram", diagramnameParameter, owner_idParameter, new_diagramnameParameter);
-        }
-    
-        public virtual ObjectResult<SP_UdiOnHold_Result> SP_UdiOnHold()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_UdiOnHold_Result>("SP_UdiOnHold");
-        }
-    
-        public virtual int sp_upgraddiagrams()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_upgraddiagrams");
-        }
-    
-        public virtual ObjectResult<sp_viewInvoiceData_Result> sp_viewInvoiceData()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_viewInvoiceData_Result>("sp_viewInvoiceData");
-        }
+        public virtual DbSet<Final_Inspection_Data> Final_Inspection_Data { get; set; }
     }
 }

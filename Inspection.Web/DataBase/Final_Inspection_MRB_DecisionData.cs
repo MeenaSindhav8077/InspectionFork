@@ -10,14 +10,20 @@
 namespace Inspection.Web.DataBase
 {
     using System;
+    using System.Collections.Generic;
     
-    public partial class SelectQuery_Result
+    public partial class Final_Inspection_MRB_DecisionData
     {
-        public int pid { get; set; }
-        public string gpno { get; set; }
-        public string authorizedperson { get; set; }
-        public string supplierName { get; set; }
+        public int ID { get; set; }
+        public int IID { get; set; }
+        public int PID { get; set; }
+        public string MRBDecision { get; set; }
         public Nullable<System.DateTime> Date { get; set; }
-        public string Type { get; set; }
+        public string Time { get; set; }
+        public string OkQty { get; set; }
+        public string RejectQty { get; set; }
+        public string Remark { get; set; }
+        public bool Active { get; set; }
+        public bool Deleted { get; set; }
     }
 }

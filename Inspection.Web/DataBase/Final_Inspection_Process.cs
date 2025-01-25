@@ -25,34 +25,15 @@ namespace Inspection.Web.DataBase
         public string Inspection_Type { get; set; }
         public Nullable<System.DateTime> Inspection_date { get; set; }
         public string starttime { get; set; }
-        public string endtime { get; set; }
+        public Nullable<System.DateTime> endtime { get; set; }
         public Nullable<int> Inspection_Qty { get; set; }
         public string done_by { get; set; }
-        public Nullable<int> Non_conformance_Part_Qty { get; set; }
-        public string Non_conformance_defect { get; set; }
-        public string decision_by_MRB { get; set; }
-        public Nullable<int> reject_Qty { get; set; }
-        public Nullable<int> accept_Qty { get; set; }
-        public Nullable<int> rework_Qty { get; set; }
-        public Nullable<System.DateTime> MRB_date { get; set; }
-        public string Gauge_No { get; set; }
-        public Nullable<System.DateTime> Upload_date { get; set; }
-        public string MRB_Comment { get; set; }
-        public string Accept_Remark { get; set; }
-        public string reject_remark { get; set; }
-        public string rework_remark { get; set; }
-        public string accept_mrb { get; set; }
-        public string reject_mrb { get; set; }
-        public string rework_mrb { get; set; }
         public string Stage { get; set; }
         public Nullable<bool> CkMRB { get; set; }
         public Nullable<bool> Statuschange { get; set; }
-        public string QualityStage { get; set; }
-        public Nullable<bool> waitingMRB { get; set; }
-        public Nullable<bool> waitngsorting { get; set; }
-        public Nullable<bool> deviation { get; set; }
-        public Nullable<bool> reworkWAITING { get; set; }
-        public Nullable<bool> packingwaiting { get; set; }
-        public Nullable<bool> rejectwaiting { get; set; }
+        public Nullable<bool> Active { get; set; }
+        public Nullable<bool> Deleted { get; set; }
+        public string Qualitystage { get; set; }
+        public string sampleqty { get; set; }
     }
 }

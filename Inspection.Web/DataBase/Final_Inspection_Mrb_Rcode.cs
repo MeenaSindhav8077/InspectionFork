@@ -24,5 +24,16 @@ namespace Inspection.Web.DataBase
         public string Rcode { get; set; }
         public string SubQty { get; set; }
         public string DesicionSubQty { get; set; }
+        public Nullable<int> mrbsubqty { get; set; }
+        public Nullable<int> Reject { get; set; }
+        public Nullable<int> Accept { get; set; }
+        public Nullable<int> Rework { get; set; }
+        public Nullable<int> Sorting { get; set; }
+        public Nullable<int> Resorting { get; set; }
+        public Nullable<int> Deviation { get; set; }
+        public Nullable<int> Reworkinmrb { get; set; }
+        public Nullable<int> Remeasured { get; set; }
+        public Nullable<int> Split { get; set; }
+        public Nullable<int> Hold { get; set; }
     }
 }

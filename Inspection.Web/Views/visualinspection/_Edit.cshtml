@@ -32,7 +32,7 @@
                             <th>PartNo</th>
                             <th>QTY</th>
                             <th>Inspection Type</th>
-                            <th>Redirect Inward</th>
+                            <th>Edit | Delete</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -57,7 +57,7 @@
                                         @Html.DisplayFor(modelItem => item.Partno)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.IQTY)
+                                        @Html.DisplayFor(modelItem => item.Qty)
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.InspectionType)
@@ -67,18 +67,18 @@
                                             string type = item.InspectionType;
                                             string jobno = item.JobNo;
                                         }
-
                                         <a class="btn btn-primary" onclick="openModaleditValues('@type','@jobno');">
                                             Edit
+                                        </a>|
+                                        <a class="btn btn-danger" onclick="deleteValues('@type','@jobno');">
+                                            Delete
                                         </a>
 
                                     </td>
                                 </tr>
-
                                 Count++;
                             }
                         }
-
                     </tbody>
                 </table>
             </div>
@@ -98,6 +98,7 @@
 
         var successMessage = '@TempData["SuccessMessage"]';
      var WarningMessage = '@TempData["WarningMessage"]';
+     var DeleteMessage = '@TempData["DeleteMessage"]';
 
 if (successMessage) {
     Swal.fire({
@@ -133,7 +134,23 @@ else if (WarningMessage) {
         buttonsStyling: false,
         showCloseButton: true
     })
-
+}
+else if (DeleteMessage) {
+    Swal.fire({
+        html: '<div class="mt-3">' +
+            '<lord-icon src="https://cdn.lordicon.com/gsqxdxog.json" trigger="loop" colors="primary:#f7b84b,secondary:#f06548" style="width:100px;height:100px"></lord-icon>' +
+            '<div class="mt-4 pt-2 fs-15 mx-5">' +
+            '<h4>Are you Sure ?</h4>' +
+            '<p class="text-muted mx-4 mb-0">Are you Sure You want to Delete this Account ?</p>' +
+            '</div>' +
+            '</div>',
+        showCancelButton: true,
+        confirmButtonClass: 'btn btn-primary w-xs me-2 mb-1',
+        confirmButtonText: 'Yes, Delete It!',
+        cancelButtonClass: 'btn btn-danger w-xs mb-1',
+        buttonsStyling: false,
+        showCloseButton: true
+    })
 }
     $(document).ready(function () {
         //$('#editinwarddata').modal('hide'); // Show the modal
@@ -149,6 +166,20 @@ else if (WarningMessage) {
                 debugger
                 $('#modalContent').html(data);
                 $('#editinwarddata').modal('show');
+            },
+            error: function (xhr, status, error) {
+                console.error(error);
+            }
+        });
+    }
+    function deleteValues(jobNo, inspectionType) {
+        debugger
+        $.ajax({
+            url: '/visualinspection/_Delete',
+            type: 'GET',
+            data: { jobno: jobNo, inspectiontype: inspectionType },
+            success: function (data) {
+                location.reload();
             },
             error: function (xhr, status, error) {
                 console.error(error);

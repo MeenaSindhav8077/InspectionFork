@@ -1,0 +1,160 @@
+using CalenderProject.DataBase;
+using CalenderProject.Models;
+using System;
+using System.Collections.Generic;
+using System.Data.Entity;
+using System.Dynamic;
+using System.Globalization;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+
+namespace CalenderProject.Controllers
+{
+    public class CalendarController : Controller
+    {
+        // GET: Calendar
+        ITe_INDIAEntities DB = new ITe_INDIAEntities();
+        public ActionResult Index()
+        {
+            EventModel model = new EventModel();
+            return View(model);
+        }
+
+
+        public ActionResult UpdateEvent(string title, string category,string start, string end, string date, string location, string description)
+        {
+
+            string dateString = date;
+
+            // Extract the date part
+            string datePart = dateString.Substring(0, 15);
+
+            DateTime _date = DateTime.ParseExact(datePart, "ddd MMM dd yyyy", CultureInfo.InvariantCulture);
+
+            // Step 2: Format to desired output
+            string formattedDate = _date.ToString("yyyy-MM-dd");
+
+            ConfranceroomBookData confranceroomBookData = new ConfranceroomBookData();
+
+
+            bool isEventExists = DB.ConfranceroomBookDatas
+        .Any(e => e.EventDate == formattedDate // Same date
+                  && e.Location == location // Same location
+                  && e.Start < start // Overlapping times
+                  && e.end > end);
+            if (isEventExists != true)
+            {
+                
+
+                DateTime startDateTime = DateTime.Parse($"{formattedDate}T{start}");
+                DateTime endDateTime = DateTime.Parse($"{formattedDate} T {end}");
+
+                // Format as needed
+                string formattedStartDateTime = startDateTime.ToString("yyyy-MM-ddTHH:mm");
+                string formattedEndDateTime = endDateTime.ToString("yyyy-MM-ddTHH:mm");
+
+                //confranceroomBookData.ID = 1;
+                confranceroomBookData.Type = category;
+                confranceroomBookData.EventName = title;
+                confranceroomBookData.Location = location;
+                confranceroomBookData.Description = description;
+                confranceroomBookData.UploadBy = "test";
+                confranceroomBookData.EventDate = formattedDate;
+                confranceroomBookData.StartTime = formattedStartDateTime;
+                confranceroomBookData.EndTime = formattedEndDateTime;
+                confranceroomBookData.Active = true;
+                confranceroomBookData.Deleted = false;
+                DB.ConfranceroomBookDatas.Add(confranceroomBookData);
+                DB.SaveChanges();
+
+
+
+                return Json(new { success = true });
+            }
+            else
+            {
+                return Json(new { success = false, message = "This time is already booked for the event." });
+            }
+            
+        }
+
+
+        public ActionResult GetEvents()
+        {
+            var events = DB.ConfranceroomBookDatas.Where(P=>P.Active == true && P.Deleted == false).Select(e => new {
+                id = e.ID,
+                title = e.EventName,
+                start = e.StartTime,
+                end = e.EndTime,
+            }).ToList();
+
+            return Json(events, JsonRequestBehavior.AllowGet);
+        }
+
+
+        [HttpPost]
+        public JsonResult DeleteEvent(int id)
+        {
+            try
+            {
+                // Use your data access logic to delete the event by ID
+                ConfranceroomBookData eventToDelete = DB.ConfranceroomBookDatas.FirstOrDefault(e => e.ID == id); // Replace 'Events' with your actual table
+                if (eventToDelete != null)
+                {
+                    eventToDelete.Active = false;
+                    eventToDelete.Deleted = false;
+                    DB.SaveChanges(); // Save changes to the database
+
+                    return Json(new { success = true });
+                }
+                else
+                {
+                    return Json(new { success = false, message = "Event not found." });
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log the error and return an error response
+                return Json(new { success = false, message = ex.Message });
+            }
+        }
+
+        public ActionResult YourAction(int Id)
+        {
+            ConfranceroomBookData eventToDelete = DB.ConfranceroomBookDatas.FirstOrDefault(e => e.ID == Id); 
+            if (eventToDelete != null)
+            {
+                string dateTimeString = eventToDelete.StartTime; 
+                string[] parts = dateTimeString.Split('T'); 
+
+                string date = parts[0];
+
+                string time = parts[1];
+
+
+                string _dateTimeString = eventToDelete.EndTime;
+                string[] _parts = _dateTimeString.Split('T');
+
+                string _date = _parts[0];
+
+                string _time = _parts[1];
+
+                return Json(new
+                {
+                    success = true,
+                    eventName = eventToDelete.EventName,
+                    location = eventToDelete.Location,
+                    type = eventToDelete.Type,
+                    eventDate = date, 
+                    startTime = time,     
+                    endTime = _time
+                }, JsonRequestBehavior.AllowGet); 
+            }
+
+            return Json(new { success = false, message = "Event not found" }, JsonRequestBehavior.AllowGet);
+
+
+        }
+    }
+}

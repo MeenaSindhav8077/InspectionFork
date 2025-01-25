@@ -1,0 +1,15 @@
+$.ajax({
+    url: '/Calendar/Create',  // URL to the controller action
+    type: 'POST',
+    contentType: 'application/json',
+    data: JSON.stringify(formData),  // Convert the form data to JSON
+    success: function (response) {
+        // Handle success (e.g., redirect or show a message)
+        alert('Event created successfully!');
+        window.location.href = '/Events/Index';  // Redirect to another page after success
+    },
+    error: function (xhr, status, error) {
+        // Handle error
+        alert('Error: ' + xhr.responseText);
+    }
+});

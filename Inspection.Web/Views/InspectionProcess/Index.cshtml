@@ -1,4 +1,6 @@
-﻿@model  List<Inspection.Web.Models.InwardDataModel>
+﻿@model Inspection.Web.Models.InspectionViewModel
+@using PagedList.Mvc;
+@using PagedList;
 
 @{
     ViewBag.Title = "Data Tables";
@@ -10,153 +12,354 @@
     int Count = 1;
 }
 
-@section styles{
-    <!--datatable css-->
+@section styles {
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css" />
-    <!--datatable responsive css-->
     <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.bootstrap.min.css" />
-
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.2.2/css/buttons.dataTables.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.0/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.min.js"></script>
 }
 <style>
-#box1 {
-   
-    background-color: #FFCCCC; /* Light red as the initial color */
-    animation-name: animate1;
-    animation-duration: 1s;
-    animation-iteration-count: infinite; /* Loop the animation infinitely */
-    animation-timing-function: linear; /* Use linear timing for smooth transition */
-}
+    #box1 {
+        background-color: #FFCCCC;
+        animation-name: animate1;
+        animation-duration: 1s;
+        animation-iteration-count: infinite;
+        animation-timing-function: linear;
+    }
 
-@@keyframes animate1 {
-    0%   {background-color: #FFCCCC;}
-    20%  {background-color: #FFFFCC;}
-    40%  {background-color: #CCFFFF;}
-    60%  {background-color: #CCFFCC;}
-    80%  {background-color: #FFCCCC;}
-    100% {background-color: #FFCCCC;}
-}
+    #box2 {
+        background-color: slateblue;
+        animation-name: animate2;
+        animation-duration: 1s;
+        animation-iteration-count: infinite;
+        animation-timing-function: linear;
+    }
+
+    @@keyframes animate1 {
+        0% {
+            background-color: #FFCCCC;
+        }
+
+        20% {
+            background-color: #FFFFCC;
+        }
+
+        40% {
+            background-color: #CCFFFF;
+        }
+
+        60% {
+            background-color: #CCFFCC;
+        }
+
+        80% {
+            background-color: #FFCCCC;
+        }
+
+        100% {
+            background-color: #FFCCCC;
+        }
+    }
+
+    @@keyframes animate2 {
+        0% {
+            background-color: slateblue;
+        }
+    }
+
+    .plusminus {
+        top: 50%;
+        left: 5px;
+        height: 1em;
+        width: 1em;
+        margin-top: -9px;
+        display: block;
+        position: absolute;
+        color: white;
+        border: .15em solid white;
+        border-radius: 1em;
+        box-shadow: 0 0 .2em #444;
+        box-sizing: content-box;
+        text-align: center;
+        text-indent: 0 !important;
+        font-family: "Courier New", Courier, monospace;
+        line-height: 1em;
+        content: "+";
+        background-color: #337ab7;
+    }
+
+    .red {
+        color: red;
+    }
+
+    .green {
+        color: blue;
+    }
+
+    .calsi-btn {
+        margin-top: 23px;
+    }
 </style>
+
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
+
 
 <div class="row">
     <div class="col-lg-12">
         <div class="card">
-            <div class="card-header">
-                <h5 class="card-title mb-0">Inspection Process</h5>
+            <div class="card-header align-items-center d-flex">
+                <h4 class="card-title mb-0 flex-grow-1">Inspection Process</h4>
+                <div class="flex-shrink-0">
+                    @Html.ActionLink("Go to Inward", "_AddInward", "Inward", null, new { @class = "btn btn-primary" })
+                </div>
             </div>
             <div class="card-body">
-                <table id="alternative-pagination" class="table nowrap dt-responsive align-middle table-hover table-bordered" style="width:100%">
+                <form method="get" action="@Url.Action("Index")">
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <input type="text" name="search" class="form-control" placeholder="Search by Job No Part No or Note" value="@Model.Search" />
+                        </div>
+                        <div class="col-md-2">
+                            <button type="submit" class="btn btn-primary">Search</button>
+                        </div>
+                    </div>
+                </form>
+                <table class="table nowrap dt-responsive align-middle table-hover table-bordered" style="width:100%">
                     <thead>
                         <tr>
                             <th>Sr.</th>
+                            <th>Details</th>
                             <th>Inward Date</th>
-                            <th>Inward Time</th>
                             <th>Job No.</th>
                             <th>Part No</th>
-                            <th>Inspection Type</th>
-                            <th>Quality Stage</th>
                             <th>Rev</th>
                             <th>Actual Rev</th>
                             <th>Inward Qty</th>
+                            <th>Quality stage</th>
                             <th>Go</th>
                             <th>Edit</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var item in Model)
+                        @if (Model.Items != null && Model.Items.Any())
                         {
-                            if (item.Statuschange == false)
+                            int count = (Model.PageNumber - 1) * Model.PageSize + 1;
+                            foreach (var item in Model.Items)
                             {
-                                <tr id="box1">
-                                    <td>@Html.DisplayFor(modelItem => Count)</td>
-                                    <td>@Html.DisplayFor(modelItem => item.InwardDate, "{0:dd, MMM yyyy}")</td>
-                                    <td>@Html.DisplayFor(modelItem => item.InwardTime)</td>
-                                    <td>@Html.DisplayFor(modelItem => item.JobNo)</td>
-                                    <td>@Html.DisplayFor(modelItem => item.Partno)</td>
-
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.InspectionType) <br>
-                                        @Html.DisplayFor(modelItem => item.ProcessStage)
-                                    </td>
-                                    <td>@Html.DisplayFor(modelItem => item.QualityStage)</td>
-                                    <td>@Html.DisplayFor(modelItem => item.ERev)</td>
-                                    <td>@Html.DisplayFor(modelItem => item.ActualRev)</td>
-                                    <td>@Html.DisplayFor(modelItem => item.Qty)</td>
-                                    <td><button onclick="gobutton('@item.id','@item.InspectionType','@item.JobNo')" class="btn rounded-pill btn-primary waves-effect waves-light">Go</button></td>
-                                    <td><button onclick="editbutton('@item.JobNo')" class="btn rounded-pill btn-primary waves-effect waves-light">Edit</button></td>
-                                </tr>
+                                if (!item.Note.Contains("Out source parts"))
+                                {
+                                    <tr>
+                                        <td>@count</td>
+                                        <td>
+                                            <button class="btn btn-outline-primary btn-sm rounded-circle details-control">+</button>
+                                        </td>
+                                        <td>@Html.DisplayFor(modelItem => item.InwardDate, "{dd MM yyyy}")</td>
+                                        
+                                        <td>@item.JobNo</td>
+                                        <td>@item.Partno</td>
+                                        <td>@item.ERev</td>
+                                        <td>@item.ActualRev</td>
+                                        <td>@item.Qty</td>
+                                        <td>@item.QualityStage</td>
+                                        <td>
+                                            <button onclick="gobutton('@item.id', '@item.InspectionType', '@item.JobNo','@item.QualityStage')" class="btn rounded-pill btn-primary waves-effect waves-light">Go</button>
+                                        </td>
+                                        <td>
+                                            <button onclick="editbutton('@item.JobNo')" class="btn rounded-pill btn-primary waves-effect waves-light">Edit</button>
+                                        </td>
+                                    </tr>
+                                    <tr class="hidden-row" style="display: none;">
+                                        <td colspan="11">
+                                            @* Details table *@
+                                            <table class="table table-bordered">
+                                                <thead style="background-color: lightgray;">
+                                                    <tr>
+                                                        <th>Inspection Type</th>
+                                                        <th>Process Stage</th>
+                                                        @*<th>Quality Stage</th>*@
+                                                        <th>Note</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @for (int i = 0; i < item.InspectionType.Split(',').Length; i++)
+                                                    {
+                                                        <tr style="background-color: lightyellow;">
+                                                            <td>@item.InspectionType.Split(',')[i]</td>
+                                                            <td>@item.ProcessStage.Split(',')[i]</td>
+                                                           
+                                                            <td>@item.Note.Split(',')[i]</td>
+                                                        </tr>
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    count++;
+                                }
+                                else
+                                {
+                                    <tr style="background-color: mediumseagreen;">
+                                        <td>@count</td>
+                                        <td>
+                                            <button class="btn btn-outline-primary btn-sm rounded-circle details-control">+</button>
+                                        </td>
+                                        <td>@Html.DisplayFor(modelItem => item.InwardDate, "{dd MM yyyy}")</td>
+                                       
+                                        <td>@item.JobNo</td>
+                                        <td>@item.Partno</td>
+                                        <td>@item.ERev</td>
+                                        <td>@item.ActualRev</td>
+                                        <td>@item.Qty</td>
+                                        <td>@item.QualityStage</td>
+                                        <td>
+                                            <button onclick="gobutton('@item.id', '@item.InspectionType', '@item.JobNo' ,'@item.QualityStage')" class="btn rounded-pill btn-primary waves-effect waves-light">Go</button>
+                                        </td>
+                                        <td>
+                                            <button onclick="editbutton('@item.JobNo')" class="btn rounded-pill btn-primary waves-effect waves-light">Edit</button>
+                                        </td>
+                                    </tr>
+                                    <tr class="hidden-row" style="display: none;">
+                                        <td colspan="11">
+                                            @* Details table *@
+                                            <table class="table table-bordered">
+                                                <thead style="background-color: lightgray;">
+                                                    <tr>
+                                                        <th>Inspection Type</th>
+                                                        <th>Process Stage</th>
+                                                        @*<th>Quality Stage</th>*@
+                                                        <th>Note</th>
+                                                        <th>Supplier Name</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @for (int i = 0; i < item.InspectionType.Split(',').Length; i++)
+                                                    {
+                                                        <tr style="background-color: lightyellow;">
+                                                            <td>@item.InspectionType.Split(',')[i]</td>
+                                                            <td>@item.ProcessStage.Split(',')[i]</td>
+                                                            @*<td>@item.QualityStage.Split(',')[i]</td>*@
+                                                            <td>@item.Note.Split(',')[i]</td>
+                                                            <td>@item.Supplier.Split(',')[i]</td>
+                                                        </tr>
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    count++;
+                                }
                             }
-                            else
-                            {
-                                <tr>
-                                    <td>@Html.DisplayFor(modelItem => Count)</td>
-                                    <td>@Html.DisplayFor(modelItem => item.InwardDate, "{0:dd, MMM yyyy}")</td>
-                                    <td>@Html.DisplayFor(modelItem => item.InwardTime)</td>
-                                    <td>@Html.DisplayFor(modelItem => item.JobNo)</td>
-                                    <td>@Html.DisplayFor(modelItem => item.Partno)</td>
-
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.InspectionType) <br>
-                                        @Html.DisplayFor(modelItem => item.ProcessStage)
-                                    </td>
-                                    <td>@Html.DisplayFor(modelItem => item.QualityStage)</td>
-                                    <td>@Html.DisplayFor(modelItem => item.ERev)</td>
-                                    <td>@Html.DisplayFor(modelItem => item.ActualRev)</td>
-                                    <td>@Html.DisplayFor(modelItem => item.Qty)</td>
-                                    <td><button onclick="gobutton('@item.id','@item.InspectionType','@item.JobNo')" class="btn rounded-pill btn-primary waves-effect waves-light">Go</button></td>
-                                    <td><button onclick="editbutton('@item.JobNo')" class="btn rounded-pill btn-primary waves-effect waves-light">Edit</button></td>
-                                </tr>
-                            }
-
-                            Count++;
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="11" class="text-center">No records found.</td>
+                            </tr>
                         }
                     </tbody>
                 </table>
+                <!-- Pagination -->
+                <div class="row">
+                    <div class="col-md-6">
+                        <p>Showing @Model.Items.Count() of @Model.TotalRecords records</p>
+                    </div>
+                    <div class="col-md-6 text-right">
+                        <ul class="pagination">
+                            @if (Model.PageNumber > 1)
+                            {
+                                <li class="page-item">
+                                    <a class="page-link" href="@Url.Action("Index", new { page = Model.PageNumber - 1, search = Model.Search })" aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                </li>
+                            }
+                            @for (int i = 1; i <= Math.Ceiling((double)Model.TotalRecords / Model.PageSize); i++)
+                            {
+                                <li class="page-item @(i == Model.PageNumber ? "active" : "")">
+                                    <a class="page-link" href="@Url.Action("Index", new { page = i, search = Model.Search })">@i</a>
+                                </li>
+                            }
+                            @if (Model.PageNumber < Math.Ceiling((double)Model.TotalRecords / Model.PageSize))
+                            {
+                                <li class="page-item">
+                                    <a class="page-link" href="@Url.Action("Index", new { page = Model.PageNumber + 1, search = Model.Search })" aria-label="Next">
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
+@section scripts{
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.2.2/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.print.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.html5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="~/Content/assets/js/pages/datatables.init.js"></script>
+    <script src="~/Content/assets/js/app.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="~/Content/assets/js/pages/select2.init.js"></script>
+    <script src="~/Content/assets/js/pages/datatables.init.js"></script>
+    <script src="~/Content/assets/js/app.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
 
+}
+<script src="src/plugins/ion-rangeslider/js/ion.rangeSlider.min.js"></script>
+<script src="vendors/scripts/range-slider-setting.js"></script>
+<script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", function () {
+        const detailButtons = document.querySelectorAll(".details-control");
 
+        detailButtons.forEach(button => {
+            button.addEventListener("click", function () {
+                const row = this.closest("tr");
+                const hiddenRow = row.nextElementSibling;
 
-<!--<div class="modal fade" id="quantityModal" tabindex="-1" role="dialog" aria-labelledby="quantityModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header bg-light p-3">
-                <h5 class="modal-title" id="exampleModalLabel">Add Sample Quantity </h5>-->
-@*<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="close-modal"></button>*@
-<!--</div>
-<div class="modal-body">
-    <label for="qtyInput">Quantity:</label>
-    <input type="number" id="qtyInput" class="form-control" placeholder="Enter Quantity">
-</div>
-<div class="modal-footer">-->
-@*<button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>*@
-<!--<button type="submit" class="btn btn-success" id="add-btn" onclick="saveQuantity()">Update</button>
-            </div>
-        </div>
-    </div>
-</div>-->
+                if (hiddenRow.style.display === "none") {
+                    hiddenRow.style.display = "table-row";
+                    button.textContent = "-";
+                } else {
+                    hiddenRow.style.display = "none";
+                    button.textContent = "+";
+                }
+            });
+        });
+
+        // Initialize DataTables
+        $('#alternativepagination').DataTable({
+            responsive: true,
+            autoWidth: false,
+            pagingType: 'full_numbers',
+            dom: 'Bfrtip',
+            buttons: [
+                'copy', 'csv', 'excel', 'pdf', 'print'
+            ]
+        });
+    });
+</script>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script>
-     @*function openQuantityModal(id, status) {
-        $('#quantityModal').modal('show');
-        $('#qtyInput').val(''); // Clear the input field
-        $('#qtyInput').attr('data-id', id); // Set data attribute for ID
-        $('#qtyInput').attr('data-status', status); // Set data attribute for status
-    }
 
-    function saveQuantity() {
-        var id = $('#qtyInput').attr('data-id');
-        var status = $('#qtyInput').attr('data-status');
-        var qty = $('#qtyInput').val();
-        var url = '@Url.Action("Index", "visualinspection"  )' + '?id=' + id + '&value=' + status + '&qty=' + qty;
-        window.location.href = url;
-    }*@
-    function gobutton(id, status, jobNo) {
+    function gobutton(id, status, jobNo,stage) {
         debugger
         var selectvalue = status;
-         var url = '@Url.Action("Index", "visualinspection")' + '?id=' + id + '&value=' + selectvalue + '&jobNo=' + jobNo;
+        var url = '@Url.Action("Index", "visualinspection")' + '?id=' + id + '&value=' + selectvalue + '&jobNo=' + jobNo + '&stage=' + stage;
         window.location.href = url;
 
     }
@@ -168,21 +371,3 @@
 }
 </script>
 
-@section scripts{
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-
-    <!--datatable js-->
-    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
-    <script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/2.2.2/js/dataTables.buttons.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.print.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.html5.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-
-    <script src="~/Content/assets/js/pages/datatables.init.js"></script>
-    <!-- App js -->
-    <script src="~/Content/assets/js/app.js"></script>
-}

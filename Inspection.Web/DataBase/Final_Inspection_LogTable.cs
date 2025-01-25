@@ -10,13 +10,18 @@
 namespace Inspection.Web.DataBase
 {
     using System;
+    using System.Collections.Generic;
     
-    public partial class sp_helpdiagrams_Result
+    public partial class Final_Inspection_LogTable
     {
-        public string Database { get; set; }
-        public string Name { get; set; }
         public int ID { get; set; }
-        public string Owner { get; set; }
-        public int OwnerID { get; set; }
+        public Nullable<System.DateTime> CurrentDateTime { get; set; }
+        public string Message { get; set; }
+        public string Exception { get; set; }
+        public string PageName { get; set; }
+        public Nullable<int> LineNumber { get; set; }
+        public string MethodName { get; set; }
+        public Nullable<bool> Active { get; set; }
+        public Nullable<bool> Deleted { get; set; }
     }
 }
