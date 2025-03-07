@@ -13,99 +13,152 @@
 </head>
 <body>
 
-    <div class="auth-page-wrapper pt-5">
-        <div class="auth-one-bg-position auth-one-bg" id="auth-particles">
-            <div class="bg-overlay"></div>
-            <div class="shape">
-                <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1440 120">
-                    <path d="M 0,36 C 144,53.6 432,123.2 720,124 C 1008,124.8 1296,56.8 1440,40L1440 140L0 140z"></path>
-                </svg>
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="modal fade show" id="errorModal" tabindex="-1" style="display: block;" aria-labelledby="errorModalLabel" aria-modal="true" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="errorModalLabel">Error</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="alert alert-danger mb-xl-0" role="alert">  User not exist</div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary ">Save Changes</button>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="auth-page-content">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="text-center mt-sm-5 mb-4 text-white-50">
-                            <div>
-                                <a href="@Url.Action("Index", "Dashboard")" class="d-inline-block auth-logo">
-                                    <div class="row">
-                                        <div class="col-lg-12">
-                                            <div class="text-center mt-sm-5 mb-4 text-white-50">
-                                                <div>
-                                                    <a href="index.html" class="d-inline-block auth-logo">
-                                                        <h3 style="color: white">S.S. White Technologies India PVT. LTD.</h3>
-                                                    </a>
+            }
+            <div class="auth-page-wrapper pt-5">
+                <div class="auth-one-bg-position auth-one-bg" id="auth-particles">
+                    <div class="bg-overlay"></div>
+                    <div class="shape">
+                        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1440 120">
+                            <path d="M 0,36 C 144,53.6 432,123.2 720,124 C 1008,124.8 1296,56.8 1440,40L1440 140L0 140z"></path>
+                        </svg>
+                    </div>
+                </div>
+                <div class="auth-page-content">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="text-center mt-sm-5 mb-4 text-white-50">
+                                    <div>
+                                        <a href="@Url.Action("Index", "Dashboard")" class="d-inline-block auth-logo">
+                                            <div class="row">
+                                                <div class="col-lg-12">
+                                                    <div class="text-center mt-sm-5 mb-4 text-white-50">
+                                                        <div>
+                                                            <a href="index.html" class="d-inline-block auth-logo">
+                                                                <h3 style="color: white">S.S. White Technologies India PVT. LTD.</h3>
+                                                            </a>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row justify-content-center">
+                            <div class="col-md-8 col-lg-6 col-xl-5">
+                                <div class="card mt-4">
+                                    <div class="card-body p-4">
+                                        <div class="text-center mt-2">
+                                            <h5 class="text-primary"> Quality Inspection</h5>
+                                        </div>
+                                        <div class="p-2 mt-4">
+                                            @using (Html.BeginForm("_Login", "Account", FormMethod.Post))
+                                            {
+                                                <div class="mb-3">
+                                                    @Html.LabelFor(model => model.UserName, new { @class = "form-label" })
+                                                    <div class="position-relative auth-pass-inputgroup mb-3">
+                                                        @Html.TextBoxFor(model => model.UserName, new { @class = "form-control pe-5 password-input", @placeholder = "Enter username", id = "username" })
+                                                    </div>
+                                                </div>
+                                                <div class="mb-3">
+                                                    @Html.LabelFor(model => model.Password, new { @class = "form-label", @for = "password-input" })
+                                                    <div class="position-relative auth-pass-inputgroup mb-3">
+                                                        @Html.PasswordFor(model => model.Password, new { @class = "form-control pe-5 password-input", @placeholder = "Enter password", id = "password-input" })
+                                                    </div>
+                                                </div>
+                                                <div class="mt-4">
+                                                    <button class="btn btn-success w-100" type="submit">Sign In</button>
+                                                </div>
+
+                                                <div class="mt-4 text-center">
+                                                    <div class="signin-other-title">
+                                                    </div>
+                                                </div>
+                                            }
                                         </div>
                                     </div>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row justify-content-center">
-                    <div class="col-md-8 col-lg-6 col-xl-5">
-                        <div class="card mt-4">
-
-                            <div class="card-body p-4">
-                                <div class="text-center mt-2">
-                                    <h5 class="text-primary"> Quality Inspection</h5>
                                 </div>
-                                <div class="p-2 mt-4">
-                                    @using (Html.BeginForm("_Login", "Account", FormMethod.Post))
-                                    {
-                                        <div class="mb-3">
-                                            @Html.LabelFor(model => model.UserName, new { @class = "form-label" })
-                                                <div class="position-relative auth-pass-inputgroup mb-3">
-                                                    @Html.TextBoxFor(model => model.UserName, new { @class = "form-control pe-5 password-input", @placeholder = "Enter username", id = "username" })
-                                               </div>
-                                         </div>
-                                            <div class="mb-3">
-                                                @Html.LabelFor(model => model.Password, new { @class = "form-label", @for = "password-input" })
-                                                <div class="position-relative auth-pass-inputgroup mb-3">
-                                                    @Html.PasswordFor(model => model.Password, new { @class = "form-control pe-5 password-input", @placeholder = "Enter password", id = "password-input" })
-                                                </div>
-                                            </div>
-                                            <div class="mt-4">
-                                                <button class="btn btn-success w-100" type="submit">Sign In</button>
-                                            </div>
+                                <div class="mt-4 text-center">
+                                    @*<p class="mb-0">Don't have an account ? <a href="@Url.Action("SignUpBasic", "Authentication")" class="fw-bold text-primary text-decoration-underline"> Signup </a> </p>*@
+                                </div>
 
-                                            <div class="mt-4 text-center">
-                                                <div class="signin-other-title">
-                                                </div>
-                                            </div>
-                                     }
-                                     </div>
                             </div>
                         </div>
-                        <div class="mt-4 text-center">
-                            @*<p class="mb-0">Don't have an account ? <a href="@Url.Action("SignUpBasic", "Authentication")" class="fw-bold text-primary text-decoration-underline"> Signup </a> </p>*@
+                    </div>
+                </div>
+                <footer class="footer">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="text-center">
+                                    <p class="mb-0 text-muted">
+                                        &copy;
+                                        <script>document.write(new Date().getFullYear())</script> s s white Crafted with <i class="mdi mdi-heart text-danger"></i> by unnati parmar
+                                    </p>
+                                </div>
+                            </div>
                         </div>
+                    </div>
+                </footer>
+            </div>
+            @Html.Partial("~/Views/Shared/_vendor_scripts.cshtml")
+            <script src="~/Content/assets/libs/particles.js/particles.js"></script>
+            <script src="~/Content/assets/js/pages/particles.app.js"></script>
+            <script src="~/Content/assets/js/pages/password-addon.init.js"></script>
+            <script src="~/Content/assets/js/app.js"></script>
+            <script src="~/Content/assets/js/pages/modal.init.js"></script>
 
-                    </div>
-                </div>
-            </div>
-        </div>
-        <footer class="footer">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="text-center">
-                            <p class="mb-0 text-muted">
-                                &copy;
-                                <script>document.write(new Date().getFullYear())</script> s s white Crafted with <i class="mdi mdi-heart text-danger"></i> by unnati parmar
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </footer>
-    </div>
-    @Html.Partial("~/Views/Shared/_vendor_scripts.cshtml")
-    <script src="~/Content/assets/libs/particles.js/particles.js"></script>
-    <script src="~/Content/assets/js/pages/particles.app.js"></script>
-    <script src="~/Content/assets/js/pages/password-addon.init.js"></script>
+
+            @section scripts{
+                <!-- prismjs plugin -->
+                <script src="~/assets/libs/prismjs/prism.js"></script>
+
+                <script>
+                    var alertPlaceholder = document.getElementById('liveAlertPlaceholder')
+                    var alertTrigger = document.getElementById('liveAlertBtn')
+
+                    function alert(message, type) {
+                        var wrapper = document.createElement('div')
+                        wrapper.innerHTML = '<div class="alert alert-' + type + ' alert-dismissible" role="alert">' + message + '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>'
+
+                        alertPlaceholder.append(wrapper)
+                    }
+
+                    if (alertTrigger) {
+                        alertTrigger.addEventListener('click', function () {
+                            alert('Nice, you triggered this alert message!', 'success')
+                        })
+                    }
+
+
+                    $(document).ready(function () {
+                        $('#errorModal').modal('show');
+                    });
+
+                </script>
+            }
 </body>
 </html>
+
+

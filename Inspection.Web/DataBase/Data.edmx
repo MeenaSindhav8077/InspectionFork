@@ -240,6 +240,7 @@
           <Property Name="CompleteRework" Type="bit" />
           <Property Name="Inspectionqty" Type="int" />
           <Property Name="Qualitystage" Type="nvarchar(max)" />
+          <Property Name="reworkstatuschange" Type="bit" />
         </EntityType>
         <EntityType Name="Final_Inspection_RCode">
           <Key>
@@ -534,35 +535,6 @@
           <Property Name="Qualitystage" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="sampleqty" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityType Name="Final_Inspection_Process_Rework">
-          <Key>
-            <PropertyRef Name="ID" />
-            <PropertyRef Name="PID" />
-            <PropertyRef Name="MID" />
-            <PropertyRef Name="Inspection_ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="PID" Type="Int32" Nullable="false" />
-          <Property Name="MID" Type="Int32" Nullable="false" />
-          <Property Name="Inspection_ID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="JobNum" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="PartNum" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="Inspection_Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Inspection_date" Type="DateTime" Precision="3" />
-          <Property Name="DecisionType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="endtime" Type="DateTime" Precision="3" />
-          <Property Name="Qty" Type="Decimal" Precision="18" Scale="3" />
-          <Property Name="reject_qty" Type="Decimal" Precision="18" Scale="3" />
-          <Property Name="sent_date" Type="DateTime" Precision="3" />
-          <Property Name="received_date" Type="DateTime" Precision="3" />
-          <Property Name="done_by" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="decision_of_MRB" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="MRB_Comment" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="MRB_Date" Type="DateTime" Precision="3" />
-          <Property Name="CompleteRework" Type="Boolean" />
-          <Property Name="Inspectionqty" Type="Int32" />
-          <Property Name="Qualitystage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-        </EntityType>
         <EntityType Name="Final_Inspection_RCode">
           <Key>
             <PropertyRef Name="ID" />
@@ -697,7 +669,6 @@
           <EntitySet Name="Final_Inspection_MRB_DecisionData" EntityType="Self.Final_Inspection_MRB_DecisionData" />
           <EntitySet Name="Final_Inspection_Mrb_Rcode" EntityType="Self.Final_Inspection_Mrb_Rcode" />
           <EntitySet Name="Final_Inspection_Process" EntityType="Self.Final_Inspection_Process" />
-          <EntitySet Name="Final_Inspection_Process_Rework" EntityType="Self.Final_Inspection_Process_Rework" />
           <EntitySet Name="Final_Inspection_RCode" EntityType="Self.Final_Inspection_RCode" />
           <EntitySet Name="Final_Inspection_Rework" EntityType="Self.Final_Inspection_Rework" />
           <EntitySet Name="Final_Inspection_Stage_Data" EntityType="Self.Final_Inspection_Stage_Data" />
@@ -706,6 +677,7 @@
           <EntitySet Name="USER_MST" EntityType="Self.USER_MST" />
           <EntitySet Name="user_data" EntityType="ITe_INDIAModel.user_data" />
           <EntitySet Name="Final_Inspection_Data" EntityType="ITe_INDIAModel.Final_Inspection_Data" />
+          <EntitySet Name="Final_Inspection_Process_Rework" EntityType="ITe_INDIAModel.Final_Inspection_Process_Rework" />
         </EntityContainer>
         <EntityType Name="user_data">
           <Key>
@@ -794,6 +766,36 @@
           <Property Name="InSortingDate" Type="DateTime" Precision="3" />
           <Property Name="InDaviationTime" Type="DateTime" Precision="3" />
           <Property Name="Mrb_Create_date" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="Final_Inspection_Process_Rework">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="PID" />
+            <PropertyRef Name="MID" />
+            <PropertyRef Name="Inspection_ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PID" Type="Int32" Nullable="false" />
+          <Property Name="MID" Type="Int32" Nullable="false" />
+          <Property Name="Inspection_ID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="JobNum" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="PartNum" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Inspection_Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Inspection_date" Type="DateTime" Precision="3" />
+          <Property Name="DecisionType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="endtime" Type="DateTime" Precision="3" />
+          <Property Name="Qty" Type="Decimal" Precision="18" Scale="3" />
+          <Property Name="reject_qty" Type="Decimal" Precision="18" Scale="3" />
+          <Property Name="sent_date" Type="DateTime" Precision="3" />
+          <Property Name="received_date" Type="DateTime" Precision="3" />
+          <Property Name="done_by" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="decision_of_MRB" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="MRB_Comment" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="MRB_Date" Type="DateTime" Precision="3" />
+          <Property Name="CompleteRework" Type="Boolean" />
+          <Property Name="Inspectionqty" Type="Int32" />
+          <Property Name="Qualitystage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="reworkstatuschange" Type="Boolean" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -934,33 +936,6 @@
                 <ScalarProperty Name="Deleted" ColumnName="Deleted" />
                 <ScalarProperty Name="Qualitystage" ColumnName="Qualitystage" />
                 <ScalarProperty Name="sampleqty" ColumnName="sampleqty" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Final_Inspection_Process_Rework">
-            <EntityTypeMapping TypeName="ITe_INDIAModel.Final_Inspection_Process_Rework">
-              <MappingFragment StoreEntitySet="Final_Inspection_Process_Rework">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="PID" ColumnName="PID" />
-                <ScalarProperty Name="MID" ColumnName="MID" />
-                <ScalarProperty Name="Inspection_ID" ColumnName="Inspection_ID" />
-                <ScalarProperty Name="JobNum" ColumnName="JobNum" />
-                <ScalarProperty Name="PartNum" ColumnName="PartNum" />
-                <ScalarProperty Name="Inspection_Type" ColumnName="Inspection_Type" />
-                <ScalarProperty Name="Inspection_date" ColumnName="Inspection_date" />
-                <ScalarProperty Name="DecisionType" ColumnName="DecisionType" />
-                <ScalarProperty Name="endtime" ColumnName="endtime" />
-                <ScalarProperty Name="Qty" ColumnName="Qty" />
-                <ScalarProperty Name="reject_qty" ColumnName="reject_qty" />
-                <ScalarProperty Name="sent_date" ColumnName="sent_date" />
-                <ScalarProperty Name="received_date" ColumnName="received_date" />
-                <ScalarProperty Name="done_by" ColumnName="done_by" />
-                <ScalarProperty Name="decision_of_MRB" ColumnName="decision_of_MRB" />
-                <ScalarProperty Name="MRB_Comment" ColumnName="MRB_Comment" />
-                <ScalarProperty Name="MRB_Date" ColumnName="MRB_Date" />
-                <ScalarProperty Name="CompleteRework" ColumnName="CompleteRework" />
-                <ScalarProperty Name="Inspectionqty" ColumnName="Inspectionqty" />
-                <ScalarProperty Name="Qualitystage" ColumnName="Qualitystage" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1172,6 +1147,34 @@
                 <ScalarProperty Name="Inward_Time" ColumnName="Inward_Time" />
                 <ScalarProperty Name="Inspection_ID" ColumnName="Inspection_ID" />
                 <ScalarProperty Name="MID" ColumnName="MID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Final_Inspection_Process_Rework">
+            <EntityTypeMapping TypeName="ITe_INDIAModel.Final_Inspection_Process_Rework">
+              <MappingFragment StoreEntitySet="Final_Inspection_Process_Rework">
+                <ScalarProperty Name="reworkstatuschange" ColumnName="reworkstatuschange" />
+                <ScalarProperty Name="Qualitystage" ColumnName="Qualitystage" />
+                <ScalarProperty Name="Inspectionqty" ColumnName="Inspectionqty" />
+                <ScalarProperty Name="CompleteRework" ColumnName="CompleteRework" />
+                <ScalarProperty Name="MRB_Date" ColumnName="MRB_Date" />
+                <ScalarProperty Name="MRB_Comment" ColumnName="MRB_Comment" />
+                <ScalarProperty Name="decision_of_MRB" ColumnName="decision_of_MRB" />
+                <ScalarProperty Name="done_by" ColumnName="done_by" />
+                <ScalarProperty Name="received_date" ColumnName="received_date" />
+                <ScalarProperty Name="sent_date" ColumnName="sent_date" />
+                <ScalarProperty Name="reject_qty" ColumnName="reject_qty" />
+                <ScalarProperty Name="Qty" ColumnName="Qty" />
+                <ScalarProperty Name="endtime" ColumnName="endtime" />
+                <ScalarProperty Name="DecisionType" ColumnName="DecisionType" />
+                <ScalarProperty Name="Inspection_date" ColumnName="Inspection_date" />
+                <ScalarProperty Name="Inspection_Type" ColumnName="Inspection_Type" />
+                <ScalarProperty Name="PartNum" ColumnName="PartNum" />
+                <ScalarProperty Name="JobNum" ColumnName="JobNum" />
+                <ScalarProperty Name="Inspection_ID" ColumnName="Inspection_ID" />
+                <ScalarProperty Name="MID" ColumnName="MID" />
+                <ScalarProperty Name="PID" ColumnName="PID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

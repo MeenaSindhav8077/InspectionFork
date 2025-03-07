@@ -32,7 +32,6 @@ namespace Inspection.Web.DataBase
         public virtual DbSet<Final_Inspection_MRB_DecisionData> Final_Inspection_MRB_DecisionData { get; set; }
         public virtual DbSet<Final_Inspection_Mrb_Rcode> Final_Inspection_Mrb_Rcode { get; set; }
         public virtual DbSet<Final_Inspection_Process> Final_Inspection_Process { get; set; }
-        public virtual DbSet<Final_Inspection_Process_Rework> Final_Inspection_Process_Rework { get; set; }
         public virtual DbSet<Final_Inspection_RCode> Final_Inspection_RCode { get; set; }
         public virtual DbSet<Final_Inspection_Rework> Final_Inspection_Rework { get; set; }
         public virtual DbSet<Final_Inspection_Stage_Data> Final_Inspection_Stage_Data { get; set; }
@@ -41,5 +40,6 @@ namespace Inspection.Web.DataBase
         public virtual DbSet<USER_MST> USER_MST { get; set; }
         public virtual DbSet<user_data> user_data { get; set; }
         public virtual DbSet<Final_Inspection_Data> Final_Inspection_Data { get; set; }
+        public virtual DbSet<Final_Inspection_Process_Rework> Final_Inspection_Process_Rework { get; set; }
     }
 }

@@ -533,6 +533,10 @@
         var idpartnumber = $("#idpartnumber").val();
         var QTY = $("#Inputqty").val();
         var Arev = $("#Inputact").val();
+        var QualityStage = $("#InputstageQuality").val();
+        var Note = $("#Inputnote").val();
+        var Supplier = $("#supplierid").val();
+        var InspectionType = $("#Inputinstype").val();
         if (!Inwarddate) {
             alert("Inwarddate is required");
             return false;
@@ -551,6 +555,24 @@
         }
         if (!Arev) {
             alert("Actualrevision is required");
+            return false;
+        }
+        if (!QualityStage || QualityStage === "select..") {
+            alert("Quality Stage is required");
+            return false;
+        }
+        if (!Note || Note === "select...") {
+            alert("Note is required");
+            return false;
+        }
+
+        if ($("#supplierContainer").is(":visible") && !Supplier) {
+            alert("Supplier is required");
+            return false;
+        }
+
+        if (!InspectionType || InspectionType === "select...") {
+            alert("Inspection Type is required");
             return false;
         }
         return true;

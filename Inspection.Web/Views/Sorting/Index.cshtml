@@ -9,23 +9,7 @@
     int Count = 1;
 }
 
-@section styles{
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-    <link href="~/Content/assets/libs/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css" />
-    @Scripts.Render("~/bundles/jqueryval")
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-    <script src="~/Content/assets/libs/prismjs/prism.js"></script>
-    <script src="~/Content/assets/js/app.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-    <script src="~/Content/assets/js/pages/select2.init.js"></script>
-    <script src="~/Content/assets/js/app.js"></script>
-    <script src="~/Content/assets/libs/sweetalert2/sweetalert2.min.js"></script>
-    <script src="~/Content/assets/js/pages/sweetalerts.init.js"></script>
-    <script src="~/Content/assets/js/app.js"></script>
-}
+CC
 <div class="row">
     <div class="col-lg-12">
         <div class="card">
@@ -94,7 +78,6 @@
                                        new SelectListItem { Value = "Thread ", Text = "Thread Inspection" },
                                        new SelectListItem { Value = "Visual ", Text = "Visual Inspection" }
                                   };
-
                                     var qualitystage = new List<SelectListItem>
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  {
                                          new SelectListItem { Value = "N/A ", Text = "N/A" },
@@ -123,7 +106,7 @@
                                          new SelectListItem { Value = "PROTOTYPE ", Text = "PROTOTYPE" }
                                     };
                                     var notedata = new List<SelectListItem>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              {
+                                    {
                                           new SelectListItem { Value = "100% Visual/Gauge Inspection ", Text = "100% Visual/Gauge Inspection" },
                                           new SelectListItem { Value = "Out source parts", Text = "Out source parts" },
                                           new SelectListItem { Value = "Unit price zero", Text = "Unit price zero" },
@@ -150,7 +133,7 @@
                             </div>
                             <div class="col-xxl-3 col-md-6">
                                 <button type="submit" class="btn btn-primary waves-effect waves-light" id="btninwrad" style="margin-top:28px;">Save</button>
-                                <input type="hidden" id="hiddenidinward" />
+                                <input type="hidden" id="hiddenidinward"/>
                             </div>
                         </div>
                     </div>

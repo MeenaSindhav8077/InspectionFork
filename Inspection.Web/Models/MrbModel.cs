@@ -32,6 +32,7 @@ namespace Inspection.Web.Models
         public string subqty { get; set; }
         public string Qualitystage { get; set; }
         public string note { get; set; }
+        public string buttonvalue { get; set; }
 
         public List<MrbDecisionViewModel> DecisionItems { get; set; }
     }

@@ -91,8 +91,8 @@ namespace Inspection.Web.Models
         [Required(ErrorMessage = "The  field is required.")]
         public string SampleQuantity { get; set; }
         public string MES { get; set; }
+        public int DecisionQty { get; set; }
         public IEnumerable<SelectListItem> _User { get; set; }
-
     }
 
     public class MainInwardModel
@@ -116,6 +116,7 @@ namespace Inspection.Web.Models
         public string TOTALhumidityQTY { get; set; }
         public string TOTALAcceptqtyforfinalQTY { get; set; }
 
+        public bool? Reworkstatus { get; set; }
 
         public bool? finalstatus { get; set; }
         public bool? finalruning { get; set; }
@@ -126,7 +127,6 @@ namespace Inspection.Web.Models
 
         public List<InwardDataModel> _INWARDList { get; set; }
     }
-
     public class Decisionmodel
     {
         public int id { get; set; }
@@ -154,7 +154,6 @@ namespace Inspection.Web.Models
         public List<Submodel> _ReworkmodelList { get; set; }
     }
 
-
     public class AddDecisionmodel
     {
         public List<InwardDataModel> _INWARDList { get; set; }
@@ -162,10 +161,6 @@ namespace Inspection.Web.Models
        
         public reworkmodel _Mainreworkmodel { get; set; }
     }
-
-    
-
-
     public class InspectionViewModel
     {
         public IEnumerable<InwardDataModel> Items { get; set; }

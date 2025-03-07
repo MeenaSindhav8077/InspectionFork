@@ -35,13 +35,12 @@ namespace Inspection.Web.Controllers
                 DateTime endDate = DateTime.ParseExact(dates[1], "dd MMM, yyyy", CultureInfo.InvariantCulture);
 
                 List<Final_Inspection_Data> data = DB.Final_Inspection_Data.Where(p => p.Active == true && p.Delete == false && p.closerequest == true).ToList();
-                List<Final_Inspection_Data> total = DB.Final_Inspection_Data.Where(p => p.Active == true && p.Delete == false && p.closerequest == true && p.Note == "Out Source Part").ToList();
-                List<Final_Inspection_Data> final = DB.Final_Inspection_Data.Where(p => p.Active == true && p.Delete == false && p.closerequest == true && p.Inspection_Type == "Final").ToList();
-                List<Final_Inspection_Data> visual = DB.Final_Inspection_Data.Where(p => p.Active == true && p.Delete == false && p.closerequest == true && p.Inspection_Type == "Visual").ToList();
-                List<Final_Inspection_Data> Thared = DB.Final_Inspection_Data.Where(p => p.Active == true && p.Delete == false && p.closerequest == true && p.Inspection_Type == "Thread").ToList();
-                List<Final_Inspection_Data> Humidity = DB.Final_Inspection_Data.Where(p => p.Active == true && p.Delete == false && p.closerequest == true && p.Inspection_Type == "Humidity").ToList();
-                List<Final_Inspection_Data> incominginspection = DB.Final_Inspection_Data.Where(p => p.Active == true && p.Delete == false && p.closerequest == true).ToList();
-                List<Final_Inspection_Data> sumofrejection = DB.Final_Inspection_Data.Where(p => p.Active == true && p.Delete == false && p.closerequest == true).ToList();
+                List<Final_Inspection_Data> total = data.Where(p => p.Note != "Out Source Part").ToList();
+                List<Final_Inspection_Data> final = data.Where(p =>  p.Inspection_Type == "Final").ToList();
+                List<Final_Inspection_Data> visual = data.Where(p =>  p.Inspection_Type == "Visual").ToList();
+                List<Final_Inspection_Data> Thared = data.Where(p =>  p.Inspection_Type == "Thread").ToList();
+                List<Final_Inspection_Data> Humidity = data.Where(p =>  p.Inspection_Type == "Humidity").ToList();
+                List<Final_Inspection_Data> incominginspection = data.Where(p => p.Note == "Out Source Part").ToList();
 
 
                 data = data.Where(x=>x.Inward_Date >= startDate &&  x.CloseRequstDate <= endDate).ToList();
@@ -85,16 +84,6 @@ namespace Inspection.Web.Controllers
                         worksheet.Cells[1, 23].Value = "Rework time";
                         worksheet.Cells[1, 24].Value = "Sorting time";
                         worksheet.Cells[1, 25].Value = "Deviation waiting time";
-
-                        using (var range = worksheet.Cells[1, 1, 1, 25])
-                        {
-                            range.Style.Font.Bold = true;
-                            range.Style.Font.Color.SetColor(System.Drawing.Color.White);
-                            range.Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
-                            range.Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.DarkOrange);
-                            range.Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
-                            range.Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
-                        }
 
 
                         int row = 2;
@@ -299,7 +288,7 @@ namespace Inspection.Web.Controllers
                         worksheet3.Cells[1, 13].Value = "Rework%";
                         worksheet3.Cells[1, 14].Value = "Deviation Qty";
                         worksheet3.Cells[1, 15].Value = "Deviation%";
-                        worksheet3.Cells[1, 16].Value = "Lot Reject%";
+                        worksheet3.Cells[1, 16].Value = "Lot Reject%";          
                         worksheet3.Cells[1, 17].Value = "Total time in Quality%";
                         worksheet3.Cells[1, 18].Value = "Inspection time(Type) Manpower spend time";
                         worksheet3.Cells[1, 19].Value = "Total inspection time- Manpower spend time ";

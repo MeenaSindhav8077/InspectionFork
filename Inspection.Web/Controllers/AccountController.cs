@@ -43,7 +43,8 @@ namespace Inspection.Web.Controllers
                 }
                 else
                 {
-                    return RedirectToAction("Login", "Account");
+                    TempData["ErrorMessage"] = "User does not exist.";
+                    return View("Login", _Model);
                 }
             }
             catch (Exception ex)

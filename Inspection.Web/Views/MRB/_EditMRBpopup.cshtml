@@ -7,95 +7,150 @@
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
             <div class="modal-header bg-light p-3">
-                <h5 class="modal-title" id="exampleModalLabel">Edit Mrb Decision</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Edit Mrb</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="close-modal"></button>
             </div>
             <div style="background-color:aliceblue">
-                <div id="yourDivId">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="card" style=" background-color:white">
-                                <div class="card-header align-items-center d-flex">
-                                </div>
-                                @using (Html.BeginForm("Editmrbdata", "MRB", FormMethod.Post))
-                                {
-                                    @Html.HiddenFor(model => model.Id)
-                                    @Html.HiddenFor(model => model.iId)
+                @if (Model.buttonvalue != "editmrbform")
+                {
+                    <div id="yourDivId">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="card" style=" background-color:white">
+                                    <div class="card-header align-items-center d-flex">
+                                    </div>
+                                    @using (Html.BeginForm("Editmrbdata", "MRB", FormMethod.Post))
+                                    {
+                                        @Html.HiddenFor(model => model.Id)
+                                        @Html.HiddenFor(model => model.iId)
 
-                                    <div class="card-body" style=" background-color:white">
-                                        <div class="live-preview ">
-                                            <div class="row gy-4">
-                                                <div class="col-xxl-3 col-md-6">
-                                                    <div>
-                                                        <label>Rcode</label>
-                                                        @Html.TextBoxFor(model => model.Rcodes, new { @class = "aspNetDisabled form-control" })
-                                                    </div>
-                                                </div>
-                                                <div class="col-xxl-3 col-md-6">
-                                                    <div>
-                                                        <label>Location</label>
-                                                        @Html.TextBoxFor(model => model.Location, new { @class = "form-control", id = "exampleInputdate" })
-                                                    </div>
-                                                </div>
-                                                <div class="col-xxl-3 col-md-6">
-                                                    <div>
-                                                        <label>Subqty</label>
-                                                        @Html.TextBoxFor(model => model.subqty, new { @class = "form-control", id = "exampleInputdate" })
-                                                    </div>
-                                                </div>
-                                                <div class="col-xxl-3 col-md-6">
-                                                    <div>
-                                                        <label>Decision</label>
-                                                        @Html.TextBoxFor(model => model.note, new { @class = "form-control", id = "exampleInputdate" })
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div id="textBoxContainer" class="mt-5">
-                                                <div class="row gy-2">
-                                                    <div class="col-xxl-4 col-md-6">
-                                                        <div class="mb-4">
-                                                            <select class="form-select" name="DecisionItems[0].Decisionmrb" required>
-                                                                <option value="" selected disabled>Choose..</option>
-                                                                <option value="Reject">Reject </option>
-                                                                <option value="Accept">Accept </option>
-                                                                <option value="Rework">Rework </option>
-                                                                <option value="Sorting">Sorting</option>
-                                                                <option value="Re-sorting">Re-sorting </option>
-                                                                <option value="Deviation">Deviation </option>
-                                                                <option value="Rework in MRB">Rework in MRB </option>
-                                                                <option value="Re-Measured">Re-Measured </option>
-                                                                <option value="Split">Split </option>
-                                                                <option value="Hold">Hold</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-xxl-4 col-md-6">
+                                        <div class="card-body" style=" background-color:white">
+                                            <div class="live-preview ">
+                                                <div class="row gy-4">
+                                                    <div class="col-xxl-3 col-md-6">
                                                         <div>
-                                                            <input class="form-control" type="number" name="DecisionItems[0].SubQtyMrb" placeholder="0" required />
+                                                            <label>Rcode</label>
+                                                            @Html.TextBoxFor(model => model.Rcodes, new { @class = "aspNetDisabled form-control" })
                                                         </div>
                                                     </div>
-                                                    <div class="col-xxl-1 col-md-6">
+                                                    <div class="col-xxl-3 col-md-6">
                                                         <div>
-                                                            <button class="btn btn-success" type="button" onclick="addTextBox()">+</button>
+                                                            <label>Location</label>
+                                                            @Html.TextBoxFor(model => model.Location, new { @class = "form-control", id = "exampleInputdate" })
                                                         </div>
                                                     </div>
-                                                    <div class=" col-xxl-1 col-md-6">
+                                                    <div class="col-xxl-3 col-md-6">
                                                         <div>
-                                                            <button class="btn btn-danger" type="button" onclick="removeTextBox()">-</button>
+                                                            <label>Subqty</label>
+                                                            @Html.TextBoxFor(model => model.subqty, new { @class = "form-control", id = "exampleInputdate" })
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xxl-3 col-md-6">
+                                                        <div>
+                                                            <label>Decision</label>
+                                                            @Html.TextBoxFor(model => model.note, new { @class = "form-control", id = "exampleInputdate" })
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="mt-5">
-                                                <button class="btn btn-success" type="submit"> Update</button>
+                                                <div id="textBoxContainer" class="mt-5">
+                                                    <div class="row gy-2">
+                                                        <div class="col-xxl-4 col-md-6">
+                                                            <div class="mb-4">
+                                                                <select class="form-select" name="DecisionItems[0].Decisionmrb" required>
+                                                                    <option value="" selected disabled>Choose..</option>
+                                                                    <option value="Reject">Reject </option>
+                                                                    <option value="Accept">Accept </option>
+                                                                    <option value="Rework">Rework </option>
+                                                                    <option value="Sorting">Sorting</option>
+                                                                    <option value="Re-sorting">Re-sorting </option>
+                                                                    <option value="Deviation">Deviation </option>
+                                                                    <option value="Rework in MRB">Rework in MRB </option>
+                                                                    <option value="Re-Measured">Re-Measured </option>
+                                                                    <option value="Split">Split </option>
+                                                                    <option value="Hold">Hold</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-xxl-4 col-md-6">
+                                                            <div>
+                                                                <input class="form-control" type="number" name="DecisionItems[0].SubQtyMrb" placeholder="0" required />
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-xxl-1 col-md-6">
+                                                            <div>
+                                                                <button class="btn btn-success" type="button" onclick="addTextBox()">+</button>
+                                                            </div>
+                                                        </div>
+                                                        <div class=" col-xxl-1 col-md-6">
+                                                            <div>
+                                                                <button class="btn btn-danger" type="button" onclick="removeTextBox()">-</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="mt-5">
+                                                    <button class="btn btn-success" type="submit"> Update</button>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                }
+                                    }
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                }
+                else
+                {
+                    <div id="yourDivId">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="card" style=" background-color:white">
+                                    <div class="card-header align-items-center d-flex">
+                                    </div>
+                                    @using (Html.BeginForm("Editmrbdataform", "MRB", FormMethod.Post))
+                                    {
+                                        @Html.HiddenFor(model => model.Id)
+                                        @Html.HiddenFor(model => model.iId)
+
+                                        <div class="card-body" style=" background-color:white">
+                                            <div class="live-preview ">
+                                                <div class="row gy-4">
+                                                    <div class="col-xxl-3 col-md-6">
+                                                        <div>
+                                                            <label>Qty</label>
+                                                            @Html.TextBoxFor(model => model.qty, new { @class = "aspNetDisabled form-control" })
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xxl-3 col-md-6">
+                                                        <div>
+                                                            <label>Rcode</label>
+                                                            @Html.TextBoxFor(model => model.Rcodes, new { @class = "aspNetDisabled form-control" })
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xxl-3 col-md-6">
+                                                        <div>
+                                                            <label>Location</label>
+                                                            @Html.TextBoxFor(model => model.Location, new { @class = "form-control", id = "exampleInputdate" })
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xxl-3 col-md-6">
+                                                        <div>
+                                                            <label>Sub Qty</label>
+                                                            @Html.TextBoxFor(model => model.subqty, new { @class = "form-control", id = "exampleInputdate" })
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="mt-5">
+                                                    <button class="btn btn-success" type="submit"> Update</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
             </div>
         </div>
     </div>

@@ -156,27 +156,34 @@ namespace Inspection.Web.Controllers
                             }
                             if (rcode != null)
                             {
-                                rcodeList.AddRange(rcode);
+                                //rcodeList.AddRange(rcode);
+                                rcodeList.AddRange(rcode.Where(loc => loc != ""));
                             }
                             if (rcodeS != null)
                             {
-                                rcodeList.AddRange(rcodeS);
+                                //rcodeList.AddRange(rcodeS);
+                                rcodeList.AddRange(rcodeS.Where(loc => loc != ""));
                             }
                             if (location != null)
                             {
-                                locationList.AddRange(location);
+                                //locationList.AddRange(location);
+                                locationList.AddRange(location.Where(loc => loc != ""));
                             }
                             if (locations != null)
                             {
-                                locationList.AddRange(locations);
+                                //locationList.AddRange(locations);
+                                locationList.AddRange(locations.Where(loc => loc != ""));
                             }
                             if (subqty != null)
                             {
-                                subqtyList.AddRange(subqty);
+                                //subqtyList.AddRange(subqty);
+                                subqtyList.AddRange(subqty.Where(loc => loc != ""));
+
                             }
                             if (subqtyvs != null)
                             {
-                                subqtyList.AddRange(subqtyvs);
+                                //subqtyList.AddRange(subqtyvs);
+                                subqtyList.AddRange(subqtyvs.Where(loc => loc != ""));
                             }
                             Final_Inspection_Mrb_Data _Inspection_Data = new Final_Inspection_Mrb_Data();
                             _Inspection_Data.Qty = Convert.ToInt32(item);
@@ -249,20 +256,49 @@ namespace Inspection.Web.Controllers
                 if (_data != null)
                 {
 
+                    _mrbmodel = (from model1 in DB.Final_Inspection_Mrb_Data.Where(p => p.Gid == id && p.Active == true && p.Deleted == false && (p.ReworkMrb == null || p.ReworkMrb == false))
+                              join model2 in DB.Final_Inspection_Mrb_Rcode
+                              .Where(p => p.Active == true && p.Deleted == false)
+                              on model1.ID equals model2.PID into relatedRecords
+                              select new MrbdecisioModel
+                              {
+                                  Id = model1.ID,
+                                  jobno_j = model1.JobNo,
+                                  Qtys = model1.Qty,
+                                  partno_p = model1.PartNo,
+                                  ids = relatedRecords.Select(p => p.id).ToList(),
+                                  Reject = relatedRecords.Select(p => p.Reject).ToList(),
+                                  Accept = relatedRecords.Select(p => p.Accept).ToList(),
+                                  Rework = relatedRecords.Select(p => p.Rework).ToList(),
+                                  Sorting = relatedRecords.Select(p => p.Sorting).ToList(),
+                                  Resorting = relatedRecords.Select(p => p.Resorting).ToList(),
+                                  Deviation = relatedRecords.Select(p => p.Deviation).ToList(),
+                                  ReworkMRB = relatedRecords.Select(p => p.Reworkinmrb).ToList(),
+                                  ReMeasured = relatedRecords.Select(p => p.Remeasured).ToList(),
+                                  Split = relatedRecords.Select(p => p.Split).ToList(),
+                                  Hold = relatedRecords.Select(p => p.Hold).ToList(),
+                                  Rcode = relatedRecords.Select(r => r.Rcode).ToList(),
+                                  Description = relatedRecords.Select(r => r.Remark).ToList(),
+                                  location = relatedRecords.Select(r => r.Rtaxt).ToList(),
+                                  Desicion = relatedRecords.Select(r => r.Desicion).ToList(),
+                                  subqty = relatedRecords.Select(r => r.SubQty).ToList(),
+                                  inersubqty = relatedRecords.Select(r => r.DesicionSubQty).ToList()
+                              }).ToList();
+
                     _model = (from model in DB.Final_Inspection_Data.Where(p => p.ID == id)
                               select new MrbModel
                               {
                                   Id = model.ID,
-                                  //Serialno = model.PID,
                                   jobno = model.JobNum,
                                   qty = model.Inspection_Qty,
                                   partno = model.PartNum,
                                   stage = model.Stage,
                                   inspectiontype = model.Inspection_Type,
                                   date = model.Inward_Date,
+                                  Sampleqty = model.Sample_Qty,
                                   Qualitystage = model.QualityStage,
                                   note = model.Note,
-                                  Sampleqty = model.Sample_Qty,
+                                  buttonvalue = "Update"
                               }).FirstOrDefault();
                 }
                 else
@@ -330,7 +366,6 @@ namespace Inspection.Web.Controllers
                               inspectiontype = model.Inspection_Type,
                               date = model.Inward_Date,
                               MRbDate = model.MRBDate,
-                              //inspectedby = model.,
                               iId = id,
 
                           }).FirstOrDefault();
@@ -374,7 +409,6 @@ namespace Inspection.Web.Controllers
                     _MrbModellist = _LIst,
                     mrbdecisioModel = _LIsts,
                 };
-
             }
             catch (DbEntityValidationException e)
             {
@@ -712,31 +746,31 @@ namespace Inspection.Web.Controllers
             mrbmainmodel _Model = new mrbmainmodel();
             try
             {
-                _model = (from model in DB.Final_Inspection_Process.Where(p => p.ID == id)
-                          select new MrbModel
-                          {
-                              Id = model.ID,
-                              jobno = model.JobNum,
-                              Qty_qty = model.Inspection_Qty,
-                              partno = model.PartNum,
-                              stage = model.Stage,
-                              inspectiontype = model.Inspection_Type,
-                              date = model.Inspection_date,
-                              inspectedby = model.done_by
-                          }).FirstOrDefault();
+                //_model = (from model in DB.Final_Inspection_Process.Where(p => p.ID == id)
+                //          select new MrbModel
+                //          {
+                //              Id = model.ID,
+                //              jobno = model.JobNum,
+                //              Qty_qty = model.Inspection_Qty,
+                //              partno = model.PartNum,
+                //              stage = model.Stage,
+                //              inspectiontype = model.Inspection_Type,
+                //              date = model.Inspection_date,
+                //              inspectedby = model.done_by
+                //          }).FirstOrDefault();
 
-                _LIst = (from model in DB.Final_Inspection_Process.Where(p => p.ID == id)
-                         select new MrbModel
-                         {
-                             Id = model.ID,
-                             jobno = model.JobNum,
-                             Qty_qty = model.Inspection_Qty,
-                             partno = model.PartNum,
-                             stage = model.Stage,
-                             inspectiontype = model.Inspection_Type,
-                             date = model.Inspection_date,
-                             inspectedby = model.done_by
-                         }).ToList();
+                //_LIst = (from model in DB.Final_Inspection_Process.Where(p => p.ID == id)
+                //         select new MrbModel
+                //         {
+                //             Id = model.ID,
+                //             jobno = model.JobNum,
+                //             Qty_qty = model.Inspection_Qty,
+                //             partno = model.PartNum,
+                //             stage = model.Stage,
+                //             inspectiontype = model.Inspection_Type,
+                //             date = model.Inspection_date,
+                //             inspectedby = model.done_by
+                //         }).ToList();
 
                 _LIsts = (from model1 in DB.Final_Inspection_Mrb_Data.Where(p => p.Gid == id && p.Active == true && p.Deleted == false && (p.ReworkMrb == null || p.ReworkMrb == false))
                           join model2 in DB.Final_Inspection_Mrb_Rcode
@@ -767,8 +801,7 @@ namespace Inspection.Web.Controllers
                               inersubqty = relatedRecords.Select(r => r.DesicionSubQty).ToList()
                           }).ToList();
 
-                if (_model == null)
-                {
+              
                     _model = (from model in DB.Final_Inspection_Data.Where(p => p.ID == id)
                               select new MrbModel
                               {
@@ -781,8 +814,8 @@ namespace Inspection.Web.Controllers
                                   date = model.Inward_Date,
                                   note = model.Note,
                                   Qualitystage = model.QualityStage,
+                                  MRbDate = model.MRBDate,
                               }).FirstOrDefault();
-                }
 
                 string listtoinspby = string.Join(", ", DB.Final_Inspection_Process.Where(p => p.ID == id).Select(v => v.done_by).ToList());
 
@@ -1194,6 +1227,162 @@ namespace Inspection.Web.Controllers
                 throw;
             }
 
+        }
+
+        public ActionResult _EditMRBform(int id, int iid)
+        {
+            MrbModel _model = new MrbModel();
+            List<MrbModel> _LIst = new List<MrbModel>();
+            List<MrbdecisioModel> list = new List<MrbdecisioModel>();
+            mrbmainmodel _Model = new mrbmainmodel();
+            try
+            {
+                Final_Inspection_Mrb_Rcode _Mrb_Rcode = DB.Final_Inspection_Mrb_Rcode.Where(p => p.Active == true && p.Deleted == false && p.id == id).FirstOrDefault();
+                if (_Mrb_Rcode != null)
+                {
+                    int qty = DB.Final_Inspection_Mrb_Data.Where(p => p.ID == _Mrb_Rcode.PID && p.Active == true && p.Deleted == false).Select(p => p.Qty).FirstOrDefault();
+                    _model.qty = qty.ToString();
+                    _model.Rcodes = _Mrb_Rcode.Rcode;
+                    _model.Description = _Mrb_Rcode.Remark;
+                    _model.Location = _Mrb_Rcode.Rtaxt;
+                    _model.subqty = _Mrb_Rcode.SubQty;
+                    if (_Mrb_Rcode.Reject != null)
+                    {
+                        _model.note = "Reject: " + _Mrb_Rcode.Reject;
+                    }
+                    else if (_Mrb_Rcode.Accept != null)
+                    {
+                        _model.note = "Accept: " + _Mrb_Rcode.Accept;
+
+                    }
+                    else if (_Mrb_Rcode.Rework != null)
+                    {
+                        _model.note = "Rework: " + _Mrb_Rcode.Rework;
+                    }
+                    else if (_Mrb_Rcode.Sorting != null)
+                    {
+                        _model.note = "Sorting: " + _Mrb_Rcode.Sorting;
+                    }
+                    else if (_Mrb_Rcode.Resorting != null)
+                    {
+                        _model.note = "Resorting: " + _Mrb_Rcode.Resorting;
+                    }
+                    else if (_Mrb_Rcode.Deviation != null)
+                    {
+                        _model.note = "Deviation: " + _Mrb_Rcode.Deviation;
+                    }
+                    else if (_Mrb_Rcode.Reworkinmrb != null)
+                    {
+                        _model.note = "Reworkinmrb: " + _Mrb_Rcode.Reworkinmrb;
+                    }
+                    else if (_Mrb_Rcode.Remeasured != null)
+                    {
+                        _model.note = "Remeasured: " + _Mrb_Rcode.Remeasured;
+                    }
+                    else
+                    {
+                        _model.note = null;
+                    }
+                    _model.buttonvalue = "editmrbform";
+                }
+            }
+            catch (DbEntityValidationException e)
+            {
+                TempData["WarningMessage"] = "Warning: Something went wrong Data Not Saved.";
+                foreach (var eve in e.EntityValidationErrors)
+                {
+                    Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                        eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
+                            ve.PropertyName, ve.ErrorMessage);
+                    }
+                }
+                logService.AddLog(e, "Generatepdf", "MrbController");
+            }
+            return PartialView("_EditMRBpopup", _model);
+        }
+        public ActionResult _DeleteMRbform(int id)
+        {
+            MrbModel _model = new MrbModel();
+            List<MrbModel> _LIst = new List<MrbModel>();
+            List<MrbdecisioModel> _LIsts = new List<MrbdecisioModel>();
+            mrbmainmodel _Model = new mrbmainmodel();
+            int? _id = 0;
+            try
+            {
+                Final_Inspection_Mrb_Rcode _Inspection_Mrb_Rcode = DB.Final_Inspection_Mrb_Rcode.Where(p => p.id == id && p.Active == true && p.Deleted == false).FirstOrDefault();
+                if (_Inspection_Mrb_Rcode != null)
+                {
+                    _Inspection_Mrb_Rcode.Active = false;
+                    _Inspection_Mrb_Rcode.Deleted = true;
+                    DB.SaveChanges();
+                }
+                _id = DB.Final_Inspection_Mrb_Data.Where(p => p.ID == _Inspection_Mrb_Rcode.PID).Select(g => g.Gid).FirstOrDefault();
+            }
+            catch (DbEntityValidationException e)
+            {
+                TempData["WarningMessage"] = "Warning: Something went wrong Data Not Saved.";
+                foreach (var eve in e.EntityValidationErrors)
+                {
+                    Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                        eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
+                            ve.PropertyName, ve.ErrorMessage);
+                    }
+                }
+                logService.AddLog(e, "_DeleteMRb", "MrbController");
+            }
+            return RedirectToAction("Mrbform", new { id = _id });
+        }
+        public ActionResult Editmrbdataform(MrbModel _model)
+        {
+            try
+            {
+                Final_Inspection_Mrb_Data _mrbdata = new Final_Inspection_Mrb_Data();
+                try
+                {
+                    if (_model != null)
+                    {
+                        Final_Inspection_Mrb_Rcode _data = DB.Final_Inspection_Mrb_Rcode.Where(p => p.id == _model.Id && p.Active == true && p.Deleted == false).FirstOrDefault();
+                        if (_data != null)
+                        {
+                           _mrbdata = DB.Final_Inspection_Mrb_Data.Where(p => p.ID == _data.PID && p.Active == true && p.Deleted == false).FirstOrDefault();
+
+                            _data.Rcode = _model.Rcodes;
+                            _data.Rtaxt = _model.Location;
+                            _data.SubQty = _model.subqty;
+                            _mrbdata.Qty = Convert.ToInt32(_model.qty);
+                            DB.SaveChanges();
+                        }
+                    }
+                }
+                catch (DbEntityValidationException e)
+                {
+                    TempData["WarningMessage"] = "Warning: Something went wrong Data Not Saved.";
+                    foreach (var eve in e.EntityValidationErrors)
+                    {
+                        Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                            eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                        foreach (var ve in eve.ValidationErrors)
+                        {
+                            Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
+                                ve.PropertyName, ve.ErrorMessage);
+                        }
+                    }
+                    logService.AddLog(e, "AddDesicion", "MrbController");
+                }
+                return RedirectToAction("Mrbform", new { id = _mrbdata.ID });
+            }
+            catch (Exception ex)
+            {
+                TempData["WarningMessage"] = "Warning: Something went wrong Data Not Saved.";
+                logService.AddLog(ex, "AddDesicion", "MrbController");
+            }
+            return View();
         }
     }
 }

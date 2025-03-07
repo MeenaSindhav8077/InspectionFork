@@ -147,23 +147,28 @@
                         @Html.HiddenFor(model => Model._INWARD.ProcessStage)
                         @Html.HiddenFor(model => Model._INWARD.InspectionType)
                         @Html.HiddenFor(model => Model._INWARD.QualityStage)
-                        <div class="modal-body">
-                            <div class="mb-3">
-                                @Html.LabelFor(model => model._submodel.Stage, new { @class = "form-label" })
-                                @{
-                                    var STAGESelectList = inspectionservice.GetInspectiontypewise(inspectiontype);
-                                }
+                <div class="modal-body">
+                    <div class="mb-3">
+                        @Html.LabelFor(model => model._submodel.Stage, new { @class = "form-label" })
+                        @{
+                            var STAGESelectList = inspectionservice.GetInspectiontypewise(inspectiontype);
+                        }
 
-                                @Html.DropDownListFor(model => model._submodel.Stage, new SelectList(STAGESelectList, "Value", "Text"), "Select", new { @class = "form-select ", id = "" })
-                                @Html.ValidationMessageFor(model => model._submodel.Stage, "", new { @class = "text-danger" })
-                            </div>
+                        @Html.DropDownListFor(model => model._submodel.Stage, new SelectList(STAGESelectList, "Value", "Text"), "Select", new { @class = "form-select ", id = "" })
+                        @Html.ValidationMessageFor(model => model._submodel.Stage, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="mb-3">
+                        @Html.LabelFor(model => model._submodel.DecisionQty, new { @class = "form-label" })
+                        @Html.TextBoxFor(model => model._submodel.DecisionQty, new { @class = "form-select ", id = "" })
+                        @Html.ValidationMessageFor(model => model._submodel.DecisionQty, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                    <div class="modal-footer">
+                        <div class="hstack gap-2 justify-content-end">
+                            <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-success">Save</button>
                         </div>
-                        <div class="modal-footer">
-                            <div class="hstack gap-2 justify-content-end">
-                                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-success">Save</button>
-                            </div>
-                        </div>
+                    </div>
                     }
                 </div>
             </div>
@@ -187,6 +192,7 @@
                 @Html.HiddenFor(model => Model._INWARD.JobNo)
                 @Html.HiddenFor(model => Model._INWARD.Partno)
                 @Html.HiddenFor(model => Model._INWARD.ProcessStage)
+                @Html.HiddenFor(model => Model._INWARD.QualityStage)
                 <div class="modal-body">
                     <div class="mb-3">
                         @Html.LabelFor(model => model._submodel.Stage, new { @class = "form-label" })
@@ -234,20 +240,20 @@
                      new SelectListItem { Value = "Yes ", Text = "Yes" },
                      new SelectListItem { Value = "No ", Text = "No" },
                 };
-                <div class="modal-body">
-                    <div class="mb-3">
-                        @Html.LabelFor(model => model._submodel.SampleQuantity, new { @class = "form-label" })
+        <div class="modal-body">
+            <div class="mb-3">
+                @Html.LabelFor(model => model._submodel.SampleQuantity, new { @class = "form-label" })
 
-                        @Html.TextBoxFor(model => model._submodel.SampleQuantity, new { @class = "form-control " })
-                        @Html.ValidationMessageFor(model => model._submodel.SampleQuantity, "", new { @class = "text-danger" })
-                    </div>
-                    <div class="mb-3">
-                        @Html.LabelFor(model => model._submodel.MES, new { @class = "form-label" })
+                @Html.TextBoxFor(model => model._submodel.SampleQuantity, new { @class = "form-control " })
+                @Html.ValidationMessageFor(model => model._submodel.SampleQuantity, "", new { @class = "text-danger" })
+            </div>
+            <div class="mb-3">
+                @Html.LabelFor(model => model._submodel.MES, new { @class = "form-label" })
 
-                        @Html.DropDownListFor(model => model._submodel.MES, staticData, new { @class = "form-select mb-3 js-example-basic-single", id = "" })
-                        @Html.ValidationMessageFor(model => model._submodel.MES, "", new { @class = "text-danger" })
-                    </div>
-                </div>
+                @Html.DropDownListFor(model => model._submodel.MES, staticData, new { @class = "form-select mb-3 js-example-basic-single", id = "" })
+                @Html.ValidationMessageFor(model => model._submodel.MES, "", new { @class = "text-danger" })
+            </div>
+        </div>
                 <div class="modal-footer">
                     <div class="hstack gap-2 justify-content-end">
                         <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
@@ -263,7 +269,7 @@
 
     string jb = Model._INWARD.JobNo;
 }
-<input type="text" value="@_mid" id="mainid" style="display:none;" />
+<input type="text" value="@_mid" id="mainid" style="display:none;"/>
 <div class="row">
     <div class="col-xxl-12">
         <div class="card">
@@ -564,16 +570,16 @@
                                                                                                     @*<td>
                                                                                                         @Html.DisplayFor(modelItem => item.StartTime)
                                                                                                     </td>*@
-                                                                                                    <td>
-                                                                                                        @if (item.EndTime != null && item.InspectedQty != null)
-                                                                                                        {
-                                                                                                            @Html.TextBoxFor(model => item.EndTime, new { @class = "aspNetDisabled form-control", @type = "datetime-local", @id = "tharendtime" })
-                                                                                                        }
-                                                                                                        else
-                                                                                                        {
-                                                                                                            @Html.TextBoxFor(model => item.EndTime, new { @class = "aspNetDisabled form-control endtime-input", @type = "datetime-local", @id = "Threadenddate" })
-                                                                                                        }
-                                                                                                    </td>
+                                                                                                <td>
+                                                                                                    @if (item.EndTime != null && item.InspectedQty != null)
+                                                                                                    {
+                                                                                                        @Html.DisplayFor(modelItem => item.EndTime)
+                                                                                                    }
+                                                                                                    else
+                                                                                                    {
+                                                                                                        @Html.TextBoxFor(model => item.EndTime, new { @class = "aspNetDisabled form-control endtime-input", @type = "datetime-local", @id = "Threadenddate" })
+                                                                                                    }
+                                                                                                </td>
                                                                                                     <td>
                                                                                                         @if (item.EndTime != null && item.InspectedQty != null)
                                                                                                         {
@@ -1083,7 +1089,7 @@
                                                                                                     <td>
                                                                                                         @if (item.EndTime != null && item.InspectedQty != null)
                                                                                                         {
-                                                                                                            @Html.TextBoxFor(model => item.EndTime, new { @class = "aspNetDisabled form-control", @type = "datetime-local", @id = "Finalendtime" })
+                                                                                                            @Html.DisplayFor(model => item.EndTime)
                                                                                                         }
                                                                                                         else
                                                                                                         {
@@ -1595,7 +1601,7 @@
                                                                                                     <td>
                                                                                                         @if (item.EndTime != null && item.InspectedQty != null)
                                                                                                         {
-                                                                                                            @Html.TextBoxFor(model => item.EndTime, new { @class = "aspNetDisabled form-control", @type = "datetime-local", @id = "humiditytime" })
+                                                                                                            @Html.DisplayFor(model => item.EndTime)
                                                                                                         }
                                                                                                         else
                                                                                                         {
@@ -2284,7 +2290,7 @@
                                                                                                     <td>
                                                                                                         @if (item.EndTime != null && item.InspectedQty != null)
                                                                                                         {
-                                                                                                            @Html.TextBoxFor(model => item.EndTime, new { @class = "aspNetDisabled form-control", @type = "datetime-local", @id = "tharendtime" })
+                                                                                                            @Html.DisplayFor(model => item.EndTime)
                                                                                                         }
                                                                                                         else
                                                                                                         {
@@ -2458,7 +2464,7 @@
                                                                                                     <td>
                                                                                                         @if (item.EndTime != null && item.InspectedQty != null)
                                                                                                         {
-                                                                                                            @Html.TextBoxFor(model => item.EndTime, new { @class = "aspNetDisabled form-control", @type = "datetime-local", @id = "Finalendtime" })
+                                                                                                            @Html.DisplayFor(model => item.EndTime)
                                                                                                         }
                                                                                                         else
                                                                                                         {
@@ -2970,7 +2976,7 @@
                                                                                                     <td>
                                                                                                         @if (item.EndTime != null && item.InspectedQty != null)
                                                                                                         {
-                                                                                                            @Html.TextBoxFor(model => item.EndTime, new { @class = "aspNetDisabled form-control", @type = "datetime-local", @id = "humiditytime" })
+                                                                                                            @Html.DisplayFor(model => item.EndTime)
                                                                                                         }
                                                                                                         else
                                                                                                         {
@@ -3144,7 +3150,7 @@
                                                                                                     <td>
                                                                                                         @if (item.EndTime != null && item.InspectedQty != null)
                                                                                                         {
-                                                                                                            @Html.TextBoxFor(model => item.EndTime, new { @class = "aspNetDisabled form-control", @type = "datetime-local", @id = "Finalendtime" })
+                                                                                                            @Html.DisplayFor(model => item.EndTime)
                                                                                                         }
                                                                                                         else
                                                                                                         {
@@ -3306,7 +3312,7 @@
                                                                                                     <td>
                                                                                                         @if (item.EndTime != null && item.InspectedQty != null)
                                                                                                         {
-                                                                                                            @Html.TextBoxFor(model => item.EndTime, new { @class = "aspNetDisabled form-control", @type = "datetime-local", @id = "finalendtimedd" })
+                                                                                                            @Html.TextBoxFor(model => item.EndTime)
                                                                                                         }
                                                                                                         else
                                                                                                         {
@@ -3652,7 +3658,7 @@
                                                                                                     <td>
                                                                                                         @if (item.EndTime != null && item.InspectedQty != null)
                                                                                                         {
-                                                                                                            @Html.TextBoxFor(model => item.EndTime, new { @class = "aspNetDisabled form-control", @type = "datetime-local", @id = "tharendtime" })
+                                                                                                            @Html.DisplayFor(model => item.EndTime)
                                                                                                         }
                                                                                                         else
                                                                                                         {
@@ -4344,7 +4350,7 @@
                                                                                                     <td>
                                                                                                         @if (item.EndTime != null && item.InspectedQty != null)
                                                                                                         {
-                                                                                                            @Html.TextBoxFor(model => item.EndTime, new { @class = "aspNetDisabled form-control", @type = "datetime-local", @id = "humiditytime" })
+                                                                                                            @Html.DisplayFor(model => item.EndTime)
                                                                                                         }
                                                                                                         else
                                                                                                         {
@@ -4693,7 +4699,7 @@
                                                                                                     <td>
                                                                                                         @if (item.EndTime != null && item.InspectedQty != null)
                                                                                                         {
-                                                                                                            @Html.TextBoxFor(model => item.EndTime, new { @class = "aspNetDisabled form-control", @type = "datetime-local", @id = "humiditytime" })
+                                                                                                            @Html.DisplayFor(model => item.EndTime)
                                                                                                         }
                                                                                                         else
                                                                                                         {
@@ -5035,7 +5041,7 @@
                                                                                                     <td>
                                                                                                         @if (item.EndTime != null && item.InspectedQty != null)
                                                                                                         {
-                                                                                                            @Html.TextBoxFor(model => item.EndTime, new { @class = "aspNetDisabled form-control", @type = "datetime-local", @id = "tharendtime" })
+                                                                                                            @Html.DisplayFor(model => item.EndTime)
                                                                                                         }
                                                                                                         else
                                                                                                         {
@@ -5551,7 +5557,7 @@
                                                                                                     <td>
                                                                                                         @if (item.EndTime != null && item.InspectedQty != null)
                                                                                                         {
-                                                                                                            @Html.TextBoxFor(model => item.EndTime, new { @class = "aspNetDisabled form-control", @type = "datetime-local", @id = "Finalendtime" })
+                                                                                                            @Html.DisplayFor(model => item.EndTime)
                                                                                                         }
                                                                                                         else
                                                                                                         {
@@ -6064,7 +6070,7 @@
                                                                                                     <td>
                                                                                                         @if (item.EndTime != null && item.InspectedQty != null)
                                                                                                         {
-                                                                                                            @Html.TextBoxFor(model => item.EndTime, new { @class = "aspNetDisabled form-control", @type = "datetime-local", @id = "tharendtime" })
+                                                                                                            @Html.DisplayFor(model => item.EndTime)
                                                                                                         }
                                                                                                         else
                                                                                                         {
@@ -6580,7 +6586,7 @@
                                                                                                     <td>
                                                                                                         @if (item.EndTime != null && item.InspectedQty != null)
                                                                                                         {
-                                                                                                            @Html.TextBoxFor(model => item.EndTime, new { @class = "aspNetDisabled form-control", @type = "datetime-local", @id = "Finalendtime" })
+                                                                                                            @Html.DisplayFor(model => item.EndTime)
                                                                                                         }
                                                                                                         else
                                                                                                         {
@@ -7091,7 +7097,7 @@
                                                                                                     <td>
                                                                                                         @if (item.EndTime != null && item.InspectedQty != null)
                                                                                                         {
-                                                                                                            @Html.TextBoxFor(model => item.EndTime, new { @class = "aspNetDisabled form-control", @type = "datetime-local", @id = "humiditytime" })
+                                                                                                            @Html.DisplayFor(model => item.EndTime)
                                                                                                         }
                                                                                                         else
                                                                                                         {

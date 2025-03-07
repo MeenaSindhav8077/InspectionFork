@@ -35,5 +35,6 @@ namespace Inspection.Web.DataBase
         public Nullable<bool> CompleteRework { get; set; }
         public Nullable<int> Inspectionqty { get; set; }
         public string Qualitystage { get; set; }
+        public Nullable<bool> reworkstatuschange { get; set; }
     }
 }

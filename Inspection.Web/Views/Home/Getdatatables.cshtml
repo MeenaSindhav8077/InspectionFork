@@ -11,6 +11,7 @@
 }
 
 @section styles{
+
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css" />
     <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.bootstrap.min.css" />
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.2.2/css/buttons.dataTables.min.css">
@@ -69,8 +70,8 @@
                                                 @Html.DisplayFor(modelItem => item.InwardDate)
                                             </td>
                                             @*<td>
-            @Html.DisplayFor(modelItem => item.InwardTime)
-        </td>*@
+                                                @Html.DisplayFor(modelItem => item.InwardTime)
+                                             </td>*@
                                             <td>
                                                 @Html.DisplayFor(modelItem => item.JobNo)
                                             </td>
@@ -92,7 +93,7 @@
                                             @Html.HiddenFor(modelItem => item.id, new { id = "ItemId" })
 
                                             <td>
-                                                @if (item.currentstage == "9")
+                                                @if(item.currentstage == "9")
                                                 {
 
                                                     <button class="btn btn-danger add-btn" onclick="StartInspection(@item.reworkqty, @item.id, 'Rework')">
@@ -106,7 +107,6 @@
                                                     <input type="checkbox" class="form-check-input" style="width:30px;height:30px" onchange="handleCheckboxChange(this, '@item.id', 'Rework')">
                                                     <label class="form-check-label" for="reworkCheckbox">Move to in rework</label>
 
-
                                                 }
                                                 else if (item.currentstage == "10")
                                                 {
@@ -115,7 +115,7 @@
                                                         <i class="ri-add-line align-bottom me-1"></i> Deviation Form
                                                     </button>
 
-                                                    <button class="btn btn-danger add-btn" onclick="StartDaviation(@item.deviationqty, @item.id , 'Daviation')">
+                                                    <button class="btn btn-danger add-btn" onclick="addsorting(@item.deviationqty, @item.id , 'Daviation')">
                                                         <i class="ri-add-line align-bottom me-1"></i> Start Deviation
                                                     </button>
 
@@ -131,10 +131,9 @@
                                                 else if (item.currentstage == "6")
                                                 {
 
-                                                    <button class="btn btn-danger add-btn" onclick="addsorting(@item.sortingqty, @item.id, 'Sorting')">
+                                                    <button class="btn btn-danger add-btn" onclick="StartDaviation(@item.sortingqty, @item.id, 'Sorting')">
                                                         <i class="ri-add-line align-bottom me-1"></i> Sorting Form
                                                     </button>
-
 
                                                 }
                                                 else if (item.currentstage == "12")
@@ -170,14 +169,14 @@
                                                 else if (item.currentstage == "1")
                                                 {
                                                     @*<td>
-                 @Html.DropDownListFor(modelItem => item.ProcessStage, STAGESelectList, "select...", new { @class = "form-select mb-3 js-example-basic-single", id = "Inputinstype" })
-                </td>
-                <td>
-                    @Html.TextBoxFor(modelItem => item.IQTY, new { @class = "form-control mb-3", id = "Inputinsqty" })
-                </td>
-                <td>
-                    <button class="btn btn-primary" onclick="handleChangedata();">Save</button>
-                </td>*@
+                                                   @Html.DropDownListFor(modelItem => item.ProcessStage, STAGESelectList, "select...", new { @class = "form-select mb-3 js-example-basic-single", id = "Inputinstype" })
+                                                  </td>
+                                                  <td>
+                                                      @Html.TextBoxFor(modelItem => item.IQTY, new { @class = "form-control mb-3", id = "Inputinsqty" })
+                                                  </td>
+                                                  <td>
+                                                      <button class="btn btn-primary" onclick="handleChangedata();">Save</button>
+                                                  </td>*@
                                                 }
 
                                                 @Html.ActionLink("History", "PartHistory", "Home", new { jobnum = item.JobNo, id = item.id, type = item.InspectionType, stage = item.QualityStage }, new { @class = "btn  btn-primary " })
@@ -238,7 +237,7 @@
                                                         <i class="ri-add-line align-bottom me-1"></i> Deviation Form
                                                     </button>
 
-                                                    <button class="btn btn-danger add-btn" onclick="StartDaviation(@item.deviationqty, @item.id , 'Daviation')">
+                                                    <button class="btn btn-danger add-btn" onclick="addsorting(@item.deviationqty, @item.id , 'Daviation')">
                                                         <i class="ri-add-line align-bottom me-1"></i> Start Deviation
                                                     </button>
 
@@ -254,7 +253,7 @@
                                                 else if (item.currentstage == "6")
                                                 {
 
-                                                    <button class="btn btn-danger add-btn" onclick="addsorting(@item.sortingqty, @item.id, 'Sorting')">
+                                                    <button class="btn btn-danger add-btn" onclick="StartDaviation(@item.sortingqty, @item.id, 'Sorting')">
                                                         <i class="ri-add-line align-bottom me-1"></i> Sorting Form
                                                     </button>
 
@@ -470,8 +469,8 @@
         document.getElementById("exampleModalLabel").innerText = type + "Add";
         document.getElementById("dynamiclable").innerText = type + "Qty";
         $('#showModal').modal('show');
-
     }
+
 </script>
 <script type="text/javascript">
     function addsorting(okqty, id, type) {
@@ -679,8 +678,6 @@
         }
     }
 
-
-
     function DocumentVerification(id, type) {
 
      if (id != null && type != null) {
@@ -693,7 +690,7 @@
     function StartDaviation(rqty, id, type) {
     if (rqty != null && id != null && type != null) {
         document.getElementById("hiddenId").value = id;
-        var nextPageUrl = '@Url.Action("DaviationPage", "Home")?id=' + id;
+        var nextPageUrl = '@Url.Action("SortingPage", "Home")?id=' + id;
         window.location.href = nextPageUrl;
     }
 }

@@ -14,6 +14,7 @@ using Microsoft.Ajax.Utilities;
 using static Org.BouncyCastle.Crypto.Engines.SM2Engine;
 using System.Diagnostics;
 using System.Data.Entity.Infrastructure;
+using System.Runtime.InteropServices;
 
 namespace Inspection.Web.Controllers
 {
@@ -841,255 +842,264 @@ namespace Inspection.Web.Controllers
                     .Where(v => v.JobNum == jobno && (v.QualityStage == stage || (v.QualityStage.Contains(stage))) && (v.closerequest == false || v.closerequest == null) && v.Active == true && v.Delete == false)
                     .ToList();
 
-                if (_Inspection_Data.Any())
+                bool hasHold = _Inspection_Data.Any(v => v.Hold == true);
+                if (!hasHold)
                 {
-                    int? acceptQty = 0;
-                    int rejectSum = 0;
-                    int reworkSum = 0;
-                    int soertingSum = 0;
-                    int resortingSum = 0;
-                    int daviationSum = 0;
-                    int reworkmrbSum = 0;
-                    int remesuredSum = 0;
-                    int splitSum = 0;
-                    int holdSum = 0;
-                    try
+                    if (_Inspection_Data.Any())
                     {
-                        bool jobExists = DB.Final_Inspection_Mrb_Data.Any(first => first.JobNo == jobno && (first.QualityStage == stage || first.QualityStage.Contains(stage))); //
-                        if (jobExists)
+                        int? acceptQty = 0;
+                        int rejectSum = 0;
+                        int reworkSum = 0;
+                        int soertingSum = 0;
+                        int resortingSum = 0;
+                        int daviationSum = 0;
+                        int reworkmrbSum = 0;
+                        int remesuredSum = 0;
+                        int splitSum = 0;
+                        int holdSum = 0;
+                        try
                         {
-                            var totals = DB.Final_Inspection_Mrb_Data
-                                .Where(first => first.JobNo == jobno && first.QualityStage == stage)
-                                .Join(
-                                    DB.Final_Inspection_Mrb_Rcode,
-                                    first => first.ID,
-                                    second => second.PID,
-                                    (first, second) => new
+                            bool jobExists = DB.Final_Inspection_Mrb_Data.Any(first => first.JobNo == jobno && (first.QualityStage == stage || first.QualityStage.Contains(stage))); //
+                            if (jobExists)
+                            {
+                                var totals = DB.Final_Inspection_Mrb_Data
+                                    .Where(first => first.JobNo == jobno && first.QualityStage == stage)
+                                    .Join(
+                                        DB.Final_Inspection_Mrb_Rcode,
+                                        first => first.ID,
+                                        second => second.PID,
+                                        (first, second) => new
+                                        {
+                                            second.Reject,
+                                            second.Rework,
+                                            second.Sorting,
+                                            second.Resorting,
+                                            second.Deviation,
+                                            second.Reworkinmrb,
+                                            second.Remeasured,
+                                            second.Split,
+                                            second.Hold
+                                        })
+                                    .GroupBy(x => 1) // Group all results to calculate aggregate in one go
+                                    .Select(g => new
                                     {
-                                        second.Reject,
-                                        second.Rework,
-                                        second.Sorting,
-                                        second.Resorting,
-                                        second.Deviation,
-                                        second.Reworkinmrb,
-                                        second.Remeasured,
-                                        second.Split,
-                                        second.Hold
-                                    })
-                                .GroupBy(x => 1) // Group all results to calculate aggregate in one go
-                                .Select(g => new
-                                {
-                                    TotalReject = g.Sum(x => (int?)x.Reject ?? 0),
-                                    TotalRework = g.Sum(x => (int?)x.Rework ?? 0),
-                                    TotalSorting = g.Sum(x => (int?)x.Sorting ?? 0),
-                                    TotalResorting = g.Sum(x => (int?)x.Resorting ?? 0),
-                                    TotalDeviation = g.Sum(x => (int?)x.Deviation ?? 0),
-                                    TotalReworkMrb = g.Sum(x => (int?)x.Reworkinmrb ?? 0),
-                                    TotalRemeasured = g.Sum(x => (int?)x.Remeasured ?? 0),
-                                    TotalSplit = g.Sum(x => (int?)x.Split ?? 0),
-                                    TotalHold = g.Sum(x => (int?)x.Hold ?? 0)
-                                }).FirstOrDefault();
+                                        TotalReject = g.Sum(x => (int?)x.Reject ?? 0),
+                                        TotalRework = g.Sum(x => (int?)x.Rework ?? 0),
+                                        TotalSorting = g.Sum(x => (int?)x.Sorting ?? 0),
+                                        TotalResorting = g.Sum(x => (int?)x.Resorting ?? 0),
+                                        TotalDeviation = g.Sum(x => (int?)x.Deviation ?? 0),
+                                        TotalReworkMrb = g.Sum(x => (int?)x.Reworkinmrb ?? 0),
+                                        TotalRemeasured = g.Sum(x => (int?)x.Remeasured ?? 0),
+                                        TotalSplit = g.Sum(x => (int?)x.Split ?? 0),
+                                        TotalHold = g.Sum(x => (int?)x.Hold ?? 0)
+                                    }).FirstOrDefault();
 
-                            //Check if totals were found; set to 0 if not.
-                            rejectSum = totals?.TotalReject ?? 0;
-                            reworkSum = totals?.TotalRework ?? 0;
-                            soertingSum = totals?.TotalSorting ?? 0;
-                            resortingSum = totals?.TotalResorting ?? 0;
-                            daviationSum = totals?.TotalDeviation ?? 0;
-                            reworkmrbSum = totals?.TotalReworkMrb ?? 0;
-                            remesuredSum = totals?.TotalRemeasured ?? 0;
-                            splitSum = totals?.TotalSplit ?? 0;
-                            holdSum = totals?.TotalHold ?? 0;
-                            if (reworkSum > 0)
-                            {
-                                if (_Inspection_Data.Any(p => p.inrework == true) || _Inspection_Data.Any(p => p.waitingforrework == true) || _Inspection_Data.Any(p => p.completeandwaiting == true))
+                                //Check if totals were found; set to 0 if not.
+                                rejectSum = totals?.TotalReject ?? 0;
+                                reworkSum = totals?.TotalRework ?? 0;
+                                soertingSum = totals?.TotalSorting ?? 0;
+                                resortingSum = totals?.TotalResorting ?? 0;
+                                daviationSum = totals?.TotalDeviation ?? 0;
+                                reworkmrbSum = totals?.TotalReworkMrb ?? 0;
+                                remesuredSum = totals?.TotalRemeasured ?? 0;
+                                splitSum = totals?.TotalSplit ?? 0;
+                                holdSum = totals?.TotalHold ?? 0;
+                                if (reworkSum > 0)
                                 {
-                                    warningMessage += $"This job requires {reworkSum} rework(s).\n";
+                                    if (_Inspection_Data.Any(p => p.inrework == true) || _Inspection_Data.Any(p => p.waitingforrework == true) || _Inspection_Data.Any(p => p.completeandwaiting == true))
+                                    {
+                                        warningMessage += $"This job requires {reworkSum} rework(s).\n";
+                                    }
+                                }
+                                if (soertingSum > 0)
+                                {
+                                    if (_Inspection_Data.Any(p => p.waitingforsorting == true))
+                                    {
+                                        warningMessage += $"This job requires {soertingSum} sorting(s).\n";
+                                    }
+                                }
+                                if (resortingSum > 0)
+                                {
+                                    if (_Inspection_Data.Any(p => p.waitingforsorting == true))
+                                    {
+                                        warningMessage += $"This job requires {resortingSum} resorting(s).\n";
+                                    }
+                                }
+                                if (daviationSum > 0)
+                                {
+                                    if (_Inspection_Data.Any(p => p.indeviation == true))
+                                    {
+                                        warningMessage += $"This job has {daviationSum} deviation(s).\n";
+                                    }
+                                }
+                                if (reworkmrbSum > 0)
+                                {
+                                    warningMessage += $"This job has {reworkmrbSum} rework(s) in MRB.\n";
+                                }
+                                if (remesuredSum > 0)
+                                {
+                                    warningMessage += $"This job has {remesuredSum} remeasured(s).\n";
+                                }
+                                if (splitSum > 0)
+                                {
+                                    if (_Inspection_Data.Any(p => p.split == true))
+                                    {
+                                        warningMessage += $"This job requires {splitSum} split(s).\n";
+                                    }
+                                }
+                                if (holdSum > 0)
+                                {
+                                    if (_Inspection_Data.Any(p => p.Hold == true))
+                                    {
+                                        warningMessage += $"This job has {holdSum} hold(s).\n";
+                                    }
                                 }
                             }
-                            if (soertingSum > 0)
+                            else
                             {
-                                if (_Inspection_Data.Any(p => p.waitingforsorting == true))
+                                rejectSum = 0;
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                        }
+
+                        string qty = DB.Final_Inspection_Data.Where(p => p.JobNum == jobno && (p.QualityStage == stage || p.QualityStage.Contains(stage)) && p.Inspection_Type == "Final").Select(p => p.Inspection_Qty).FirstOrDefault();
+
+                        int _qty = Convert.ToInt32(qty);
+
+                        int _allqty = _qty - rejectSum;
+
+                        acceptQty = _qty - rejectSum - reworkSum - soertingSum - resortingSum - daviationSum - reworkmrbSum - remesuredSum - splitSum - holdSum;
+
+                        if (string.IsNullOrEmpty(warningMessage))
+                        {
+                            _Inspection_Data.ForEach(item => item.closerequest = true);
+                            DB.SaveChanges();
+
+                            List<Final_Inspection_Data> final_Inspection_Data = DB.Final_Inspection_Data.Where(p => p.JobNum == jobno && (p.QualityStage == stage || p.QualityStage.Contains(stage)) && p.Active == true && p.Delete == false && p.closerequest == true).ToList();
+
+                            if (final_Inspection_Data != null)
+                            {
+                                foreach (var item in final_Inspection_Data)
                                 {
-                                    warningMessage += $"This job requires {soertingSum} sorting(s).\n";
+                                    int inwardqty = Convert.ToInt32(item.Inspection_Qty);
+
+                                    // Percentages 
+                                    decimal rejectionPercentage = ((decimal)(item.Reject_Qty ?? 0) / inwardqty) * 100;
+                                    decimal reworkper = ((decimal)(item.Rework_Qty ?? 0) / inwardqty) * 100;
+                                    decimal daviationper = ((decimal)(item.Deviation_Qty ?? 0) / inwardqty) * 100;
+
+                                    // Lot Reject
+                                    string lotReject = (item.Reject_Qty ?? 0) > 0 ? "Yes" : "No";
+
+                                    // Inward Time Calculation
+
+                                    TimeSpan? timeDifference = item.Inward_Date - item.CloseRequstDate;
+                                    decimal? inwardtime = timeDifference.HasValue ? (decimal)timeDifference.Value.TotalHours : 0;
+                                    decimal? totalhr = item.Reworktime.HasValue ? inwardtime - item.Reworktime : inwardtime;
+                                    TimeSpan? MRBTakentime = item.Mrb_Create_date - item.MRBDate;
+
+
+                                    TimeSpan? finalDuration = TimeSpan.Zero;
+                                    TimeSpan reworkDuration = TimeSpan.Zero;
+                                    TimeSpan sortingDuration = TimeSpan.Zero;
+                                    TimeSpan finalInspectorTotalTime = TimeSpan.Zero;
+                                    TimeSpan? visualDuration = TimeSpan.Zero;
+                                    TimeSpan? threadDuration = TimeSpan.Zero;
+                                    TimeSpan? humidityDuration = TimeSpan.Zero;
+                                    TimeSpan? totalInspectionTime = TimeSpan.Zero;
+
+                                    foreach (var process in final_Inspection_Data)
+                                    {
+                                        TimeSpan? processDuration = item.Inward_Date - item.CloseRequstDate;
+                                        switch (process.Inspection_Type)
+                                        {
+                                            case "Final":
+                                                finalDuration += processDuration;
+                                                break;
+                                            case "Visual":
+                                                visualDuration += processDuration;
+                                                break;
+                                            case "Thread":
+                                                threadDuration += processDuration;
+                                                break;
+                                            case "Humidity":
+                                                humidityDuration += processDuration;
+                                                break;
+                                        }
+                                    }
+
+                                    List<Final_Inspection_Process> _Process = DB.Final_Inspection_Process.Where(p => p.PID == item.ID).ToList();
+                                    if (_Process != null)
+                                    {
+                                        foreach (var process in _Process)
+                                        {
+                                            // Ensure both Inspection_date and endtime exist
+                                            if (process.Inspection_date.HasValue && process.endtime.HasValue)
+                                            {
+                                                // Add the difference (endtime - Inspection_date) to the total time
+                                                finalInspectorTotalTime += process.endtime.Value - process.Inspection_date.Value;
+                                            }
+                                        }
+
+                                        List<Final_Inspection_MRB_DecisionData> _RSDTIME = DB.Final_Inspection_MRB_DecisionData.Where(P => P.Active == true && P.Deleted == false && P.IID == item.ID).ToList();
+
+                                        foreach (var items in _RSDTIME)
+                                        {
+                                            // Calculate durations based on inspection type and MRB decision
+                                            if (items.MRBDecision == "Final" || items.MRBDecision == "Visual" || items.MRBDecision == "Thared" || items.MRBDecision == "Humidity") // final means rework
+                                            {
+                                                reworkDuration += (items.Date - item.InReworkDate) ?? TimeSpan.Zero;
+                                            }
+                                            if (items.MRBDecision == "Sorting")
+                                            {
+                                                sortingDuration += (items.Date - item.InSortingDate) ?? TimeSpan.Zero;
+                                            }
+                                            if (items.MRBDecision == "Daviation")
+                                            {
+                                                sortingDuration += (items.Date - item.InDaviationTime) ?? TimeSpan.Zero;
+                                            }
+                                        }
+                                        //Aggregate total time
+                                        TimeSpan? InspectiontimeManpowerspendtime = timeDifference + reworkDuration + sortingDuration + finalInspectorTotalTime;
+                                        TimeSpan? TotalinspectiontimeminusManpowerspendtime = finalDuration + visualDuration + threadDuration + humidityDuration + reworkDuration + sortingDuration;
+                                        TimeSpan? InspectiontimecommonQualitydivisionspendtimebypart = timeDifference + reworkDuration + sortingDuration; // comaan inspectiontime add
+                                        TimeSpan? TotalinspectiontimeCommonqualitydivisionspendtimebypart = finalDuration + visualDuration + threadDuration + humidityDuration + reworkDuration + sortingDuration; // coman inspection time
+
+
+                                        TimeSpan Reworktime = reworkDuration;
+                                        TimeSpan Sortingtime = sortingDuration;
+                                        TimeSpan? daviationwaitingtime = sortingDuration;
+
+                                        item.rejectpersentage = rejectionPercentage;
+                                        item.Reworkpersentage = reworkper;
+                                        item.Deviationpersentage = daviationper;
+                                        item.lotreject = lotReject;
+                                        item.TotalTimeinquality = totalhr;
+                                        item.InspectiontimeManpowerspendtime = InspectiontimeManpowerspendtime.ToString();
+                                        item.TotalinspectiontimeManpowerspendtime = TotalinspectiontimeminusManpowerspendtime.ToString();
+                                        item.InspectiontimeQualitydivisionspendtimebypart = InspectiontimecommonQualitydivisionspendtimebypart.ToString();
+                                        item.Totalinspectiontimequalitydivisionspendtimebypart = TotalinspectiontimeCommonqualitydivisionspendtimebypart.ToString();
+                                        item.MRBTakentime = MRBTakentime.ToString();
+
+                                    }
+                                    DB.SaveChanges();
                                 }
                             }
-                            if (resortingSum > 0)
-                            {
-                                if (_Inspection_Data.Any(p => p.waitingforsorting == true))
-                                {
-                                    warningMessage += $"This job requires {resortingSum} resorting(s).\n";
-                                }
-                            }
-                            if (daviationSum > 0)
-                            {
-                                if (_Inspection_Data.Any(p => p.indeviation == true))
-                                {
-                                    warningMessage += $"This job has {daviationSum} deviation(s).\n";
-                                }
-                            }
-                            if (reworkmrbSum > 0)
-                            {
-                                warningMessage += $"This job has {reworkmrbSum} rework(s) in MRB.\n";
-                            }
-                            if (remesuredSum > 0)
-                            {
-                                warningMessage += $"This job has {remesuredSum} remeasured(s).\n";
-                            }
-                            if (splitSum > 0)
-                            {
-                                if (_Inspection_Data.Any(p => p.split == true))
-                                {
-                                    warningMessage += $"This job requires {splitSum} split(s).\n";
-                                }
-                            }
-                            if (holdSum > 0)
-                            {
-                                if (_Inspection_Data.Any(p => p.Hold == true))
-                                {
-                                    warningMessage += $"This job has {holdSum} hold(s).\n";
-                                }
-                            }
+                            successMessage = "Process Ended Successfully";
                         }
                         else
                         {
-                            rejectSum = 0;
+                            warningMessage = warningMessage;
                         }
-                    }
-                    catch (Exception ex)
-                    {
-                    }
-
-                    string qty = DB.Final_Inspection_Data.Where(p => p.JobNum == jobno && (p.QualityStage == stage || p.QualityStage.Contains(stage)) && p.Inspection_Type == "Final").Select(p => p.Inspection_Qty).FirstOrDefault();
-
-                    int _qty = Convert.ToInt32(qty);
-
-                    int _allqty = _qty - rejectSum;
-
-                    acceptQty = _qty - rejectSum - reworkSum - soertingSum - resortingSum - daviationSum - reworkmrbSum - remesuredSum - splitSum - holdSum;
-
-                    if (string.IsNullOrEmpty(warningMessage))
-                    {
-                        _Inspection_Data.ForEach(item => item.closerequest = true);
-                        DB.SaveChanges();
-
-                        List<Final_Inspection_Data> final_Inspection_Data = DB.Final_Inspection_Data.Where(p => p.JobNum == jobno && (p.QualityStage == stage || p.QualityStage.Contains(stage)) && p.Active == true && p.Delete == false && p.closerequest == true).ToList();
-
-                        if (final_Inspection_Data != null)
-                        {
-                            foreach (var item in final_Inspection_Data)
-                            {
-                                int inwardqty = Convert.ToInt32(item.Inspection_Qty);
-
-                                // Percentages 
-                                decimal rejectionPercentage = ((decimal)(item.Reject_Qty ?? 0) / inwardqty) * 100;
-                                decimal reworkper = ((decimal)(item.Rework_Qty ?? 0) / inwardqty) * 100;
-                                decimal daviationper = ((decimal)(item.Deviation_Qty ?? 0) / inwardqty) * 100;
-
-                                // Lot Reject
-                                string lotReject = (item.Reject_Qty ?? 0) > 0 ? "Yes" : "No";
-
-                                // Inward Time Calculation
-
-                                TimeSpan? timeDifference = item.Inward_Date - item.CloseRequstDate;
-                                decimal? inwardtime = timeDifference.HasValue ? (decimal)timeDifference.Value.TotalHours : 0;
-                                decimal? totalhr = item.Reworktime.HasValue ? inwardtime - item.Reworktime : inwardtime;
-                                TimeSpan? MRBTakentime = item.Mrb_Create_date - item.MRBDate;
-
-
-                                TimeSpan? finalDuration = TimeSpan.Zero;
-                                TimeSpan reworkDuration = TimeSpan.Zero;
-                                TimeSpan sortingDuration = TimeSpan.Zero;
-                                TimeSpan finalInspectorTotalTime = TimeSpan.Zero;
-                                TimeSpan? visualDuration = TimeSpan.Zero;
-                                TimeSpan? threadDuration = TimeSpan.Zero;
-                                TimeSpan? humidityDuration = TimeSpan.Zero;
-                                TimeSpan? totalInspectionTime = TimeSpan.Zero;
-
-                                foreach (var process in final_Inspection_Data)
-                                {
-                                    TimeSpan? processDuration = item.Inward_Date - item.CloseRequstDate;
-                                    switch (process.Inspection_Type)
-                                    {
-                                        case "Final":
-                                            finalDuration += processDuration;
-                                            break;
-                                        case "Visual":
-                                            visualDuration += processDuration;
-                                            break;
-                                        case "Thread":
-                                            threadDuration += processDuration;
-                                            break;
-                                        case "Humidity":
-                                            humidityDuration += processDuration;
-                                            break;
-                                    }
-                                }
-
-                                List<Final_Inspection_Process> _Process = DB.Final_Inspection_Process.Where(p => p.PID == item.ID).ToList();
-                                if (_Process != null)
-                                {
-                                    foreach (var process in _Process)
-                                    {
-                                        // Ensure both Inspection_date and endtime exist
-                                        if (process.Inspection_date.HasValue && process.endtime.HasValue)
-                                        {
-                                            // Add the difference (endtime - Inspection_date) to the total time
-                                            finalInspectorTotalTime += process.endtime.Value - process.Inspection_date.Value;
-                                        }
-                                    }
-
-                                    List<Final_Inspection_MRB_DecisionData> _RSDTIME = DB.Final_Inspection_MRB_DecisionData.Where(P => P.Active == true && P.Deleted == false && P.IID == item.ID).ToList();
-
-                                    foreach (var items in _RSDTIME)
-                                    {
-                                        // Calculate durations based on inspection type and MRB decision
-                                        if (items.MRBDecision == "Final" || items.MRBDecision == "Visual" || items.MRBDecision == "Thared" || items.MRBDecision == "Humidity") // final means rework
-                                        {
-                                            reworkDuration += (items.Date - item.InReworkDate) ?? TimeSpan.Zero;
-                                        }
-                                        if (items.MRBDecision == "Sorting")
-                                        {
-                                            sortingDuration += (items.Date - item.InSortingDate) ?? TimeSpan.Zero;
-                                        }
-                                        if (items.MRBDecision == "Daviation")
-                                        {
-                                            sortingDuration += (items.Date - item.InDaviationTime) ?? TimeSpan.Zero;
-                                        }
-                                    }
-                                    //Aggregate total time
-                                    TimeSpan? InspectiontimeManpowerspendtime = timeDifference + reworkDuration + sortingDuration + finalInspectorTotalTime;
-                                    TimeSpan? TotalinspectiontimeminusManpowerspendtime = finalDuration + visualDuration + threadDuration + humidityDuration + reworkDuration + sortingDuration;
-                                    TimeSpan? InspectiontimecommonQualitydivisionspendtimebypart = timeDifference + reworkDuration + sortingDuration; // comaan inspectiontime add
-                                    TimeSpan? TotalinspectiontimeCommonqualitydivisionspendtimebypart = finalDuration + visualDuration + threadDuration + humidityDuration + reworkDuration + sortingDuration; // coman inspection time
-
-                                    
-                                    TimeSpan Reworktime = reworkDuration;
-                                    TimeSpan Sortingtime = sortingDuration;
-                                    TimeSpan? daviationwaitingtime = sortingDuration;
-
-                                    item.rejectpersentage = rejectionPercentage;
-                                    item.Reworkpersentage = reworkper;
-                                    item.Deviationpersentage = daviationper;
-                                    item.lotreject = lotReject;
-                                    item.TotalTimeinquality = totalhr;
-                                    item.InspectiontimeManpowerspendtime = InspectiontimeManpowerspendtime.ToString();
-                                    item.TotalinspectiontimeManpowerspendtime = TotalinspectiontimeminusManpowerspendtime.ToString();
-                                    item.InspectiontimeQualitydivisionspendtimebypart = InspectiontimecommonQualitydivisionspendtimebypart.ToString();
-                                    item.Totalinspectiontimequalitydivisionspendtimebypart = TotalinspectiontimeCommonqualitydivisionspendtimebypart.ToString();
-                                    item.MRBTakentime = MRBTakentime.ToString();
-
-                                }
-                                DB.SaveChanges();
-                            }
-                        }
-                        successMessage = "Process Ended Successfully";
-                    }
-                    else
-                    {
-                        warningMessage = warningMessage;
                     }
                 }
+                else
+                {
+                    warningMessage = "Part In Hold so not close this request";
+                }
+                
             }
             catch (Exception EX)
             {
@@ -1218,7 +1228,7 @@ namespace Inspection.Web.Controllers
             bool? visualsts = false;
             bool? thareadsts = false;
             bool? fhumiditysts = false;
-            int? totalhumidityInspectedQty = null;
+            bool? reworkstatuschange = null;
 
             try
             {
@@ -1263,8 +1273,13 @@ namespace Inspection.Web.Controllers
                              InspectionTYPE = model.Inspection_Type,
                          }).ToList();
 
-                totalfinalInspectedQty = DB.Final_Inspection_Process_Rework.Where(p => p.Inspection_ID == ids && p.Inspection_Type == List.InspectionType && p.DecisionType == "Rework").Sum(p => p.Inspectionqty);
+                var reworkData = DB.Final_Inspection_Process_Rework
+     .Where(p => p.Inspection_ID == ids && p.Inspection_Type == List.InspectionType && p.DecisionType == "Rework")
+     .Select(p => new { p.Inspectionqty, p.reworkstatuschange })
+     .ToList();
 
+                totalfinalInspectedQty = reworkData.Sum(p => p.Inspectionqty);
+                reworkstatuschange = reworkData.Select(p => p.reworkstatuschange).FirstOrDefault();
             }
             catch (Exception ex)
             {
@@ -1281,11 +1296,12 @@ namespace Inspection.Web.Controllers
                 humiditystatus = fhumiditysts,
                 _INWARDList = _data,
                 _submodel = _submodel,
+                Reworkstatus = reworkstatuschange,
 
             };
             return PartialView("_AddRework", maininwarddata);
         }
-        public ActionResult DaviationPage(int id)
+        public ActionResult SortingPage(int id)
         {
             InwardDataModel List = new InwardDataModel();
             List<InwardDataModel> _data = new List<InwardDataModel>();
@@ -1326,7 +1342,7 @@ namespace Inspection.Web.Controllers
                             Statuschange = model.Statuschange,
                             SampleQuantity = model.Sample_Qty,
                             deviationqty = model.Deviation_Qty,
-                            //acceptqty = acceptQty,
+                            sortingqty = model.Sorting_Qty,
                             Note = model.Note,
                             //currentstage = value,
                             finalinspection = finalqty,
@@ -1335,7 +1351,7 @@ namespace Inspection.Web.Controllers
                             humidity = fhumidityqty,
                         }).FirstOrDefault();
 
-                _List = (from model in DB.Final_Inspection_Process_Rework.Where(p => p.Inspection_ID == ids && p.Inspection_Type == List.InspectionType && p.DecisionType == "Daviation")
+                _List = (from model in DB.Final_Inspection_Process_Rework.Where(p => p.Inspection_ID == ids && p.Inspection_Type == List.InspectionType && p.DecisionType == "Sorting")
                          select new Submodel
                          {
                              id = model.ID,
@@ -1346,12 +1362,12 @@ namespace Inspection.Web.Controllers
                              InspectionTYPE = model.Inspection_Type,
                          }).ToList();
 
-                totalfinalInspectedQty = DB.Final_Inspection_Process_Rework.Where(p => p.Inspection_ID == ids && p.Inspection_Type == List.InspectionType && p.DecisionType == "Daviation").Sum(p => p.Inspectionqty);
+                totalfinalInspectedQty = DB.Final_Inspection_Process_Rework.Where(p => p.Inspection_ID == ids && p.Inspection_Type == List.InspectionType && p.DecisionType == "Sorting").Sum(p => p.Inspectionqty);
 
             }
             catch (Exception ex)
             {
-                logService.AddLog(ex, "DaviationPage", "Home");
+                logService.AddLog(ex, "SortingPage", "Home");
             }
             var maininwarddata = new mAINPROGRESSModel
             {
@@ -1364,9 +1380,8 @@ namespace Inspection.Web.Controllers
                 humiditystatus = fhumiditysts,
                 _INWARDList = _data,
                 _submodel = _submodel,
-
             };
-            return PartialView("_AddDaviation", maininwarddata);
+            return PartialView("_AddSorting", maininwarddata);
         }
         public ActionResult AddReworkDataData(mAINPROGRESSModel _model)
         {
@@ -1430,7 +1445,7 @@ namespace Inspection.Web.Controllers
                     _Data.PartNum = _model._INWARD.Partno;
                     _Data.Inspection_Type = _model._INWARD.InspectionType;
                     _Data.Inspection_date = _model._submodel.inspectiondate;
-                    _Data.DecisionType = "Daviation";
+                    _Data.DecisionType = "Sorting";
 
                     //_Data.starttime = _model._submodel.StartTime;
                     _Data.Qty = _model._submodel.InspectedQty;
@@ -1452,7 +1467,7 @@ namespace Inspection.Web.Controllers
             {
                 logService.AddLog(ex, "AddDaviationkDataData", "Home");
             }
-            return RedirectToAction("DaviationPage", new { id = sid });
+            return RedirectToAction("SortingPage", new { id = sid });
         }
         public ActionResult ENDTIMEQTYRework(string id, string endtime, string qty)
         {
@@ -1489,14 +1504,118 @@ namespace Inspection.Web.Controllers
                 if (_model != null)
                 {
                     int ID = _model._INWARD.id;
-                    //int stgeno = Convert.ToInt32(_model._submodel.Stage);
-                    //string _Stages = DB.Final_Inspection_Stage_Master.Where(l => l.Stage == stgeno).Select(l => l.stage_part_status).FirstOrDefault();
+                    int stgeno = Convert.ToInt32(_model._submodel.Stage);
+                    string _Stages = DB.Final_Inspection_Stage_Master.Where(l => l.Stage == stgeno).Select(l => l.stage_part_status).FirstOrDefault();
 
                     Final_Inspection_Data _Inspection_Data = DB.Final_Inspection_Data.Where(V => V.ID == ID).FirstOrDefault();
                     if (_Inspection_Data != null)
                     {
-                        _Inspection_Data.Stage = _model._submodel.Stage;
+                        _Inspection_Data.Stage = _Stages;
                         _Inspection_Data.indeviation = false;
+                        _Inspection_Data.completeandwaiting = false;
+                    }
+                    DB.SaveChanges();
+                    Final_Inspection_Stage_Data _Stage_Data = new Final_Inspection_Stage_Data();
+                    _Stage_Data.InspectionType = _model._INWARD.InspectionType;
+                    _Stage_Data.Inspection_ID = _model._INWARD.id.ToString();
+                    _Stage_Data.PartNum = _model._INWARD.Partno;
+                    _Stage_Data.JobNum = _model._INWARD.JobNo;
+                    _Stage_Data.Stage = _Inspection_Data.Stage;
+                    _Stage_Data.Qty = _Inspection_Data.qty.ToString();
+                    _Stage_Data.Active = true;
+                    _Stage_Data.Deleted = false;
+                    _Stage_Data.CurrentDateTime = DateTime.Now.ToString();
+                    DB.Final_Inspection_Stage_Data.Add(_Stage_Data);
+
+
+                    Final_Inspection_Data _I_Data = DB.Final_Inspection_Data.Where(V => V.ID == ID).FirstOrDefault();
+                    if (_I_Data != null)
+                    {
+                        if (_Stages == "2 - Parts waiting for MRB")
+                        {
+                            _Inspection_Data.waitingformrb = true;
+                        }
+                        else if (_Stages == "5 - Parts in rework")
+                        {
+                            _Inspection_Data.inrework = true;
+                        }
+                        else if (_Stages == "4 - Parts waiting for rework")
+                        {
+                            _Inspection_Data.waitingforrework = true;
+                        }
+                        else if (_Stages == "3 - Parts waitng for sorting")
+                        {
+                            _Inspection_Data.waitingforsorting = true;
+                        }
+                        else if (_Stages == "7 - Parts in deviation")
+                        {
+                            _Inspection_Data.indeviation = true;
+                        }
+                        else if (_Stages == "10 - Parts Ready For packing")
+                        {
+                            _Inspection_Data.readyforpacking = true;
+                        }
+                        else if (_Stages == "11 - Parts moved from Quality")
+                        {
+                            _Inspection_Data.movedfromquality = true;
+                        }
+                        else if (_Stages == "12 - Parts in Hold")
+                        {
+                            _Inspection_Data.Hold = true;
+                        }
+                        else if (_Stages == "8 - Parts don't have unit price and rev issue")
+                        {
+                            _Inspection_Data.unitprice = true;
+                        }
+                    }
+                    var recordsToUpdate = DB.Final_Inspection_Mrb_Data
+                     .Where(first => first.Gid == ID)
+                     .Join(
+                         DB.Final_Inspection_Mrb_Rcode,
+                         first => first.ID,
+                         second => second.PID,
+                         (first, second) => second // Select the `Final_Inspection_Mrb_Rcode` record to update
+                     );
+
+                    foreach (var record in recordsToUpdate)
+                    {
+                        record.Rework = 0; // Set the `Rework` field to 0
+                    }
+                    DB.SaveChanges();
+
+                   DB.Final_Inspection_Process_Rework.Where(p=>p.Inspection_ID == _model._INWARD.id.ToString() && p.DecisionType == "Rework").ToList()
+                    .ForEach(item => item.reworkstatuschange = true);
+                    DB.SaveChanges();
+
+                    TempData["SuccessMessage"] = "Stage Change successfully.";
+
+                    return RedirectToAction("Index");
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData["WarningMessage"] = "Warning: Something went wrong Data Not Saved.";
+            }
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult sortingstatuschange(mAINPROGRESSModel _model)
+        {
+            try
+            {
+                if (_model != null)
+                {
+                    int ID = _model._INWARD.id;
+                    int? id = int.TryParse(_model._submodel.Stage, out int tempId) ? tempId : (int?)null;
+                    int? stgeno = id.HasValue ? id.Value : (int?)null;
+                    string _Stages = stgeno.HasValue? DB.Final_Inspection_Stage_Master.Where(l => l.Stage == stgeno.Value).Select(l => l.stage_part_status).FirstOrDefault(): _model._submodel.Stage;
+
+                    Final_Inspection_Data _Inspection_Data = DB.Final_Inspection_Data.Where(V => V.ID == ID).FirstOrDefault();
+                    if (_Inspection_Data != null)
+                    {
+                        _Inspection_Data.Stage = _Stages;
+                        _Inspection_Data.waitingforsorting = false;
+                        _Inspection_Data.completeandwaiting = false;
                     }
                     Final_Inspection_Stage_Data _Stage_Data = new Final_Inspection_Stage_Data();
                     _Stage_Data.InspectionType = _model._INWARD.InspectionType;
@@ -1514,45 +1633,43 @@ namespace Inspection.Web.Controllers
                     Final_Inspection_Data _I_Data = DB.Final_Inspection_Data.Where(V => V.ID == ID).FirstOrDefault();
                     if (_I_Data != null)
                     {
-                        if (_model._submodel.Stage == "2 - Parts waiting for MRB")
+                        if (_Stages == "2 - Parts waiting for MRB")
                         {
-                            _Inspection_Data.waitingformrb = true;
+                            _Inspection_Data.waitingformrb = false; // km k  aena uper thi gayu che k nai mrb a b decide thi che 
                         }
-                        else if (_model._submodel.Stage == "5 - Parts in rework")
+                        else if (_Stages == "5 - Parts in rework")
                         {
                             _Inspection_Data.inrework = true;
-
                         }
-                        else if (_model._submodel.Stage == "4 - Parts waiting for rework")
+                        else if (_Stages == "4 - Parts waiting for rework")
                         {
                             _Inspection_Data.waitingforrework = true;
                         }
-                        else if (_model._submodel.Stage == "3 - Parts waitng for sorting")
+                        else if (_Stages == "3 - Parts waitng for sorting")
                         {
                             _Inspection_Data.waitingforsorting = true;
                         }
-                        else if (_model._submodel.Stage == "7 - Parts in deviation")
+                        else if (_Stages == "7 - Parts in deviation")
                         {
                             _Inspection_Data.indeviation = true;
                         }
-                        else if (_model._submodel.Stage == "10 - Parts Ready For packing")
+                        else if (_Stages == "10 - Parts Ready For packing")
                         {
                             _Inspection_Data.readyforpacking = true;
                         }
-                        else if (_model._submodel.Stage.Trim() == "11 - Parts moved from Quality")
+                        else if (_Stages == "11 - Parts moved from Quality")
                         {
                             _Inspection_Data.movedfromquality = true;
                         }
-                        else if (_model._submodel.Stage.Trim() == "12 - Parts in Hold")
+                        else if (_Stages == "12 - Parts in Hold")
                         {
                             _Inspection_Data.Hold = true;
                         }
-                        else if (_model._submodel.Stage.Trim() == "8 - Parts don't have unit price and rev issue")
+                        else if (_Stages == "8 - Parts don't have unit price and rev issue")
                         {
                             _Inspection_Data.unitprice = true;
                         }
                     }
-
                     var recordsToUpdate = DB.Final_Inspection_Mrb_Data
                      .Where(first => first.Gid == ID)
                      .Join(
@@ -1566,6 +1683,10 @@ namespace Inspection.Web.Controllers
                     {
                         record.Rework = 0; // Set the `Rework` field to 0
                     }
+                    DB.SaveChanges();
+
+                    DB.Final_Inspection_Process_Rework.Where(p => p.Inspection_ID == _model._INWARD.id.ToString() && p.DecisionType == "Sorting").ToList()
+                     .ForEach(item => item.reworkstatuschange = true);
                     DB.SaveChanges();
 
                     TempData["SuccessMessage"] = "Stage Change successfully.";

@@ -4623,6 +4623,7 @@
     </Content>
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="img\Animationgif.gif" />
     <Content Include="img\minus1.jpg" />
     <Content Include="img\plus1.png" />
     <Content Include="img\ssw.png" />

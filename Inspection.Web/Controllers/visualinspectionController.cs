@@ -290,7 +290,7 @@ namespace Inspection.Web.Controllers
             return RedirectToAction("Index");
         }
 
-        [HttpPost]
+        [HttpPost]  
         public ActionResult ENDTIMEQTY(string id, string endtime, string qty , string instype ,int jobno)
         {
             try
@@ -401,6 +401,14 @@ namespace Inspection.Web.Controllers
                             int? accqty = Convert.ToInt16(_model._INWARD.Qty);
                             _Inspection_Data.Accept_Qty = accqty;
                         }
+                        if (_Stages == "3 - Parts waiting for Sorting")
+                        {
+                            _Inspection_Data.Sorting_Qty = _model._submodel.DecisionQty;
+                        }
+                        else if (_Stages == "7 - Parts in Deviation")
+                        {
+                            _Inspection_Data.Deviation_Qty = _model._submodel.DecisionQty;
+                        }      
                     }
                     bool mrb = false;
                     bool rework = false;
@@ -411,7 +419,7 @@ namespace Inspection.Web.Controllers
                     List<Final_Inspection_Process> _I_Data = DB.Final_Inspection_Process.Where(V => V.JobNum == _model._INWARD.JobNo && V.Inspection_Type == _model._INWARD.InspectionType).ToList();
                     if (_I_Data != null)
                     {
-                        if (_model._submodel.Stage.Trim() == "2 - Parts waiting for MRB")
+                        if (_model._submodel.Stage.Trim() == "2 - Parts waiting for MRB" || _Stages == "2 - Parts waiting for MRB") 
                         {
                             mrb = true;
                         }
@@ -463,13 +471,12 @@ namespace Inspection.Web.Controllers
                         }
                     }
                     DB.SaveChanges();
-
                     TempData["SuccessMessage"] = "Stage Change successfully.";
 
                     return RedirectToAction("Index");
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 TempData["WarningMessage"] = "Warning: Something went wrong Data Not Saved.";
             }

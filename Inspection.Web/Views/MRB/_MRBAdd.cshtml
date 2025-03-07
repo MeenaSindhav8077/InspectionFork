@@ -31,12 +31,10 @@
             animation: spin 1s linear infinite; /* Spin animation */
             margin: auto;
         }
-
-       
     </style>
 }
 <div id="loader" class="loader-container">
-    <div class="loader"></div>
+    <img src="~/img/Animationgif.gif"/>
 </div>
 <div class="row">
     <div class="col-lg-12">
@@ -95,8 +93,8 @@
                         </div>
                         <div class="col-xxl-3 col-md-6">
                             <div>
-                                <label>Quality stage</label>
-                                @Html.TextAreaFor(model => model._MrbModel.Qualitystage, new { @disabled = "disabled", @class = "form-control", id = "exampleInputdate" })
+                                <label>Mrb Date</label>
+                                @Html.TextAreaFor(model => model._MrbModel.MRbDate, new { @disabled = "disabled", @class = "form-control", id = "exampleInputdate" })
                             </div>
                         </div>
                     </div>
@@ -110,91 +108,185 @@
     var inspectionservice = new Inspection.Web.Scripts.Inspectionservice();
     var rcodeSelectList = inspectionservice.GetRcodes();
     var descriptionSelectList = inspectionservice.GetDescription();
+    int count = 1;
 }
+@if (Model.mrbdecisioModel != null && Model.mrbdecisioModel.Count != 0)
+{
+    <div class="card" style=" background-color:white">
+        <div class="card-body p-4" style=" background-color:white">
+            @using (Html.BeginForm("AddDesicion", "MRB", FormMethod.Post))
+            {
+                @Html.HiddenFor(model => model._MrbModel.Id)
+                for (int i = 0; i < Model.mrbdecisioModel.Count; i++)
+                {
+                    @Html.HiddenFor(model => model.mrbdecisioModel[i].Id)
+                }
+                <div class="table-responsive">
+                    <table class="table table-bordered border-success align-middle table-nowrap mb-0">
+                        <thead>
+                            <tr>
+                                <th width="20px">Sr No</th>
+                                <th width="10px">Quantity</th>
+                                <th width="50px">RCode</th>
+                                <th scope="col" width="600px">Defect</th>
+                                <th scope="col" width="150px">Location</th>
+                                <th scope="col" width="100px">Sub Qty</th>
+                                <th width="20px">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="">
+                            @foreach (var item in Model.mrbdecisioModel)
+                            {
+                                <tr id="1" class="">
+                                    <th scope="row" class="product-id">@count</th>
 
-<div class="card">
-    <div class="card-body p-4">
-        <div class="d-flex align-items-center mb-4">
-            <h5 class="card-title flex-grow-1 mb-0"></h5>
+                                    <td class="text-start">
+                                        <div class="mb-2">
+                                            <input type="text" class="form-control" value="@item.Qtys" name="Qty" id="productName-1" required disabled />
+                                        </div>
+                                    </td>
+                                    <td>
+                                        @{
+                                            List<SelectListItem> desSelectList = inspectionservice.GetDescription();
 
+                                        }
+                                        @foreach (var rcods in item.Rcode)
+                                        {
+                                            @Html.TextBoxFor(model => rcods, new { @class = "form-control product-location", @name = "rcode", @id = "rcode" })
+                                        }
+                                    </td>
+                                    <td>
+                                        @foreach (var des in item.Description)
+                                        {
+                                            @Html.TextAreaFor(model => des, new { @class = "form-control product-defect text-wrap", @disabled = "disabled", @name = "desc", @id = "description", @rows = 2 })
+                                        }
+                                    </td>
+                                    <td>
+                                        @foreach (var ls in item.location)
+                                        {
+                                            @Html.TextBoxFor(model => ls, new { @class = "form-control product-location", @disabled = "disabled", @name = "location", @id = "productLocation-1" })
+
+                                        }
+                                    </td>
+                                    <td>
+                                        @foreach (var sqty in item.subqty)
+                                        {
+                                            @Html.TextBoxFor(model => sqty, new { @class = "form-control product-location", @disabled = "disabled", @name = "location", @id = "productLocation-1" })
+
+                                        }
+                                    </td>
+                                    <td>
+                                        @foreach (var idsa in item.ids)
+                                        {
+                                            <button type="button" class="btn btn-success" onclick="Editmrbform(@idsa,@Model._MrbModel.iId);">Edit</button>
+                                            <button type="button" class="btn btn-danger" onclick="deletemrbform(@idsa);">Delete</button>
+                                            <hr />
+                                        }
+                                    </td>
+                                </tr>
+                                count++;
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-xxl-3 md-6">
+                </div>
+                <div class="col-xxl-3 md-6">
+                </div>
+            }
         </div>
-        @using (Html.BeginForm("AddMrbdata", "MRB", FormMethod.Post))
-        {
-            @Html.HiddenFor(model => model._MrbModel.jobno)
-            @Html.HiddenFor(model => model._MrbModel.partno)
-            @Html.HiddenFor(model => model._MrbModel.Id)
-            @Html.HiddenFor(model => model._MrbModel.Qualitystage)
-            int counts = 1;
-            <div class="table-responsive">
-                <table class="table table-bordered align-middle table-nowrap mb-0" id="myTable">
-                    <thead class="align-middle">
-                        <tr class="table-active">
-                            <th scope="col">Sr No</th>
-                            <th scope="col">Quantity</th>
-                            <th scope="col">RCode</th>
-                            <th scope="col">Defect</th>
-                            <th scope="col">Location</th>
-                            <th scope="col">SubQuantity</th>
-                            <th scope="col"></th>
-                            <th scope="col"></th>
-                        </tr>
-                    </thead>
-                    <tbody id="newlink">
-                        <tr id="1" class="product">
-                            <th scope="row" class="product-id">1</th>
+    </div>
+}
+else
+{
+    <div class="card">
+        <div class="card-body p-4">
+            <div class="d-flex align-items-center mb-4">
+                <h5 class="card-title flex-grow-1 mb-0"></h5>
 
-                            <td class="text-start" style="vertical-align:top">
-                                <div class="mb-2">
-                                    <input type="text" class="form-control" name="Qty" id="productName-1" required />
-                                </div>
-                            </td>
-                            <td>
-                                <select class="form-control product-price" name="Rcode" id="productRate-1" onchange="updateDefectOptions(this.value, @counts)">
-                                    
-                                    @foreach (var rcode in rcodeSelectList)
-                                    {
-                                        <option value="@rcode.Text">@rcode.Text</option>
-                                    }
+            </div>
+            @using (Html.BeginForm("AddMrbdata", "MRB", FormMethod.Post))
+            {
+                @Html.HiddenFor(model => model._MrbModel.jobno)
+                @Html.HiddenFor(model => model._MrbModel.partno)
+                @Html.HiddenFor(model => model._MrbModel.Id)
+                @Html.HiddenFor(model => model._MrbModel.Qualitystage)
+                int counts = 1;
+                <div class="table-responsive">
+                    <table class="table table-bordered align-middle table-nowrap mb-0" id="myTable">
+                        <thead class="align-middle">
+                            <tr class="table-active">
+                                <th scope="col">Sr No</th>
+                                <th scope="col">Quantity</th>
+                                <th scope="col">RCode</th>
+                                <th scope="col">Defect</th>
+                                <th scope="col">Location</th>
+                                <th scope="col">SubQuantity</th>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody id="newlink">
+                            <tr id="1" class="product">
+                                <th scope="row" class="product-id">1</th>
 
-                                </select>
-                            </td>
-                            <td>
-                                <select class="form-control product-quantity" name="Defect" id="productQty-1">
-                                    <option value="Dimensional rejection in outer diameter">Dimensional rejection in outer diameter</option>
-                                    <option></option>
+                                <td class="text-start" style="vertical-align:top">
+                                    <div class="mb-2">
+                                        <input type="text" class="form-control" name="Qty" id="productName-1" required />
+                                    </div>
+                                </td>
+                                <td>
+                                    <select class="form-control product-price" name="Rcode" id="productRate-1" onchange="updateDefectOptions(this.value, @counts)">
+                                        @foreach (var rcode in rcodeSelectList)
+                                        {
+                                            <option value="@rcode.Text">@rcode.Text</option>
+                                        }
+                                    </select>
+                                </td>
+                                <td>
+                                    <select class="form-control product-quantity" name="Defect" id="productQty-1">
+                                        <option value="Dimensional rejection in outer diameter">Dimensional rejection in outer diameter</option>
+                                        <option></option>
 
-                                </select>
-                            </td>
-                            <td>
-                                <input type="text" class="form-control product-location" name="location" id="productLocation-1" />
-                            </td>
-                            <td>
-                                <input type="text" class="form-control product-subqty" name="subqty" id="productSubqty-1" />
-                            </td>
+                                    </select>
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control product-location" name="location" id="productLocation-1" />
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control product-subqty" name="subqty" id="productSubqty-1" />
+                                </td>
 
-                            <td class="" style="vertical-align:top">
-                                <a href="javascript:void(0)" name="plusbtn" id="plusbtn-1" onclick="addSubRow('productRate-1', 'productQty-1', 'productLocation-1', 'productSubqty-1','plusbtn-1' )" class="btn btn-success"><i class="ri-add-fill me-1 align-bottom"></i></a>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <div id="newForm" style="display: none;"></div>
-                <div class="mt-4">
-                    <div colspan="9">
-                        <a href="javascript:new_link()" id="add-item" class="btn btn-soft-secondary fw-medium"><i class="ri-add-fill me-1 align-bottom"></i> Add Item</a>
+                                <td class="" style="vertical-align:top">
+                                    <a href="javascript:void(0)" name="plusbtn" id="plusbtn-1" onclick="addSubRow('productRate-1', 'productQty-1', 'productLocation-1', 'productSubqty-1','plusbtn-1' )" class="btn btn-success"><i class="ri-add-fill me-1 align-bottom"></i></a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div id="newForm" style="display: none;"></div>
+                    <div class="mt-4">
+                        <div colspan="9">
+                            <a href="javascript:new_link()" id="add-item" class="btn btn-soft-secondary fw-medium"><i class="ri-add-fill me-1 align-bottom"></i> Add Item</a>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-xxl-3 md-6">
-            </div>
-            <div class="col-xxl-3 md-6">
-            </div>
-            <div class="col-xxl-3 md-6">
-                <button type="button" class="btn btn-primary waves-effect waves-light" onclick="test()">save</button>
-            </div>
+                <div class="col-xxl-3 md-6">
+                </div>
+                <div class="col-xxl-3 md-6">
+                </div>
+                <div class="col-xxl-3 md-6">
+                    <button type="button" class="btn btn-primary waves-effect waves-light" onclick="test()">save</button>
+                </div>
 
-        }
+            }
+        </div>
     </div>
+}
+<div id="modaleditmrb">
+    @if (Model._MrbModel != null)
+    {
+        @Html.Partial("_EditMRBpopup", Model._MrbModel)
+    }
 </div>
 
 @section scripts{
@@ -223,7 +315,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 }
 <script>
-   
+
     function updateDefectOptions(selectedValue, count) {
         debugger
 
@@ -231,7 +323,7 @@
 
 
         defectDropdown.empty();
-        
+
 
         $.ajax({
             url: "@Url.Action("GetDescription", "MRB")",
@@ -242,11 +334,11 @@
                     value: data,
                     text: data
                 }));
-               
+
             },
             error: function (error) {
                 console.error('Error fetching data:', error);
-                
+
             }
         });
     }
@@ -364,5 +456,52 @@
         else {
             alert("Please enter Valid Qty.")
         }
+    }
+
+    function Editmrbform(id, iid) {
+        debugger
+        $.ajax({
+            url: '/MRB/_EditMRBform',
+            type: 'GET',
+            data: { id: id, iid: iid },
+            success: function (data) {
+                debugger
+                $('#modaleditmrb').html(data);
+                $('#mrbdesiciondataedit').modal('show');
+            },
+            error: function (xhr, status, error) {
+                console.error(error);
+            }
+        });
+    }
+
+    function deletemrbform(id, iid) {
+        console.log('Editmrb function called with id:', id, 'and iid:', iid);
+        debugger
+        $.ajax({
+            url: '/MRB/_DeleteMRbform',
+            type: 'GET',
+            data: { id: id },
+            success: function (data) {
+                Swal.fire({
+                    html: '<div class="mt-3">' +
+                        '<lord-icon src="https://cdn.lordicon.com/lupuorrc.json" trigger="loop" colors="primary:#0ab39c,secondary:#405189" style="width:120px;height:120px"></lord-icon>' +
+                        '<div class="mt-4 pt-2 fs-15">' +
+                        '<h4>Well done !</h4>' +
+                        '<p class="text-muted mx-4 mb-0">' + "Mrb Data Deleted Successfully." + '</p>' +
+                        '</div>' +
+                        '</div>',
+                    showCancelButton: true,
+                    showConfirmButton: false,
+                    cancelButtonClass: 'btn btn-primary w-xs mb-1',
+                    cancelButtonText: 'Back',
+                    buttonsStyling: false,
+                    showCloseButton: true
+                });
+            },
+            error: function (xhr, status, error) {
+                console.error(error);
+            }
+        });
     }
 </script>

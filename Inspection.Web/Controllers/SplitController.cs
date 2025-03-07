@@ -38,7 +38,6 @@ namespace Inspection.Web.Controllers
             }
             catch (Exception ex)
             {
-
                 logService.AddLog(ex, "SplitIndex", "SplitController");
             }
             return View(_List);
