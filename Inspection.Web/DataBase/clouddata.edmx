@@ -1,0 +1,1260 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ITEIndiaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Final_Inspection_Data">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="MID" />
+            <PropertyRef Name="Inspection_ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MID" Type="int" Nullable="false" />
+          <Property Name="Inspection_ID" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Inward_Time" Type="nvarchar" MaxLength="50" />
+          <Property Name="Inward_Date" Type="datetime" />
+          <Property Name="JobNum" Type="nvarchar" MaxLength="200" />
+          <Property Name="PartNum" Type="nvarchar" MaxLength="200" />
+          <Property Name="Stage" Type="nvarchar" MaxLength="500" />
+          <Property Name="EpiRev" Type="nvarchar" MaxLength="50" />
+          <Property Name="ActRev" Type="nvarchar" MaxLength="50" />
+          <Property Name="Sample_Qty" Type="nvarchar" MaxLength="50" />
+          <Property Name="MES" Type="nvarchar" MaxLength="50" />
+          <Property Name="Reject_Qty" Type="int" />
+          <Property Name="Accept_Qty" Type="int" />
+          <Property Name="Rework_Qty" Type="int" />
+          <Property Name="Inspection_Qty" Type="nvarchar(max)" />
+          <Property Name="Sorting_Qty" Type="int" />
+          <Property Name="Deviation_Qty" Type="int" />
+          <Property Name="Inspection_Type" Type="nvarchar" MaxLength="500" />
+          <Property Name="CurrentDate" Type="datetime" />
+          <Property Name="Active" Type="bit" />
+          <Property Name="Delete" Type="bit" />
+          <Property Name="Is_Submiteed" Type="bit" />
+          <Property Name="Statuschange" Type="bit" />
+          <Property Name="QualityStage" Type="nvarchar(max)" />
+          <Property Name="waitingforfinal" Type="bit" />
+          <Property Name="waitingforvisual" Type="bit" />
+          <Property Name="waitingforthread" Type="bit" />
+          <Property Name="waitingforhumidity" Type="bit" />
+          <Property Name="qty" Type="int" />
+          <Property Name="Note" Type="nvarchar(max)" />
+          <Property Name="waitingformrb" Type="bit" />
+          <Property Name="waitingforsorting" Type="bit" />
+          <Property Name="waitingforrework" Type="bit" />
+          <Property Name="inrework" Type="bit" />
+          <Property Name="completeandwaiting" Type="bit" />
+          <Property Name="indeviation" Type="bit" />
+          <Property Name="unitprice" Type="bit" />
+          <Property Name="completedandwaiting" Type="bit" />
+          <Property Name="readyforpacking" Type="bit" />
+          <Property Name="split" Type="bit" />
+          <Property Name="Hold" Type="bit" />
+          <Property Name="movedfromquality" Type="bit" />
+          <Property Name="visualcompleted" Type="bit" />
+          <Property Name="threadcompleted" Type="bit" />
+          <Property Name="closerequest" Type="bit" />
+          <Property Name="FinalRuning" Type="bit" />
+          <Property Name="Suppliername" Type="nvarchar(max)" />
+          <Property Name="MRBDate" Type="datetime" />
+          <Property Name="CuurntCard" Type="nvarchar" MaxLength="50" />
+          <Property Name="CloseRequstDate" Type="datetime" />
+          <Property Name="rejectpersentage" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="Reworkpersentage" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="Deviationpersentage" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="lotreject" Type="nvarchar" MaxLength="100" />
+          <Property Name="TotalTimeinquality" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="InspectiontimeManpowerspendtime" Type="nvarchar" MaxLength="500" />
+          <Property Name="TotalinspectiontimeManpowerspendtime" Type="nvarchar" MaxLength="500" />
+          <Property Name="InspectiontimeQualitydivisionspendtimebypart" Type="nvarchar" MaxLength="500" />
+          <Property Name="Totalinspectiontimequalitydivisionspendtimebypart" Type="nvarchar" MaxLength="500" />
+          <Property Name="MRBTakentime" Type="nvarchar" MaxLength="500" />
+          <Property Name="Reworktime" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="Sortingtime" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="Deviationwaitingtime" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="InReworkDate" Type="datetime" />
+          <Property Name="InSortingDate" Type="datetime" />
+          <Property Name="InDaviationTime" Type="datetime" />
+          <Property Name="Mrb_Create_date" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Final_Inspection_Document_Data">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MID" Type="int" Nullable="false" />
+          <Property Name="DocumentName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="VerifiactionInstruction" Type="nvarchar(max)" />
+          <Property Name="Comments" Type="nvarchar(max)" />
+          <Property Name="Passfail" Type="nvarchar(max)" />
+          <Property Name="AfterCorrectionpassfail" Type="nvarchar(max)" />
+          <Property Name="CurrentDate" Type="datetime" />
+          <Property Name="Active" Type="bit" />
+          <Property Name="Delete" Type="bit" />
+          <Property Name="Email" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Final_Inspection_Document_Varification">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IID" Type="int" Nullable="false" />
+          <Property Name="DocumentID" Type="int" Nullable="false" />
+          <Property Name="Comments" Type="nvarchar(max)" />
+          <Property Name="Passfail" Type="nvarchar(max)" />
+          <Property Name="AfterCorrectionpassfail" Type="nvarchar(max)" />
+          <Property Name="CurrentDate" Type="datetime" />
+          <Property Name="Active" Type="bit" />
+          <Property Name="Delete" Type="bit" />
+        </EntityType>
+        <EntityType Name="Final_Inspection_LogTable">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CurrentDateTime" Type="datetime" />
+          <Property Name="Message" Type="nvarchar(max)" />
+          <Property Name="Exception" Type="nvarchar(max)" />
+          <Property Name="PageName" Type="nvarchar" MaxLength="500" />
+          <Property Name="LineNumber" Type="int" />
+          <Property Name="MethodName" Type="nvarchar" MaxLength="500" />
+          <Property Name="Active" Type="bit" />
+          <Property Name="Deleted" Type="bit" />
+        </EntityType>
+        <EntityType Name="Final_Inspection_Mrb_Data">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Qty" Type="int" Nullable="false" />
+          <Property Name="Desccription" Type="nvarchar(max)" />
+          <Property Name="location" Type="nvarchar(max)" />
+          <Property Name="Active" Type="bit" />
+          <Property Name="Deleted" Type="bit" />
+          <Property Name="Stage" Type="varchar(max)" />
+          <Property Name="Gid" Type="int" />
+          <Property Name="JobNo" Type="nvarchar" MaxLength="100" />
+          <Property Name="PartNo" Type="nvarchar" MaxLength="100" />
+          <Property Name="ReworkMrb" Type="bit" />
+          <Property Name="QualityStage" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Final_Inspection_MRB_DecisionData">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IID" Type="int" Nullable="false" />
+          <Property Name="PID" Type="int" Nullable="false" />
+          <Property Name="MRBDecision" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Date" Type="datetime" />
+          <Property Name="Time" Type="nvarchar(max)" />
+          <Property Name="OkQty" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="RejectQty" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Remark" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="Deleted" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Final_Inspection_Mrb_Rcode">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PID" Type="int" />
+          <Property Name="Rtaxt" Type="nvarchar(max)" />
+          <Property Name="Remark" Type="nvarchar(max)" />
+          <Property Name="Active" Type="bit" />
+          <Property Name="Deleted" Type="bit" />
+          <Property Name="Desicion" Type="nvarchar" MaxLength="100" />
+          <Property Name="Rcode" Type="nvarchar" MaxLength="100" />
+          <Property Name="SubQty" Type="nvarchar(max)" />
+          <Property Name="DesicionSubQty" Type="varchar" MaxLength="255" />
+          <Property Name="mrbsubqty" Type="int" />
+          <Property Name="Reject" Type="int" />
+          <Property Name="Accept" Type="int" />
+          <Property Name="Rework" Type="int" />
+          <Property Name="Sorting" Type="int" />
+          <Property Name="Resorting" Type="int" />
+          <Property Name="Deviation" Type="int" />
+          <Property Name="Reworkinmrb" Type="int" />
+          <Property Name="Remeasured" Type="int" />
+          <Property Name="Split" Type="int" />
+          <Property Name="Hold" Type="int" />
+        </EntityType>
+        <EntityType Name="Final_Inspection_Process">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="PID" />
+            <PropertyRef Name="MID" />
+            <PropertyRef Name="Inspection_ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="PID" Type="int" Nullable="false" />
+          <Property Name="MID" Type="int" Nullable="false" />
+          <Property Name="Inspection_ID" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Rework_Id" Type="int" />
+          <Property Name="Process" Type="nvarchar" MaxLength="50" />
+          <Property Name="JobNum" Type="nvarchar" MaxLength="200" />
+          <Property Name="PartNum" Type="nvarchar" MaxLength="200" />
+          <Property Name="Inspection_Type" Type="nvarchar" MaxLength="50" />
+          <Property Name="Inspection_date" Type="datetime" />
+          <Property Name="starttime" Type="nvarchar" MaxLength="50" />
+          <Property Name="endtime" Type="datetime" />
+          <Property Name="Inspection_Qty" Type="int" />
+          <Property Name="done_by" Type="nvarchar" MaxLength="50" />
+          <Property Name="Stage" Type="varchar(max)" />
+          <Property Name="CkMRB" Type="bit" />
+          <Property Name="Statuschange" Type="bit" />
+          <Property Name="Active" Type="bit" />
+          <Property Name="Deleted" Type="bit" />
+          <Property Name="Qualitystage" Type="nvarchar" MaxLength="500" />
+          <Property Name="sampleqty" Type="nvarchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="Final_Inspection_Process_Rework">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="PID" />
+            <PropertyRef Name="MID" />
+            <PropertyRef Name="Inspection_ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PID" Type="int" Nullable="false" />
+          <Property Name="MID" Type="int" Nullable="false" />
+          <Property Name="Inspection_ID" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="JobNum" Type="nvarchar" MaxLength="200" />
+          <Property Name="PartNum" Type="nvarchar" MaxLength="200" />
+          <Property Name="Inspection_Type" Type="nvarchar" MaxLength="50" />
+          <Property Name="Inspection_date" Type="datetime" />
+          <Property Name="DecisionType" Type="nvarchar" MaxLength="50" />
+          <Property Name="endtime" Type="datetime" />
+          <Property Name="Qty" Type="decimal" Precision="18" Scale="3" />
+          <Property Name="reject_qty" Type="decimal" Precision="18" Scale="3" />
+          <Property Name="sent_date" Type="datetime" />
+          <Property Name="received_date" Type="datetime" />
+          <Property Name="done_by" Type="nvarchar" MaxLength="50" />
+          <Property Name="decision_of_MRB" Type="nvarchar" MaxLength="500" />
+          <Property Name="MRB_Comment" Type="nvarchar" MaxLength="500" />
+          <Property Name="MRB_Date" Type="datetime" />
+          <Property Name="CompleteRework" Type="bit" />
+          <Property Name="Inspectionqty" Type="int" />
+          <Property Name="Qualitystage" Type="nvarchar(max)" />
+          <Property Name="reworkstatuschange" Type="bit" />
+        </EntityType>
+        <EntityType Name="Final_Inspection_RCode">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RCode" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Final_Inspection_Rework">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="InsID" />
+            <PropertyRef Name="reworkID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="InsID" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="reworkID" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="JobNum" Type="nvarchar" MaxLength="500" />
+          <Property Name="PartNum" Type="nvarchar" MaxLength="500" />
+          <Property Name="Rework_Qty" Type="int" />
+          <Property Name="Rework_complete_Qty" Type="int" />
+        </EntityType>
+        <EntityType Name="Final_Inspection_Stage_Data">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="MID" />
+            <PropertyRef Name="Inspection_ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MID" Type="int" Nullable="false" />
+          <Property Name="Inspection_ID" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="CurrentDateTime" Type="nvarchar" MaxLength="50" />
+          <Property Name="JobNum" Type="nvarchar" MaxLength="200" />
+          <Property Name="PartNum" Type="nvarchar" MaxLength="200" />
+          <Property Name="Stage" Type="nvarchar" MaxLength="500" />
+          <Property Name="Qty" Type="nvarchar" MaxLength="500" />
+          <Property Name="Active" Type="bit" />
+          <Property Name="Deleted" Type="bit" />
+          <Property Name="InspectionType" Type="varchar" MaxLength="255" />
+          <Property Name="stageno" Type="nvarchar(max)" />
+          <Property Name="Qualitystage" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Final_Inspection_Stage_Master">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Stage" Type="int" />
+          <Property Name="stage_part_status" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Final_Inspection_UserList">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="MID" />
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="MID" Type="int" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="100" />
+          <Property Name="Password" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="ISUser">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="int" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="255" />
+          <Property Name="Password" Type="nvarchar" MaxLength="255" />
+          <Property Name="UserType" Type="int" />
+          <Property Name="PreviousQuantity" Type="nvarchar" MaxLength="255" />
+          <Property Name="Active" Type="bit" />
+          <Property Name="Deleted" Type="bit" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="CreatedBy" Type="int" />
+          <Property Name="ModifyDate" Type="datetime" />
+          <Property Name="ModifyBy" Type="int" />
+        </EntityType>
+        <EntityType Name="user_data">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="name" Type="nvarchar(max)" />
+          <Property Name="department" Type="nvarchar(max)" />
+          <Property Name="username" Type="nvarchar(max)" />
+          <Property Name="password" Type="nvarchar(max)" />
+          <Property Name="role" Type="nvarchar(max)" />
+          <Property Name="attachment" Type="nvarchar(max)" />
+          <Property Name="is_deleted" Type="bit" />
+        </EntityType>
+        <EntityType Name="USER_MST">
+          <Key>
+            <PropertyRef Name="TenentID" />
+            <PropertyRef Name="USER_ID" />
+            <PropertyRef Name="LOCATION_ID" />
+          </Key>
+          <Property Name="TenentID" Type="int" Nullable="false" />
+          <Property Name="USER_ID" Type="int" Nullable="false" />
+          <Property Name="LOCATION_ID" Type="int" Nullable="false" />
+          <Property Name="CRUP_ID" Type="int" Nullable="false" />
+          <Property Name="FIRST_NAME" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="LAST_NAME" Type="nvarchar" MaxLength="50" />
+          <Property Name="FIRST_NAME1" Type="nvarchar" MaxLength="50" />
+          <Property Name="LAST_NAME1" Type="nvarchar" MaxLength="50" />
+          <Property Name="FIRST_NAME2" Type="nvarchar" MaxLength="50" />
+          <Property Name="LAST_NAME2" Type="nvarchar" MaxLength="50" />
+          <Property Name="LOGIN_ID" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="PASSWORD" Type="nvarchar" MaxLength="150" />
+          <Property Name="USER_TYPE" Type="int" />
+          <Property Name="REMARKS" Type="nvarchar" MaxLength="500" />
+          <Property Name="ACTIVE_FLAG" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="LAST_LOGIN_DT" Type="datetime" />
+          <Property Name="USER_DETAIL_ID" Type="int" />
+          <Property Name="ACC_LOCK" Type="varchar" MaxLength="1" />
+          <Property Name="FIRST_TIME" Type="varchar" MaxLength="1" />
+          <Property Name="PASSWORD_CHNG" Type="nvarchar" MaxLength="150" />
+          <Property Name="THEME_NAME" Type="nvarchar" MaxLength="50" />
+          <Property Name="APPROVAL_DT" Type="datetime" />
+          <Property Name="VERIFICATION_CD" Type="nvarchar" MaxLength="40" />
+          <Property Name="EmailAddress" Type="nvarchar" MaxLength="50" />
+          <Property Name="Till_DT" Type="datetime" />
+          <Property Name="IsSignature" Type="bit" />
+          <Property Name="SignatureImage" Type="varchar" MaxLength="1000" />
+          <Property Name="Avtar" Type="varchar" MaxLength="1000" />
+          <Property Name="CompId" Type="int" />
+          <Property Name="EmpID" Type="int" />
+          <Property Name="CheckinSwitch" Type="bit" />
+          <Property Name="LoginActive" Type="bigint" />
+          <Property Name="ACTIVEUSER" Type="bit" />
+          <Property Name="USERDATE" Type="date" />
+          <Property Name="Language1" Type="nvarchar" MaxLength="50" />
+          <Property Name="Language2" Type="nvarchar" MaxLength="50" />
+          <Property Name="Language3" Type="nvarchar" MaxLength="50" />
+          <Property Name="DateOfBirth" Type="datetime" />
+          <Property Name="EmployeePosition" Type="nvarchar" MaxLength="50" />
+          <Property Name="salary" Type="nvarchar" MaxLength="50" />
+          <Property Name="DateOfJoining" Type="datetime" />
+          <Property Name="phone_no" Type="nvarchar" MaxLength="50" />
+          <Property Name="pincode" Type="nvarchar" MaxLength="50" />
+          <Property Name="Address1" Type="nvarchar(max)" />
+          <Property Name="Address2" Type="nvarchar(max)" />
+          <Property Name="img" Type="nvarchar" MaxLength="500" />
+          <Property Name="personID" Type="int" />
+          <Property Name="Library_menu" Type="nvarchar" MaxLength="50" />
+          <Property Name="Library_reader" Type="nvarchar(max)" />
+          <Property Name="Library_menu_dept" Type="nvarchar" MaxLength="500" />
+          <Property Name="Ticket_User" Type="nvarchar(max)" />
+          <Property Name="event_approval_user" Type="nvarchar" MaxLength="50" />
+          <Property Name="admin_rights" Type="bit" />
+          <Property Name="Secondary_approval_required" Type="bit" />
+          <Property Name="Secondary_approval_person" Type="nvarchar" MaxLength="500" />
+          <Property Name="Company" Type="nvarchar" MaxLength="50" />
+          <Property Name="MSPRO_UserType" Type="int" />
+        </EntityType>
+        <EntityContainer Name="ITEIndiaModelStoreContainer">
+          <EntitySet Name="Final_Inspection_Data" EntityType="Self.Final_Inspection_Data" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Final_Inspection_Document_Data" EntityType="Self.Final_Inspection_Document_Data" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Final_Inspection_Document_Varification" EntityType="Self.Final_Inspection_Document_Varification" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Final_Inspection_LogTable" EntityType="Self.Final_Inspection_LogTable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Final_Inspection_Mrb_Data" EntityType="Self.Final_Inspection_Mrb_Data" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Final_Inspection_MRB_DecisionData" EntityType="Self.Final_Inspection_MRB_DecisionData" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Final_Inspection_Mrb_Rcode" EntityType="Self.Final_Inspection_Mrb_Rcode" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Final_Inspection_Process" EntityType="Self.Final_Inspection_Process" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Final_Inspection_Process_Rework" EntityType="Self.Final_Inspection_Process_Rework" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Final_Inspection_RCode" EntityType="Self.Final_Inspection_RCode" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Final_Inspection_Rework" EntityType="Self.Final_Inspection_Rework" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Final_Inspection_Stage_Data" EntityType="Self.Final_Inspection_Stage_Data" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Final_Inspection_Stage_Master" EntityType="Self.Final_Inspection_Stage_Master" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Final_Inspection_UserList" EntityType="Self.Final_Inspection_UserList" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ISUser" EntityType="Self.ISUser" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="user_data" EntityType="Self.user_data" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="USER_MST" EntityType="Self.USER_MST" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ITEIndiaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Final_Inspection_Data">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="MID" />
+            <PropertyRef Name="Inspection_ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MID" Type="Int32" Nullable="false" />
+          <Property Name="Inspection_ID" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Inward_Time" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Inward_Date" Type="DateTime" Precision="3" />
+          <Property Name="JobNum" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="PartNum" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Stage" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="EpiRev" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ActRev" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Sample_Qty" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MES" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Reject_Qty" Type="Int32" />
+          <Property Name="Accept_Qty" Type="Int32" />
+          <Property Name="Rework_Qty" Type="Int32" />
+          <Property Name="Inspection_Qty" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Sorting_Qty" Type="Int32" />
+          <Property Name="Deviation_Qty" Type="Int32" />
+          <Property Name="Inspection_Type" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="CurrentDate" Type="DateTime" Precision="3" />
+          <Property Name="Active" Type="Boolean" />
+          <Property Name="Delete" Type="Boolean" />
+          <Property Name="Is_Submiteed" Type="Boolean" />
+          <Property Name="Statuschange" Type="Boolean" />
+          <Property Name="QualityStage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="waitingforfinal" Type="Boolean" />
+          <Property Name="waitingforvisual" Type="Boolean" />
+          <Property Name="waitingforthread" Type="Boolean" />
+          <Property Name="waitingforhumidity" Type="Boolean" />
+          <Property Name="qty" Type="Int32" />
+          <Property Name="Note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="waitingformrb" Type="Boolean" />
+          <Property Name="waitingforsorting" Type="Boolean" />
+          <Property Name="waitingforrework" Type="Boolean" />
+          <Property Name="inrework" Type="Boolean" />
+          <Property Name="completeandwaiting" Type="Boolean" />
+          <Property Name="indeviation" Type="Boolean" />
+          <Property Name="unitprice" Type="Boolean" />
+          <Property Name="completedandwaiting" Type="Boolean" />
+          <Property Name="readyforpacking" Type="Boolean" />
+          <Property Name="split" Type="Boolean" />
+          <Property Name="Hold" Type="Boolean" />
+          <Property Name="movedfromquality" Type="Boolean" />
+          <Property Name="visualcompleted" Type="Boolean" />
+          <Property Name="threadcompleted" Type="Boolean" />
+          <Property Name="closerequest" Type="Boolean" />
+          <Property Name="FinalRuning" Type="Boolean" />
+          <Property Name="Suppliername" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MRBDate" Type="DateTime" Precision="3" />
+          <Property Name="CuurntCard" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CloseRequstDate" Type="DateTime" Precision="3" />
+          <Property Name="rejectpersentage" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Reworkpersentage" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Deviationpersentage" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="lotreject" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="TotalTimeinquality" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="InspectiontimeManpowerspendtime" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="TotalinspectiontimeManpowerspendtime" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="InspectiontimeQualitydivisionspendtimebypart" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Totalinspectiontimequalitydivisionspendtimebypart" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="MRBTakentime" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Reworktime" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Sortingtime" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Deviationwaitingtime" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="InReworkDate" Type="DateTime" Precision="3" />
+          <Property Name="InSortingDate" Type="DateTime" Precision="3" />
+          <Property Name="InDaviationTime" Type="DateTime" Precision="3" />
+          <Property Name="Mrb_Create_date" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="Final_Inspection_Document_Data">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MID" Type="Int32" Nullable="false" />
+          <Property Name="DocumentName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="VerifiactionInstruction" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Comments" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Passfail" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="AfterCorrectionpassfail" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CurrentDate" Type="DateTime" Precision="3" />
+          <Property Name="Active" Type="Boolean" />
+          <Property Name="Delete" Type="Boolean" />
+          <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Final_Inspection_Document_Varification">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IID" Type="Int32" Nullable="false" />
+          <Property Name="DocumentID" Type="Int32" Nullable="false" />
+          <Property Name="Comments" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Passfail" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="AfterCorrectionpassfail" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CurrentDate" Type="DateTime" Precision="3" />
+          <Property Name="Active" Type="Boolean" />
+          <Property Name="Delete" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="Final_Inspection_LogTable">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CurrentDateTime" Type="DateTime" Precision="3" />
+          <Property Name="Message" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Exception" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PageName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="LineNumber" Type="Int32" />
+          <Property Name="MethodName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" />
+          <Property Name="Deleted" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="Final_Inspection_Mrb_Data">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Qty" Type="Int32" Nullable="false" />
+          <Property Name="Desccription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="location" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" />
+          <Property Name="Deleted" Type="Boolean" />
+          <Property Name="Stage" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Gid" Type="Int32" />
+          <Property Name="JobNo" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="PartNo" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ReworkMrb" Type="Boolean" />
+          <Property Name="QualityStage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Final_Inspection_MRB_DecisionData">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IID" Type="Int32" Nullable="false" />
+          <Property Name="PID" Type="Int32" Nullable="false" />
+          <Property Name="MRBDecision" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Precision="3" />
+          <Property Name="Time" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OkQty" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="RejectQty" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Remark" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="Deleted" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Final_Inspection_Mrb_Rcode">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PID" Type="Int32" />
+          <Property Name="Rtaxt" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Remark" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" />
+          <Property Name="Deleted" Type="Boolean" />
+          <Property Name="Desicion" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Rcode" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="SubQty" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DesicionSubQty" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="mrbsubqty" Type="Int32" />
+          <Property Name="Reject" Type="Int32" />
+          <Property Name="Accept" Type="Int32" />
+          <Property Name="Rework" Type="Int32" />
+          <Property Name="Sorting" Type="Int32" />
+          <Property Name="Resorting" Type="Int32" />
+          <Property Name="Deviation" Type="Int32" />
+          <Property Name="Reworkinmrb" Type="Int32" />
+          <Property Name="Remeasured" Type="Int32" />
+          <Property Name="Split" Type="Int32" />
+          <Property Name="Hold" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Final_Inspection_Process">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="PID" />
+            <PropertyRef Name="MID" />
+            <PropertyRef Name="Inspection_ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="PID" Type="Int32" Nullable="false" />
+          <Property Name="MID" Type="Int32" Nullable="false" />
+          <Property Name="Inspection_ID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Rework_Id" Type="Int32" />
+          <Property Name="Process" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="JobNum" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="PartNum" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Inspection_Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Inspection_date" Type="DateTime" Precision="3" />
+          <Property Name="starttime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="endtime" Type="DateTime" Precision="3" />
+          <Property Name="Inspection_Qty" Type="Int32" />
+          <Property Name="done_by" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Stage" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CkMRB" Type="Boolean" />
+          <Property Name="Statuschange" Type="Boolean" />
+          <Property Name="Active" Type="Boolean" />
+          <Property Name="Deleted" Type="Boolean" />
+          <Property Name="Qualitystage" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="sampleqty" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Final_Inspection_Process_Rework">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="PID" />
+            <PropertyRef Name="MID" />
+            <PropertyRef Name="Inspection_ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PID" Type="Int32" Nullable="false" />
+          <Property Name="MID" Type="Int32" Nullable="false" />
+          <Property Name="Inspection_ID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="JobNum" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="PartNum" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Inspection_Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Inspection_date" Type="DateTime" Precision="3" />
+          <Property Name="DecisionType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="endtime" Type="DateTime" Precision="3" />
+          <Property Name="Qty" Type="Decimal" Precision="18" Scale="3" />
+          <Property Name="reject_qty" Type="Decimal" Precision="18" Scale="3" />
+          <Property Name="sent_date" Type="DateTime" Precision="3" />
+          <Property Name="received_date" Type="DateTime" Precision="3" />
+          <Property Name="done_by" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="decision_of_MRB" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="MRB_Comment" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="MRB_Date" Type="DateTime" Precision="3" />
+          <Property Name="CompleteRework" Type="Boolean" />
+          <Property Name="Inspectionqty" Type="Int32" />
+          <Property Name="Qualitystage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="reworkstatuschange" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="Final_Inspection_RCode">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Final_Inspection_Rework">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="InsID" />
+            <PropertyRef Name="reworkID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="InsID" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="reworkID" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="JobNum" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="PartNum" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Rework_Qty" Type="Int32" />
+          <Property Name="Rework_complete_Qty" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Final_Inspection_Stage_Data">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="MID" />
+            <PropertyRef Name="Inspection_ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MID" Type="Int32" Nullable="false" />
+          <Property Name="Inspection_ID" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CurrentDateTime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="JobNum" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="PartNum" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Stage" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Qty" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" />
+          <Property Name="Deleted" Type="Boolean" />
+          <Property Name="InspectionType" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="stageno" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Qualitystage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Final_Inspection_Stage_Master">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Stage" Type="Int32" />
+          <Property Name="stage_part_status" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Final_Inspection_UserList">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="MID" />
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="MID" Type="Int32" Nullable="false" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="ISUser">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" />
+          <Property Name="UserName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="UserType" Type="Int32" />
+          <Property Name="PreviousQuantity" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" />
+          <Property Name="Deleted" Type="Boolean" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="ModifyDate" Type="DateTime" Precision="3" />
+          <Property Name="ModifyBy" Type="Int32" />
+        </EntityType>
+        <EntityType Name="user_data">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="department" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="username" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="role" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="attachment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="is_deleted" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="USER_MST">
+          <Key>
+            <PropertyRef Name="TenentID" />
+            <PropertyRef Name="USER_ID" />
+            <PropertyRef Name="LOCATION_ID" />
+          </Key>
+          <Property Name="TenentID" Type="Int32" Nullable="false" />
+          <Property Name="USER_ID" Type="Int32" Nullable="false" />
+          <Property Name="LOCATION_ID" Type="Int32" Nullable="false" />
+          <Property Name="CRUP_ID" Type="Int32" Nullable="false" />
+          <Property Name="FIRST_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LAST_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FIRST_NAME1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LAST_NAME1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FIRST_NAME2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LAST_NAME2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LOGIN_ID" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PASSWORD" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="USER_TYPE" Type="Int32" />
+          <Property Name="REMARKS" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="ACTIVE_FLAG" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="LAST_LOGIN_DT" Type="DateTime" Precision="3" />
+          <Property Name="USER_DETAIL_ID" Type="Int32" />
+          <Property Name="ACC_LOCK" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="FIRST_TIME" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="PASSWORD_CHNG" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="THEME_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="APPROVAL_DT" Type="DateTime" Precision="3" />
+          <Property Name="VERIFICATION_CD" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+          <Property Name="EmailAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Till_DT" Type="DateTime" Precision="3" />
+          <Property Name="IsSignature" Type="Boolean" />
+          <Property Name="SignatureImage" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="Avtar" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="CompId" Type="Int32" />
+          <Property Name="EmpID" Type="Int32" />
+          <Property Name="CheckinSwitch" Type="Boolean" />
+          <Property Name="LoginActive" Type="Int64" />
+          <Property Name="ACTIVEUSER" Type="Boolean" />
+          <Property Name="USERDATE" Type="DateTime" Precision="0" />
+          <Property Name="Language1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Language2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Language3" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DateOfBirth" Type="DateTime" Precision="3" />
+          <Property Name="EmployeePosition" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="salary" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DateOfJoining" Type="DateTime" Precision="3" />
+          <Property Name="phone_no" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="pincode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Address1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Address2" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="img" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="personID" Type="Int32" />
+          <Property Name="Library_menu" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Library_reader" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Library_menu_dept" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Ticket_User" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="event_approval_user" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="admin_rights" Type="Boolean" />
+          <Property Name="Secondary_approval_required" Type="Boolean" />
+          <Property Name="Secondary_approval_person" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Company" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MSPRO_UserType" Type="Int32" />
+        </EntityType>
+        <EntityContainer Name="ITEIndiaEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Final_Inspection_Data" EntityType="Self.Final_Inspection_Data" />
+          <EntitySet Name="Final_Inspection_Document_Data" EntityType="Self.Final_Inspection_Document_Data" />
+          <EntitySet Name="Final_Inspection_Document_Varification" EntityType="Self.Final_Inspection_Document_Varification" />
+          <EntitySet Name="Final_Inspection_LogTable" EntityType="Self.Final_Inspection_LogTable" />
+          <EntitySet Name="Final_Inspection_Mrb_Data" EntityType="Self.Final_Inspection_Mrb_Data" />
+          <EntitySet Name="Final_Inspection_MRB_DecisionData" EntityType="Self.Final_Inspection_MRB_DecisionData" />
+          <EntitySet Name="Final_Inspection_Mrb_Rcode" EntityType="Self.Final_Inspection_Mrb_Rcode" />
+          <EntitySet Name="Final_Inspection_Process" EntityType="Self.Final_Inspection_Process" />
+          <EntitySet Name="Final_Inspection_Process_Rework" EntityType="Self.Final_Inspection_Process_Rework" />
+          <EntitySet Name="Final_Inspection_RCode" EntityType="Self.Final_Inspection_RCode" />
+          <EntitySet Name="Final_Inspection_Rework" EntityType="Self.Final_Inspection_Rework" />
+          <EntitySet Name="Final_Inspection_Stage_Data" EntityType="Self.Final_Inspection_Stage_Data" />
+          <EntitySet Name="Final_Inspection_Stage_Master" EntityType="Self.Final_Inspection_Stage_Master" />
+          <EntitySet Name="Final_Inspection_UserList" EntityType="Self.Final_Inspection_UserList" />
+          <EntitySet Name="ISUsers" EntityType="Self.ISUser" />
+          <EntitySet Name="user_data" EntityType="Self.user_data" />
+          <EntitySet Name="USER_MST" EntityType="Self.USER_MST" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ITEIndiaModelStoreContainer" CdmEntityContainer="ITEIndiaEntities">
+          <EntitySetMapping Name="Final_Inspection_Data">
+            <EntityTypeMapping TypeName="ITEIndiaModel.Final_Inspection_Data">
+              <MappingFragment StoreEntitySet="Final_Inspection_Data">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="MID" ColumnName="MID" />
+                <ScalarProperty Name="Inspection_ID" ColumnName="Inspection_ID" />
+                <ScalarProperty Name="Inward_Time" ColumnName="Inward_Time" />
+                <ScalarProperty Name="Inward_Date" ColumnName="Inward_Date" />
+                <ScalarProperty Name="JobNum" ColumnName="JobNum" />
+                <ScalarProperty Name="PartNum" ColumnName="PartNum" />
+                <ScalarProperty Name="Stage" ColumnName="Stage" />
+                <ScalarProperty Name="EpiRev" ColumnName="EpiRev" />
+                <ScalarProperty Name="ActRev" ColumnName="ActRev" />
+                <ScalarProperty Name="Sample_Qty" ColumnName="Sample_Qty" />
+                <ScalarProperty Name="MES" ColumnName="MES" />
+                <ScalarProperty Name="Reject_Qty" ColumnName="Reject_Qty" />
+                <ScalarProperty Name="Accept_Qty" ColumnName="Accept_Qty" />
+                <ScalarProperty Name="Rework_Qty" ColumnName="Rework_Qty" />
+                <ScalarProperty Name="Inspection_Qty" ColumnName="Inspection_Qty" />
+                <ScalarProperty Name="Sorting_Qty" ColumnName="Sorting_Qty" />
+                <ScalarProperty Name="Deviation_Qty" ColumnName="Deviation_Qty" />
+                <ScalarProperty Name="Inspection_Type" ColumnName="Inspection_Type" />
+                <ScalarProperty Name="CurrentDate" ColumnName="CurrentDate" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Delete" ColumnName="Delete" />
+                <ScalarProperty Name="Is_Submiteed" ColumnName="Is_Submiteed" />
+                <ScalarProperty Name="Statuschange" ColumnName="Statuschange" />
+                <ScalarProperty Name="QualityStage" ColumnName="QualityStage" />
+                <ScalarProperty Name="waitingforfinal" ColumnName="waitingforfinal" />
+                <ScalarProperty Name="waitingforvisual" ColumnName="waitingforvisual" />
+                <ScalarProperty Name="waitingforthread" ColumnName="waitingforthread" />
+                <ScalarProperty Name="waitingforhumidity" ColumnName="waitingforhumidity" />
+                <ScalarProperty Name="qty" ColumnName="qty" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="waitingformrb" ColumnName="waitingformrb" />
+                <ScalarProperty Name="waitingforsorting" ColumnName="waitingforsorting" />
+                <ScalarProperty Name="waitingforrework" ColumnName="waitingforrework" />
+                <ScalarProperty Name="inrework" ColumnName="inrework" />
+                <ScalarProperty Name="completeandwaiting" ColumnName="completeandwaiting" />
+                <ScalarProperty Name="indeviation" ColumnName="indeviation" />
+                <ScalarProperty Name="unitprice" ColumnName="unitprice" />
+                <ScalarProperty Name="completedandwaiting" ColumnName="completedandwaiting" />
+                <ScalarProperty Name="readyforpacking" ColumnName="readyforpacking" />
+                <ScalarProperty Name="split" ColumnName="split" />
+                <ScalarProperty Name="Hold" ColumnName="Hold" />
+                <ScalarProperty Name="movedfromquality" ColumnName="movedfromquality" />
+                <ScalarProperty Name="visualcompleted" ColumnName="visualcompleted" />
+                <ScalarProperty Name="threadcompleted" ColumnName="threadcompleted" />
+                <ScalarProperty Name="closerequest" ColumnName="closerequest" />
+                <ScalarProperty Name="FinalRuning" ColumnName="FinalRuning" />
+                <ScalarProperty Name="Suppliername" ColumnName="Suppliername" />
+                <ScalarProperty Name="MRBDate" ColumnName="MRBDate" />
+                <ScalarProperty Name="CuurntCard" ColumnName="CuurntCard" />
+                <ScalarProperty Name="CloseRequstDate" ColumnName="CloseRequstDate" />
+                <ScalarProperty Name="rejectpersentage" ColumnName="rejectpersentage" />
+                <ScalarProperty Name="Reworkpersentage" ColumnName="Reworkpersentage" />
+                <ScalarProperty Name="Deviationpersentage" ColumnName="Deviationpersentage" />
+                <ScalarProperty Name="lotreject" ColumnName="lotreject" />
+                <ScalarProperty Name="TotalTimeinquality" ColumnName="TotalTimeinquality" />
+                <ScalarProperty Name="InspectiontimeManpowerspendtime" ColumnName="InspectiontimeManpowerspendtime" />
+                <ScalarProperty Name="TotalinspectiontimeManpowerspendtime" ColumnName="TotalinspectiontimeManpowerspendtime" />
+                <ScalarProperty Name="InspectiontimeQualitydivisionspendtimebypart" ColumnName="InspectiontimeQualitydivisionspendtimebypart" />
+                <ScalarProperty Name="Totalinspectiontimequalitydivisionspendtimebypart" ColumnName="Totalinspectiontimequalitydivisionspendtimebypart" />
+                <ScalarProperty Name="MRBTakentime" ColumnName="MRBTakentime" />
+                <ScalarProperty Name="Reworktime" ColumnName="Reworktime" />
+                <ScalarProperty Name="Sortingtime" ColumnName="Sortingtime" />
+                <ScalarProperty Name="Deviationwaitingtime" ColumnName="Deviationwaitingtime" />
+                <ScalarProperty Name="InReworkDate" ColumnName="InReworkDate" />
+                <ScalarProperty Name="InSortingDate" ColumnName="InSortingDate" />
+                <ScalarProperty Name="InDaviationTime" ColumnName="InDaviationTime" />
+                <ScalarProperty Name="Mrb_Create_date" ColumnName="Mrb_Create_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Final_Inspection_Document_Data">
+            <EntityTypeMapping TypeName="ITEIndiaModel.Final_Inspection_Document_Data">
+              <MappingFragment StoreEntitySet="Final_Inspection_Document_Data">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="MID" ColumnName="MID" />
+                <ScalarProperty Name="DocumentName" ColumnName="DocumentName" />
+                <ScalarProperty Name="VerifiactionInstruction" ColumnName="VerifiactionInstruction" />
+                <ScalarProperty Name="Comments" ColumnName="Comments" />
+                <ScalarProperty Name="Passfail" ColumnName="Passfail" />
+                <ScalarProperty Name="AfterCorrectionpassfail" ColumnName="AfterCorrectionpassfail" />
+                <ScalarProperty Name="CurrentDate" ColumnName="CurrentDate" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Delete" ColumnName="Delete" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Final_Inspection_Document_Varification">
+            <EntityTypeMapping TypeName="ITEIndiaModel.Final_Inspection_Document_Varification">
+              <MappingFragment StoreEntitySet="Final_Inspection_Document_Varification">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="IID" ColumnName="IID" />
+                <ScalarProperty Name="DocumentID" ColumnName="DocumentID" />
+                <ScalarProperty Name="Comments" ColumnName="Comments" />
+                <ScalarProperty Name="Passfail" ColumnName="Passfail" />
+                <ScalarProperty Name="AfterCorrectionpassfail" ColumnName="AfterCorrectionpassfail" />
+                <ScalarProperty Name="CurrentDate" ColumnName="CurrentDate" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Delete" ColumnName="Delete" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Final_Inspection_LogTable">
+            <EntityTypeMapping TypeName="ITEIndiaModel.Final_Inspection_LogTable">
+              <MappingFragment StoreEntitySet="Final_Inspection_LogTable">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="CurrentDateTime" ColumnName="CurrentDateTime" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="Exception" ColumnName="Exception" />
+                <ScalarProperty Name="PageName" ColumnName="PageName" />
+                <ScalarProperty Name="LineNumber" ColumnName="LineNumber" />
+                <ScalarProperty Name="MethodName" ColumnName="MethodName" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Final_Inspection_Mrb_Data">
+            <EntityTypeMapping TypeName="ITEIndiaModel.Final_Inspection_Mrb_Data">
+              <MappingFragment StoreEntitySet="Final_Inspection_Mrb_Data">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Qty" ColumnName="Qty" />
+                <ScalarProperty Name="Desccription" ColumnName="Desccription" />
+                <ScalarProperty Name="location" ColumnName="location" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+                <ScalarProperty Name="Stage" ColumnName="Stage" />
+                <ScalarProperty Name="Gid" ColumnName="Gid" />
+                <ScalarProperty Name="JobNo" ColumnName="JobNo" />
+                <ScalarProperty Name="PartNo" ColumnName="PartNo" />
+                <ScalarProperty Name="ReworkMrb" ColumnName="ReworkMrb" />
+                <ScalarProperty Name="QualityStage" ColumnName="QualityStage" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Final_Inspection_MRB_DecisionData">
+            <EntityTypeMapping TypeName="ITEIndiaModel.Final_Inspection_MRB_DecisionData">
+              <MappingFragment StoreEntitySet="Final_Inspection_MRB_DecisionData">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="IID" ColumnName="IID" />
+                <ScalarProperty Name="PID" ColumnName="PID" />
+                <ScalarProperty Name="MRBDecision" ColumnName="MRBDecision" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Time" ColumnName="Time" />
+                <ScalarProperty Name="OkQty" ColumnName="OkQty" />
+                <ScalarProperty Name="RejectQty" ColumnName="RejectQty" />
+                <ScalarProperty Name="Remark" ColumnName="Remark" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Final_Inspection_Mrb_Rcode">
+            <EntityTypeMapping TypeName="ITEIndiaModel.Final_Inspection_Mrb_Rcode">
+              <MappingFragment StoreEntitySet="Final_Inspection_Mrb_Rcode">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="PID" ColumnName="PID" />
+                <ScalarProperty Name="Rtaxt" ColumnName="Rtaxt" />
+                <ScalarProperty Name="Remark" ColumnName="Remark" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+                <ScalarProperty Name="Desicion" ColumnName="Desicion" />
+                <ScalarProperty Name="Rcode" ColumnName="Rcode" />
+                <ScalarProperty Name="SubQty" ColumnName="SubQty" />
+                <ScalarProperty Name="DesicionSubQty" ColumnName="DesicionSubQty" />
+                <ScalarProperty Name="mrbsubqty" ColumnName="mrbsubqty" />
+                <ScalarProperty Name="Reject" ColumnName="Reject" />
+                <ScalarProperty Name="Accept" ColumnName="Accept" />
+                <ScalarProperty Name="Rework" ColumnName="Rework" />
+                <ScalarProperty Name="Sorting" ColumnName="Sorting" />
+                <ScalarProperty Name="Resorting" ColumnName="Resorting" />
+                <ScalarProperty Name="Deviation" ColumnName="Deviation" />
+                <ScalarProperty Name="Reworkinmrb" ColumnName="Reworkinmrb" />
+                <ScalarProperty Name="Remeasured" ColumnName="Remeasured" />
+                <ScalarProperty Name="Split" ColumnName="Split" />
+                <ScalarProperty Name="Hold" ColumnName="Hold" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Final_Inspection_Process">
+            <EntityTypeMapping TypeName="ITEIndiaModel.Final_Inspection_Process">
+              <MappingFragment StoreEntitySet="Final_Inspection_Process">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="PID" ColumnName="PID" />
+                <ScalarProperty Name="MID" ColumnName="MID" />
+                <ScalarProperty Name="Inspection_ID" ColumnName="Inspection_ID" />
+                <ScalarProperty Name="Rework_Id" ColumnName="Rework_Id" />
+                <ScalarProperty Name="Process" ColumnName="Process" />
+                <ScalarProperty Name="JobNum" ColumnName="JobNum" />
+                <ScalarProperty Name="PartNum" ColumnName="PartNum" />
+                <ScalarProperty Name="Inspection_Type" ColumnName="Inspection_Type" />
+                <ScalarProperty Name="Inspection_date" ColumnName="Inspection_date" />
+                <ScalarProperty Name="starttime" ColumnName="starttime" />
+                <ScalarProperty Name="endtime" ColumnName="endtime" />
+                <ScalarProperty Name="Inspection_Qty" ColumnName="Inspection_Qty" />
+                <ScalarProperty Name="done_by" ColumnName="done_by" />
+                <ScalarProperty Name="Stage" ColumnName="Stage" />
+                <ScalarProperty Name="CkMRB" ColumnName="CkMRB" />
+                <ScalarProperty Name="Statuschange" ColumnName="Statuschange" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+                <ScalarProperty Name="Qualitystage" ColumnName="Qualitystage" />
+                <ScalarProperty Name="sampleqty" ColumnName="sampleqty" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Final_Inspection_Process_Rework">
+            <EntityTypeMapping TypeName="ITEIndiaModel.Final_Inspection_Process_Rework">
+              <MappingFragment StoreEntitySet="Final_Inspection_Process_Rework">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="PID" ColumnName="PID" />
+                <ScalarProperty Name="MID" ColumnName="MID" />
+                <ScalarProperty Name="Inspection_ID" ColumnName="Inspection_ID" />
+                <ScalarProperty Name="JobNum" ColumnName="JobNum" />
+                <ScalarProperty Name="PartNum" ColumnName="PartNum" />
+                <ScalarProperty Name="Inspection_Type" ColumnName="Inspection_Type" />
+                <ScalarProperty Name="Inspection_date" ColumnName="Inspection_date" />
+                <ScalarProperty Name="DecisionType" ColumnName="DecisionType" />
+                <ScalarProperty Name="endtime" ColumnName="endtime" />
+                <ScalarProperty Name="Qty" ColumnName="Qty" />
+                <ScalarProperty Name="reject_qty" ColumnName="reject_qty" />
+                <ScalarProperty Name="sent_date" ColumnName="sent_date" />
+                <ScalarProperty Name="received_date" ColumnName="received_date" />
+                <ScalarProperty Name="done_by" ColumnName="done_by" />
+                <ScalarProperty Name="decision_of_MRB" ColumnName="decision_of_MRB" />
+                <ScalarProperty Name="MRB_Comment" ColumnName="MRB_Comment" />
+                <ScalarProperty Name="MRB_Date" ColumnName="MRB_Date" />
+                <ScalarProperty Name="CompleteRework" ColumnName="CompleteRework" />
+                <ScalarProperty Name="Inspectionqty" ColumnName="Inspectionqty" />
+                <ScalarProperty Name="Qualitystage" ColumnName="Qualitystage" />
+                <ScalarProperty Name="reworkstatuschange" ColumnName="reworkstatuschange" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Final_Inspection_RCode">
+            <EntityTypeMapping TypeName="ITEIndiaModel.Final_Inspection_RCode">
+              <MappingFragment StoreEntitySet="Final_Inspection_RCode">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="RCode" ColumnName="RCode" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Final_Inspection_Rework">
+            <EntityTypeMapping TypeName="ITEIndiaModel.Final_Inspection_Rework">
+              <MappingFragment StoreEntitySet="Final_Inspection_Rework">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="InsID" ColumnName="InsID" />
+                <ScalarProperty Name="reworkID" ColumnName="reworkID" />
+                <ScalarProperty Name="JobNum" ColumnName="JobNum" />
+                <ScalarProperty Name="PartNum" ColumnName="PartNum" />
+                <ScalarProperty Name="Rework_Qty" ColumnName="Rework_Qty" />
+                <ScalarProperty Name="Rework_complete_Qty" ColumnName="Rework_complete_Qty" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Final_Inspection_Stage_Data">
+            <EntityTypeMapping TypeName="ITEIndiaModel.Final_Inspection_Stage_Data">
+              <MappingFragment StoreEntitySet="Final_Inspection_Stage_Data">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="MID" ColumnName="MID" />
+                <ScalarProperty Name="Inspection_ID" ColumnName="Inspection_ID" />
+                <ScalarProperty Name="CurrentDateTime" ColumnName="CurrentDateTime" />
+                <ScalarProperty Name="JobNum" ColumnName="JobNum" />
+                <ScalarProperty Name="PartNum" ColumnName="PartNum" />
+                <ScalarProperty Name="Stage" ColumnName="Stage" />
+                <ScalarProperty Name="Qty" ColumnName="Qty" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+                <ScalarProperty Name="InspectionType" ColumnName="InspectionType" />
+                <ScalarProperty Name="stageno" ColumnName="stageno" />
+                <ScalarProperty Name="Qualitystage" ColumnName="Qualitystage" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Final_Inspection_Stage_Master">
+            <EntityTypeMapping TypeName="ITEIndiaModel.Final_Inspection_Stage_Master">
+              <MappingFragment StoreEntitySet="Final_Inspection_Stage_Master">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Stage" ColumnName="Stage" />
+                <ScalarProperty Name="stage_part_status" ColumnName="stage_part_status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Final_Inspection_UserList">
+            <EntityTypeMapping TypeName="ITEIndiaModel.Final_Inspection_UserList">
+              <MappingFragment StoreEntitySet="Final_Inspection_UserList">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="MID" ColumnName="MID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ISUsers">
+            <EntityTypeMapping TypeName="ITEIndiaModel.ISUser">
+              <MappingFragment StoreEntitySet="ISUser">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="UserType" ColumnName="UserType" />
+                <ScalarProperty Name="PreviousQuantity" ColumnName="PreviousQuantity" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
+                <ScalarProperty Name="ModifyBy" ColumnName="ModifyBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="user_data">
+            <EntityTypeMapping TypeName="ITEIndiaModel.user_data">
+              <MappingFragment StoreEntitySet="user_data">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="department" ColumnName="department" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="role" ColumnName="role" />
+                <ScalarProperty Name="attachment" ColumnName="attachment" />
+                <ScalarProperty Name="is_deleted" ColumnName="is_deleted" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="USER_MST">
+            <EntityTypeMapping TypeName="ITEIndiaModel.USER_MST">
+              <MappingFragment StoreEntitySet="USER_MST">
+                <ScalarProperty Name="TenentID" ColumnName="TenentID" />
+                <ScalarProperty Name="USER_ID" ColumnName="USER_ID" />
+                <ScalarProperty Name="LOCATION_ID" ColumnName="LOCATION_ID" />
+                <ScalarProperty Name="CRUP_ID" ColumnName="CRUP_ID" />
+                <ScalarProperty Name="FIRST_NAME" ColumnName="FIRST_NAME" />
+                <ScalarProperty Name="LAST_NAME" ColumnName="LAST_NAME" />
+                <ScalarProperty Name="FIRST_NAME1" ColumnName="FIRST_NAME1" />
+                <ScalarProperty Name="LAST_NAME1" ColumnName="LAST_NAME1" />
+                <ScalarProperty Name="FIRST_NAME2" ColumnName="FIRST_NAME2" />
+                <ScalarProperty Name="LAST_NAME2" ColumnName="LAST_NAME2" />
+                <ScalarProperty Name="LOGIN_ID" ColumnName="LOGIN_ID" />
+                <ScalarProperty Name="PASSWORD" ColumnName="PASSWORD" />
+                <ScalarProperty Name="USER_TYPE" ColumnName="USER_TYPE" />
+                <ScalarProperty Name="REMARKS" ColumnName="REMARKS" />
+                <ScalarProperty Name="ACTIVE_FLAG" ColumnName="ACTIVE_FLAG" />
+                <ScalarProperty Name="LAST_LOGIN_DT" ColumnName="LAST_LOGIN_DT" />
+                <ScalarProperty Name="USER_DETAIL_ID" ColumnName="USER_DETAIL_ID" />
+                <ScalarProperty Name="ACC_LOCK" ColumnName="ACC_LOCK" />
+                <ScalarProperty Name="FIRST_TIME" ColumnName="FIRST_TIME" />
+                <ScalarProperty Name="PASSWORD_CHNG" ColumnName="PASSWORD_CHNG" />
+                <ScalarProperty Name="THEME_NAME" ColumnName="THEME_NAME" />
+                <ScalarProperty Name="APPROVAL_DT" ColumnName="APPROVAL_DT" />
+                <ScalarProperty Name="VERIFICATION_CD" ColumnName="VERIFICATION_CD" />
+                <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+                <ScalarProperty Name="Till_DT" ColumnName="Till_DT" />
+                <ScalarProperty Name="IsSignature" ColumnName="IsSignature" />
+                <ScalarProperty Name="SignatureImage" ColumnName="SignatureImage" />
+                <ScalarProperty Name="Avtar" ColumnName="Avtar" />
+                <ScalarProperty Name="CompId" ColumnName="CompId" />
+                <ScalarProperty Name="EmpID" ColumnName="EmpID" />
+                <ScalarProperty Name="CheckinSwitch" ColumnName="CheckinSwitch" />
+                <ScalarProperty Name="LoginActive" ColumnName="LoginActive" />
+                <ScalarProperty Name="ACTIVEUSER" ColumnName="ACTIVEUSER" />
+                <ScalarProperty Name="USERDATE" ColumnName="USERDATE" />
+                <ScalarProperty Name="Language1" ColumnName="Language1" />
+                <ScalarProperty Name="Language2" ColumnName="Language2" />
+                <ScalarProperty Name="Language3" ColumnName="Language3" />
+                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+                <ScalarProperty Name="EmployeePosition" ColumnName="EmployeePosition" />
+                <ScalarProperty Name="salary" ColumnName="salary" />
+                <ScalarProperty Name="DateOfJoining" ColumnName="DateOfJoining" />
+                <ScalarProperty Name="phone_no" ColumnName="phone_no" />
+                <ScalarProperty Name="pincode" ColumnName="pincode" />
+                <ScalarProperty Name="Address1" ColumnName="Address1" />
+                <ScalarProperty Name="Address2" ColumnName="Address2" />
+                <ScalarProperty Name="img" ColumnName="img" />
+                <ScalarProperty Name="personID" ColumnName="personID" />
+                <ScalarProperty Name="Library_menu" ColumnName="Library_menu" />
+                <ScalarProperty Name="Library_reader" ColumnName="Library_reader" />
+                <ScalarProperty Name="Library_menu_dept" ColumnName="Library_menu_dept" />
+                <ScalarProperty Name="Ticket_User" ColumnName="Ticket_User" />
+                <ScalarProperty Name="event_approval_user" ColumnName="event_approval_user" />
+                <ScalarProperty Name="admin_rights" ColumnName="admin_rights" />
+                <ScalarProperty Name="Secondary_approval_required" ColumnName="Secondary_approval_required" />
+                <ScalarProperty Name="Secondary_approval_person" ColumnName="Secondary_approval_person" />
+                <ScalarProperty Name="Company" ColumnName="Company" />
+                <ScalarProperty Name="MSPRO_UserType" ColumnName="MSPRO_UserType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -20,7 +20,7 @@ namespace Inspection.Web.Controllers
             return View(loginModel);
         }
 
-        ITe_INDIAEntities1 DB = new ITe_INDIAEntities1();
+        ITEIndiaEntities DB = new ITEIndiaEntities();
         LogService logService = new LogService();
 
         public ActionResult _Login(LoginModel _Model)

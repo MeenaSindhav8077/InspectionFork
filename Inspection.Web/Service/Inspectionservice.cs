@@ -13,7 +13,7 @@ namespace Inspection.Web.Scripts
 {
     public class Inspectionservice
     {
-        ITe_INDIAEntities1 DB = new ITe_INDIAEntities1();
+        ITEIndiaEntities DB = new ITEIndiaEntities();
         public List<SelectListItem> GetInspectiontype()
         {
 
@@ -64,7 +64,7 @@ namespace Inspection.Web.Scripts
         }
         public List<SelectListItem> Getuser()
         {
-            ITe_INDIAEntities1 DB = new ITe_INDIAEntities1();
+            ITEIndiaEntities DB = new ITEIndiaEntities();
 
             var names = new List<string>
     {
@@ -103,7 +103,7 @@ namespace Inspection.Web.Scripts
 
     public List<SelectListItem> GetRcodes()
     {
-            ITe_INDIAEntities1 DB = new ITe_INDIAEntities1();
+            ITEIndiaEntities DB = new ITEIndiaEntities();
 
         List<SelectListItem> selectListItems = DB.Final_Inspection_RCode.GroupBy(tol => tol.RCode.Trim()).Select(group => group.FirstOrDefault()).OrderBy(k => k.RCode)
             .Select(tol => new SelectListItem
@@ -116,7 +116,7 @@ namespace Inspection.Web.Scripts
     }
     public List<SelectListItem> GetDescription()
     {
-            ITe_INDIAEntities1 DB = new ITe_INDIAEntities1();
+            ITEIndiaEntities DB = new ITEIndiaEntities();
 
         List<SelectListItem> selectListItems = DB.Final_Inspection_RCode.GroupBy(tol => tol.RCode.Trim()).Select(group => group.FirstOrDefault())
             .Select(tol => new SelectListItem
@@ -275,7 +275,6 @@ namespace Inspection.Web.Scripts
                     }
                 }
             }
-
             return dataTable;
         }
     }

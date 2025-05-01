@@ -12,7 +12,7 @@ namespace Inspection.Web.Controllers
     public class HoldController : Controller
     {
         // GET: Hold
-        ITe_INDIAEntities1 DB = new ITe_INDIAEntities1();
+        ITEIndiaEntities DB = new ITEIndiaEntities();
         LogService logService = new LogService();
         public ActionResult Index()
         {

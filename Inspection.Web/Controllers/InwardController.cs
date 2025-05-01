@@ -15,7 +15,7 @@ namespace Inspection.Web.Controllers
     [Authorize]
     public class InwardController : Controller
     {
-        ITe_INDIAEntities1 DB = new ITe_INDIAEntities1();
+        ITEIndiaEntities DB = new ITEIndiaEntities();
         LogService logService = new LogService();
         Inspectionservice _Service = new Inspectionservice();
         public ActionResult _AddInward()
@@ -64,7 +64,7 @@ namespace Inspection.Web.Controllers
                 InwardDataModel _model = new InwardDataModel();
                 if (_model != null)
                 {
-                    EpicorERPEntities _DB = new EpicorERPEntities();
+                    SaaS1143_62653Entities _DB = new SaaS1143_62653Entities();
                     try
                     {
                         Final_Inspection_Data _data = DB.Final_Inspection_Data.Where(m => m.ID == model._INWARD.id && m.Active == true && m.Delete == false).FirstOrDefault();
@@ -273,47 +273,47 @@ namespace Inspection.Web.Controllers
         {
             InwardDataModel _model = new InwardDataModel();
 
-            EpicorERPEntities _DB = new EpicorERPEntities();
-            //try
-            //{
-            //    JobHead _job = _DB.JobHeads.Where(m => m.JobNum == idjobnumber).FirstOrDefault();
-            //    if (_job != null)
-            //    {
-            //        _model.Partno = _job.PartNum;
-            //        _model.ERev = _job.RevisionNum;
-            //        _model.JobNo = _job.JobNum;
-
-            //        return Json(_model, JsonRequestBehavior.AllowGet);
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    logService.AddLog(ex, "GetPartnorevno", "InwardController");
-            //}
-
+            SaaS1143_62653Entities _DB = new SaaS1143_62653Entities();
             try
             {
-
-                // Call the GetJobDetails method to get the DataTable
-                DataTable dataTable = _Service.GetJobDetails(idjobnumber);
-
-                if (dataTable.Rows.Count > 0)
+                JobHead _job = _DB.JobHeads.Where(m => m.JobNum == idjobnumber).FirstOrDefault();
+                if (_job != null)
                 {
-                    DataRow row = dataTable.Rows[0];
-
-                    // Extract the values from the DataRow and assign them to the model
-                    _model.JobNo = row["JobNum"].ToString();
-                    _model.Partno = row["PartNum"].ToString();
-                    _model.ERev = row["RevisionNum"].ToString();
+                    _model.Partno = _job.PartNum;
+                    _model.ERev = _job.RevisionNum;
+                    _model.JobNo = _job.JobNum;
 
                     return Json(_model, JsonRequestBehavior.AllowGet);
                 }
-
             }
             catch (Exception ex)
             {
                 logService.AddLog(ex, "GetPartnorevno", "InwardController");
             }
+
+            //try
+            //{
+
+            //    // Call the GetJobDetails method to get the DataTable
+            //    DataTable dataTable = _Service.GetJobDetails(idjobnumber);
+
+            //    if (dataTable.Rows.Count > 0)
+            //    {
+            //        DataRow row = dataTable.Rows[0];
+
+            //        // Extract the values from the DataRow and assign them to the model
+            //        _model.JobNo = row["JobNum"].ToString();
+            //        _model.Partno = row["PartNum"].ToString();
+            //        _model.ERev = row["RevisionNum"].ToString();
+
+            //        return Json(_model, JsonRequestBehavior.AllowGet);
+            //    }
+
+            //}
+            //catch (Exception ex)
+            //{
+            //    logService.AddLog(ex, "GetPartnorevno", "InwardController");
+            //}
 
             return Json(null, JsonRequestBehavior.AllowGet);
         }

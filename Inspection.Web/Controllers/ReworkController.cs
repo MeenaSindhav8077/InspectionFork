@@ -12,7 +12,7 @@ namespace Inspection.Web.Controllers
     public class ReworkController : Controller
     {
         // GET: Rework
-        ITe_INDIAEntities1 DB = new ITe_INDIAEntities1();
+        ITEIndiaEntities DB = new ITEIndiaEntities();
         public ActionResult Index()
         {
             List<InwardDataModel> inwardDataModel = new List<InwardDataModel>();
@@ -32,6 +32,7 @@ namespace Inspection.Web.Controllers
             catch (Exception ex)
             {
             }
+
             return View(inwardDataModel);
         }
     }

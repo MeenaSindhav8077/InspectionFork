@@ -603,350 +603,89 @@
     <Compile Include="Controllers\SplitController.cs" />
     <Compile Include="Controllers\TharedVisualCompleteController.cs" />
     <Compile Include="Controllers\visualinspectionController.cs" />
-    <Compile Include="DataBase\APInvHed.cs">
-      <DependentUpon>EData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\BankAcct.cs">
-      <DependentUpon>EData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\BankBal.cs">
-      <DependentUpon>EData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\BankTran.cs">
-      <DependentUpon>EData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\BookDtl.cs">
-      <DependentUpon>EData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\BookOrd.cs">
-      <DependentUpon>EData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\BookRel.cs">
-      <DependentUpon>EData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\CheckHed.cs">
-      <DependentUpon>EData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\Column.cs">
-      <DependentUpon>EData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\CompanyAuthTerritories_Result.cs">
-      <DependentUpon>EData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\CustCnt.cs">
-      <DependentUpon>EData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\Customer.cs">
-      <DependentUpon>EData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\CustView.cs">
-      <DependentUpon>EData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\Data.Context.cs">
+    <Compile Include="DataBase\clouddata.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Data.Context.tt</DependentUpon>
+      <DependentUpon>clouddata.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="DataBase\Data.cs">
+    <Compile Include="DataBase\clouddata.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Data.tt</DependentUpon>
+      <DependentUpon>clouddata.tt</DependentUpon>
     </Compile>
-    <Compile Include="DataBase\Data.Designer.cs">
+    <Compile Include="DataBase\clouddata.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Data.edmx</DependentUpon>
+      <DependentUpon>clouddata.edmx</DependentUpon>
     </Compile>
-    <Compile Include="DataBase\DemandDetail.cs">
-      <DependentUpon>EData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\DemandDetailImport.cs">
-      <DependentUpon>EData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\DemandHead.cs">
-      <DependentUpon>EData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\DemandHeadImport.cs">
-      <DependentUpon>EData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\DemandSchedule.cs">
-      <DependentUpon>EData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\DemandScheduleImport.cs">
-      <DependentUpon>EData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\DMRCorAct.cs">
-      <DependentUpon>EData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\DMRHead.cs">
-      <DependentUpon>EData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\ECOCOPart.cs">
-      <DependentUpon>EData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\ECOOpr.cs">
-      <DependentUpon>EData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\ECORev.cs">
-      <DependentUpon>EData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\EData.Context.cs">
+    <Compile Include="DataBase\Epicore.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>EData.Context.tt</DependentUpon>
+      <DependentUpon>Epicore.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="DataBase\EData.cs">
+    <Compile Include="DataBase\Epicore.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>EData.tt</DependentUpon>
+      <DependentUpon>Epicore.tt</DependentUpon>
     </Compile>
-    <Compile Include="DataBase\EData.Designer.cs">
+    <Compile Include="DataBase\Epicore.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>EData.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\EmpBasic.cs">
-      <DependentUpon>EData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\Equip.cs">
-      <DependentUpon>EData.tt</DependentUpon>
+      <DependentUpon>Epicore.edmx</DependentUpon>
     </Compile>
     <Compile Include="DataBase\Final_Inspection_Data.cs">
-      <DependentUpon>Data.tt</DependentUpon>
+      <DependentUpon>clouddata.tt</DependentUpon>
     </Compile>
     <Compile Include="DataBase\Final_Inspection_Document_Data.cs">
-      <DependentUpon>Data.tt</DependentUpon>
+      <DependentUpon>clouddata.tt</DependentUpon>
     </Compile>
     <Compile Include="DataBase\Final_Inspection_Document_Varification.cs">
-      <DependentUpon>Data.tt</DependentUpon>
+      <DependentUpon>clouddata.tt</DependentUpon>
     </Compile>
     <Compile Include="DataBase\Final_Inspection_LogTable.cs">
-      <DependentUpon>Data.tt</DependentUpon>
+      <DependentUpon>clouddata.tt</DependentUpon>
     </Compile>
     <Compile Include="DataBase\Final_Inspection_Mrb_Data.cs">
-      <DependentUpon>Data.tt</DependentUpon>
+      <DependentUpon>clouddata.tt</DependentUpon>
     </Compile>
     <Compile Include="DataBase\Final_Inspection_MRB_DecisionData.cs">
-      <DependentUpon>Data.tt</DependentUpon>
+      <DependentUpon>clouddata.tt</DependentUpon>
     </Compile>
     <Compile Include="DataBase\Final_Inspection_Mrb_Rcode.cs">
-      <DependentUpon>Data.tt</DependentUpon>
+      <DependentUpon>clouddata.tt</DependentUpon>
     </Compile>
     <Compile Include="DataBase\Final_Inspection_Process.cs">
-      <DependentUpon>Data.tt</DependentUpon>
+      <DependentUpon>clouddata.tt</DependentUpon>
     </Compile>
     <Compile Include="DataBase\Final_Inspection_Process_Rework.cs">
-      <DependentUpon>Data.tt</DependentUpon>
+      <DependentUpon>clouddata.tt</DependentUpon>
     </Compile>
     <Compile Include="DataBase\Final_Inspection_RCode.cs">
-      <DependentUpon>Data.tt</DependentUpon>
+      <DependentUpon>clouddata.tt</DependentUpon>
     </Compile>
     <Compile Include="DataBase\Final_Inspection_Rework.cs">
-      <DependentUpon>Data.tt</DependentUpon>
+      <DependentUpon>clouddata.tt</DependentUpon>
     </Compile>
     <Compile Include="DataBase\Final_Inspection_Stage_Data.cs">
-      <DependentUpon>Data.tt</DependentUpon>
+      <DependentUpon>clouddata.tt</DependentUpon>
     </Compile>
     <Compile Include="DataBase\Final_Inspection_Stage_Master.cs">
-      <DependentUpon>Data.tt</DependentUpon>
+      <DependentUpon>clouddata.tt</DependentUpon>
     </Compile>
     <Compile Include="DataBase\Final_Inspection_UserList.cs">
-      <DependentUpon>Data.tt</DependentUpon>
+      <DependentUpon>clouddata.tt</DependentUpon>
     </Compile>
-    <Compile Include="DataBase\FlexTopParts2.cs">
-      <DependentUpon>EData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\GetMasterOrderDataset.cs">
-      <DependentUpon>EData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\Index.cs">
-      <DependentUpon>EData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\IndexColumn.cs">
-      <DependentUpon>EData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\Inspectr.cs">
-      <DependentUpon>EData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\InvcDtl.cs">
-      <DependentUpon>EData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\InvcHead.cs">
-      <DependentUpon>EData.tt</DependentUpon>
+    <Compile Include="DataBase\ISUser.cs">
+      <DependentUpon>clouddata.tt</DependentUpon>
     </Compile>
     <Compile Include="DataBase\JobHead.cs">
-      <DependentUpon>EData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\JobHead1.cs">
-      <DependentUpon>EData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\JobOper.cs">
-      <DependentUpon>EData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\LaborDtl.cs">
-      <DependentUpon>EData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\Menu.cs">
-      <DependentUpon>EData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\mFilesCust.cs">
-      <DependentUpon>EData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\MscShpDt.cs">
-      <DependentUpon>EData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\MscShpHd.cs">
-      <DependentUpon>EData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\OrderDtl.cs">
-      <DependentUpon>EData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\OrderHed.cs">
-      <DependentUpon>EData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\OrderRel.cs">
-      <DependentUpon>EData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\Part.cs">
-      <DependentUpon>EData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\PartBin.cs">
-      <DependentUpon>EData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\PartClass.cs">
-      <DependentUpon>EData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\PartCost.cs">
-      <DependentUpon>EData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\PartMtl.cs">
-      <DependentUpon>EData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\PartOpr.cs">
-      <DependentUpon>EData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\PartPlant.cs">
-      <DependentUpon>EData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\PartRev.cs">
-      <DependentUpon>EData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\PartTran.cs">
-      <DependentUpon>EData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\PcInputValue.cs">
-      <DependentUpon>EData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\PerCon.cs">
-      <DependentUpon>EData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\PerConLnk.cs">
-      <DependentUpon>EData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\PODetail.cs">
-      <DependentUpon>EData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\POHeader.cs">
-      <DependentUpon>EData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\PORel.cs">
-      <DependentUpon>EData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\ProdGrup.cs">
-      <DependentUpon>EData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\PurAgent.cs">
-      <DependentUpon>EData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\QCIncoming.cs">
-      <DependentUpon>EData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\QuoteDtl.cs">
-      <DependentUpon>EData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\QuoteHed.cs">
-      <DependentUpon>EData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\RcvDtl.cs">
-      <DependentUpon>EData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\Resource.cs">
-      <DependentUpon>EData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\ResourceGroup.cs">
-      <DependentUpon>EData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\RMADtl.cs">
-      <DependentUpon>EData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\RMAHead.cs">
-      <DependentUpon>EData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\RMARcpt.cs">
-      <DependentUpon>EData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\SalesRep.cs">
-      <DependentUpon>EData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\SalesTBD.cs">
-      <DependentUpon>EData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\ShipDtl.cs">
-      <DependentUpon>EData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\ShipHead.cs">
-      <DependentUpon>EData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\ShipTo.cs">
-      <DependentUpon>EData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\SubShipD.cs">
-      <DependentUpon>EData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\SubShipH.cs">
-      <DependentUpon>EData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\Table.cs">
-      <DependentUpon>EData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\UOM.cs">
-      <DependentUpon>EData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\UOMClass.cs">
-      <DependentUpon>EData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\UOMConv.cs">
-      <DependentUpon>EData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\UserFile.cs">
-      <DependentUpon>EData.tt</DependentUpon>
+      <DependentUpon>Epicore.tt</DependentUpon>
     </Compile>
     <Compile Include="DataBase\user_data.cs">
-      <DependentUpon>Data.tt</DependentUpon>
+      <DependentUpon>clouddata.tt</DependentUpon>
     </Compile>
     <Compile Include="DataBase\USER_MST.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\ViewActiveIndirect.cs">
-      <DependentUpon>EData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\ViewActiveLaborDetail.cs">
-      <DependentUpon>EData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\ViewDMR.cs">
-      <DependentUpon>EData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\ViewDMRTranDate.cs">
-      <DependentUpon>EData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\ViewLaborDtl.cs">
-      <DependentUpon>EData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\ViewLRLaborDetail.cs">
-      <DependentUpon>EData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataBase\VntgStat.cs">
-      <DependentUpon>EData.tt</DependentUpon>
+      <DependentUpon>clouddata.tt</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -966,6 +705,192 @@
     <Compile Include="Service\SessionExpireFilterAttribute .cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="bin\Antlr3.Runtime.dll" />
+    <Content Include="bin\BouncyCastle.Cryptography.dll" />
+    <Content Include="bin\DinkToPdf.dll" />
+    <Content Include="bin\EntityFramework.dll" />
+    <Content Include="bin\EntityFramework.SqlServer.dll" />
+    <Content Include="bin\EPPlus.dll" />
+    <Content Include="bin\EPPlus.Interfaces.dll" />
+    <Content Include="bin\EPPlus.System.Drawing.dll" />
+    <Content Include="bin\Google.Apis.Auth.dll" />
+    <Content Include="bin\Google.Apis.Core.dll" />
+    <Content Include="bin\Google.Apis.dll" />
+    <Content Include="bin\Google.Apis.Sheets.v4.dll" />
+    <Content Include="bin\Inspection.Web.dll" />
+    <Content Include="bin\Inspection.Web.pdb" />
+    <Content Include="bin\MailKit.dll" />
+    <Content Include="bin\Microsoft.AspNetCore.Antiforgery.dll" />
+    <Content Include="bin\Microsoft.AspNetCore.Authentication.Abstractions.dll" />
+    <Content Include="bin\Microsoft.AspNetCore.Authentication.Core.dll" />
+    <Content Include="bin\Microsoft.AspNetCore.Authorization.dll" />
+    <Content Include="bin\Microsoft.AspNetCore.Authorization.Policy.dll" />
+    <Content Include="bin\Microsoft.AspNetCore.Cors.dll" />
+    <Content Include="bin\Microsoft.AspNetCore.Cryptography.Internal.dll" />
+    <Content Include="bin\Microsoft.AspNetCore.DataProtection.Abstractions.dll" />
+    <Content Include="bin\Microsoft.AspNetCore.DataProtection.dll" />
+    <Content Include="bin\Microsoft.AspNetCore.Diagnostics.Abstractions.dll" />
+    <Content Include="bin\Microsoft.AspNetCore.Hosting.Abstractions.dll" />
+    <Content Include="bin\Microsoft.AspNetCore.Hosting.Server.Abstractions.dll" />
+    <Content Include="bin\Microsoft.AspNetCore.Html.Abstractions.dll" />
+    <Content Include="bin\Microsoft.AspNetCore.Http.Abstractions.dll" />
+    <Content Include="bin\Microsoft.AspNetCore.Http.dll" />
+    <Content Include="bin\Microsoft.AspNetCore.Http.Extensions.dll" />
+    <Content Include="bin\Microsoft.AspNetCore.Http.Features.dll" />
+    <Content Include="bin\Microsoft.AspNetCore.JsonPatch.dll" />
+    <Content Include="bin\Microsoft.AspNetCore.Localization.dll" />
+    <Content Include="bin\Microsoft.AspNetCore.Mvc.Abstractions.dll" />
+    <Content Include="bin\Microsoft.AspNetCore.Mvc.ApiExplorer.dll" />
+    <Content Include="bin\Microsoft.AspNetCore.Mvc.Core.dll" />
+    <Content Include="bin\Microsoft.AspNetCore.Mvc.Cors.dll" />
+    <Content Include="bin\Microsoft.AspNetCore.Mvc.DataAnnotations.dll" />
+    <Content Include="bin\Microsoft.AspNetCore.Mvc.dll" />
+    <Content Include="bin\Microsoft.AspNetCore.Mvc.Formatters.Json.dll" />
+    <Content Include="bin\Microsoft.AspNetCore.Mvc.Localization.dll" />
+    <Content Include="bin\Microsoft.AspNetCore.Mvc.Razor.dll" />
+    <Content Include="bin\Microsoft.AspNetCore.Mvc.Razor.Extensions.dll" />
+    <Content Include="bin\Microsoft.AspNetCore.Mvc.RazorPages.dll" />
+    <Content Include="bin\Microsoft.AspNetCore.Mvc.TagHelpers.dll" />
+    <Content Include="bin\Microsoft.AspNetCore.Mvc.ViewFeatures.dll" />
+    <Content Include="bin\Microsoft.AspNetCore.Razor.dll" />
+    <Content Include="bin\Microsoft.AspNetCore.Razor.Language.dll" />
+    <Content Include="bin\Microsoft.AspNetCore.Razor.Runtime.dll" />
+    <Content Include="bin\Microsoft.AspNetCore.ResponseCaching.Abstractions.dll" />
+    <Content Include="bin\Microsoft.AspNetCore.Routing.Abstractions.dll" />
+    <Content Include="bin\Microsoft.AspNetCore.Routing.dll" />
+    <Content Include="bin\Microsoft.AspNetCore.WebUtilities.dll" />
+    <Content Include="bin\Microsoft.CodeAnalysis.CSharp.dll" />
+    <Content Include="bin\Microsoft.CodeAnalysis.dll" />
+    <Content Include="bin\Microsoft.CodeAnalysis.Razor.dll" />
+    <Content Include="bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll" />
+    <Content Include="bin\Microsoft.DiaSymReader.Native.amd64.dll" />
+    <Content Include="bin\Microsoft.DiaSymReader.Native.x86.dll" />
+    <Content Include="bin\Microsoft.DotNet.PlatformAbstractions.dll" />
+    <Content Include="bin\Microsoft.Extensions.Caching.Abstractions.dll" />
+    <Content Include="bin\Microsoft.Extensions.Caching.Memory.dll" />
+    <Content Include="bin\Microsoft.Extensions.Configuration.Abstractions.dll" />
+    <Content Include="bin\Microsoft.Extensions.DependencyInjection.Abstractions.dll" />
+    <Content Include="bin\Microsoft.Extensions.DependencyInjection.dll" />
+    <Content Include="bin\Microsoft.Extensions.DependencyModel.dll" />
+    <Content Include="bin\Microsoft.Extensions.FileProviders.Abstractions.dll" />
+    <Content Include="bin\Microsoft.Extensions.FileProviders.Composite.dll" />
+    <Content Include="bin\Microsoft.Extensions.FileSystemGlobbing.dll" />
+    <Content Include="bin\Microsoft.Extensions.Hosting.Abstractions.dll" />
+    <Content Include="bin\Microsoft.Extensions.Localization.Abstractions.dll" />
+    <Content Include="bin\Microsoft.Extensions.Localization.dll" />
+    <Content Include="bin\Microsoft.Extensions.Logging.Abstractions.dll" />
+    <Content Include="bin\Microsoft.Extensions.ObjectPool.dll" />
+    <Content Include="bin\Microsoft.Extensions.Options.dll" />
+    <Content Include="bin\Microsoft.Extensions.Primitives.dll" />
+    <Content Include="bin\Microsoft.Extensions.WebEncoders.dll" />
+    <Content Include="bin\Microsoft.IO.RecyclableMemoryStream.dll" />
+    <Content Include="bin\Microsoft.Net.Http.Headers.dll" />
+    <Content Include="bin\Microsoft.Web.Infrastructure.dll" />
+    <Content Include="bin\Microsoft.Win32.Primitives.dll" />
+    <Content Include="bin\Microsoft.Win32.Registry.dll" />
+    <Content Include="bin\MimeKit.dll" />
+    <Content Include="bin\Newtonsoft.Json.Bson.dll" />
+    <Content Include="bin\Newtonsoft.Json.dll" />
+    <Content Include="bin\PagedList.dll" />
+    <Content Include="bin\PagedList.Mvc.dll" />
+    <Content Include="bin\roslyn\csc.exe" />
+    <Content Include="bin\roslyn\csi.exe" />
+    <Content Include="bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll" />
+    <Content Include="bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll" />
+    <Content Include="bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll" />
+    <Content Include="bin\roslyn\Microsoft.CodeAnalysis.dll" />
+    <Content Include="bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll" />
+    <Content Include="bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll" />
+    <Content Include="bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll" />
+    <Content Include="bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll" />
+    <Content Include="bin\roslyn\Microsoft.Win32.Primitives.dll" />
+    <Content Include="bin\roslyn\System.AppContext.dll" />
+    <Content Include="bin\roslyn\System.Collections.Immutable.dll" />
+    <Content Include="bin\roslyn\System.Console.dll" />
+    <Content Include="bin\roslyn\System.Diagnostics.DiagnosticSource.dll" />
+    <Content Include="bin\roslyn\System.Diagnostics.FileVersionInfo.dll" />
+    <Content Include="bin\roslyn\System.Diagnostics.StackTrace.dll" />
+    <Content Include="bin\roslyn\System.Globalization.Calendars.dll" />
+    <Content Include="bin\roslyn\System.IO.Compression.dll" />
+    <Content Include="bin\roslyn\System.IO.Compression.ZipFile.dll" />
+    <Content Include="bin\roslyn\System.IO.FileSystem.dll" />
+    <Content Include="bin\roslyn\System.IO.FileSystem.Primitives.dll" />
+    <Content Include="bin\roslyn\System.Net.Http.dll" />
+    <Content Include="bin\roslyn\System.Net.Sockets.dll" />
+    <Content Include="bin\roslyn\System.Reflection.Metadata.dll" />
+    <Content Include="bin\roslyn\System.Runtime.InteropServices.RuntimeInformation.dll" />
+    <Content Include="bin\roslyn\System.Security.Cryptography.Algorithms.dll" />
+    <Content Include="bin\roslyn\System.Security.Cryptography.Encoding.dll" />
+    <Content Include="bin\roslyn\System.Security.Cryptography.Primitives.dll" />
+    <Content Include="bin\roslyn\System.Security.Cryptography.X509Certificates.dll" />
+    <Content Include="bin\roslyn\System.Text.Encoding.CodePages.dll" />
+    <Content Include="bin\roslyn\System.Threading.Tasks.Extensions.dll" />
+    <Content Include="bin\roslyn\System.ValueTuple.dll" />
+    <Content Include="bin\roslyn\System.Xml.ReaderWriter.dll" />
+    <Content Include="bin\roslyn\System.Xml.XmlDocument.dll" />
+    <Content Include="bin\roslyn\System.Xml.XPath.dll" />
+    <Content Include="bin\roslyn\System.Xml.XPath.XDocument.dll" />
+    <Content Include="bin\roslyn\vbc.exe" />
+    <Content Include="bin\roslyn\VBCSCompiler.exe" />
+    <Content Include="bin\Rotativa.dll" />
+    <Content Include="bin\System.AppContext.dll" />
+    <Content Include="bin\System.Buffers.dll" />
+    <Content Include="bin\System.CodeDom.dll" />
+    <Content Include="bin\System.Collections.Immutable.dll" />
+    <Content Include="bin\System.ComponentModel.Annotations.dll" />
+    <Content Include="bin\System.Console.dll" />
+    <Content Include="bin\System.Diagnostics.DiagnosticSource.dll" />
+    <Content Include="bin\System.Diagnostics.FileVersionInfo.dll" />
+    <Content Include="bin\System.Diagnostics.StackTrace.dll" />
+    <Content Include="bin\System.Diagnostics.Tracing.dll" />
+    <Content Include="bin\System.Drawing.Common.dll" />
+    <Content Include="bin\System.Formats.Asn1.dll" />
+    <Content Include="bin\System.Globalization.Calendars.dll" />
+    <Content Include="bin\System.IO.Compression.dll" />
+    <Content Include="bin\System.IO.Compression.ZipFile.dll" />
+    <Content Include="bin\System.IO.dll" />
+    <Content Include="bin\System.IO.FileSystem.dll" />
+    <Content Include="bin\System.IO.FileSystem.Primitives.dll" />
+    <Content Include="bin\System.Linq.dll" />
+    <Content Include="bin\System.Linq.Expressions.dll" />
+    <Content Include="bin\System.Memory.dll" />
+    <Content Include="bin\System.Net.Http.dll" />
+    <Content Include="bin\System.Net.Sockets.dll" />
+    <Content Include="bin\System.Numerics.Vectors.dll" />
+    <Content Include="bin\System.Reflection.dll" />
+    <Content Include="bin\System.Reflection.Metadata.dll" />
+    <Content Include="bin\System.Reflection.TypeExtensions.dll" />
+    <Content Include="bin\System.Runtime.CompilerServices.Unsafe.dll" />
+    <Content Include="bin\System.Runtime.dll" />
+    <Content Include="bin\System.Runtime.Extensions.dll" />
+    <Content Include="bin\System.Runtime.InteropServices.dll" />
+    <Content Include="bin\System.Runtime.InteropServices.RuntimeInformation.dll" />
+    <Content Include="bin\System.Security.AccessControl.dll" />
+    <Content Include="bin\System.Security.Cryptography.Algorithms.dll" />
+    <Content Include="bin\System.Security.Cryptography.Encoding.dll" />
+    <Content Include="bin\System.Security.Cryptography.Primitives.dll" />
+    <Content Include="bin\System.Security.Cryptography.X509Certificates.dll" />
+    <Content Include="bin\System.Security.Cryptography.Xml.dll" />
+    <Content Include="bin\System.Security.Permissions.dll" />
+    <Content Include="bin\System.Security.Principal.Windows.dll" />
+    <Content Include="bin\System.Text.Encoding.CodePages.dll" />
+    <Content Include="bin\System.Text.Encodings.Web.dll" />
+    <Content Include="bin\System.Text.RegularExpressions.dll" />
+    <Content Include="bin\System.Threading.Tasks.Extensions.dll" />
+    <Content Include="bin\System.Threading.Thread.dll" />
+    <Content Include="bin\System.ValueTuple.dll" />
+    <Content Include="bin\System.Web.Helpers.dll" />
+    <Content Include="bin\System.Web.Mvc.dll" />
+    <Content Include="bin\System.Web.Optimization.dll" />
+    <Content Include="bin\System.Web.Razor.dll" />
+    <Content Include="bin\System.Web.WebPages.Deployment.dll" />
+    <Content Include="bin\System.Web.WebPages.dll" />
+    <Content Include="bin\System.Web.WebPages.Razor.dll" />
+    <Content Include="bin\System.Xml.ReaderWriter.dll" />
+    <Content Include="bin\System.Xml.XmlDocument.dll" />
+    <Content Include="bin\System.Xml.XPath.dll" />
+    <Content Include="bin\System.Xml.XPath.XDocument.dll" />
+    <Content Include="bin\WebGrease.dll" />
     <Content Include="Content\assets\css\app-rtl.min.css" />
     <Content Include="Content\assets\css\app.css" />
     <Content Include="Content\assets\css\app.min.css" />
@@ -2851,7 +2776,6 @@
     <Content Include="Content\assets\libs\cleave.js\addons\cleave-phone.mh.js" />
     <Content Include="Content\assets\libs\cleave.js\addons\cleave-phone.mk.js" />
     <Content Include="Content\assets\libs\cleave.js\addons\cleave-phone.ml.js" />
-    <Content Include="Content\assets\libs\cleave.js\addons\cleave-phone.mm.js" />
     <Content Include="Content\assets\libs\cleave.js\addons\cleave-phone.mn.js" />
     <Content Include="Content\assets\libs\cleave.js\addons\cleave-phone.mo.js" />
     <Content Include="Content\assets\libs\cleave.js\addons\cleave-phone.mp.js" />
@@ -4601,25 +4525,25 @@
     <Content Include="Content\assets\libs\toastify\toastify.js" />
     <Content Include="Content\assets\libs\wnumb\wNumb.min.js" />
     <Content Include="Content\PagedList.css" />
-    <Content Include="DataBase\Data.Context.tt">
+    <Content Include="DataBase\clouddata.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Data.edmx</DependentUpon>
-      <LastGenOutput>Data.Context.cs</LastGenOutput>
+      <DependentUpon>clouddata.edmx</DependentUpon>
+      <LastGenOutput>clouddata.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="DataBase\Data.tt">
+    <Content Include="DataBase\clouddata.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Data.edmx</DependentUpon>
-      <LastGenOutput>Data.cs</LastGenOutput>
+      <DependentUpon>clouddata.edmx</DependentUpon>
+      <LastGenOutput>clouddata.cs</LastGenOutput>
     </Content>
-    <Content Include="DataBase\EData.Context.tt">
+    <Content Include="DataBase\Epicore.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>EData.edmx</DependentUpon>
-      <LastGenOutput>EData.Context.cs</LastGenOutput>
+      <DependentUpon>Epicore.edmx</DependentUpon>
+      <LastGenOutput>Epicore.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="DataBase\EData.tt">
+    <Content Include="DataBase\Epicore.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>EData.edmx</DependentUpon>
-      <LastGenOutput>EData.cs</LastGenOutput>
+      <DependentUpon>Epicore.edmx</DependentUpon>
+      <LastGenOutput>Epicore.cs</LastGenOutput>
     </Content>
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
@@ -4927,21 +4851,31 @@
     <Content Include="Content\assets\libs\wnumb\LICENSE.MD" />
     <Content Include="Content\assets\libs\wnumb\package.json" />
     <Content Include="Content\assets\libs\wnumb\README.md" />
-    <EntityDeploy Include="DataBase\EData.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>EData.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="DataBase\EData.edmx.diagram">
-      <DependentUpon>EData.edmx</DependentUpon>
-    </Content>
     <Content Include="App_Browsers\qt.browser" />
-    <Content Include="Content\assets\libs\gmaps\yarn-error.log" />
-    <EntityDeploy Include="DataBase\Data.edmx">
+    <None Include="bin\Inspection.Web.dll.config" />
+    <Content Include="bin\roslyn\csc.exe.config" />
+    <Content Include="bin\roslyn\csc.rsp" />
+    <Content Include="bin\roslyn\csi.exe.config" />
+    <Content Include="bin\roslyn\csi.rsp" />
+    <Content Include="bin\roslyn\Microsoft.CSharp.Core.targets" />
+    <Content Include="bin\roslyn\Microsoft.Managed.Core.targets" />
+    <Content Include="bin\roslyn\Microsoft.VisualBasic.Core.targets" />
+    <Content Include="bin\roslyn\vbc.exe.config" />
+    <Content Include="bin\roslyn\vbc.rsp" />
+    <Content Include="bin\roslyn\VBCSCompiler.exe.config" />
+    <EntityDeploy Include="DataBase\clouddata.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Data.Designer.cs</LastGenOutput>
+      <LastGenOutput>clouddata.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="DataBase\Data.edmx.diagram">
-      <DependentUpon>Data.edmx</DependentUpon>
+    <Content Include="DataBase\clouddata.edmx.diagram">
+      <DependentUpon>clouddata.edmx</DependentUpon>
+    </Content>
+    <EntityDeploy Include="DataBase\Epicore.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Epicore.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="DataBase\Epicore.edmx.diagram">
+      <DependentUpon>Epicore.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
@@ -5308,6 +5242,11 @@
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
   <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
     <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <Target Name="ExcludeAntlrPdb" BeforeTargets="Publish">
+    <ItemGroup>
+      <FilesForPackagingFromProject Remove="bin\Antlr3.Runtime.pdb" />
+    </ItemGroup>
   </Target>
   <ProjectExtensions>
     <VisualStudio>

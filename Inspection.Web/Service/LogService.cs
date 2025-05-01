@@ -10,10 +10,9 @@ namespace Inspection.Web.Service
 
     public class LogService
     {
-        ITe_INDIAEntities1 DB = new ITe_INDIAEntities1();
+        ITEIndiaEntities DB = new ITEIndiaEntities();
         public void AddLog(Exception ex,string methodname, string page)
         {
-
             int LNO = GetLineNumber(ex);
 
 

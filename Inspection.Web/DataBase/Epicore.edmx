@@ -1,0 +1,559 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="SaaS1143_62653Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="JobHead">
+          <Key>
+            <PropertyRef Name="SysRowID" />
+          </Key>
+          <Property Name="Company" Type="nvarchar" MaxLength="8" Nullable="false" />
+          <Property Name="JobClosed" Type="bit" Nullable="false" />
+          <Property Name="ClosedDate" Type="date" />
+          <Property Name="JobComplete" Type="bit" Nullable="false" />
+          <Property Name="JobCompletionDate" Type="date" />
+          <Property Name="JobEngineered" Type="bit" Nullable="false" />
+          <Property Name="CheckOff1" Type="bit" Nullable="false" />
+          <Property Name="CheckOff2" Type="bit" Nullable="false" />
+          <Property Name="CheckOff3" Type="bit" Nullable="false" />
+          <Property Name="CheckOff4" Type="bit" Nullable="false" />
+          <Property Name="CheckOff5" Type="bit" Nullable="false" />
+          <Property Name="JobReleased" Type="bit" Nullable="false" />
+          <Property Name="JobHeld" Type="bit" Nullable="false" />
+          <Property Name="SchedStatus" Type="nvarchar" MaxLength="1" Nullable="false" />
+          <Property Name="JobNum" Type="nvarchar" MaxLength="14" Nullable="false" />
+          <Property Name="PartNum" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="RevisionNum" Type="nvarchar" MaxLength="12" Nullable="false" />
+          <Property Name="DrawNum" Type="nvarchar" MaxLength="25" Nullable="false" />
+          <Property Name="PartDescription" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="ProdQty" Type="decimal" Precision="22" Scale="8" Nullable="false" />
+          <Property Name="IUM" Type="nvarchar" MaxLength="6" Nullable="false" />
+          <Property Name="StartDate" Type="date" />
+          <Property Name="StartHour" Type="decimal" Precision="6" Scale="2" Nullable="false" />
+          <Property Name="DueDate" Type="date" />
+          <Property Name="DueHour" Type="decimal" Precision="6" Scale="2" Nullable="false" />
+          <Property Name="ReqDueDate" Type="date" />
+          <Property Name="JobCode" Type="nvarchar" MaxLength="8" Nullable="false" />
+          <Property Name="QuoteNum" Type="int" Nullable="false" />
+          <Property Name="QuoteLine" Type="int" Nullable="false" />
+          <Property Name="ProdCode" Type="nvarchar" MaxLength="8" Nullable="false" />
+          <Property Name="UserChar1" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="UserChar2" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="UserChar3" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="UserChar4" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="UserDate1" Type="datetime" />
+          <Property Name="UserDate2" Type="datetime" />
+          <Property Name="UserDate3" Type="datetime" />
+          <Property Name="UserDate4" Type="datetime" />
+          <Property Name="UserDecimal1" Type="decimal" Precision="12" Scale="2" Nullable="false" />
+          <Property Name="UserDecimal2" Type="decimal" Precision="12" Scale="2" Nullable="false" />
+          <Property Name="UserInteger1" Type="int" Nullable="false" />
+          <Property Name="UserInteger2" Type="int" Nullable="false" />
+          <Property Name="CommentText" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="ExpenseCode" Type="nvarchar" MaxLength="16" Nullable="false" />
+          <Property Name="InCopyList" Type="bit" Nullable="false" />
+          <Property Name="WIName" Type="nvarchar" MaxLength="75" Nullable="false" />
+          <Property Name="WIStartDate" Type="date" />
+          <Property Name="WIStartHour" Type="decimal" Precision="6" Scale="2" Nullable="false" />
+          <Property Name="WIDueDate" Type="date" />
+          <Property Name="WIDueHour" Type="decimal" Precision="6" Scale="2" Nullable="false" />
+          <Property Name="Candidate" Type="bit" Nullable="false" />
+          <Property Name="SchedCode" Type="nvarchar" MaxLength="6" Nullable="false" />
+          <Property Name="SchedLocked" Type="bit" Nullable="false" />
+          <Property Name="ProjectID" Type="nvarchar" MaxLength="25" Nullable="false" />
+          <Property Name="WIPCleared" Type="bit" Nullable="false" />
+          <Property Name="JobFirm" Type="bit" Nullable="false" />
+          <Property Name="PersonList" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="PersonID" Type="nvarchar" MaxLength="8" Nullable="false" />
+          <Property Name="ProdTeamID" Type="nvarchar" MaxLength="8" Nullable="false" />
+          <Property Name="QtyCompleted" Type="decimal" Precision="22" Scale="8" Nullable="false" />
+          <Property Name="Plant" Type="nvarchar" MaxLength="8" Nullable="false" />
+          <Property Name="DatePurged" Type="date" />
+          <Property Name="TravelerReadyToPrint" Type="bit" Nullable="false" />
+          <Property Name="TravelerLastPrinted" Type="date" />
+          <Property Name="StatusReadyToPrint" Type="bit" Nullable="false" />
+          <Property Name="StatusLastPrinted" Type="date" />
+          <Property Name="CallNum" Type="int" Nullable="false" />
+          <Property Name="CallLine" Type="int" Nullable="false" />
+          <Property Name="JobType" Type="nvarchar" MaxLength="3" Nullable="false" />
+          <Property Name="RestoreFlag" Type="nvarchar" MaxLength="14" Nullable="false" />
+          <Property Name="PhaseID" Type="nvarchar" MaxLength="12" Nullable="false" />
+          <Property Name="AnalysisCode" Type="nvarchar" MaxLength="8" Nullable="false" />
+          <Property Name="LockQty" Type="bit" Nullable="false" />
+          <Property Name="HDCaseNum" Type="int" Nullable="false" />
+          <Property Name="ProcessMode" Type="nvarchar" MaxLength="1" Nullable="false" />
+          <Property Name="PlannedActionDate" Type="date" />
+          <Property Name="PlannedKitDate" Type="date" />
+          <Property Name="MSPTaskID" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="MSPPredecessor" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="UserMapData" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="ProductionYield" Type="bit" Nullable="false" />
+          <Property Name="OrigProdQty" Type="decimal" Precision="22" Scale="8" Nullable="false" />
+          <Property Name="PreserveOrigQtys" Type="bit" Nullable="false" />
+          <Property Name="NoAutoCompletion" Type="bit" Nullable="false" />
+          <Property Name="NoAutoClosing" Type="bit" Nullable="false" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="75" Nullable="false" />
+          <Property Name="CreateDate" Type="date" />
+          <Property Name="WhseAllocFlag" Type="bit" Nullable="false" />
+          <Property Name="OwnershipStatus" Type="nvarchar" MaxLength="8" Nullable="false" />
+          <Property Name="PDMObjID" Type="nvarchar" MaxLength="8" Nullable="false" />
+          <Property Name="ExportRequested" Type="nvarchar" MaxLength="8" Nullable="false" />
+          <Property Name="SplitMfgCostElements" Type="bit" Nullable="false" />
+          <Property Name="XRefPartNum" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="XRefPartType" Type="nvarchar" MaxLength="1" Nullable="false" />
+          <Property Name="XRefCustNum" Type="int" Nullable="false" />
+          <Property Name="BasePartNum" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="BaseRevisionNum" Type="nvarchar" MaxLength="12" Nullable="false" />
+          <Property Name="RoughCutScheduled" Type="bit" Nullable="false" />
+          <Property Name="EquipID" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="PlanNum" Type="int" Nullable="false" />
+          <Property Name="MaintPriority" Type="nvarchar" MaxLength="2" Nullable="false" />
+          <Property Name="SplitJob" Type="bit" Nullable="false" />
+          <Property Name="NumberSource" Type="bit" Nullable="false" />
+          <Property Name="CloseMeterReading" Type="int" Nullable="false" />
+          <Property Name="IssueTopicID1" Type="nvarchar" MaxLength="16" Nullable="false" />
+          <Property Name="IssueTopicID2" Type="nvarchar" MaxLength="16" Nullable="false" />
+          <Property Name="IssueTopicID3" Type="nvarchar" MaxLength="16" Nullable="false" />
+          <Property Name="IssueTopicID4" Type="nvarchar" MaxLength="16" Nullable="false" />
+          <Property Name="IssueTopicID5" Type="nvarchar" MaxLength="16" Nullable="false" />
+          <Property Name="IssueTopicID6" Type="nvarchar" MaxLength="16" Nullable="false" />
+          <Property Name="IssueTopicID7" Type="nvarchar" MaxLength="16" Nullable="false" />
+          <Property Name="IssueTopicID8" Type="nvarchar" MaxLength="16" Nullable="false" />
+          <Property Name="IssueTopicID9" Type="nvarchar" MaxLength="16" Nullable="false" />
+          <Property Name="IssueTopicID10" Type="nvarchar" MaxLength="16" Nullable="false" />
+          <Property Name="IssueTopics" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="ResTopicID1" Type="nvarchar" MaxLength="16" Nullable="false" />
+          <Property Name="ResTopicID2" Type="nvarchar" MaxLength="16" Nullable="false" />
+          <Property Name="ResTopicID3" Type="nvarchar" MaxLength="16" Nullable="false" />
+          <Property Name="ResTopicID4" Type="nvarchar" MaxLength="16" Nullable="false" />
+          <Property Name="ResTopicID5" Type="nvarchar" MaxLength="16" Nullable="false" />
+          <Property Name="ResTopicID6" Type="nvarchar" MaxLength="16" Nullable="false" />
+          <Property Name="ResTopicID7" Type="nvarchar" MaxLength="16" Nullable="false" />
+          <Property Name="ResTopicID8" Type="nvarchar" MaxLength="16" Nullable="false" />
+          <Property Name="ResTopicID9" Type="nvarchar" MaxLength="16" Nullable="false" />
+          <Property Name="ResTopicID10" Type="nvarchar" MaxLength="16" Nullable="false" />
+          <Property Name="ResTopics" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="Forward" Type="bit" Nullable="false" />
+          <Property Name="SchedSeq" Type="int" Nullable="false" />
+          <Property Name="PAAExists" Type="bit" Nullable="false" />
+          <Property Name="DtlsWithinLeadTime" Type="bit" Nullable="false" />
+          <Property Name="GroupSeq" Type="int" Nullable="false" />
+          <Property Name="RoughCut" Type="bit" Nullable="false" />
+          <Property Name="PlanGUID" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="PlanUserID" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="LastChangedBy" Type="nvarchar" MaxLength="75" Nullable="false" />
+          <Property Name="LastChangedOn" Type="date" />
+          <Property Name="EPMExportLevel" Type="int" Nullable="false" />
+          <Property Name="JobWorkflowState" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="JobCSR" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ExternalMES" Type="bit" Nullable="false" />
+          <Property Name="SysRevID" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="SysRowID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="LastExternalMESDate" Type="date" />
+          <Property Name="LastScheduleDate" Type="date" />
+          <Property Name="LastScheduleProc" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="SchedPriority" Type="int" Nullable="false" />
+          <Property Name="DaysLate" Type="int" Nullable="false" />
+          <Property Name="ContractID" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ProjProcessed" Type="bit" Nullable="false" />
+          <Property Name="SyncReqBy" Type="bit" Nullable="false" />
+          <Property Name="IsCSRSet" Type="bit" Nullable="false" />
+          <Property Name="UnReadyCostProcess" Type="bit" Nullable="false" />
+          <Property Name="ProcSuspendedUpdates" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ProjProcessedDate" Type="datetime" />
+          <Property Name="PCLinkRemoved" Type="bit" Nullable="false" />
+          <Property Name="ExternalMESSyncRequired" Type="bit" Nullable="false" />
+          <Property Name="ExternalMESLastSync" Type="datetime" />
+          <Property Name="EpicorFSA" Type="bit" Nullable="false" />
+          <Property Name="KBConfigProdID" Type="int" Nullable="false" />
+          <Property Name="UseAdvancedStaging" Type="bit" Nullable="false" />
+          <Property Name="AttributeSetID" Type="int" Nullable="false" />
+          <Property Name="ReadyToFulfill" Type="bit" Nullable="false" />
+          <Property Name="FSMSendTo" Type="bit" Nullable="false" />
+          <Property Name="FSMServiceReportID" Type="nvarchar" MaxLength="36" Nullable="false" />
+          <Property Name="PersonIDName" Type="nvarchar" MaxLength="30" StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityContainer Name="SaaS1143_62653ModelStoreContainer">
+          <EntitySet Name="JobHead" EntityType="Self.JobHead" Schema="Erp" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SaaS1143_62653Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="JobHead">
+          <Key>
+            <PropertyRef Name="SysRowID" />
+          </Key>
+          <Property Name="Company" Type="String" MaxLength="8" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="JobClosed" Type="Boolean" Nullable="false" />
+          <Property Name="ClosedDate" Type="DateTime" Precision="0" />
+          <Property Name="JobComplete" Type="Boolean" Nullable="false" />
+          <Property Name="JobCompletionDate" Type="DateTime" Precision="0" />
+          <Property Name="JobEngineered" Type="Boolean" Nullable="false" />
+          <Property Name="CheckOff1" Type="Boolean" Nullable="false" />
+          <Property Name="CheckOff2" Type="Boolean" Nullable="false" />
+          <Property Name="CheckOff3" Type="Boolean" Nullable="false" />
+          <Property Name="CheckOff4" Type="Boolean" Nullable="false" />
+          <Property Name="CheckOff5" Type="Boolean" Nullable="false" />
+          <Property Name="JobReleased" Type="Boolean" Nullable="false" />
+          <Property Name="JobHeld" Type="Boolean" Nullable="false" />
+          <Property Name="SchedStatus" Type="String" MaxLength="1" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="JobNum" Type="String" MaxLength="14" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PartNum" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="RevisionNum" Type="String" MaxLength="12" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DrawNum" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PartDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ProdQty" Type="Decimal" Precision="22" Scale="8" Nullable="false" />
+          <Property Name="IUM" Type="String" MaxLength="6" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="StartDate" Type="DateTime" Precision="0" />
+          <Property Name="StartHour" Type="Decimal" Precision="6" Scale="2" Nullable="false" />
+          <Property Name="DueDate" Type="DateTime" Precision="0" />
+          <Property Name="DueHour" Type="Decimal" Precision="6" Scale="2" Nullable="false" />
+          <Property Name="ReqDueDate" Type="DateTime" Precision="0" />
+          <Property Name="JobCode" Type="String" MaxLength="8" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="QuoteNum" Type="Int32" Nullable="false" />
+          <Property Name="QuoteLine" Type="Int32" Nullable="false" />
+          <Property Name="ProdCode" Type="String" MaxLength="8" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserChar1" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserChar2" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserChar3" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserChar4" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserDate1" Type="DateTime" Precision="3" />
+          <Property Name="UserDate2" Type="DateTime" Precision="3" />
+          <Property Name="UserDate3" Type="DateTime" Precision="3" />
+          <Property Name="UserDate4" Type="DateTime" Precision="3" />
+          <Property Name="UserDecimal1" Type="Decimal" Precision="12" Scale="2" Nullable="false" />
+          <Property Name="UserDecimal2" Type="Decimal" Precision="12" Scale="2" Nullable="false" />
+          <Property Name="UserInteger1" Type="Int32" Nullable="false" />
+          <Property Name="UserInteger2" Type="Int32" Nullable="false" />
+          <Property Name="CommentText" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ExpenseCode" Type="String" MaxLength="16" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="InCopyList" Type="Boolean" Nullable="false" />
+          <Property Name="WIName" Type="String" MaxLength="75" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="WIStartDate" Type="DateTime" Precision="0" />
+          <Property Name="WIStartHour" Type="Decimal" Precision="6" Scale="2" Nullable="false" />
+          <Property Name="WIDueDate" Type="DateTime" Precision="0" />
+          <Property Name="WIDueHour" Type="Decimal" Precision="6" Scale="2" Nullable="false" />
+          <Property Name="Candidate" Type="Boolean" Nullable="false" />
+          <Property Name="SchedCode" Type="String" MaxLength="6" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SchedLocked" Type="Boolean" Nullable="false" />
+          <Property Name="ProjectID" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="WIPCleared" Type="Boolean" Nullable="false" />
+          <Property Name="JobFirm" Type="Boolean" Nullable="false" />
+          <Property Name="PersonList" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PersonID" Type="String" MaxLength="8" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ProdTeamID" Type="String" MaxLength="8" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="QtyCompleted" Type="Decimal" Precision="22" Scale="8" Nullable="false" />
+          <Property Name="Plant" Type="String" MaxLength="8" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DatePurged" Type="DateTime" Precision="0" />
+          <Property Name="TravelerReadyToPrint" Type="Boolean" Nullable="false" />
+          <Property Name="TravelerLastPrinted" Type="DateTime" Precision="0" />
+          <Property Name="StatusReadyToPrint" Type="Boolean" Nullable="false" />
+          <Property Name="StatusLastPrinted" Type="DateTime" Precision="0" />
+          <Property Name="CallNum" Type="Int32" Nullable="false" />
+          <Property Name="CallLine" Type="Int32" Nullable="false" />
+          <Property Name="JobType" Type="String" MaxLength="3" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="RestoreFlag" Type="String" MaxLength="14" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PhaseID" Type="String" MaxLength="12" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="AnalysisCode" Type="String" MaxLength="8" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LockQty" Type="Boolean" Nullable="false" />
+          <Property Name="HDCaseNum" Type="Int32" Nullable="false" />
+          <Property Name="ProcessMode" Type="String" MaxLength="1" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PlannedActionDate" Type="DateTime" Precision="0" />
+          <Property Name="PlannedKitDate" Type="DateTime" Precision="0" />
+          <Property Name="MSPTaskID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MSPPredecessor" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserMapData" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ProductionYield" Type="Boolean" Nullable="false" />
+          <Property Name="OrigProdQty" Type="Decimal" Precision="22" Scale="8" Nullable="false" />
+          <Property Name="PreserveOrigQtys" Type="Boolean" Nullable="false" />
+          <Property Name="NoAutoCompletion" Type="Boolean" Nullable="false" />
+          <Property Name="NoAutoClosing" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedBy" Type="String" MaxLength="75" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Precision="0" />
+          <Property Name="WhseAllocFlag" Type="Boolean" Nullable="false" />
+          <Property Name="OwnershipStatus" Type="String" MaxLength="8" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PDMObjID" Type="String" MaxLength="8" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ExportRequested" Type="String" MaxLength="8" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SplitMfgCostElements" Type="Boolean" Nullable="false" />
+          <Property Name="XRefPartNum" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="XRefPartType" Type="String" MaxLength="1" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="XRefCustNum" Type="Int32" Nullable="false" />
+          <Property Name="BasePartNum" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="BaseRevisionNum" Type="String" MaxLength="12" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="RoughCutScheduled" Type="Boolean" Nullable="false" />
+          <Property Name="EquipID" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PlanNum" Type="Int32" Nullable="false" />
+          <Property Name="MaintPriority" Type="String" MaxLength="2" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SplitJob" Type="Boolean" Nullable="false" />
+          <Property Name="NumberSource" Type="Boolean" Nullable="false" />
+          <Property Name="CloseMeterReading" Type="Int32" Nullable="false" />
+          <Property Name="IssueTopicID1" Type="String" MaxLength="16" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IssueTopicID2" Type="String" MaxLength="16" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IssueTopicID3" Type="String" MaxLength="16" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IssueTopicID4" Type="String" MaxLength="16" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IssueTopicID5" Type="String" MaxLength="16" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IssueTopicID6" Type="String" MaxLength="16" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IssueTopicID7" Type="String" MaxLength="16" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IssueTopicID8" Type="String" MaxLength="16" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IssueTopicID9" Type="String" MaxLength="16" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IssueTopicID10" Type="String" MaxLength="16" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IssueTopics" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ResTopicID1" Type="String" MaxLength="16" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ResTopicID2" Type="String" MaxLength="16" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ResTopicID3" Type="String" MaxLength="16" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ResTopicID4" Type="String" MaxLength="16" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ResTopicID5" Type="String" MaxLength="16" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ResTopicID6" Type="String" MaxLength="16" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ResTopicID7" Type="String" MaxLength="16" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ResTopicID8" Type="String" MaxLength="16" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ResTopicID9" Type="String" MaxLength="16" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ResTopicID10" Type="String" MaxLength="16" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ResTopics" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Forward" Type="Boolean" Nullable="false" />
+          <Property Name="SchedSeq" Type="Int32" Nullable="false" />
+          <Property Name="PAAExists" Type="Boolean" Nullable="false" />
+          <Property Name="DtlsWithinLeadTime" Type="Boolean" Nullable="false" />
+          <Property Name="GroupSeq" Type="Int32" Nullable="false" />
+          <Property Name="RoughCut" Type="Boolean" Nullable="false" />
+          <Property Name="PlanGUID" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PlanUserID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LastChangedBy" Type="String" MaxLength="75" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LastChangedOn" Type="DateTime" Precision="0" />
+          <Property Name="EPMExportLevel" Type="Int32" Nullable="false" />
+          <Property Name="JobWorkflowState" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="JobCSR" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ExternalMES" Type="Boolean" Nullable="false" />
+          <Property Name="SysRevID" Type="Binary" MaxLength="8" FixedLength="true" Nullable="false" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="SysRowID" Type="Guid" Nullable="false" />
+          <Property Name="LastExternalMESDate" Type="DateTime" Precision="0" />
+          <Property Name="LastScheduleDate" Type="DateTime" Precision="0" />
+          <Property Name="LastScheduleProc" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SchedPriority" Type="Int32" Nullable="false" />
+          <Property Name="DaysLate" Type="Int32" Nullable="false" />
+          <Property Name="ContractID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ProjProcessed" Type="Boolean" Nullable="false" />
+          <Property Name="SyncReqBy" Type="Boolean" Nullable="false" />
+          <Property Name="IsCSRSet" Type="Boolean" Nullable="false" />
+          <Property Name="UnReadyCostProcess" Type="Boolean" Nullable="false" />
+          <Property Name="ProcSuspendedUpdates" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ProjProcessedDate" Type="DateTime" Precision="3" />
+          <Property Name="PCLinkRemoved" Type="Boolean" Nullable="false" />
+          <Property Name="ExternalMESSyncRequired" Type="Boolean" Nullable="false" />
+          <Property Name="ExternalMESLastSync" Type="DateTime" Precision="3" />
+          <Property Name="EpicorFSA" Type="Boolean" Nullable="false" />
+          <Property Name="KBConfigProdID" Type="Int32" Nullable="false" />
+          <Property Name="UseAdvancedStaging" Type="Boolean" Nullable="false" />
+          <Property Name="AttributeSetID" Type="Int32" Nullable="false" />
+          <Property Name="ReadyToFulfill" Type="Boolean" Nullable="false" />
+          <Property Name="FSMSendTo" Type="Boolean" Nullable="false" />
+          <Property Name="FSMServiceReportID" Type="String" MaxLength="36" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PersonIDName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" annotation:StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityContainer Name="SaaS1143_62653Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="JobHeads" EntityType="Self.JobHead" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SaaS1143_62653ModelStoreContainer" CdmEntityContainer="SaaS1143_62653Entities">
+          <EntitySetMapping Name="JobHeads">
+            <EntityTypeMapping TypeName="SaaS1143_62653Model.JobHead">
+              <MappingFragment StoreEntitySet="JobHead">
+                <ScalarProperty Name="Company" ColumnName="Company" />
+                <ScalarProperty Name="JobClosed" ColumnName="JobClosed" />
+                <ScalarProperty Name="ClosedDate" ColumnName="ClosedDate" />
+                <ScalarProperty Name="JobComplete" ColumnName="JobComplete" />
+                <ScalarProperty Name="JobCompletionDate" ColumnName="JobCompletionDate" />
+                <ScalarProperty Name="JobEngineered" ColumnName="JobEngineered" />
+                <ScalarProperty Name="CheckOff1" ColumnName="CheckOff1" />
+                <ScalarProperty Name="CheckOff2" ColumnName="CheckOff2" />
+                <ScalarProperty Name="CheckOff3" ColumnName="CheckOff3" />
+                <ScalarProperty Name="CheckOff4" ColumnName="CheckOff4" />
+                <ScalarProperty Name="CheckOff5" ColumnName="CheckOff5" />
+                <ScalarProperty Name="JobReleased" ColumnName="JobReleased" />
+                <ScalarProperty Name="JobHeld" ColumnName="JobHeld" />
+                <ScalarProperty Name="SchedStatus" ColumnName="SchedStatus" />
+                <ScalarProperty Name="JobNum" ColumnName="JobNum" />
+                <ScalarProperty Name="PartNum" ColumnName="PartNum" />
+                <ScalarProperty Name="RevisionNum" ColumnName="RevisionNum" />
+                <ScalarProperty Name="DrawNum" ColumnName="DrawNum" />
+                <ScalarProperty Name="PartDescription" ColumnName="PartDescription" />
+                <ScalarProperty Name="ProdQty" ColumnName="ProdQty" />
+                <ScalarProperty Name="IUM" ColumnName="IUM" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="StartHour" ColumnName="StartHour" />
+                <ScalarProperty Name="DueDate" ColumnName="DueDate" />
+                <ScalarProperty Name="DueHour" ColumnName="DueHour" />
+                <ScalarProperty Name="ReqDueDate" ColumnName="ReqDueDate" />
+                <ScalarProperty Name="JobCode" ColumnName="JobCode" />
+                <ScalarProperty Name="QuoteNum" ColumnName="QuoteNum" />
+                <ScalarProperty Name="QuoteLine" ColumnName="QuoteLine" />
+                <ScalarProperty Name="ProdCode" ColumnName="ProdCode" />
+                <ScalarProperty Name="UserChar1" ColumnName="UserChar1" />
+                <ScalarProperty Name="UserChar2" ColumnName="UserChar2" />
+                <ScalarProperty Name="UserChar3" ColumnName="UserChar3" />
+                <ScalarProperty Name="UserChar4" ColumnName="UserChar4" />
+                <ScalarProperty Name="UserDate1" ColumnName="UserDate1" />
+                <ScalarProperty Name="UserDate2" ColumnName="UserDate2" />
+                <ScalarProperty Name="UserDate3" ColumnName="UserDate3" />
+                <ScalarProperty Name="UserDate4" ColumnName="UserDate4" />
+                <ScalarProperty Name="UserDecimal1" ColumnName="UserDecimal1" />
+                <ScalarProperty Name="UserDecimal2" ColumnName="UserDecimal2" />
+                <ScalarProperty Name="UserInteger1" ColumnName="UserInteger1" />
+                <ScalarProperty Name="UserInteger2" ColumnName="UserInteger2" />
+                <ScalarProperty Name="CommentText" ColumnName="CommentText" />
+                <ScalarProperty Name="ExpenseCode" ColumnName="ExpenseCode" />
+                <ScalarProperty Name="InCopyList" ColumnName="InCopyList" />
+                <ScalarProperty Name="WIName" ColumnName="WIName" />
+                <ScalarProperty Name="WIStartDate" ColumnName="WIStartDate" />
+                <ScalarProperty Name="WIStartHour" ColumnName="WIStartHour" />
+                <ScalarProperty Name="WIDueDate" ColumnName="WIDueDate" />
+                <ScalarProperty Name="WIDueHour" ColumnName="WIDueHour" />
+                <ScalarProperty Name="Candidate" ColumnName="Candidate" />
+                <ScalarProperty Name="SchedCode" ColumnName="SchedCode" />
+                <ScalarProperty Name="SchedLocked" ColumnName="SchedLocked" />
+                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+                <ScalarProperty Name="WIPCleared" ColumnName="WIPCleared" />
+                <ScalarProperty Name="JobFirm" ColumnName="JobFirm" />
+                <ScalarProperty Name="PersonList" ColumnName="PersonList" />
+                <ScalarProperty Name="PersonID" ColumnName="PersonID" />
+                <ScalarProperty Name="ProdTeamID" ColumnName="ProdTeamID" />
+                <ScalarProperty Name="QtyCompleted" ColumnName="QtyCompleted" />
+                <ScalarProperty Name="Plant" ColumnName="Plant" />
+                <ScalarProperty Name="DatePurged" ColumnName="DatePurged" />
+                <ScalarProperty Name="TravelerReadyToPrint" ColumnName="TravelerReadyToPrint" />
+                <ScalarProperty Name="TravelerLastPrinted" ColumnName="TravelerLastPrinted" />
+                <ScalarProperty Name="StatusReadyToPrint" ColumnName="StatusReadyToPrint" />
+                <ScalarProperty Name="StatusLastPrinted" ColumnName="StatusLastPrinted" />
+                <ScalarProperty Name="CallNum" ColumnName="CallNum" />
+                <ScalarProperty Name="CallLine" ColumnName="CallLine" />
+                <ScalarProperty Name="JobType" ColumnName="JobType" />
+                <ScalarProperty Name="RestoreFlag" ColumnName="RestoreFlag" />
+                <ScalarProperty Name="PhaseID" ColumnName="PhaseID" />
+                <ScalarProperty Name="AnalysisCode" ColumnName="AnalysisCode" />
+                <ScalarProperty Name="LockQty" ColumnName="LockQty" />
+                <ScalarProperty Name="HDCaseNum" ColumnName="HDCaseNum" />
+                <ScalarProperty Name="ProcessMode" ColumnName="ProcessMode" />
+                <ScalarProperty Name="PlannedActionDate" ColumnName="PlannedActionDate" />
+                <ScalarProperty Name="PlannedKitDate" ColumnName="PlannedKitDate" />
+                <ScalarProperty Name="MSPTaskID" ColumnName="MSPTaskID" />
+                <ScalarProperty Name="MSPPredecessor" ColumnName="MSPPredecessor" />
+                <ScalarProperty Name="UserMapData" ColumnName="UserMapData" />
+                <ScalarProperty Name="ProductionYield" ColumnName="ProductionYield" />
+                <ScalarProperty Name="OrigProdQty" ColumnName="OrigProdQty" />
+                <ScalarProperty Name="PreserveOrigQtys" ColumnName="PreserveOrigQtys" />
+                <ScalarProperty Name="NoAutoCompletion" ColumnName="NoAutoCompletion" />
+                <ScalarProperty Name="NoAutoClosing" ColumnName="NoAutoClosing" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="WhseAllocFlag" ColumnName="WhseAllocFlag" />
+                <ScalarProperty Name="OwnershipStatus" ColumnName="OwnershipStatus" />
+                <ScalarProperty Name="PDMObjID" ColumnName="PDMObjID" />
+                <ScalarProperty Name="ExportRequested" ColumnName="ExportRequested" />
+                <ScalarProperty Name="SplitMfgCostElements" ColumnName="SplitMfgCostElements" />
+                <ScalarProperty Name="XRefPartNum" ColumnName="XRefPartNum" />
+                <ScalarProperty Name="XRefPartType" ColumnName="XRefPartType" />
+                <ScalarProperty Name="XRefCustNum" ColumnName="XRefCustNum" />
+                <ScalarProperty Name="BasePartNum" ColumnName="BasePartNum" />
+                <ScalarProperty Name="BaseRevisionNum" ColumnName="BaseRevisionNum" />
+                <ScalarProperty Name="RoughCutScheduled" ColumnName="RoughCutScheduled" />
+                <ScalarProperty Name="EquipID" ColumnName="EquipID" />
+                <ScalarProperty Name="PlanNum" ColumnName="PlanNum" />
+                <ScalarProperty Name="MaintPriority" ColumnName="MaintPriority" />
+                <ScalarProperty Name="SplitJob" ColumnName="SplitJob" />
+                <ScalarProperty Name="NumberSource" ColumnName="NumberSource" />
+                <ScalarProperty Name="CloseMeterReading" ColumnName="CloseMeterReading" />
+                <ScalarProperty Name="IssueTopicID1" ColumnName="IssueTopicID1" />
+                <ScalarProperty Name="IssueTopicID2" ColumnName="IssueTopicID2" />
+                <ScalarProperty Name="IssueTopicID3" ColumnName="IssueTopicID3" />
+                <ScalarProperty Name="IssueTopicID4" ColumnName="IssueTopicID4" />
+                <ScalarProperty Name="IssueTopicID5" ColumnName="IssueTopicID5" />
+                <ScalarProperty Name="IssueTopicID6" ColumnName="IssueTopicID6" />
+                <ScalarProperty Name="IssueTopicID7" ColumnName="IssueTopicID7" />
+                <ScalarProperty Name="IssueTopicID8" ColumnName="IssueTopicID8" />
+                <ScalarProperty Name="IssueTopicID9" ColumnName="IssueTopicID9" />
+                <ScalarProperty Name="IssueTopicID10" ColumnName="IssueTopicID10" />
+                <ScalarProperty Name="IssueTopics" ColumnName="IssueTopics" />
+                <ScalarProperty Name="ResTopicID1" ColumnName="ResTopicID1" />
+                <ScalarProperty Name="ResTopicID2" ColumnName="ResTopicID2" />
+                <ScalarProperty Name="ResTopicID3" ColumnName="ResTopicID3" />
+                <ScalarProperty Name="ResTopicID4" ColumnName="ResTopicID4" />
+                <ScalarProperty Name="ResTopicID5" ColumnName="ResTopicID5" />
+                <ScalarProperty Name="ResTopicID6" ColumnName="ResTopicID6" />
+                <ScalarProperty Name="ResTopicID7" ColumnName="ResTopicID7" />
+                <ScalarProperty Name="ResTopicID8" ColumnName="ResTopicID8" />
+                <ScalarProperty Name="ResTopicID9" ColumnName="ResTopicID9" />
+                <ScalarProperty Name="ResTopicID10" ColumnName="ResTopicID10" />
+                <ScalarProperty Name="ResTopics" ColumnName="ResTopics" />
+                <ScalarProperty Name="Forward" ColumnName="Forward" />
+                <ScalarProperty Name="SchedSeq" ColumnName="SchedSeq" />
+                <ScalarProperty Name="PAAExists" ColumnName="PAAExists" />
+                <ScalarProperty Name="DtlsWithinLeadTime" ColumnName="DtlsWithinLeadTime" />
+                <ScalarProperty Name="GroupSeq" ColumnName="GroupSeq" />
+                <ScalarProperty Name="RoughCut" ColumnName="RoughCut" />
+                <ScalarProperty Name="PlanGUID" ColumnName="PlanGUID" />
+                <ScalarProperty Name="PlanUserID" ColumnName="PlanUserID" />
+                <ScalarProperty Name="LastChangedBy" ColumnName="LastChangedBy" />
+                <ScalarProperty Name="LastChangedOn" ColumnName="LastChangedOn" />
+                <ScalarProperty Name="EPMExportLevel" ColumnName="EPMExportLevel" />
+                <ScalarProperty Name="JobWorkflowState" ColumnName="JobWorkflowState" />
+                <ScalarProperty Name="JobCSR" ColumnName="JobCSR" />
+                <ScalarProperty Name="ExternalMES" ColumnName="ExternalMES" />
+                <ScalarProperty Name="SysRevID" ColumnName="SysRevID" />
+                <ScalarProperty Name="SysRowID" ColumnName="SysRowID" />
+                <ScalarProperty Name="LastExternalMESDate" ColumnName="LastExternalMESDate" />
+                <ScalarProperty Name="LastScheduleDate" ColumnName="LastScheduleDate" />
+                <ScalarProperty Name="LastScheduleProc" ColumnName="LastScheduleProc" />
+                <ScalarProperty Name="SchedPriority" ColumnName="SchedPriority" />
+                <ScalarProperty Name="DaysLate" ColumnName="DaysLate" />
+                <ScalarProperty Name="ContractID" ColumnName="ContractID" />
+                <ScalarProperty Name="ProjProcessed" ColumnName="ProjProcessed" />
+                <ScalarProperty Name="SyncReqBy" ColumnName="SyncReqBy" />
+                <ScalarProperty Name="IsCSRSet" ColumnName="IsCSRSet" />
+                <ScalarProperty Name="UnReadyCostProcess" ColumnName="UnReadyCostProcess" />
+                <ScalarProperty Name="ProcSuspendedUpdates" ColumnName="ProcSuspendedUpdates" />
+                <ScalarProperty Name="ProjProcessedDate" ColumnName="ProjProcessedDate" />
+                <ScalarProperty Name="PCLinkRemoved" ColumnName="PCLinkRemoved" />
+                <ScalarProperty Name="ExternalMESSyncRequired" ColumnName="ExternalMESSyncRequired" />
+                <ScalarProperty Name="ExternalMESLastSync" ColumnName="ExternalMESLastSync" />
+                <ScalarProperty Name="EpicorFSA" ColumnName="EpicorFSA" />
+                <ScalarProperty Name="KBConfigProdID" ColumnName="KBConfigProdID" />
+                <ScalarProperty Name="UseAdvancedStaging" ColumnName="UseAdvancedStaging" />
+                <ScalarProperty Name="AttributeSetID" ColumnName="AttributeSetID" />
+                <ScalarProperty Name="ReadyToFulfill" ColumnName="ReadyToFulfill" />
+                <ScalarProperty Name="FSMSendTo" ColumnName="FSMSendTo" />
+                <ScalarProperty Name="FSMServiceReportID" ColumnName="FSMServiceReportID" />
+                <ScalarProperty Name="PersonIDName" ColumnName="PersonIDName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

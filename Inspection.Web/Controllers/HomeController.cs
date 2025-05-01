@@ -21,7 +21,7 @@ namespace Inspection.Web.Controllers
     [Authorize]
     public class HomeController : Controller
     {
-        ITe_INDIAEntities1 DB = new ITe_INDIAEntities1();
+        ITEIndiaEntities DB = new ITEIndiaEntities();
         LogService logService = new LogService();
         public ActionResult Index()
         {
@@ -63,7 +63,6 @@ namespace Inspection.Web.Controllers
                 {
                     logService.AddLog(ex, "HomeIndex", "HomeController");
                 }
-                string stagec = null;
                 var stages = DB.Final_Inspection_Stage_Master.ToList();
 
                 var finalInspectionData1 = DB.Final_Inspection_Data.Where(k => k.Active == true && k.Delete == false && (k.closerequest == false || k.closerequest == null)).ToList();
@@ -634,18 +633,6 @@ namespace Inspection.Web.Controllers
                                               ProcessStage = model.Stage,
                                               InspectionType = model.InspectionType,
                                           }).ToList();
-
-            //inwardData._submodel = (from model in DB.Final_Inspection_Process.Where(l => l.PID == ID)
-            //                        select new Submodel
-            //                        {
-            //                            id = model.ID,
-            //                            StartTime = model.starttime,
-            //                            EndTime = model.starttime,
-            //                            Stage = model.Stage,
-            //                            InspectedQty = model.Inspection_Qty,
-            //                            InspectionTYPE = model.Inspection_Type,
-            //                        }).ToList();
-
 
             return View(inwardData);
         }
@@ -1598,7 +1585,6 @@ namespace Inspection.Web.Controllers
             }
             return RedirectToAction("Index");
         }
-
         public ActionResult sortingstatuschange(mAINPROGRESSModel _model)
         {
             try

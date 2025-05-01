@@ -12,7 +12,7 @@ namespace Inspection.Web.Controllers
     public class InspectionController : Controller
     {
         // GET: Inspection
-        ITe_INDIAEntities1 DB = new ITe_INDIAEntities1();
+        ITEIndiaEntities DB = new ITEIndiaEntities();
         public ActionResult Index()
         {
             List<InwardDataModel> inwardDataModel = new List<InwardDataModel>();

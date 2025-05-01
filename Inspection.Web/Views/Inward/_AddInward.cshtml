@@ -41,7 +41,7 @@
                             <div class="col-xxl-3 col-md-6">
                                 <div>
                                     @Html.LabelFor(model => model._INWARD.InwardDate, new { @class = "form-label" })
-                                    @Html.TextBoxFor(model => model._INWARD.InwardDate, new { @class = "form-control", type = "datetime-local", id = "Inwarddate" })
+                                    @Html.TextBoxFor(model => model._INWARD.InwardDate, new { @class = "form-control", type = "datetime-local", id = "Inwarddate", @required="required" })
                                 </div>
                             </div>
                             @*<div class="col-xxl-3 col-md-6">
@@ -53,13 +53,13 @@
                             <div class="col-xxl-3 col-md-6">
                                 <div>
                                     @Html.LabelFor(model => model._INWARD.JobNo, new { @class = "form-label" })
-                                    @Html.TextBoxFor(model => model._INWARD.JobNo, new { @class = "form-control", id = "idjobnumber" })
+                                    @Html.TextBoxFor(model => model._INWARD.JobNo, new { @class = "form-control", id = "idjobnumber", @required = "required" })
                                 </div>
                             </div>
                             <div class="col-xxl-3 col-md-6">
                                 <div>
                                     @Html.LabelFor(model => model._INWARD.Partno, new { @class = "form-label" })
-                                    @Html.TextBoxFor(model => model._INWARD.Partno, new { @class = "form-control", id = "idpartnumber", @readonly = "readonly" })
+                                    @Html.TextBoxFor(model => model._INWARD.Partno, new { @class = "form-control", id = "idpartnumber", @readonly = "readonly", @required = "required" })
                                 </div>
                             </div>
                             @{
@@ -69,19 +69,19 @@
                             <div class="col-xxl-3 col-md-6">
                                 <div>
                                     @Html.LabelFor(model => model._INWARD.Qty, new { @class = "form-label" })
-                                    @Html.TextBoxFor(model => model._INWARD.Qty, new { @class = "form-control", id = "Inputqty" })
+                                    @Html.TextBoxFor(model => model._INWARD.Qty, new { @class = "form-control", id = "Inputqty", @required = "required" })
                                 </div>
                             </div>
                             <div class="col-xxl-3 col-md-6">
                                 <div>
                                     @Html.LabelFor(model => model._INWARD.ERev, new { @class = "form-label" })
-                                    @Html.TextBoxFor(model => model._INWARD.ERev, new { @class = "form-control", id = "idrev", @readonly = "readonly" })
+                                    @Html.TextBoxFor(model => model._INWARD.ERev, new { @class = "form-control", id = "idrev", @readonly = "readonly", @required = "required" })
                                 </div>
                             </div>
                             <div class="col-xxl-3 col-md-6">
                                 <div>
                                     @Html.LabelFor(model => model._INWARD.ActualRev, new { @class = "form-label" })
-                                    @Html.TextBoxFor(model => model._INWARD.ActualRev, new { @class = "form-control", id = "Inputact" })
+                                    @Html.TextBoxFor(model => model._INWARD.ActualRev, new { @class = "form-control", id = "Inputact", @required = "required" })
                                 </div>
                             </div>
                             <div class="col-xxl-3 col-md-6">
@@ -137,12 +137,12 @@
                                      };
                                 }
                                 @Html.LabelFor(model => model._INWARD.QualityStage, new { @class = "form-label" })
-                                @Html.DropDownListFor(model => model._INWARD.QualityStage, qualitystage, "select..", new { @class = "form-select mb-3 js-example-basic-single", id = "InputstageQuality" })
+                                @Html.DropDownListFor(model => model._INWARD.QualityStage, qualitystage, "select..", new { @class = "form-select mb-3 js-example-basic-single", id = "InputstageQuality", @required = "required" })
                             </div>
                             <div class="col-xxl-3 col-md-6">
 
                                 @Html.LabelFor(model => model._INWARD.Note, new { @class = "form-label" })
-                                @Html.DropDownListFor(model => model._INWARD.Note, notedata, "select...", new { @class = "form-select mb-3 js-example-basic-single", id = "Inputnote", onchange = "getsuuplierbxo(this)" })
+                                @Html.DropDownListFor(model => model._INWARD.Note, notedata, "select...", new { @class = "form-select mb-3 js-example-basic-single", id = "Inputnote", onchange = "getsuuplierbxo(this)", @required = "required" })
                             </div>
                             <div class="col-xxl-3 col-md-6" id="supplierContainer" style="display: none;">
                                 @Html.LabelFor(model => model._INWARD.Supplier, new { @class = "form-label" })
@@ -150,7 +150,7 @@
                             </div>
                             <div class="col-xxl-3 col-md-6">
                                 @Html.LabelFor(model => model._INWARD.InspectionType, new { @class = "form-label" })
-                                @Html.DropDownListFor(model => model._INWARD.InspectionType, staticData, "select...", new { @class = "form-select mb-3 js-example-basic-single", id = "Inputinstype", onchange = "updateProcessStage()" })
+                                @Html.DropDownListFor(model => model._INWARD.InspectionType, staticData, "select...", new { @class = "form-select mb-3 js-example-basic-single", id = "Inputinstype", onchange = "updateProcessStage()", @required = "required" })
 
                             </div>
                             <div class="col-xxl-3 col-md-6">
@@ -309,6 +309,7 @@
     }
 
     function myFunction() {
+        debugger
         var element = document.getElementById("idjobnumber");
 
         var value = element.value;
@@ -431,63 +432,141 @@
         }
 
 
-        function displayDataInTable() {
+        //function displayDataInTable() {
 
-            debugger
+        //    debugger
+        //    var table = $("#inwardDataTable");
+        //    table.empty();
+        //    console.log(localStorage);
+        //    var storedData = JSON.parse(localStorage.getItem("inwardData")) || [];
+        //    console.log(storedData);
+
+        //    table.append("<thead>" +
+        //        "<tr>" +
+        //        "<th> Delete</th> " +
+        //        "<th> Edit</th> " +
+        //        "<th> Id</th > " +
+        //        "<th> InwardDateTime</th > " +
+        //        "<th> JobNo</th> " +
+        //        "<th> Partno</th> " +
+        //        "<th> Qty</th> " +
+        //        "<th> ERev</th> " +
+        //        "<th> ActualRev</th> " +
+        //        "<th> QualityStage</th> " +
+        //        "<th> Note</th> " +
+        //        "<th> InspectionType</th> " +
+        //        "</tr> " +
+        //        "</thead> ");
+
+
+        //    var tbody = $("<tbody></tbody>");
+        //    let count = 1;
+
+        //    for (var i = 0; i < storedData.length; i++) {
+        //        var row = $("<tr></tr>");
+        //        row.append("<td><button class='btn btn-danger delete-btn' data-index='" + i + "'>Delete</button></td>");
+        //        row.append("<td><button class='btn btn-success edit-btn' data-index='" + i + "'>Edit</button></td>");
+        //        for (var j = 0; j < storedData[i].length; j++) {
+
+        //            if (storedData[i][j].name == "_INWARD.id") {
+        //                row.append("<td>" + count + "</td>")
+        //            } else {
+        //                row.append("<td>" + storedData[i][j].value + "</td>")
+        //            }
+
+        //        }
+        //        tbody.append(row);
+        //        count++;
+        //    }
+        //    table.append(tbody);
+
+        //    $(".delete-btn").click(function () {
+        //        var index = $(this).data("index");
+
+        //        storedData.splice(index, 1);
+
+        //        localStorage.setItem("inwardData", JSON.stringify(storedData));
+
+
+        //        displayDataInTable();
+        //    });
+
+        //    $(".edit-btn").click(function () {
+        //        var index = $(this).data("index");
+        //        $("#hiddenidinward").val(index);
+        //        var dataForEdit = storedData[index];
+        //        populateFormForEdit(dataForEdit);
+        //        $("#btninwrad").text("Update");
+        //    });
+        //}
+        function displayDataInTable() {
+            debugger;
             var table = $("#inwardDataTable");
             table.empty();
-            console.log(localStorage);
-            var storedData = JSON.parse(localStorage.getItem("inwardData")) || [];
-            console.log(storedData);
 
+            var storedData = JSON.parse(localStorage.getItem("inwardData")) || [];
+
+            // Table Header
             table.append("<thead>" +
                 "<tr>" +
-                "<th> Delete</th> " +
-                "<th> Edit</th> " +
-                "<th> Id</th > " +
-                "<th> InwardDateTime</th > " +
-                /* "<th> InwardTime</th > " +*/
-                "<th> JobNo</th> " +
-                "<th> Partno</th> " +
-                "<th> Qty</th> " +
-                "<th> ERev</th> " +
-                "<th> ActualRev</th> " +
-                /* "<th> ProcessStage</th> " +*/
-                "<th> QualityStage</th> " +
-                "<th> Note</th> " +
-                "<th> InspectionType</th> " +
-                "</tr> " +
-                "</thead> ");
-
+                "<th>Delete</th>" +
+                "<th>Edit</th>" +
+                "<th>Id</th>" +
+                "<th>InwardDateTime</th>" +
+                "<th>JobNo</th>" +
+                "<th>Partno</th>" +
+                "<th>Qty</th>" +
+                "<th>ERev</th>" +
+                "<th>ActualRev</th>" +
+                "<th>QualityStage</th>" +
+                "<th>Note</th>" +
+                "<th>InspectionType</th>" +
+                "</tr>" +
+                "</thead>");
 
             var tbody = $("<tbody></tbody>");
             let count = 1;
+
+            const fieldOrder = [
+                "_INWARD.InwardDate",
+                "_INWARD.JobNo",
+                "_INWARD.Partno",
+                "_INWARD.Qty",
+                "_INWARD.ERev",
+                "_INWARD.ActualRev",
+                "_INWARD.QualityStage",
+                "_INWARD.Note",
+                "_INWARD.InspectionType"
+            ];
+
             for (var i = 0; i < storedData.length; i++) {
                 var row = $("<tr></tr>");
                 row.append("<td><button class='btn btn-danger delete-btn' data-index='" + i + "'>Delete</button></td>");
                 row.append("<td><button class='btn btn-success edit-btn' data-index='" + i + "'>Edit</button></td>");
-                for (var j = 0; j < storedData[i].length; j++) {
+                row.append("<td>" + count + "</td>");
 
-                    if (storedData[i][j].name == "_INWARD.id") {
-                        row.append("<td>" + count + "</td>")
-                    } else {
-                        row.append("<td>" + storedData[i][j].value + "</td>")
-                    }
-
+                // Convert form array to key-value pair object
+                const map = {};
+                for (let j = 0; j < storedData[i].length; j++) {
+                    map[storedData[i][j].name] = storedData[i][j].value;
                 }
+
+                // Append values in correct order
+                for (const field of fieldOrder) {
+                    row.append("<td>" + (map[field] || "") + "</td>");
+                }
+
                 tbody.append(row);
                 count++;
             }
+
             table.append(tbody);
 
+            // Attach delete and edit handlers
             $(".delete-btn").click(function () {
                 var index = $(this).data("index");
-
                 storedData.splice(index, 1);
-
                 localStorage.setItem("inwardData", JSON.stringify(storedData));
-
-
                 displayDataInTable();
             });
 
@@ -499,6 +578,7 @@
                 $("#btninwrad").text("Update");
             });
         }
+
         displayDataInTable();
     });
 

@@ -28,7 +28,7 @@ namespace Inspection.Web.Controllers
     public class MRBController : Controller
     {
         // GET: MRB
-        ITe_INDIAEntities1 DB = new ITe_INDIAEntities1();
+        ITEIndiaEntities DB = new ITEIndiaEntities();
         LogService logService = new LogService();
         Inspectionservice inspectionservice = new Inspectionservice();
         Maineservice _service = new Maineservice();
@@ -46,10 +46,10 @@ namespace Inspection.Web.Controllers
                 //{
                 //    inspectiotype = Session["inspectiontype"].ToString();
                 //}
-                string[] parts = "5 - Parts waiting for MRB".Split(new string[] { " - " }, StringSplitOptions.None);
-                int? _stages = Convert.ToInt32(parts[0].Trim());
+                //string[] parts = "5 - Parts waiting for MRB".Split(new string[] { " - " }, StringSplitOptions.None);
+                // int? _stages = Convert.ToInt32(parts[0].Trim());
 
-                string _Stage = DB.Final_Inspection_Stage_Master.Where(l => l.Stage == _stages).Select(l => l.stage_part_status).FirstOrDefault();
+                string _Stage = "2 - Parts waiting for MRB";
                 List<InwardDataModel> finalInspectionData = null;
 
                 var finalInspectionProcess = (from model in DB.Final_Inspection_Process.OrderByDescending(p => p.ID)
@@ -64,7 +64,7 @@ namespace Inspection.Web.Controllers
                                               }).ToList();
                 if (inspectiotype != null)
                 {
-                    finalInspectionData = (from model in DB.Final_Inspection_Data.Where(l => l.Stage.Trim() == _Stage && l.Inspection_Type == inspectiotype).OrderByDescending(p => p.ID)
+                    finalInspectionData = (from model in DB.Final_Inspection_Data.Where(l => l.Stage.Trim() == _Stage.Trim() && l.Inspection_Type == inspectiotype).OrderByDescending(p => p.ID)
                                            select new InwardDataModel
                                            {
                                                id = model.ID,
@@ -81,7 +81,7 @@ namespace Inspection.Web.Controllers
                 }
                 else
                 {
-                    finalInspectionData = (from model in DB.Final_Inspection_Data.Where(l => l.Stage.Trim() == _Stage).OrderByDescending(p => p.ID)
+                    finalInspectionData = (from model in DB.Final_Inspection_Data.Where(l => l.Stage == _Stage).OrderByDescending(p => p.ID)
                                            select new InwardDataModel
                                            {
                                                id = model.ID,
@@ -93,6 +93,7 @@ namespace Inspection.Web.Controllers
                                                InspectionType = model.Inspection_Type,
                                                QualityStage = model.QualityStage,
                                                Note = model.Note,
+                                               ProcessStage = model.Stage,
                                                checkmrbdone = model.waitingformrb
                                            }).ToList();
                 }
@@ -201,9 +202,17 @@ namespace Inspection.Web.Controllers
                                 Final_Inspection_Mrb_Rcode _data = new Final_Inspection_Mrb_Rcode();
 
                                 _data.PID = _Inspection_Data.ID;
-                                _data.Rcode = rcodeList[i];
-                                _data.SubQty = subqtyList[i];
-                                _data.Rtaxt = locationList[i];
+                                if (rcodeList.Count > 0)
+                                    _data.Rcode = rcodeList[i];
+
+                                if (subqtyList.Count > 0)
+                                    _data.SubQty = subqtyList[i];
+
+                                if (locationList.Count > 0)
+                                    _data.Rtaxt = locationList[i];
+                                //_data.Rcode = rcodeList[i];
+                                //_data.SubQty = subqtyList[i];
+                                //_data.Rtaxt = locationList[i];
                                 var currentRcode = rcodeList[i];
                                 var secondFieldValue = DB.Final_Inspection_RCode.FirstOrDefault(v => v.RCode == currentRcode)?.Description;
                                 _data.Remark = secondFieldValue;

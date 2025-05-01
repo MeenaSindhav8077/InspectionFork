@@ -16,7 +16,7 @@ namespace Inspection.Web.Controllers
     public class visualinspectionController : Controller
     {
         // GET: visualinspection
-        ITe_INDIAEntities1 DB = new ITe_INDIAEntities1();
+        ITEIndiaEntities DB = new ITEIndiaEntities();
         InwardDataModel List = new InwardDataModel();
         List<InwardDataModel> _data = new List<InwardDataModel>();
         List<Submodel> _List = new List<Submodel>();

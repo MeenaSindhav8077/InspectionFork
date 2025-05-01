@@ -20,7 +20,6 @@ namespace Inspection.Web.Models
         public int? Totalqty { get; set; }
 
         public string inspector { get; set; }
-
         public string DateRange { get; set; }
 
     }

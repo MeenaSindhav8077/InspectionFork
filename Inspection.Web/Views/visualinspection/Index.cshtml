@@ -23,12 +23,6 @@
                         @Html.TextBoxFor(model => model._INWARD.InwardDate, "{0:dd, MMM yyyy}", new { @disabled = "disabled", @class = "aspNetDisabled form-control invdate" })
                     </div>
                 </div>
-                @*<div class="col-xxl-2 col-md-6">
-                    <div>
-                        <label>Inward Time</label>
-                        @Html.TextBoxFor(model => model._INWARD.InwardTime, new { @disabled = "disabled", @class = "aspNetDisabled form-control" })
-                    </div>
-                </div>*@
                 <div class="col-xxl-2 col-md-6">
                     <div>
                         <label>Job No</label>
@@ -147,28 +141,28 @@
                         @Html.HiddenFor(model => Model._INWARD.ProcessStage)
                         @Html.HiddenFor(model => Model._INWARD.InspectionType)
                         @Html.HiddenFor(model => Model._INWARD.QualityStage)
-                <div class="modal-body">
-                    <div class="mb-3">
-                        @Html.LabelFor(model => model._submodel.Stage, new { @class = "form-label" })
-                        @{
-                            var STAGESelectList = inspectionservice.GetInspectiontypewise(inspectiontype);
-                        }
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                @Html.LabelFor(model => model._submodel.Stage, new { @class = "form-label" })
+                                @{
+                                    var STAGESelectList = inspectionservice.GetInspectiontypewise(inspectiontype);
+                                }
 
-                        @Html.DropDownListFor(model => model._submodel.Stage, new SelectList(STAGESelectList, "Value", "Text"), "Select", new { @class = "form-select ", id = "" })
-                        @Html.ValidationMessageFor(model => model._submodel.Stage, "", new { @class = "text-danger" })
-                    </div>
-                    <div class="mb-3">
-                        @Html.LabelFor(model => model._submodel.DecisionQty, new { @class = "form-label" })
-                        @Html.TextBoxFor(model => model._submodel.DecisionQty, new { @class = "form-select ", id = "" })
-                        @Html.ValidationMessageFor(model => model._submodel.DecisionQty, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                    <div class="modal-footer">
-                        <div class="hstack gap-2 justify-content-end">
-                            <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-success">Save</button>
+                                @Html.DropDownListFor(model => model._submodel.Stage, new SelectList(STAGESelectList, "Value", "Text"), "Select", new { @class = "form-select ", id = "" })
+                                @Html.ValidationMessageFor(model => model._submodel.Stage, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="mb-3">
+                                @Html.LabelFor(model => model._submodel.DecisionQty, new { @class = "form-label" })
+                                @Html.TextBoxFor(model => model._submodel.DecisionQty, new { @class = "form-select ", id = "" })
+                                @Html.ValidationMessageFor(model => model._submodel.DecisionQty, "", new { @class = "text-danger" })
+                            </div>
                         </div>
-                    </div>
+                        <div class="modal-footer">
+                            <div class="hstack gap-2 justify-content-end">
+                                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-success">Save</button>
+                            </div>
+                        </div>
                     }
                 </div>
             </div>
@@ -240,20 +234,20 @@
                      new SelectListItem { Value = "Yes ", Text = "Yes" },
                      new SelectListItem { Value = "No ", Text = "No" },
                 };
-        <div class="modal-body">
-            <div class="mb-3">
-                @Html.LabelFor(model => model._submodel.SampleQuantity, new { @class = "form-label" })
+                <div class="modal-body">
+                    <div class="mb-3">
+                        @Html.LabelFor(model => model._submodel.SampleQuantity, new { @class = "form-label" })
 
-                @Html.TextBoxFor(model => model._submodel.SampleQuantity, new { @class = "form-control " })
-                @Html.ValidationMessageFor(model => model._submodel.SampleQuantity, "", new { @class = "text-danger" })
-            </div>
-            <div class="mb-3">
-                @Html.LabelFor(model => model._submodel.MES, new { @class = "form-label" })
+                        @Html.TextBoxFor(model => model._submodel.SampleQuantity, new { @class = "form-control " })
+                        @Html.ValidationMessageFor(model => model._submodel.SampleQuantity, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="mb-3">
+                        @Html.LabelFor(model => model._submodel.MES, new { @class = "form-label" })
 
-                @Html.DropDownListFor(model => model._submodel.MES, staticData, new { @class = "form-select mb-3 js-example-basic-single", id = "" })
-                @Html.ValidationMessageFor(model => model._submodel.MES, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                        @Html.DropDownListFor(model => model._submodel.MES, staticData, new { @class = "form-select mb-3 js-example-basic-single", id = "" })
+                        @Html.ValidationMessageFor(model => model._submodel.MES, "", new { @class = "text-danger" })
+                    </div>
+                </div>
                 <div class="modal-footer">
                     <div class="hstack gap-2 justify-content-end">
                         <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
@@ -269,7 +263,7 @@
 
     string jb = Model._INWARD.JobNo;
 }
-<input type="text" value="@_mid" id="mainid" style="display:none;"/>
+<input type="text" value="@_mid" id="mainid" style="display:none;" />
 <div class="row">
     <div class="col-xxl-12">
         <div class="card">
@@ -279,7 +273,7 @@
                         <div class="row">
                             @if (Model.currerntcard == "Thread")
                             {
-                                    
+
                                 var tstage1 = Model._INWARDList.Any(p => p.InspectionType == "Thread") ? Model._INWARDList.FirstOrDefault(p => p.InspectionType == "Thread")?.ProcessStage : "";
                                 var tqty1 = Model._INWARDList.Any(p => p.InspectionType == "Thread") ? Model._INWARDList.FirstOrDefault(p => p.InspectionType == "Thread")?.SampleQuantity : "";
 
@@ -335,11 +329,11 @@
                                                                                         </div>
                                                                                     </div>
                                                                                     @*<div class="col-lg-2">
-                                                                                        <div>
-                                                                                            @Html.LabelFor(model => model._submodel._StartTime, "Start Time", new { @class = "form-label" })
-                                                                                            @Html.EditorFor(model => model._submodel._StartTime, new { htmlAttributes = new { @class = "form-control", @type = "time", @placeholder = "Select Time", @required = "required" } })
-                                                                                        </div>
-                                                                                    </div>*@
+                                                                                            <div>
+                                                                                                @Html.LabelFor(model => model._submodel._StartTime, "Start Time", new { @class = "form-label" })
+                                                                                                @Html.EditorFor(model => model._submodel._StartTime, new { htmlAttributes = new { @class = "form-control", @type = "time", @placeholder = "Select Time", @required = "required" } })
+                                                                                            </div>
+                                                                                        </div>*@
                                                                                     <div class="col-lg-2">
                                                                                         @Html.LabelFor(model => model._submodel.InspectionBy, new { @class = "form-label" })
                                                                                         @{
@@ -400,18 +394,18 @@
                                                                                                         @Html.DisplayFor(modelItem => item.inspectiondate)
                                                                                                     </td>
                                                                                                     @*<td>
-                                                                                                        @Html.DisplayFor(modelItem => item.StartTime)
-                                                                                                    </td>*@
-                                                                                                <td>
-                                                                                                    @if (item.EndTime != null && item.InspectedQty != null)
-                                                                                                    {
-                                                                                                        @Html.DisplayFor(modelItem => item.EndTime)
-                                                                                                    }
-                                                                                                    else
-                                                                                                    {
-                                                                                                        @Html.TextBoxFor(model => item.EndTime, new { @class = "aspNetDisabled form-control endtime-input", @type = "datetime-local", @id = "Threadenddate" })
-                                                                                                    }
-                                                                                                </td>
+                                                                                                            @Html.DisplayFor(modelItem => item.StartTime)
+                                                                                                        </td>*@
+                                                                                                    <td>
+                                                                                                        @if (item.EndTime != null && item.InspectedQty != null)
+                                                                                                        {
+                                                                                                            @Html.DisplayFor(modelItem => item.EndTime)
+                                                                                                        }
+                                                                                                        else
+                                                                                                        {
+                                                                                                            @Html.TextBoxFor(model => item.EndTime, new { @class = "aspNetDisabled form-control endtime-input", @type = "datetime-local", @id = "Threadenddate" })
+                                                                                                        }
+                                                                                                    </td>
                                                                                                     <td>
                                                                                                         @if (item.EndTime != null && item.InspectedQty != null)
                                                                                                         {
@@ -502,11 +496,11 @@
                                                                                         </div>
                                                                                     </div>
                                                                                     @*<div class="col-lg-2">
-                                                                                        <div>
-                                                                                            @Html.LabelFor(model => model._submodel.StartTime, "Start Time", new { @class = "form-label" })
-                                                                                            @Html.EditorFor(model => Model._submodel.StartTime, new { htmlAttributes = new { @class = "form-control ftime", @type = "time", @placeholder = "Select Time", @required = "required" } })
-                                                                                        </div>
-                                                                                    </div>*@
+                                                                                            <div>
+                                                                                                @Html.LabelFor(model => model._submodel.StartTime, "Start Time", new { @class = "form-label" })
+                                                                                                @Html.EditorFor(model => Model._submodel.StartTime, new { htmlAttributes = new { @class = "form-control ftime", @type = "time", @placeholder = "Select Time", @required = "required" } })
+                                                                                            </div>
+                                                                                        </div>*@
                                                                                     <div class="col-lg-2">
                                                                                         @Html.LabelFor(model => model._submodel.InspectionBy, new { @class = "form-label" })
                                                                                         @{
@@ -568,18 +562,18 @@
                                                                                                         @Html.DisplayFor(modelItem => item.inspectiondate)
                                                                                                     </td>
                                                                                                     @*<td>
-                                                                                                        @Html.DisplayFor(modelItem => item.StartTime)
-                                                                                                    </td>*@
-                                                                                                <td>
-                                                                                                    @if (item.EndTime != null && item.InspectedQty != null)
-                                                                                                    {
-                                                                                                        @Html.DisplayFor(modelItem => item.EndTime)
-                                                                                                    }
-                                                                                                    else
-                                                                                                    {
-                                                                                                        @Html.TextBoxFor(model => item.EndTime, new { @class = "aspNetDisabled form-control endtime-input", @type = "datetime-local", @id = "Threadenddate" })
-                                                                                                    }
-                                                                                                </td>
+                                                                                                            @Html.DisplayFor(modelItem => item.StartTime)
+                                                                                                        </td>*@
+                                                                                                    <td>
+                                                                                                        @if (item.EndTime != null && item.InspectedQty != null)
+                                                                                                        {
+                                                                                                            @Html.DisplayFor(modelItem => item.EndTime)
+                                                                                                        }
+                                                                                                        else
+                                                                                                        {
+                                                                                                            @Html.TextBoxFor(model => item.EndTime, new { @class = "aspNetDisabled form-control endtime-input", @type = "datetime-local", @id = "Threadenddate" })
+                                                                                                        }
+                                                                                                    </td>
                                                                                                     <td>
                                                                                                         @if (item.EndTime != null && item.InspectedQty != null)
                                                                                                         {
@@ -680,11 +674,11 @@
                                                                                         </div>
                                                                                     </div>
                                                                                     @*<div class="col-lg-2">
-                                                                                        <div>
-                                                                                            @Html.LabelFor(model => model._submodel._StartTime, "Start Time", new { @class = "form-label" })
-                                                                                            @Html.EditorFor(model => model._submodel._StartTime, new { htmlAttributes = new { @class = "form-control", @type = "time", @placeholder = "Select Time", @required = "required" } })
-                                                                                        </div>
-                                                                                    </div>*@
+                                                                                            <div>
+                                                                                                @Html.LabelFor(model => model._submodel._StartTime, "Start Time", new { @class = "form-label" })
+                                                                                                @Html.EditorFor(model => model._submodel._StartTime, new { htmlAttributes = new { @class = "form-control", @type = "time", @placeholder = "Select Time", @required = "required" } })
+                                                                                            </div>
+                                                                                        </div>*@
                                                                                     <div class="col-lg-2">
                                                                                         @Html.LabelFor(model => model._submodel.InspectionBy, new { @class = "form-label" })
                                                                                         @{
@@ -725,7 +719,7 @@
                                                                                         <tr>
                                                                                             <th class="" data-sort="name">Sr No.</th>
                                                                                             <th class="" data-sort="leads_score">Inspection Date Time</th>
-                                                                                             @*<th class="" data-sort="phone">Start Time</th>*@
+                                                                                            @*<th class="" data-sort="phone">Start Time</th>*@
                                                                                             <th class="" data-sort="location">End Time</th>
                                                                                             <th class="" data-sort="tags">Inspection  Qty</th>
                                                                                             <th class="" data-sort="date">Ins By</th>
@@ -745,8 +739,8 @@
                                                                                                         @Html.DisplayFor(modelItem => item.inspectiondate)
                                                                                                     </td>
                                                                                                     @*<td>
-                                                                                                        @Html.DisplayFor(modelItem => item.StartTime)
-                                                                                                    </td>*@
+                                                                                                            @Html.DisplayFor(modelItem => item.StartTime)
+                                                                                                        </td>*@
                                                                                                     <td>
                                                                                                         @if (item.EndTime != null && item.InspectedQty != null)
                                                                                                         {
@@ -848,11 +842,11 @@
                                                                                         </div>
                                                                                     </div>
                                                                                     @*<div class="col-lg-2">
-                                                                                        <div>
-                                                                                            @Html.LabelFor(model => model._submodel.StartTime, "Start Time", new { @class = "form-label" })
-                                                                                            @Html.EditorFor(model => model._submodel.StartTime, new { htmlAttributes = new { @class = "form-control ftime", @type = "time", @placeholder = "Select Time", @required = "required" } })
-                                                                                        </div>
-                                                                                    </div>*@
+                                                                                            <div>
+                                                                                                @Html.LabelFor(model => model._submodel.StartTime, "Start Time", new { @class = "form-label" })
+                                                                                                @Html.EditorFor(model => model._submodel.StartTime, new { htmlAttributes = new { @class = "form-control ftime", @type = "time", @placeholder = "Select Time", @required = "required" } })
+                                                                                            </div>
+                                                                                        </div>*@
                                                                                     <div class="col-lg-2">
                                                                                         @Html.LabelFor(model => model._submodel.InspectionBy, new { @class = "form-label" })
                                                                                         @{
@@ -893,7 +887,7 @@
                                                                                         <tr>
                                                                                             <th class="" data-sort="name">Sr No.</th>
                                                                                             <th class="" data-sort="leads_score">Inspection Date</th>
-                                                                                             @*<th class="" data-sort="phone">Start Time</th>*@
+                                                                                            @*<th class="" data-sort="phone">Start Time</th>*@
                                                                                             <th class="" data-sort="location">End Time</th>
                                                                                             <th class="" data-sort="tags">Inspection  Qty</th>
                                                                                             <th class="" data-sort="date">Ins By</th>
@@ -913,8 +907,8 @@
                                                                                                         @Html.DisplayFor(modelItem => item.inspectiondate)
                                                                                                     </td>
                                                                                                     @*<td>
-                                                                                                        @Html.DisplayFor(modelItem => item.StartTime)
-                                                                                                    </td>*@
+                                                                                                            @Html.DisplayFor(modelItem => item.StartTime)
+                                                                                                        </td>*@
                                                                                                     <td>
                                                                                                         @if (item.EndTime != null && item.InspectedQty != null)
                                                                                                         {
@@ -1028,11 +1022,11 @@
                                                                                         </div>
                                                                                     </div>
                                                                                     @*<div class="col-lg-2">
-                                                                                        <div>
-                                                                                            @Html.LabelFor(model => model._submodel._StartTime, "Start Time", new { @class = "form-label" })
-                                                                                            @Html.EditorFor(model => model._submodel._StartTime, new { htmlAttributes = new { @class = "form-control", @type = "time", @placeholder = "Select Time", @required = "required" } })
-                                                                                        </div>
-                                                                                    </div>*@
+                                                                                            <div>
+                                                                                                @Html.LabelFor(model => model._submodel._StartTime, "Start Time", new { @class = "form-label" })
+                                                                                                @Html.EditorFor(model => model._submodel._StartTime, new { htmlAttributes = new { @class = "form-control", @type = "time", @placeholder = "Select Time", @required = "required" } })
+                                                                                            </div>
+                                                                                        </div>*@
                                                                                     <div class="col-lg-2">
                                                                                         @Html.LabelFor(model => model._submodel.InspectionBy, new { @class = "form-label" })
                                                                                         @{
@@ -1064,7 +1058,7 @@
                                                                                         <tr>
                                                                                             <th class="" data-sort="name">Sr No.</th>
                                                                                             <th class="" data-sort="leads_score">Inspection Date Time</th>
-                                                                                             @*<th class="" data-sort="phone">Start Time</th>*@
+                                                                                            @*<th class="" data-sort="phone">Start Time</th>*@
                                                                                             <th class="" data-sort="location">End Time</th>
                                                                                             <th class="" data-sort="tags">Inspection  Qty</th>
                                                                                             <th class="" data-sort="date">Ins By</th>
@@ -1084,8 +1078,8 @@
                                                                                                         @Html.DisplayFor(modelItem => item.inspectiondate)
                                                                                                     </td>
                                                                                                     @*<td>
-                                                                                                        @Html.DisplayFor(modelItem => item.StartTime)
-                                                                                                    </td>*@
+                                                                                                            @Html.DisplayFor(modelItem => item.StartTime)
+                                                                                                        </td>*@
                                                                                                     <td>
                                                                                                         @if (item.EndTime != null && item.InspectedQty != null)
                                                                                                         {
@@ -1189,11 +1183,11 @@
                                                                                         </div>
                                                                                     </div>
                                                                                     @*<div class="col-lg-2">
-                                                                                        <div>
-                                                                                            @Html.LabelFor(model => model._submodel.StartTime, "Start Time", new { @class = "form-label" })
-                                                                                            @Html.EditorFor(model => model._submodel.StartTime, new { htmlAttributes = new { @class = "form-control ftime", @type = "time", @placeholder = "Select Time", @required = "required" } })
-                                                                                        </div>
-                                                                                    </div>*@
+                                                                                            <div>
+                                                                                                @Html.LabelFor(model => model._submodel.StartTime, "Start Time", new { @class = "form-label" })
+                                                                                                @Html.EditorFor(model => model._submodel.StartTime, new { htmlAttributes = new { @class = "form-control ftime", @type = "time", @placeholder = "Select Time", @required = "required" } })
+                                                                                            </div>
+                                                                                        </div>*@
                                                                                     <div class="col-lg-2">
                                                                                         @Html.LabelFor(model => model._submodel.InspectionBy, new { @class = "form-label" })
                                                                                         @{
@@ -1246,8 +1240,8 @@
                                                                                                         @Html.DisplayFor(modelItem => item.inspectiondate)
                                                                                                     </td>
                                                                                                     @*<td>
-                                                                                                        @Html.DisplayFor(modelItem => item.StartTime)
-                                                                                                    </td>*@
+                                                                                                            @Html.DisplayFor(modelItem => item.StartTime)
+                                                                                                        </td>*@
                                                                                                     <td>
                                                                                                         @if (item.EndTime != null && item.InspectedQty != null)
                                                                                                         {
@@ -1363,11 +1357,11 @@
                                                                                         </div>
                                                                                     </div>
                                                                                     @*<div class="col-lg-2">
-                                                                                        <div>
-                                                                                            @Html.LabelFor(model => model._submodel._StartTime, "Start Time", new { @class = "form-label" })
-                                                                                            @Html.EditorFor(model => model._submodel._StartTime, new { htmlAttributes = new { @class = "form-control", @type = "time", @placeholder = "Select Time", @required = "required" } })
-                                                                                        </div>
-                                                                                    </div>*@
+                                                                                            <div>
+                                                                                                @Html.LabelFor(model => model._submodel._StartTime, "Start Time", new { @class = "form-label" })
+                                                                                                @Html.EditorFor(model => model._submodel._StartTime, new { htmlAttributes = new { @class = "form-control", @type = "time", @placeholder = "Select Time", @required = "required" } })
+                                                                                            </div>
+                                                                                        </div>*@
                                                                                     <div class="col-lg-2">
                                                                                         @Html.LabelFor(model => model._submodel.InspectionBy, new { @class = "form-label" })
                                                                                         @{
@@ -1408,7 +1402,7 @@
                                                                                         <tr>
                                                                                             <th class="" data-sort="name">Sr No.</th>
                                                                                             <th class="" data-sort="leads_score">Inspection Date</th>
-                                                                                             @*<th class="" data-sort="phone">Start Time</th>*@
+                                                                                            @*<th class="" data-sort="phone">Start Time</th>*@
                                                                                             <th class="" data-sort="location">End Time</th>
                                                                                             <th class="" data-sort="tags">Inspection  Qty</th>
                                                                                             <th class="" data-sort="date">Ins By</th>
@@ -1428,8 +1422,8 @@
                                                                                                         @Html.DisplayFor(modelItem => item.inspectiondate)
                                                                                                     </td>
                                                                                                     @*<td>
-                                                                                                        @Html.DisplayFor(modelItem => item.StartTime)
-                                                                                                    </td>*@
+                                                                                                            @Html.DisplayFor(modelItem => item.StartTime)
+                                                                                                        </td>*@
                                                                                                     <td>
                                                                                                         @if (item.EndTime != null && item.InspectedQty != null)
                                                                                                         {
@@ -1531,11 +1525,11 @@
                                                                                         </div>
                                                                                     </div>
                                                                                     @*<div class="col-lg-2">
-                                                                                        <div>
-                                                                                            @Html.LabelFor(model => model._submodel.StartTime, "Start Time", new { @class = "form-label" })
-                                                                                            @Html.EditorFor(model => model._submodel.StartTime, new { htmlAttributes = new { @class = "form-control ftime", @type = "time", @placeholder = "Select Time", @required = "required" } })
-                                                                                        </div>
-                                                                                    </div>*@
+                                                                                            <div>
+                                                                                                @Html.LabelFor(model => model._submodel.StartTime, "Start Time", new { @class = "form-label" })
+                                                                                                @Html.EditorFor(model => model._submodel.StartTime, new { htmlAttributes = new { @class = "form-control ftime", @type = "time", @placeholder = "Select Time", @required = "required" } })
+                                                                                            </div>
+                                                                                        </div>*@
                                                                                     <div class="col-lg-2">
                                                                                         @Html.LabelFor(model => model._submodel.InspectionBy, new { @class = "form-label" })
                                                                                         @{
@@ -1576,7 +1570,7 @@
                                                                                         <tr>
                                                                                             <th class="" data-sort="name">Sr No.</th>
                                                                                             <th class="" data-sort="leads_score">Inspection Date Time</th>
-                                                                                             @*<th class="" data-sort="phone">Start Time</th>*@
+                                                                                            @*<th class="" data-sort="phone">Start Time</th>*@
                                                                                             <th class="" data-sort="location">End Time</th>
                                                                                             <th class="" data-sort="tags">Inspection  Qty</th>
                                                                                             <th class="" data-sort="date">Ins By</th>
@@ -1596,8 +1590,8 @@
                                                                                                         @Html.DisplayFor(modelItem => item.inspectiondate)
                                                                                                     </td>
                                                                                                     @*<td>
-                                                                                                        @Html.DisplayFor(modelItem => item.StartTime)
-                                                                                                    </td>*@
+                                                                                                            @Html.DisplayFor(modelItem => item.StartTime)
+                                                                                                        </td>*@
                                                                                                     <td>
                                                                                                         @if (item.EndTime != null && item.InspectedQty != null)
                                                                                                         {
@@ -1710,11 +1704,11 @@
                                                                                         </div>
                                                                                     </div>
                                                                                     @*<div class="col-lg-2">
-                                                                                        <div>
-                                                                                            @Html.LabelFor(model => model._submodel._StartTime, "Start Time", new { @class = "form-label" })
-                                                                                            @Html.EditorFor(model => model._submodel._StartTime, new { htmlAttributes = new { @class = "form-control", @type = "time", @placeholder = "Select Time", @required = "required" } })
-                                                                                        </div>
-                                                                                    </div>*@
+                                                                                            <div>
+                                                                                                @Html.LabelFor(model => model._submodel._StartTime, "Start Time", new { @class = "form-label" })
+                                                                                                @Html.EditorFor(model => model._submodel._StartTime, new { htmlAttributes = new { @class = "form-control", @type = "time", @placeholder = "Select Time", @required = "required" } })
+                                                                                            </div>
+                                                                                        </div>*@
                                                                                     <div class="col-lg-2">
                                                                                         @Html.LabelFor(model => model._submodel.InspectionBy, new { @class = "form-label" })
                                                                                         @{
@@ -1755,7 +1749,7 @@
                                                                                         <tr>
                                                                                             <th class="" data-sort="name">Sr No.</th>
                                                                                             <th class="" data-sort="leads_score">Inspection Date Time</th>
-                                                                                             @*<th class="" data-sort="phone">Start Time</th>*@
+                                                                                            @*<th class="" data-sort="phone">Start Time</th>*@
                                                                                             <th class="" data-sort="location">End Time</th>
                                                                                             <th class="" data-sort="tags">Inspection  Qty</th>
                                                                                             <th class="" data-sort="date">Ins By</th>
@@ -1775,8 +1769,8 @@
                                                                                                         @Html.DisplayFor(modelItem => item.inspectiondate)
                                                                                                     </td>
                                                                                                     @*<td>
-                                                                                                        @Html.DisplayFor(modelItem => item.StartTime)
-                                                                                                    </td>*@
+                                                                                                            @Html.DisplayFor(modelItem => item.StartTime)
+                                                                                                        </td>*@
                                                                                                     <td>
                                                                                                         @if (item.EndTime != null && item.InspectedQty != null)
                                                                                                         {
@@ -1878,11 +1872,11 @@
                                                                                         </div>
                                                                                     </div>
                                                                                     @*<div class="col-lg-2">
-                                                                                        <div>
-                                                                                            @Html.LabelFor(model => model._submodel.StartTime, "Start Time", new { @class = "form-label" })
-                                                                                            @Html.EditorFor(model => model._submodel.StartTime, new { htmlAttributes = new { @class = "form-control ftime", @type = "time", @placeholder = "Select Time", @required = "required" } })
-                                                                                        </div>
-                                                                                    </div>*@
+                                                                                            <div>
+                                                                                                @Html.LabelFor(model => model._submodel.StartTime, "Start Time", new { @class = "form-label" })
+                                                                                                @Html.EditorFor(model => model._submodel.StartTime, new { htmlAttributes = new { @class = "form-control ftime", @type = "time", @placeholder = "Select Time", @required = "required" } })
+                                                                                            </div>
+                                                                                        </div>*@
                                                                                     <div class="col-lg-2">
                                                                                         @Html.LabelFor(model => model._submodel.InspectionBy, new { @class = "form-label" })
                                                                                         @{
@@ -1943,8 +1937,8 @@
                                                                                                         @Html.DisplayFor(modelItem => item.inspectiondate)
                                                                                                     </td>
                                                                                                     @*<td>
-                                                                                                        @Html.DisplayFor(modelItem => item.StartTime)
-                                                                                                    </td>*@
+                                                                                                            @Html.DisplayFor(modelItem => item.StartTime)
+                                                                                                        </td>*@
                                                                                                     <td>
                                                                                                         @if (item.EndTime != null && item.InspectedQty != null)
                                                                                                         {
@@ -2053,11 +2047,11 @@
                                                                                         </div>
                                                                                     </div>
                                                                                     @*<div class="col-lg-2">
-                                                                                        <div>
-                                                                                            @Html.LabelFor(model => model._submodel._StartTime, "Start Time", new { @class = "form-label" })
-                                                                                            @Html.EditorFor(model => model._submodel._StartTime, new { htmlAttributes = new { @class = "form-control", @type = "time", @placeholder = "Select Time", @required = "required" } })
-                                                                                        </div>
-                                                                                    </div>*@
+                                                                                            <div>
+                                                                                                @Html.LabelFor(model => model._submodel._StartTime, "Start Time", new { @class = "form-label" })
+                                                                                                @Html.EditorFor(model => model._submodel._StartTime, new { htmlAttributes = new { @class = "form-control", @type = "time", @placeholder = "Select Time", @required = "required" } })
+                                                                                            </div>
+                                                                                        </div>*@
                                                                                     <div class="col-lg-2">
                                                                                         @Html.LabelFor(model => model._submodel.InspectionBy, new { @class = "form-label" })
                                                                                         @{
@@ -2118,8 +2112,8 @@
                                                                                                         @Html.DisplayFor(modelItem => item.inspectiondate)
                                                                                                     </td>
                                                                                                     @*<td>
-                                                                                                        @Html.DisplayFor(modelItem => item.StartTime)
-                                                                                                    </td>*@
+                                                                                                            @Html.DisplayFor(modelItem => item.StartTime)
+                                                                                                        </td>*@
                                                                                                     <td>
                                                                                                         @if (item.EndTime != null && item.InspectedQty != null)
                                                                                                         {
@@ -2220,11 +2214,11 @@
                                                                                         </div>
                                                                                     </div>
                                                                                     @*<div class="col-lg-2">
-                                                                                        <div>
-                                                                                            @Html.LabelFor(model => model._submodel.StartTime, "Start Time", new { @class = "form-label" })
-                                                                                            @Html.EditorFor(model => model._submodel.StartTime, new { htmlAttributes = new { @class = "form-control ftime", @type = "time", @placeholder = "Select Time", @required = "required" } })
-                                                                                        </div>
-                                                                                    </div>*@
+                                                                                            <div>
+                                                                                                @Html.LabelFor(model => model._submodel.StartTime, "Start Time", new { @class = "form-label" })
+                                                                                                @Html.EditorFor(model => model._submodel.StartTime, new { htmlAttributes = new { @class = "form-control ftime", @type = "time", @placeholder = "Select Time", @required = "required" } })
+                                                                                            </div>
+                                                                                        </div>*@
                                                                                     <div class="col-lg-2">
                                                                                         @Html.LabelFor(model => model._submodel.InspectionBy, new { @class = "form-label" })
                                                                                         @{
@@ -2285,8 +2279,8 @@
                                                                                                         @Html.DisplayFor(modelItem => item.inspectiondate)
                                                                                                     </td>
                                                                                                     @*<td>
-                                                                                                        @Html.DisplayFor(modelItem => item.StartTime)
-                                                                                                    </td>*@
+                                                                                                            @Html.DisplayFor(modelItem => item.StartTime)
+                                                                                                        </td>*@
                                                                                                     <td>
                                                                                                         @if (item.EndTime != null && item.InspectedQty != null)
                                                                                                         {
@@ -2403,11 +2397,11 @@
                                                                                         </div>
                                                                                     </div>
                                                                                     @*<div class="col-lg-2">
-                                                                                        <div>
-                                                                                            @Html.LabelFor(model => model._submodel.StartTime, "Start Time", new { @class = "form-label" })
-                                                                                            @Html.EditorFor(model => model._submodel.StartTime, new { htmlAttributes = new { @class = "form-control", @type = "time", @placeholder = "Select Time", @required = "required" } })
-                                                                                        </div>
-                                                                                    </div>*@
+                                                                                            <div>
+                                                                                                @Html.LabelFor(model => model._submodel.StartTime, "Start Time", new { @class = "form-label" })
+                                                                                                @Html.EditorFor(model => model._submodel.StartTime, new { htmlAttributes = new { @class = "form-control", @type = "time", @placeholder = "Select Time", @required = "required" } })
+                                                                                            </div>
+                                                                                        </div>*@
                                                                                     <div class="col-lg-2">
                                                                                         @Html.LabelFor(model => model._submodel.InspectionBy, new { @class = "form-label" })
                                                                                         @{
@@ -2439,7 +2433,7 @@
                                                                                         <tr>
                                                                                             <th class="" data-sort="name">Sr No.</th>
                                                                                             <th class="" data-sort="leads_score">Inspection Date</th>
-                                                                                             @*<th class="" data-sort="phone">Start Time</th>*@
+                                                                                            @*<th class="" data-sort="phone">Start Time</th>*@
                                                                                             <th class="" data-sort="location">End Time</th>
                                                                                             <th class="" data-sort="tags">Inspection  Qty</th>
                                                                                             <th class="" data-sort="date">Ins By</th>
@@ -2459,8 +2453,8 @@
                                                                                                         @Html.DisplayFor(modelItem => item.inspectiondate)
                                                                                                     </td>
                                                                                                     @*<td>
-                                                                                                        @Html.DisplayFor(modelItem => item.StartTime)
-                                                                                                    </td>*@
+                                                                                                            @Html.DisplayFor(modelItem => item.StartTime)
+                                                                                                        </td>*@
                                                                                                     <td>
                                                                                                         @if (item.EndTime != null && item.InspectedQty != null)
                                                                                                         {
@@ -2564,11 +2558,11 @@
                                                                                         </div>
                                                                                     </div>
                                                                                     @*<div class="col-lg-2">
-                                                                                        <div>
-                                                                                            @Html.LabelFor(model => model._submodel.StartTime, "Start Time", new { @class = "form-label" })
-                                                                                            @Html.EditorFor(model => model._submodel.StartTime, new { htmlAttributes = new { @class = "form-control ftime", @type = "time", @placeholder = "Select Time", @required = "required" } })
-                                                                                        </div>
-                                                                                    </div>*@
+                                                                                            <div>
+                                                                                                @Html.LabelFor(model => model._submodel.StartTime, "Start Time", new { @class = "form-label" })
+                                                                                                @Html.EditorFor(model => model._submodel.StartTime, new { htmlAttributes = new { @class = "form-control ftime", @type = "time", @placeholder = "Select Time", @required = "required" } })
+                                                                                            </div>
+                                                                                        </div>*@
                                                                                     <div class="col-lg-2">
                                                                                         @Html.LabelFor(model => model._submodel.InspectionBy, new { @class = "form-label" })
                                                                                         @{
@@ -2601,7 +2595,7 @@
                                                                                         <tr>
                                                                                             <th class="" data-sort="name">Sr No.</th>
                                                                                             <th class="" data-sort="leads_score">Inspection Date</th>
-                                                                                             @*<th class="" data-sort="phone">Start Time</th>*@
+                                                                                            @*<th class="" data-sort="phone">Start Time</th>*@
                                                                                             <th class="" data-sort="location">End Time</th>
                                                                                             <th class="" data-sort="tags">Inspection  Qty</th>
                                                                                             <th class="" data-sort="date">Ins By</th>
@@ -2621,8 +2615,8 @@
                                                                                                         @Html.DisplayFor(modelItem => item.inspectiondate)
                                                                                                     </td>
                                                                                                     @*<td>
-                                                                                                        @Html.DisplayFor(modelItem => item.StartTime)
-                                                                                                    </td>*@
+                                                                                                            @Html.DisplayFor(modelItem => item.StartTime)
+                                                                                                        </td>*@
                                                                                                     <td>
                                                                                                         @if (item.EndTime != null && item.InspectedQty != null)
                                                                                                         {
@@ -2738,11 +2732,11 @@
                                                                                         </div>
                                                                                     </div>
                                                                                     @*<div class="col-lg-2">
-                                                                                        <div>
-                                                                                            @Html.LabelFor(model => model._submodel.StartTime, "Start Time", new { @class = "form-label" })
-                                                                                            @Html.EditorFor(model => model._submodel.StartTime, new { htmlAttributes = new { @class = "form-control", @type = "time", @placeholder = "Select Time", @required = "required" } })
-                                                                                        </div>
-                                                                                    </div>*@
+                                                                                            <div>
+                                                                                                @Html.LabelFor(model => model._submodel.StartTime, "Start Time", new { @class = "form-label" })
+                                                                                                @Html.EditorFor(model => model._submodel.StartTime, new { htmlAttributes = new { @class = "form-control", @type = "time", @placeholder = "Select Time", @required = "required" } })
+                                                                                            </div>
+                                                                                        </div>*@
                                                                                     <div class="col-lg-2">
                                                                                         @Html.LabelFor(model => model._submodel.InspectionBy, new { @class = "form-label" })
                                                                                         @{
@@ -2803,8 +2797,8 @@
                                                                                                         @Html.DisplayFor(modelItem => item.inspectiondate)
                                                                                                     </td>
                                                                                                     @*<td>
-                                                                                                        @Html.DisplayFor(modelItem => item.StartTime)
-                                                                                                    </td>*@
+                                                                                                            @Html.DisplayFor(modelItem => item.StartTime)
+                                                                                                        </td>*@
                                                                                                     <td>
                                                                                                         @if (item.EndTime != null && item.InspectedQty != null)
                                                                                                         {
@@ -2906,11 +2900,11 @@
                                                                                         </div>
                                                                                     </div>
                                                                                     @*<div class="col-lg-2">
-                                                                                        <div>
-                                                                                            @Html.LabelFor(model => model._submodel.StartTime, "Start Time", new { @class = "form-label" })
-                                                                                            @Html.EditorFor(model => model._submodel.StartTime, new { htmlAttributes = new { @class = "form-control ftime", @type = "time", @placeholder = "Select Time", @required = "required" } })
-                                                                                        </div>
-                                                                                    </div>*@
+                                                                                            <div>
+                                                                                                @Html.LabelFor(model => model._submodel.StartTime, "Start Time", new { @class = "form-label" })
+                                                                                                @Html.EditorFor(model => model._submodel.StartTime, new { htmlAttributes = new { @class = "form-control ftime", @type = "time", @placeholder = "Select Time", @required = "required" } })
+                                                                                            </div>
+                                                                                        </div>*@
                                                                                     <div class="col-lg-2">
                                                                                         @Html.LabelFor(model => model._submodel.InspectionBy, new { @class = "form-label" })
                                                                                         @{
@@ -2971,8 +2965,8 @@
                                                                                                         @Html.DisplayFor(modelItem => item.inspectiondate)
                                                                                                     </td>
                                                                                                     @*<td>
-                                                                                                        @Html.DisplayFor(modelItem => item.StartTime)
-                                                                                                    </td>*@
+                                                                                                            @Html.DisplayFor(modelItem => item.StartTime)
+                                                                                                        </td>*@
                                                                                                     <td>
                                                                                                         @if (item.EndTime != null && item.InspectedQty != null)
                                                                                                         {
@@ -3089,11 +3083,11 @@
                                                                                         </div>
                                                                                     </div>
                                                                                     @*<div class="col-lg-2">
-                                                                                        <div>
-                                                                                            @Html.LabelFor(model => model._submodel.StartTime, "Start Time", new { @class = "form-label" })
-                                                                                            @Html.EditorFor(model => model._submodel.StartTime, new { htmlAttributes = new { @class = "form-control", @type = "time", @placeholder = "Select Time", @required = "required" } })
-                                                                                        </div>
-                                                                                    </div>*@
+                                                                                            <div>
+                                                                                                @Html.LabelFor(model => model._submodel.StartTime, "Start Time", new { @class = "form-label" })
+                                                                                                @Html.EditorFor(model => model._submodel.StartTime, new { htmlAttributes = new { @class = "form-control", @type = "time", @placeholder = "Select Time", @required = "required" } })
+                                                                                            </div>
+                                                                                        </div>*@
                                                                                     <div class="col-lg-2">
                                                                                         @Html.LabelFor(model => model._submodel.InspectionBy, new { @class = "form-label" })
                                                                                         @{
@@ -3125,7 +3119,7 @@
                                                                                         <tr>
                                                                                             <th class="" data-sort="name">Sr No.</th>
                                                                                             <th class="" data-sort="leads_score">Inspection Date</th>
-                                                                                             @*<th class="" data-sort="phone">Start Time</th>*@
+                                                                                            @*<th class="" data-sort="phone">Start Time</th>*@
                                                                                             <th class="" data-sort="location">End Time</th>
                                                                                             <th class="" data-sort="tags">Inspection  Qty</th>
                                                                                             <th class="" data-sort="date">Ins By</th>
@@ -3250,11 +3244,11 @@
                                                                                         </div>
                                                                                     </div>
                                                                                     @*<div class="col-lg-2">
-                                                                                        <div>
-                                                                                            @Html.LabelFor(model => model._submodel.StartTime, "Start Time", new { @class = "form-label" })
-                                                                                            @Html.EditorFor(model => model._submodel.StartTime, new { htmlAttributes = new { @class = "form-control ftime", @type = "time", @placeholder = "Select Time", @required = "required" } })
-                                                                                        </div>
-                                                                                    </div>*@
+                                                                                            <div>
+                                                                                                @Html.LabelFor(model => model._submodel.StartTime, "Start Time", new { @class = "form-label" })
+                                                                                                @Html.EditorFor(model => model._submodel.StartTime, new { htmlAttributes = new { @class = "form-control ftime", @type = "time", @placeholder = "Select Time", @required = "required" } })
+                                                                                            </div>
+                                                                                        </div>*@
                                                                                     <div class="col-lg-2">
                                                                                         @Html.LabelFor(model => model._submodel.InspectionBy, new { @class = "form-label" })
                                                                                         @{
@@ -3287,7 +3281,7 @@
                                                                                         <tr>
                                                                                             <th class="" data-sort="name">Sr No.</th>
                                                                                             <th class="" data-sort="leads_score">Inspection Date</th>
-                                                                                             @*<th class="" data-sort="phone">Start Time</th>*@
+                                                                                            @*<th class="" data-sort="phone">Start Time</th>*@
                                                                                             <th class="" data-sort="location">End Time</th>
                                                                                             <th class="" data-sort="tags">Inspection  Qty</th>
                                                                                             <th class="" data-sort="date">Ins By</th>
@@ -3307,8 +3301,8 @@
                                                                                                         @Html.DisplayFor(modelItem => item.inspectiondate)
                                                                                                     </td>
                                                                                                     @*<td>
-                                                                                                        @Html.DisplayFor(modelItem => item.StartTime)
-                                                                                                    </td>*@
+                                                                                                            @Html.DisplayFor(modelItem => item.StartTime)
+                                                                                                        </td>*@
                                                                                                     <td>
                                                                                                         @if (item.EndTime != null && item.InspectedQty != null)
                                                                                                         {
@@ -3421,11 +3415,11 @@
                                                                                         </div>
                                                                                     </div>
                                                                                     @*<div class="col-lg-2">
-                                                                                        <div>
-                                                                                            @Html.LabelFor(model => model._submodel.StartTime, "Start Time", new { @class = "form-label" })
-                                                                                            @Html.EditorFor(model => model._submodel.StartTime, new { htmlAttributes = new { @class = "form-control", @type = "time", @placeholder = "Select Time", @required = "required" } })
-                                                                                        </div>
-                                                                                    </div>*@
+                                                                                            <div>
+                                                                                                @Html.LabelFor(model => model._submodel.StartTime, "Start Time", new { @class = "form-label" })
+                                                                                                @Html.EditorFor(model => model._submodel.StartTime, new { htmlAttributes = new { @class = "form-control", @type = "time", @placeholder = "Select Time", @required = "required" } })
+                                                                                            </div>
+                                                                                        </div>*@
                                                                                     <div class="col-lg-2">
                                                                                         @Html.LabelFor(model => model._submodel.InspectionBy, new { @class = "form-label" })
                                                                                         @{
@@ -3466,7 +3460,7 @@
                                                                                         <tr>
                                                                                             <th class="" data-sort="name">Sr No.</th>
                                                                                             <th class="" data-sort="leads_score">Inspection Date</th>
-                                                                                             @*<th class="" data-sort="phone">Start Time</th>*@
+                                                                                            @*<th class="" data-sort="phone">Start Time</th>*@
                                                                                             <th class="" data-sort="location">End Time</th>
                                                                                             <th class="" data-sort="tags">Inspection  Qty</th>
                                                                                             <th class="" data-sort="date">Ins By</th>
@@ -3486,8 +3480,8 @@
                                                                                                         @Html.DisplayFor(modelItem => item.inspectiondate)
                                                                                                     </td>
                                                                                                     @*<td>
-                                                                                                        @Html.DisplayFor(modelItem => item.StartTime)
-                                                                                                    </td>*@
+                                                                                                            @Html.DisplayFor(modelItem => item.StartTime)
+                                                                                                        </td>*@
                                                                                                     <td>
                                                                                                         @if (item.EndTime != null && item.InspectedQty != null)
                                                                                                         {
@@ -3588,11 +3582,11 @@
                                                                                         </div>
                                                                                     </div>
                                                                                     @*<div class="col-lg-2">
-                                                                                        <div>
-                                                                                            @Html.LabelFor(model => model._submodel.StartTime, "Start Time", new { @class = "form-label" })
-                                                                                            @Html.EditorFor(model => model._submodel.StartTime, new { htmlAttributes = new { @class = "form-control ftime", @type = "time", @placeholder = "Select Time", @required = "required" } })
-                                                                                        </div>
-                                                                                    </div>*@
+                                                                                            <div>
+                                                                                                @Html.LabelFor(model => model._submodel.StartTime, "Start Time", new { @class = "form-label" })
+                                                                                                @Html.EditorFor(model => model._submodel.StartTime, new { htmlAttributes = new { @class = "form-control ftime", @type = "time", @placeholder = "Select Time", @required = "required" } })
+                                                                                            </div>
+                                                                                        </div>*@
                                                                                     <div class="col-lg-2">
                                                                                         @Html.LabelFor(model => model._submodel.InspectionBy, new { @class = "form-label" })
                                                                                         @{
@@ -3633,7 +3627,7 @@
                                                                                         <tr>
                                                                                             <th class="" data-sort="name">Sr No.</th>
                                                                                             <th class="" data-sort="leads_score">Inspection Date</th>
-                                                                                             @*<th class="" data-sort="phone">Start Time</th>*@
+                                                                                            @*<th class="" data-sort="phone">Start Time</th>*@
                                                                                             <th class="" data-sort="location">End Time</th>
                                                                                             <th class="" data-sort="tags">Inspection  Qty</th>
                                                                                             <th class="" data-sort="date">Ins By</th>
@@ -3653,8 +3647,8 @@
                                                                                                         @Html.DisplayFor(modelItem => item.inspectiondate)
                                                                                                     </td>
                                                                                                     @*<td>
-                                                                                                        @Html.DisplayFor(modelItem => item.StartTime)
-                                                                                                    </td>*@
+                                                                                                            @Html.DisplayFor(modelItem => item.StartTime)
+                                                                                                        </td>*@
                                                                                                     <td>
                                                                                                         @if (item.EndTime != null && item.InspectedQty != null)
                                                                                                         {
@@ -3765,11 +3759,11 @@
                                                                                         </div>
                                                                                     </div>
                                                                                     @*<div class="col-lg-2">
-                                                                                        <div>
-                                                                                            @Html.LabelFor(model => model._submodel.StartTime, "Start Time", new { @class = "form-label" })
-                                                                                            @Html.EditorFor(model => model._submodel.StartTime, new { htmlAttributes = new { @class = "form-control", @type = "time", @placeholder = "Select Time", @required = "required" } })
-                                                                                        </div>
-                                                                                    </div>*@
+                                                                                            <div>
+                                                                                                @Html.LabelFor(model => model._submodel.StartTime, "Start Time", new { @class = "form-label" })
+                                                                                                @Html.EditorFor(model => model._submodel.StartTime, new { htmlAttributes = new { @class = "form-control", @type = "time", @placeholder = "Select Time", @required = "required" } })
+                                                                                            </div>
+                                                                                        </div>*@
                                                                                     <div class="col-lg-2">
                                                                                         @Html.LabelFor(model => model._submodel.InspectionBy, new { @class = "form-label" })
                                                                                         @{
@@ -3810,7 +3804,7 @@
                                                                                         <tr>
                                                                                             <th class="" data-sort="name">Sr No.</th>
                                                                                             <th class="" data-sort="leads_score">Inspection Date</th>
-                                                                                             @*<th class="" data-sort="phone">Start Time</th>*@
+                                                                                            @*<th class="" data-sort="phone">Start Time</th>*@
                                                                                             <th class="" data-sort="location">End Time</th>
                                                                                             <th class="" data-sort="tags">Inspection  Qty</th>
                                                                                             <th class="" data-sort="date">Ins By</th>
@@ -3830,8 +3824,8 @@
                                                                                                         @Html.DisplayFor(modelItem => item.inspectiondate)
                                                                                                     </td>
                                                                                                     @*<td>
-                                                                                                        @Html.DisplayFor(modelItem => item.StartTime)
-                                                                                                    </td>*@
+                                                                                                            @Html.DisplayFor(modelItem => item.StartTime)
+                                                                                                        </td>*@
                                                                                                     <td>
                                                                                                         @if (item.EndTime != null && item.InspectedQty != null)
                                                                                                         {
@@ -3933,11 +3927,11 @@
                                                                                         </div>
                                                                                     </div>
                                                                                     @*<div class="col-lg-2">
-                                                                                        <div>
-                                                                                            @Html.LabelFor(model => model._submodel.StartTime, "Start Time", new { @class = "form-label" })
-                                                                                            @Html.EditorFor(model => model._submodel.StartTime, new { htmlAttributes = new { @class = "form-control ftime", @type = "time", @placeholder = "Select Time", @required = "required" } })
-                                                                                        </div>
-                                                                                    </div>*@
+                                                                                            <div>
+                                                                                                @Html.LabelFor(model => model._submodel.StartTime, "Start Time", new { @class = "form-label" })
+                                                                                                @Html.EditorFor(model => model._submodel.StartTime, new { htmlAttributes = new { @class = "form-control ftime", @type = "time", @placeholder = "Select Time", @required = "required" } })
+                                                                                            </div>
+                                                                                        </div>*@
                                                                                     <div class="col-lg-2">
                                                                                         @Html.LabelFor(model => model._submodel.InspectionBy, new { @class = "form-label" })
                                                                                         @{
@@ -3978,7 +3972,7 @@
                                                                                         <tr>
                                                                                             <th class="" data-sort="name">Sr No.</th>
                                                                                             <th class="" data-sort="leads_score">Inspection Date</th>
-                                                                                             @*<th class="" data-sort="phone">Start Time</th>*@
+                                                                                            @*<th class="" data-sort="phone">Start Time</th>*@
                                                                                             <th class="" data-sort="location">End Time</th>
                                                                                             <th class="" data-sort="tags">Inspection  Qty</th>
                                                                                             <th class="" data-sort="date">Ins By</th>
@@ -3998,8 +3992,8 @@
                                                                                                         @Html.DisplayFor(modelItem => item.inspectiondate)
                                                                                                     </td>
                                                                                                     @*<td>
-                                                                                                        @Html.DisplayFor(modelItem => item.StartTime)
-                                                                                                    </td>*@
+                                                                                                            @Html.DisplayFor(modelItem => item.StartTime)
+                                                                                                        </td>*@
                                                                                                     <td>
                                                                                                         @if (item.EndTime != null && item.InspectedQty != null)
                                                                                                         {
@@ -4112,11 +4106,11 @@
                                                                                         </div>
                                                                                     </div>
                                                                                     @*<div class="col-lg-2">
-                                                                                        <div>
-                                                                                            @Html.LabelFor(model => model._submodel.StartTime, "Start Time", new { @class = "form-label" })
-                                                                                            @Html.EditorFor(model => model._submodel.StartTime, new { htmlAttributes = new { @class = "form-control", @type = "time", @placeholder = "Select Time", @required = "required" } })
-                                                                                        </div>
-                                                                                    </div>*@
+                                                                                            <div>
+                                                                                                @Html.LabelFor(model => model._submodel.StartTime, "Start Time", new { @class = "form-label" })
+                                                                                                @Html.EditorFor(model => model._submodel.StartTime, new { htmlAttributes = new { @class = "form-control", @type = "time", @placeholder = "Select Time", @required = "required" } })
+                                                                                            </div>
+                                                                                        </div>*@
                                                                                     <div class="col-lg-2">
                                                                                         @Html.LabelFor(model => model._submodel.InspectionBy, new { @class = "form-label" })
                                                                                         @{
@@ -4157,7 +4151,7 @@
                                                                                         <tr>
                                                                                             <th class="" data-sort="name">Sr No.</th>
                                                                                             <th class="" data-sort="leads_score">Inspection Date</th>
-                                                                                             @*<th class="" data-sort="phone">Start Time</th>*@
+                                                                                            @*<th class="" data-sort="phone">Start Time</th>*@
                                                                                             <th class="" data-sort="location">End Time</th>
                                                                                             <th class="" data-sort="tags">Inspection  Qty</th>
                                                                                             <th class="" data-sort="date">Ins By</th>
@@ -4177,8 +4171,8 @@
                                                                                                         @Html.DisplayFor(modelItem => item.inspectiondate)
                                                                                                     </td>
                                                                                                     @*<td>
-                                                                                                        @Html.DisplayFor(modelItem => item.StartTime)
-                                                                                                    </td>*@
+                                                                                                            @Html.DisplayFor(modelItem => item.StartTime)
+                                                                                                        </td>*@
                                                                                                     <td>
                                                                                                         @if (item.EndTime != null && item.InspectedQty != null)
                                                                                                         {
@@ -4280,11 +4274,11 @@
                                                                                         </div>
                                                                                     </div>
                                                                                     @*<div class="col-lg-2">
-                                                                                        <div>
-                                                                                            @Html.LabelFor(model => model._submodel.StartTime, "Start Time", new { @class = "form-label" })
-                                                                                            @Html.EditorFor(model => model._submodel.StartTime, new { htmlAttributes = new { @class = "form-control ftime", @type = "time", @placeholder = "Select Time", @required = "required" } })
-                                                                                        </div>
-                                                                                    </div>*@
+                                                                                            <div>
+                                                                                                @Html.LabelFor(model => model._submodel.StartTime, "Start Time", new { @class = "form-label" })
+                                                                                                @Html.EditorFor(model => model._submodel.StartTime, new { htmlAttributes = new { @class = "form-control ftime", @type = "time", @placeholder = "Select Time", @required = "required" } })
+                                                                                            </div>
+                                                                                        </div>*@
                                                                                     <div class="col-lg-2">
                                                                                         @Html.LabelFor(model => model._submodel.InspectionBy, new { @class = "form-label" })
                                                                                         @{
@@ -4325,7 +4319,7 @@
                                                                                         <tr>
                                                                                             <th class="" data-sort="name">Sr No.</th>
                                                                                             <th class="" data-sort="leads_score">Inspection Date</th>
-                                                                                             @*<th class="" data-sort="phone">Start Time</th>*@
+                                                                                            @*<th class="" data-sort="phone">Start Time</th>*@
                                                                                             <th class="" data-sort="location">End Time</th>
                                                                                             <th class="" data-sort="tags">Inspection  Qty</th>
                                                                                             <th class="" data-sort="date">Ins By</th>
@@ -4345,8 +4339,8 @@
                                                                                                         @Html.DisplayFor(modelItem => item.inspectiondate)
                                                                                                     </td>
                                                                                                     @*<td>
-                                                                                                        @Html.DisplayFor(modelItem => item.StartTime)
-                                                                                                    </td>*@
+                                                                                                            @Html.DisplayFor(modelItem => item.StartTime)
+                                                                                                        </td>*@
                                                                                                     <td>
                                                                                                         @if (item.EndTime != null && item.InspectedQty != null)
                                                                                                         {
@@ -4461,11 +4455,11 @@
                                                                                         </div>
                                                                                     </div>
                                                                                     @*<div class="col-lg-2">
-                                                                                        <div>
-                                                                                            @Html.LabelFor(model => model._submodel.StartTime, "Start Time", new { @class = "form-label" })
-                                                                                            @Html.EditorFor(model => model._submodel.StartTime, new { htmlAttributes = new { @class = "form-control", @type = "time", @placeholder = "Select Time", @required = "required" } })
-                                                                                        </div>
-                                                                                    </div>*@
+                                                                                            <div>
+                                                                                                @Html.LabelFor(model => model._submodel.StartTime, "Start Time", new { @class = "form-label" })
+                                                                                                @Html.EditorFor(model => model._submodel.StartTime, new { htmlAttributes = new { @class = "form-control", @type = "time", @placeholder = "Select Time", @required = "required" } })
+                                                                                            </div>
+                                                                                        </div>*@
                                                                                     <div class="col-lg-2">
                                                                                         @Html.LabelFor(model => model._submodel.InspectionBy, new { @class = "form-label" })
                                                                                         @{
@@ -4506,7 +4500,7 @@
                                                                                         <tr>
                                                                                             <th class="" data-sort="name">Sr No.</th>
                                                                                             <th class="" data-sort="leads_score">Inspection Date</th>
-                                                                                             @*<th class="" data-sort="phone">Start Time</th>*@
+                                                                                            @*<th class="" data-sort="phone">Start Time</th>*@
                                                                                             <th class="" data-sort="location">End Time</th>
                                                                                             <th class="" data-sort="tags">Inspection  Qty</th>
                                                                                             <th class="" data-sort="date">Ins By</th>
@@ -4526,8 +4520,8 @@
                                                                                                         @Html.DisplayFor(modelItem => item.inspectiondate)
                                                                                                     </td>
                                                                                                     @*<td>
-                                                                                                        @Html.DisplayFor(modelItem => item.StartTime)
-                                                                                                    </td>*@
+                                                                                                            @Html.DisplayFor(modelItem => item.StartTime)
+                                                                                                        </td>*@
                                                                                                     <td>
                                                                                                         @if (item.EndTime != null && item.InspectedQty != null)
                                                                                                         {
@@ -4629,11 +4623,11 @@
                                                                                         </div>
                                                                                     </div>
                                                                                     @*<div class="col-lg-2">
-                                                                                        <div>
-                                                                                            @Html.LabelFor(model => model._submodel.StartTime, "Start Time", new { @class = "form-label" })
-                                                                                            @Html.EditorFor(model => model._submodel.StartTime, new { htmlAttributes = new { @class = "form-control ftime", @type = "time", @placeholder = "Select Time", @required = "required" } })
-                                                                                        </div>
-                                                                                    </div>*@
+                                                                                            <div>
+                                                                                                @Html.LabelFor(model => model._submodel.StartTime, "Start Time", new { @class = "form-label" })
+                                                                                                @Html.EditorFor(model => model._submodel.StartTime, new { htmlAttributes = new { @class = "form-control ftime", @type = "time", @placeholder = "Select Time", @required = "required" } })
+                                                                                            </div>
+                                                                                        </div>*@
                                                                                     <div class="col-lg-2">
                                                                                         @Html.LabelFor(model => model._submodel.InspectionBy, new { @class = "form-label" })
                                                                                         @{
@@ -4674,7 +4668,7 @@
                                                                                         <tr>
                                                                                             <th class="" data-sort="name">Sr No.</th>
                                                                                             <th class="" data-sort="leads_score">Inspection Date</th>
-                                                                                             @*<th class="" data-sort="phone">Start Time</th>*@
+                                                                                            @*<th class="" data-sort="phone">Start Time</th>*@
                                                                                             <th class="" data-sort="location">End Time</th>
                                                                                             <th class="" data-sort="tags">Inspection  Qty</th>
                                                                                             <th class="" data-sort="date">Ins By</th>
@@ -4694,8 +4688,8 @@
                                                                                                         @Html.DisplayFor(modelItem => item.inspectiondate)
                                                                                                     </td>
                                                                                                     @*<td>
-                                                                                                        @Html.DisplayFor(modelItem => item.StartTime)
-                                                                                                    </td>*@
+                                                                                                            @Html.DisplayFor(modelItem => item.StartTime)
+                                                                                                        </td>*@
                                                                                                     <td>
                                                                                                         @if (item.EndTime != null && item.InspectedQty != null)
                                                                                                         {
@@ -4804,11 +4798,11 @@
                                                                                         </div>
                                                                                     </div>
                                                                                     @*<div class="col-lg-2">
-                                                                                        <div>
-                                                                                            @Html.LabelFor(model => model._submodel.StartTime, "Start Time", new { @class = "form-label" })
-                                                                                            @Html.EditorFor(model => model._submodel.StartTime, new { htmlAttributes = new { @class = "form-control", @type = "time", @placeholder = "Select Time", @required = "required" } })
-                                                                                        </div>
-                                                                                    </div>*@
+                                                                                            <div>
+                                                                                                @Html.LabelFor(model => model._submodel.StartTime, "Start Time", new { @class = "form-label" })
+                                                                                                @Html.EditorFor(model => model._submodel.StartTime, new { htmlAttributes = new { @class = "form-control", @type = "time", @placeholder = "Select Time", @required = "required" } })
+                                                                                            </div>
+                                                                                        </div>*@
                                                                                     <div class="col-lg-2">
                                                                                         @Html.LabelFor(model => model._submodel.InspectionBy, new { @class = "form-label" })
                                                                                         @{
@@ -4849,7 +4843,7 @@
                                                                                         <tr>
                                                                                             <th class="" data-sort="name">Sr No.</th>
                                                                                             <th class="" data-sort="leads_score">Inspection Date</th>
-                                                                                             @*<th class="" data-sort="phone">Start Time</th>*@
+                                                                                            @*<th class="" data-sort="phone">Start Time</th>*@
                                                                                             <th class="" data-sort="location">End Time</th>
                                                                                             <th class="" data-sort="tags">Inspection  Qty</th>
                                                                                             <th class="" data-sort="date">Ins By</th>
@@ -4869,8 +4863,8 @@
                                                                                                         @Html.DisplayFor(modelItem => item.inspectiondate)
                                                                                                     </td>
                                                                                                     @*<td>
-                                                                                                        @Html.DisplayFor(modelItem => item.StartTime)
-                                                                                                    </td>*@
+                                                                                                            @Html.DisplayFor(modelItem => item.StartTime)
+                                                                                                        </td>*@
                                                                                                     <td>
                                                                                                         @if (item.EndTime != null && item.InspectedQty != null)
                                                                                                         {
@@ -4971,11 +4965,11 @@
                                                                                         </div>
                                                                                     </div>
                                                                                     @*<div class="col-lg-2">
-                                                                                        <div>
-                                                                                            @Html.LabelFor(model => model._submodel.StartTime, "Start Time", new { @class = "form-label" })
-                                                                                            @Html.EditorFor(model => model._submodel.StartTime, new { htmlAttributes = new { @class = "form-control ftime", @type = "time", @placeholder = "Select Time", @required = "required" } })
-                                                                                        </div>
-                                                                                    </div>*@
+                                                                                            <div>
+                                                                                                @Html.LabelFor(model => model._submodel.StartTime, "Start Time", new { @class = "form-label" })
+                                                                                                @Html.EditorFor(model => model._submodel.StartTime, new { htmlAttributes = new { @class = "form-control ftime", @type = "time", @placeholder = "Select Time", @required = "required" } })
+                                                                                            </div>
+                                                                                        </div>*@
                                                                                     <div class="col-lg-2">
                                                                                         @Html.LabelFor(model => model._submodel.InspectionBy, new { @class = "form-label" })
                                                                                         @{
@@ -5016,7 +5010,7 @@
                                                                                         <tr>
                                                                                             <th class="" data-sort="name">Sr No.</th>
                                                                                             <th class="" data-sort="leads_score">Inspection Date</th>
-                                                                                             @*<th class="" data-sort="phone">Start Time</th>*@
+                                                                                            @*<th class="" data-sort="phone">Start Time</th>*@
                                                                                             <th class="" data-sort="location">End Time</th>
                                                                                             <th class="" data-sort="tags">Inspection  Qty</th>
                                                                                             <th class="" data-sort="date">Ins By</th>
@@ -5036,8 +5030,8 @@
                                                                                                         @Html.DisplayFor(modelItem => item.inspectiondate)
                                                                                                     </td>
                                                                                                     @*<td>
-                                                                                                        @Html.DisplayFor(modelItem => item.StartTime)
-                                                                                                    </td>*@
+                                                                                                            @Html.DisplayFor(modelItem => item.StartTime)
+                                                                                                        </td>*@
                                                                                                     <td>
                                                                                                         @if (item.EndTime != null && item.InspectedQty != null)
                                                                                                         {
@@ -5148,11 +5142,11 @@
                                                                                         </div>
                                                                                     </div>
                                                                                     @*<div class="col-lg-2">
-                                                                                        <div>
-                                                                                            @Html.LabelFor(model => model._submodel.StartTime, "Start Time", new { @class = "form-label" })
-                                                                                            @Html.EditorFor(model => model._submodel.StartTime, new { htmlAttributes = new { @class = "form-control", @type = "time", @placeholder = "Select Time", @required = "required" } })
-                                                                                        </div>
-                                                                                    </div>*@
+                                                                                            <div>
+                                                                                                @Html.LabelFor(model => model._submodel.StartTime, "Start Time", new { @class = "form-label" })
+                                                                                                @Html.EditorFor(model => model._submodel.StartTime, new { htmlAttributes = new { @class = "form-control", @type = "time", @placeholder = "Select Time", @required = "required" } })
+                                                                                            </div>
+                                                                                        </div>*@
                                                                                     <div class="col-lg-2">
                                                                                         @Html.LabelFor(model => model._submodel.InspectionBy, new { @class = "form-label" })
                                                                                         @{
@@ -5193,7 +5187,7 @@
                                                                                         <tr>
                                                                                             <th class="" data-sort="name">Sr No.</th>
                                                                                             <th class="" data-sort="leads_score">Inspection Date</th>
-                                                                                             @*<th class="" data-sort="phone">Start Time</th>*@
+                                                                                            @*<th class="" data-sort="phone">Start Time</th>*@
                                                                                             <th class="" data-sort="location">End Time</th>
                                                                                             <th class="" data-sort="tags">Inspection  Qty</th>
                                                                                             <th class="" data-sort="date">Ins By</th>
@@ -5213,8 +5207,8 @@
                                                                                                         @Html.DisplayFor(modelItem => item.inspectiondate)
                                                                                                     </td>
                                                                                                     @*<td>
-                                                                                                        @Html.DisplayFor(modelItem => item.StartTime)
-                                                                                                    </td>*@
+                                                                                                            @Html.DisplayFor(modelItem => item.StartTime)
+                                                                                                        </td>*@
                                                                                                     <td>
                                                                                                         @if (item.EndTime != null && item.InspectedQty != null)
                                                                                                         {
@@ -5316,11 +5310,11 @@
                                                                                         </div>
                                                                                     </div>
                                                                                     @*<div class="col-lg-2">
-                                                                                        <div>
-                                                                                            @Html.LabelFor(model => model._submodel.StartTime, "Start Time", new { @class = "form-label" })
-                                                                                            @Html.EditorFor(model => model._submodel.StartTime, new { htmlAttributes = new { @class = "form-control ftime", @type = "time", @placeholder = "Select Time", @required = "required" } })
-                                                                                        </div>
-                                                                                    </div>*@
+                                                                                            <div>
+                                                                                                @Html.LabelFor(model => model._submodel.StartTime, "Start Time", new { @class = "form-label" })
+                                                                                                @Html.EditorFor(model => model._submodel.StartTime, new { htmlAttributes = new { @class = "form-control ftime", @type = "time", @placeholder = "Select Time", @required = "required" } })
+                                                                                            </div>
+                                                                                        </div>*@
                                                                                     <div class="col-lg-2">
                                                                                         @Html.LabelFor(model => model._submodel.InspectionBy, new { @class = "form-label" })
                                                                                         @{
@@ -5361,7 +5355,7 @@
                                                                                         <tr>
                                                                                             <th class="" data-sort="name">Sr No.</th>
                                                                                             <th class="" data-sort="leads_score">Inspection Date</th>
-                                                                                             @*<th class="" data-sort="phone">Start Time</th>*@
+                                                                                            @*<th class="" data-sort="phone">Start Time</th>*@
                                                                                             <th class="" data-sort="location">End Time</th>
                                                                                             <th class="" data-sort="tags">Inspection  Qty</th>
                                                                                             <th class="" data-sort="date">Ins By</th>
@@ -5381,8 +5375,8 @@
                                                                                                         @Html.DisplayFor(modelItem => item.inspectiondate)
                                                                                                     </td>
                                                                                                     @*<td>
-                                                                                                        @Html.DisplayFor(modelItem => item.StartTime)
-                                                                                                    </td>*@
+                                                                                                            @Html.DisplayFor(modelItem => item.StartTime)
+                                                                                                        </td>*@
                                                                                                     <td>
                                                                                                         @if (item.EndTime != null && item.InspectedQty != null)
                                                                                                         {
@@ -5496,11 +5490,11 @@
                                                                                         </div>
                                                                                     </div>
                                                                                     @*<div class="col-lg-2">
-                                                                                        <div>
-                                                                                            @Html.LabelFor(model => model._submodel.StartTime, "Start Time", new { @class = "form-label" })
-                                                                                            @Html.EditorFor(model => model._submodel.StartTime, new { htmlAttributes = new { @class = "form-control", @type = "time", @placeholder = "Select Time", @required = "required" } })
-                                                                                        </div>
-                                                                                    </div>*@
+                                                                                            <div>
+                                                                                                @Html.LabelFor(model => model._submodel.StartTime, "Start Time", new { @class = "form-label" })
+                                                                                                @Html.EditorFor(model => model._submodel.StartTime, new { htmlAttributes = new { @class = "form-control", @type = "time", @placeholder = "Select Time", @required = "required" } })
+                                                                                            </div>
+                                                                                        </div>*@
                                                                                     <div class="col-lg-2">
                                                                                         @Html.LabelFor(model => model._submodel.InspectionBy, new { @class = "form-label" })
                                                                                         @{
@@ -5532,7 +5526,7 @@
                                                                                         <tr>
                                                                                             <th class="" data-sort="name">Sr No.</th>
                                                                                             <th class="" data-sort="leads_score">Inspection Date</th>
-                                                                                             @*<th class="" data-sort="phone">Start Time</th>*@
+                                                                                            @*<th class="" data-sort="phone">Start Time</th>*@
                                                                                             <th class="" data-sort="location">End Time</th>
                                                                                             <th class="" data-sort="tags">Inspection  Qty</th>
                                                                                             <th class="" data-sort="date">Ins By</th>
@@ -5552,8 +5546,8 @@
                                                                                                         @Html.DisplayFor(modelItem => item.inspectiondate)
                                                                                                     </td>
                                                                                                     @*<td>
-                                                                                                        @Html.DisplayFor(modelItem => item.StartTime)
-                                                                                                    </td>*@
+                                                                                                            @Html.DisplayFor(modelItem => item.StartTime)
+                                                                                                        </td>*@
                                                                                                     <td>
                                                                                                         @if (item.EndTime != null && item.InspectedQty != null)
                                                                                                         {
@@ -5657,11 +5651,11 @@
                                                                                         </div>
                                                                                     </div>
                                                                                     @*<div class="col-lg-2">
-                                                                                        <div>
-                                                                                            @Html.LabelFor(model => model._submodel.StartTime, "Start Time", new { @class = "form-label" })
-                                                                                            @Html.EditorFor(model => model._submodel.StartTime, new { htmlAttributes = new { @class = "form-control ftime", @type = "time", @placeholder = "Select Time", @required = "required" } })
-                                                                                        </div>
-                                                                                    </div>*@
+                                                                                            <div>
+                                                                                                @Html.LabelFor(model => model._submodel.StartTime, "Start Time", new { @class = "form-label" })
+                                                                                                @Html.EditorFor(model => model._submodel.StartTime, new { htmlAttributes = new { @class = "form-control ftime", @type = "time", @placeholder = "Select Time", @required = "required" } })
+                                                                                            </div>
+                                                                                        </div>*@
                                                                                     <div class="col-lg-2">
                                                                                         @Html.LabelFor(model => model._submodel.InspectionBy, new { @class = "form-label" })
                                                                                         @{
@@ -5694,7 +5688,7 @@
                                                                                         <tr>
                                                                                             <th class="" data-sort="name">Sr No.</th>
                                                                                             <th class="" data-sort="leads_score">Inspection Date</th>
-                                                                                             @*<th class="" data-sort="phone">Start Time</th>*@
+                                                                                            @*<th class="" data-sort="phone">Start Time</th>*@
                                                                                             <th class="" data-sort="location">End Time</th>
                                                                                             <th class="" data-sort="tags">Inspection  Qty</th>
                                                                                             <th class="" data-sort="date">Ins By</th>
@@ -5714,8 +5708,8 @@
                                                                                                         @Html.DisplayFor(modelItem => item.inspectiondate)
                                                                                                     </td>
                                                                                                     @*<td>
-                                                                                                        @Html.DisplayFor(modelItem => item.StartTime)
-                                                                                                    </td>*@
+                                                                                                            @Html.DisplayFor(modelItem => item.StartTime)
+                                                                                                        </td>*@
                                                                                                     <td>
                                                                                                         @if (item.EndTime != null && item.InspectedQty != null)
                                                                                                         {
@@ -5833,11 +5827,11 @@
                                                                                         </div>
                                                                                     </div>
                                                                                     @*<div class="col-lg-2">
-                                                                                        <div>
-                                                                                            @Html.LabelFor(model => model._submodel.StartTime, "Start Time", new { @class = "form-label" })
-                                                                                            @Html.EditorFor(model => model._submodel.StartTime, new { htmlAttributes = new { @class = "form-control", @type = "time", @placeholder = "Select Time", @required = "required" } })
-                                                                                        </div>
-                                                                                    </div>*@
+                                                                                            <div>
+                                                                                                @Html.LabelFor(model => model._submodel.StartTime, "Start Time", new { @class = "form-label" })
+                                                                                                @Html.EditorFor(model => model._submodel.StartTime, new { htmlAttributes = new { @class = "form-control", @type = "time", @placeholder = "Select Time", @required = "required" } })
+                                                                                            </div>
+                                                                                        </div>*@
                                                                                     <div class="col-lg-2">
                                                                                         @Html.LabelFor(model => model._submodel.InspectionBy, new { @class = "form-label" })
                                                                                         @{
@@ -5878,7 +5872,7 @@
                                                                                         <tr>
                                                                                             <th class="" data-sort="name">Sr No.</th>
                                                                                             <th class="" data-sort="leads_score">Inspection Date</th>
-                                                                                             @*<th class="" data-sort="phone">Start Time</th>*@
+                                                                                            @*<th class="" data-sort="phone">Start Time</th>*@
                                                                                             <th class="" data-sort="location">End Time</th>
                                                                                             <th class="" data-sort="tags">Inspection  Qty</th>
                                                                                             <th class="" data-sort="date">Ins By</th>
@@ -5898,8 +5892,8 @@
                                                                                                         @Html.DisplayFor(modelItem => item.inspectiondate)
                                                                                                     </td>
                                                                                                     @*<td>
-                                                                                                        @Html.DisplayFor(modelItem => item.StartTime)
-                                                                                                    </td>*@
+                                                                                                            @Html.DisplayFor(modelItem => item.StartTime)
+                                                                                                        </td>*@
                                                                                                     <td>
                                                                                                         @if (item.EndTime != null && item.InspectedQty != null)
                                                                                                         {
@@ -6000,11 +5994,11 @@
                                                                                         </div>
                                                                                     </div>
                                                                                     @*<div class="col-lg-2">
-                                                                                        <div>
-                                                                                            @Html.LabelFor(model => model._submodel.StartTime, "Start Time", new { @class = "form-label" })
-                                                                                            @Html.EditorFor(model => model._submodel.StartTime, new { htmlAttributes = new { @class = "form-control ftime", @type = "time", @placeholder = "Select Time", @required = "required" } })
-                                                                                        </div>
-                                                                                    </div>*@
+                                                                                            <div>
+                                                                                                @Html.LabelFor(model => model._submodel.StartTime, "Start Time", new { @class = "form-label" })
+                                                                                                @Html.EditorFor(model => model._submodel.StartTime, new { htmlAttributes = new { @class = "form-control ftime", @type = "time", @placeholder = "Select Time", @required = "required" } })
+                                                                                            </div>
+                                                                                        </div>*@
                                                                                     <div class="col-lg-2">
                                                                                         @Html.LabelFor(model => model._submodel.InspectionBy, new { @class = "form-label" })
                                                                                         @{
@@ -6045,7 +6039,7 @@
                                                                                         <tr>
                                                                                             <th class="" data-sort="name">Sr No.</th>
                                                                                             <th class="" data-sort="leads_score">Inspection Date</th>
-                                                                                             @*<th class="" data-sort="phone">Start Time</th>*@
+                                                                                            @*<th class="" data-sort="phone">Start Time</th>*@
                                                                                             <th class="" data-sort="location">End Time</th>
                                                                                             <th class="" data-sort="tags">Inspection  Qty</th>
                                                                                             <th class="" data-sort="date">Ins By</th>
@@ -6065,8 +6059,8 @@
                                                                                                         @Html.DisplayFor(modelItem => item.inspectiondate)
                                                                                                     </td>
                                                                                                     @*<td>
-                                                                                                        @Html.DisplayFor(modelItem => item.StartTime)
-                                                                                                    </td>*@
+                                                                                                            @Html.DisplayFor(modelItem => item.StartTime)
+                                                                                                        </td>*@
                                                                                                     <td>
                                                                                                         @if (item.EndTime != null && item.InspectedQty != null)
                                                                                                         {
@@ -6177,11 +6171,11 @@
                                                                                         </div>
                                                                                     </div>
                                                                                     @*<div class="col-lg-2">
-                                                                                        <div>
-                                                                                            @Html.LabelFor(model => model._submodel.StartTime, "Start Time", new { @class = "form-label" })
-                                                                                            @Html.EditorFor(model => model._submodel.StartTime, new { htmlAttributes = new { @class = "form-control", @type = "time", @placeholder = "Select Time", @required = "required" } })
-                                                                                        </div>
-                                                                                    </div>*@
+                                                                                            <div>
+                                                                                                @Html.LabelFor(model => model._submodel.StartTime, "Start Time", new { @class = "form-label" })
+                                                                                                @Html.EditorFor(model => model._submodel.StartTime, new { htmlAttributes = new { @class = "form-control", @type = "time", @placeholder = "Select Time", @required = "required" } })
+                                                                                            </div>
+                                                                                        </div>*@
                                                                                     <div class="col-lg-2">
                                                                                         @Html.LabelFor(model => model._submodel.InspectionBy, new { @class = "form-label" })
                                                                                         @{
@@ -6222,7 +6216,7 @@
                                                                                         <tr>
                                                                                             <th class="" data-sort="name">Sr No.</th>
                                                                                             <th class="" data-sort="leads_score">Inspection Date</th>
-                                                                                             @*<th class="" data-sort="phone">Start Time</th>*@
+                                                                                            @*<th class="" data-sort="phone">Start Time</th>*@
                                                                                             <th class="" data-sort="location">End Time</th>
                                                                                             <th class="" data-sort="tags">Inspection  Qty</th>
                                                                                             <th class="" data-sort="date">Ins By</th>
@@ -6242,8 +6236,8 @@
                                                                                                         @Html.DisplayFor(modelItem => item.inspectiondate)
                                                                                                     </td>
                                                                                                     @*<td>
-                                                                                                        @Html.DisplayFor(modelItem => item.StartTime)
-                                                                                                    </td>*@
+                                                                                                            @Html.DisplayFor(modelItem => item.StartTime)
+                                                                                                        </td>*@
                                                                                                     <td>
                                                                                                         @if (item.EndTime != null && item.InspectedQty != null)
                                                                                                         {
@@ -6345,11 +6339,11 @@
                                                                                         </div>
                                                                                     </div>
                                                                                     @*<div class="col-lg-2">
-                                                                                        <div>
-                                                                                            @Html.LabelFor(model => model._submodel.StartTime, "Start Time", new { @class = "form-label" })
-                                                                                            @Html.EditorFor(model => model._submodel.StartTime, new { htmlAttributes = new { @class = "form-control ftime", @type = "time", @placeholder = "Select Time", @required = "required" } })
-                                                                                        </div>
-                                                                                    </div>*@
+                                                                                            <div>
+                                                                                                @Html.LabelFor(model => model._submodel.StartTime, "Start Time", new { @class = "form-label" })
+                                                                                                @Html.EditorFor(model => model._submodel.StartTime, new { htmlAttributes = new { @class = "form-control ftime", @type = "time", @placeholder = "Select Time", @required = "required" } })
+                                                                                            </div>
+                                                                                        </div>*@
                                                                                     <div class="col-lg-2">
                                                                                         @Html.LabelFor(model => model._submodel.InspectionBy, new { @class = "form-label" })
                                                                                         @{
@@ -6390,7 +6384,7 @@
                                                                                         <tr>
                                                                                             <th class="" data-sort="name">Sr No.</th>
                                                                                             <th class="" data-sort="leads_score">Inspection Date</th>
-                                                                                             @*<th class="" data-sort="phone">Start Time</th>*@
+                                                                                            @*<th class="" data-sort="phone">Start Time</th>*@
                                                                                             <th class="" data-sort="location">End Time</th>
                                                                                             <th class="" data-sort="tags">Inspection  Qty</th>
                                                                                             <th class="" data-sort="date">Ins By</th>
@@ -6410,8 +6404,8 @@
                                                                                                         @Html.DisplayFor(modelItem => item.inspectiondate)
                                                                                                     </td>
                                                                                                     @*<td>
-                                                                                                        @Html.DisplayFor(modelItem => item.StartTime)
-                                                                                                    </td>*@
+                                                                                                            @Html.DisplayFor(modelItem => item.StartTime)
+                                                                                                        </td>*@
                                                                                                     <td>
                                                                                                         @if (item.EndTime != null && item.InspectedQty != null)
                                                                                                         {
@@ -6525,11 +6519,11 @@
                                                                                         </div>
                                                                                     </div>
                                                                                     @*<div class="col-lg-2">
-                                                                                        <div>
-                                                                                            @Html.LabelFor(model => model._submodel.StartTime, "Start Time", new { @class = "form-label" })
-                                                                                            @Html.EditorFor(model => model._submodel.StartTime, new { htmlAttributes = new { @class = "form-control", @type = "time", @placeholder = "Select Time", @required = "required" } })
-                                                                                        </div>
-                                                                                    </div>*@
+                                                                                            <div>
+                                                                                                @Html.LabelFor(model => model._submodel.StartTime, "Start Time", new { @class = "form-label" })
+                                                                                                @Html.EditorFor(model => model._submodel.StartTime, new { htmlAttributes = new { @class = "form-control", @type = "time", @placeholder = "Select Time", @required = "required" } })
+                                                                                            </div>
+                                                                                        </div>*@
                                                                                     <div class="col-lg-2">
                                                                                         @Html.LabelFor(model => model._submodel.InspectionBy, new { @class = "form-label" })
                                                                                         @{
@@ -6561,7 +6555,7 @@
                                                                                         <tr>
                                                                                             <th class="" data-sort="name">Sr No.</th>
                                                                                             <th class="" data-sort="leads_score">Inspection Date</th>
-                                                                                             @*<th class="" data-sort="phone">Start Time</th>*@
+                                                                                            @*<th class="" data-sort="phone">Start Time</th>*@
                                                                                             <th class="" data-sort="location">End Time</th>
                                                                                             <th class="" data-sort="tags">Inspection  Qty</th>
                                                                                             <th class="" data-sort="date">Ins By</th>
@@ -6581,8 +6575,8 @@
                                                                                                         @Html.DisplayFor(modelItem => item.inspectiondate)
                                                                                                     </td>
                                                                                                     @*<td>
-                                                                                                        @Html.DisplayFor(modelItem => item.StartTime)
-                                                                                                    </td>*@
+                                                                                                            @Html.DisplayFor(modelItem => item.StartTime)
+                                                                                                        </td>*@
                                                                                                     <td>
                                                                                                         @if (item.EndTime != null && item.InspectedQty != null)
                                                                                                         {
@@ -6686,11 +6680,11 @@
                                                                                         </div>
                                                                                     </div>
                                                                                     @*<div class="col-lg-2">
-                                                                                        <div>
-                                                                                            @Html.LabelFor(model => model._submodel.StartTime, "Start Time", new { @class = "form-label" })
-                                                                                            @Html.EditorFor(model => model._submodel.StartTime, new { htmlAttributes = new { @class = "form-control ftime", @type = "time", @placeholder = "Select Time", @required = "required" } })
-                                                                                        </div>
-                                                                                    </div>*@
+                                                                                            <div>
+                                                                                                @Html.LabelFor(model => model._submodel.StartTime, "Start Time", new { @class = "form-label" })
+                                                                                                @Html.EditorFor(model => model._submodel.StartTime, new { htmlAttributes = new { @class = "form-control ftime", @type = "time", @placeholder = "Select Time", @required = "required" } })
+                                                                                            </div>
+                                                                                        </div>*@
                                                                                     <div class="col-lg-2">
                                                                                         @Html.LabelFor(model => model._submodel.InspectionBy, new { @class = "form-label" })
                                                                                         @{
@@ -6723,7 +6717,7 @@
                                                                                         <tr>
                                                                                             <th class="" data-sort="name">Sr No.</th>
                                                                                             <th class="" data-sort="leads_score">Inspection Date</th>
-                                                                                             @*<th class="" data-sort="phone">Start Time</th>*@
+                                                                                            @*<th class="" data-sort="phone">Start Time</th>*@
                                                                                             <th class="" data-sort="location">End Time</th>
                                                                                             <th class="" data-sort="tags">Inspection  Qty</th>
                                                                                             <th class="" data-sort="date">Ins By</th>
@@ -6743,8 +6737,8 @@
                                                                                                         @Html.DisplayFor(modelItem => item.inspectiondate)
                                                                                                     </td>
                                                                                                     @*<td>
-                                                                                                        @Html.DisplayFor(modelItem => item.StartTime)
-                                                                                                    </td>*@
+                                                                                                            @Html.DisplayFor(modelItem => item.StartTime)
+                                                                                                        </td>*@
                                                                                                     <td>
                                                                                                         @if (item.EndTime != null && item.InspectedQty != null)
                                                                                                         {
@@ -6859,11 +6853,11 @@
                                                                                         </div>
                                                                                     </div>
                                                                                     @*<div class="col-lg-2">
-                                                                                        <div>
-                                                                                            @Html.LabelFor(model => model._submodel.StartTime, "Start Time", new { @class = "form-label" })
-                                                                                            @Html.EditorFor(model => model._submodel.StartTime, new { htmlAttributes = new { @class = "form-control", @type = "time", @placeholder = "Select Time", @required = "required" } })
-                                                                                        </div>
-                                                                                    </div>*@
+                                                                                            <div>
+                                                                                                @Html.LabelFor(model => model._submodel.StartTime, "Start Time", new { @class = "form-label" })
+                                                                                                @Html.EditorFor(model => model._submodel.StartTime, new { htmlAttributes = new { @class = "form-control", @type = "time", @placeholder = "Select Time", @required = "required" } })
+                                                                                            </div>
+                                                                                        </div>*@
                                                                                     <div class="col-lg-2">
                                                                                         @Html.LabelFor(model => model._submodel.InspectionBy, new { @class = "form-label" })
                                                                                         @{
@@ -6904,7 +6898,7 @@
                                                                                         <tr>
                                                                                             <th class="" data-sort="name">Sr No.</th>
                                                                                             <th class="" data-sort="leads_score">Inspection Date</th>
-                                                                                             @*<th class="" data-sort="phone">Start Time</th>*@
+                                                                                            @*<th class="" data-sort="phone">Start Time</th>*@
                                                                                             <th class="" data-sort="location">End Time</th>
                                                                                             <th class="" data-sort="tags">Inspection  Qty</th>
                                                                                             <th class="" data-sort="date">Ins By</th>
@@ -6924,8 +6918,8 @@
                                                                                                         @Html.DisplayFor(modelItem => item.inspectiondate)
                                                                                                     </td>
                                                                                                     @*<td>
-                                                                                                        @Html.DisplayFor(modelItem => item.StartTime)
-                                                                                                    </td>*@
+                                                                                                            @Html.DisplayFor(modelItem => item.StartTime)
+                                                                                                        </td>*@
                                                                                                     <td>
                                                                                                         @if (item.EndTime != null && item.InspectedQty != null)
                                                                                                         {
@@ -7027,11 +7021,11 @@
                                                                                         </div>
                                                                                     </div>
                                                                                     @*<div class="col-lg-2">
-                                                                                        <div>
-                                                                                            @Html.LabelFor(model => model._submodel.StartTime, "Start Time", new { @class = "form-label" })
-                                                                                            @Html.EditorFor(model => model._submodel.StartTime, new { htmlAttributes = new { @class = "form-control ftime", @type = "time", @placeholder = "Select Time", @required = "required" } })
-                                                                                        </div>
-                                                                                    </div>*@
+                                                                                            <div>
+                                                                                                @Html.LabelFor(model => model._submodel.StartTime, "Start Time", new { @class = "form-label" })
+                                                                                                @Html.EditorFor(model => model._submodel.StartTime, new { htmlAttributes = new { @class = "form-control ftime", @type = "time", @placeholder = "Select Time", @required = "required" } })
+                                                                                            </div>
+                                                                                        </div>*@
                                                                                     <div class="col-lg-2">
                                                                                         @Html.LabelFor(model => model._submodel.InspectionBy, new { @class = "form-label" })
                                                                                         @{
@@ -7072,7 +7066,7 @@
                                                                                         <tr>
                                                                                             <th class="" data-sort="name">Sr No.</th>
                                                                                             <th class="" data-sort="leads_score">Inspection Date</th>
-                                                                                             @*<th class="" data-sort="phone">Start Time</th>*@
+                                                                                            @*<th class="" data-sort="phone">Start Time</th>*@
                                                                                             <th class="" data-sort="location">End Time</th>
                                                                                             <th class="" data-sort="tags">Inspection  Qty</th>
                                                                                             <th class="" data-sort="date">Ins By</th>
@@ -7092,8 +7086,8 @@
                                                                                                         @Html.DisplayFor(modelItem => item.inspectiondate)
                                                                                                     </td>
                                                                                                     @*<td>
-                                                                                                        @Html.DisplayFor(modelItem => item.StartTime)
-                                                                                                    </td>*@
+                                                                                                            @Html.DisplayFor(modelItem => item.StartTime)
+                                                                                                        </td>*@
                                                                                                     <td>
                                                                                                         @if (item.EndTime != null && item.InspectedQty != null)
                                                                                                         {
@@ -7181,7 +7175,7 @@
                     } else {
                         alert("Please Enter Inspected By");
                     }
-                } 
+                }
             } else {
                 alert("please enter valid date");
                 console.log("Form is invalid");
@@ -7255,7 +7249,7 @@
 </script>
 
 <script>
-    function  getendidqty(id, typevalue) {
+    function getendidqty(id, typevalue) {
         debugger
         var inspectiontype = typevalue;
 
@@ -7356,7 +7350,7 @@
             if (sum <= MSqty) {
 
                 $.ajax({
-                    url: '/visualinspection/ENDTIMEQTY?id=' + id + '&endtime=' + endt + '&qty=' + qty + '&instype=' + inspectiontype + '&jobno=' + _id, 
+                    url: '/visualinspection/ENDTIMEQTY?id=' + id + '&endtime=' + endt + '&qty=' + qty + '&instype=' + inspectiontype + '&jobno=' + _id,
                     type: 'POST',
                     success: function (response) {
                         location.reload();

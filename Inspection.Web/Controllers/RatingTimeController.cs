@@ -12,13 +12,14 @@ using System.Web.Mvc;
 using static Microsoft.AspNetCore.Razor.Language.TagHelperMetadata;
 using System.Web.UI.WebControls.WebParts;
 using System.Web.Services.Description;
+using System.Drawing;
 
 namespace Inspection.Web.Controllers
 {
     public class RatingTimeController : Controller
     {
         // GET: RatingTime
-        ITe_INDIAEntities1 DB = new ITe_INDIAEntities1();
+        ITEIndiaEntities DB = new ITEIndiaEntities();
         public ActionResult Index()
         {
             return View();
@@ -36,14 +37,14 @@ namespace Inspection.Web.Controllers
 
                 List<Final_Inspection_Data> data = DB.Final_Inspection_Data.Where(p => p.Active == true && p.Delete == false && p.closerequest == true).ToList();
                 List<Final_Inspection_Data> total = data.Where(p => p.Note != "Out Source Part").ToList();
-                List<Final_Inspection_Data> final = data.Where(p =>  p.Inspection_Type == "Final").ToList();
-                List<Final_Inspection_Data> visual = data.Where(p =>  p.Inspection_Type == "Visual").ToList();
-                List<Final_Inspection_Data> Thared = data.Where(p =>  p.Inspection_Type == "Thread").ToList();
-                List<Final_Inspection_Data> Humidity = data.Where(p =>  p.Inspection_Type == "Humidity").ToList();
+                List<Final_Inspection_Data> final = data.Where(p => p.Inspection_Type == "Final").ToList();
+                List<Final_Inspection_Data> visual = data.Where(p => p.Inspection_Type == "Visual").ToList();
+                List<Final_Inspection_Data> Thared = data.Where(p => p.Inspection_Type == "Thread").ToList();
+                List<Final_Inspection_Data> Humidity = data.Where(p => p.Inspection_Type == "Humidity").ToList();
                 List<Final_Inspection_Data> incominginspection = data.Where(p => p.Note == "Out Source Part").ToList();
 
 
-                data = data.Where(x=>x.Inward_Date >= startDate &&  x.CloseRequstDate <= endDate).ToList();
+                data = data.Where(x => x.Inward_Date >= startDate && x.CloseRequstDate <= endDate).ToList();
 
                 using (var package = new ExcelPackage())
                 {
@@ -75,7 +76,7 @@ namespace Inspection.Web.Controllers
                         worksheet.Cells[1, 14].Value = "Deviation Qty";
                         worksheet.Cells[1, 15].Value = "Deviation%";
                         worksheet.Cells[1, 16].Value = "Lot Reject";
-                        worksheet.Cells[1, 17].Value = "Total time in Quality";
+                        worksheet.Cells[1, 17].Value = "Total time in  Quality";
                         worksheet.Cells[1, 18].Value = "Inspection time(Type) Manpower spend time";
                         worksheet.Cells[1, 19].Value = "Total inspection time- Manpower spend time ";
                         worksheet.Cells[1, 20].Value = "Inspection time(common) -Quality division spend time by part";
@@ -184,7 +185,6 @@ namespace Inspection.Web.Controllers
                             worksheet1.Cells[row, 22].Value = item.Reworktime;
                             worksheet1.Cells[row, 23].Value = item.Sortingtime;
                             worksheet1.Cells[row, 24].Value = item.Deviationwaitingtime;
-
                             if (item.Note == "Out source part")
                             {
                                 worksheet.Cells[row, 1, row, 25].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
@@ -192,6 +192,79 @@ namespace Inspection.Web.Controllers
                             }
                             row++;
                         }
+                       
+
+                        int colLabel = 28;
+                        int colValue = 29;
+                        int summaryRow = 2;
+
+                        int inwardLot = incominginspection.Select(x => new { x.JobNum, x.QualityStage }).Distinct().Count();
+
+                        int inwardQty = incominginspection
+                            .GroupBy(x => new { x.JobNum, x.QualityStage })
+                            .Select(g => g.First())
+                            .Sum(x => int.TryParse(x.Inspection_Qty, out int val) ? val : 0);
+
+                        int inspectionQty = incominginspection
+                            .Sum(x => int.TryParse(x.Inspection_Qty, out int val) ? val : 0);
+
+                        int rejectQty = incominginspection
+                            .Sum(x => int.TryParse(x.Reject_Qty.ToString(), out int val) ? val : 0);
+
+                        int reworkQty = incominginspection
+                            .Sum(x => int.TryParse(x.Rework_Qty.ToString(), out int val) ? val : 0);
+
+                        int deviationQty = incominginspection
+                            .Sum(x => int.TryParse(x.Deviation_Qty.ToString(), out int val) ? val : 0);
+
+                        int rejectPercentage = inwardQty > 0
+                            ? (int)Math.Round((double)rejectQty / inwardQty * 100)
+                            : 0;
+
+                        int reworkPercentage = inwardQty > 0
+                            ? (int)Math.Round((double)reworkQty / inwardQty * 100)
+                            : 0;
+
+                        int deviationPercentage = inwardQty > 0
+                            ? (int)Math.Round((double)deviationQty / inwardQty * 100)
+                            : 0;
+
+                        int rejectedLots = incominginspection
+                            .Where(x => int.TryParse(x.Reject_Qty.ToString(), out int r) && r > 0)
+                            .Select(x => new { x.JobNum, x.QualityStage })
+                            .Distinct()
+                            .Count();
+
+                        int lotReject = inwardLot > 0
+                            ? (int)Math.Round((double)rejectedLots / inwardLot * 100)
+                            : 0;
+
+                        worksheet1.Cells[summaryRow++, colLabel].Value = "Filter date";
+                        worksheet1.Cells[summaryRow++, colLabel].Value = "Inward Lot";
+                        worksheet1.Cells[summaryRow++, colLabel].Value = "Inward Qty";
+                        worksheet1.Cells[summaryRow++, colLabel].Value = "Inspection Qty";
+                        worksheet1.Cells[summaryRow++, colLabel].Value = "Reject Qty";
+                        worksheet1.Cells[summaryRow++, colLabel].Value = "Reject%";
+                        worksheet1.Cells[summaryRow++, colLabel].Value = "Rework Qty";
+                        worksheet1.Cells[summaryRow++, colLabel].Value = "Rework%";
+                        worksheet1.Cells[summaryRow++, colLabel].Value = "Deviation Qty";
+                        worksheet1.Cells[summaryRow++, colLabel].Value = "Deviation%";
+                        worksheet1.Cells[summaryRow++, colLabel].Value = "Lot Reject%";
+
+                        summaryRow = 2;
+                        worksheet1.Cells[summaryRow++, colValue].Value = dateRange;
+                        worksheet1.Cells[summaryRow++, colValue].Value = inwardLot;
+                        worksheet1.Cells[summaryRow++, colValue].Value = inwardQty;
+                        worksheet1.Cells[summaryRow++, colValue].Value = inspectionQty;
+                        worksheet1.Cells[summaryRow++, colValue].Value = rejectQty;
+                        worksheet1.Cells[summaryRow++, colValue].Value = $"{rejectPercentage}%";
+                        worksheet1.Cells[summaryRow++, colValue].Value = reworkQty;
+                        worksheet1.Cells[summaryRow++, colValue].Value = $"{reworkPercentage}%";
+                        worksheet1.Cells[summaryRow++, colValue].Value = deviationQty;
+                        worksheet1.Cells[summaryRow++, colValue].Value = $"{deviationPercentage}%";
+                        worksheet1.Cells[summaryRow++, colValue].Value = $"{lotReject}%";
+
+                        worksheet1.Cells[worksheet1.Dimension.Address].AutoFitColumns();
                     }
                     catch (Exception)
                     {
@@ -262,8 +335,79 @@ namespace Inspection.Web.Controllers
                             }
 
                             row++;
+                           
                         }
+                        int colLabel = 28;
+                        int colValue = 29;
+                        int summaryRow = 2;
 
+                        int inwardLot = incominginspection.Select(x => new { x.JobNum, x.QualityStage }).Distinct().Count();
+
+                        int inwardQty = incominginspection
+                            .GroupBy(x => new { x.JobNum, x.QualityStage })
+                            .Select(g => g.First())
+                            .Sum(x => int.TryParse(x.Inspection_Qty, out int val) ? val : 0);
+
+                        int inspectionQty = incominginspection
+                            .Sum(x => int.TryParse(x.Inspection_Qty, out int val) ? val : 0);
+
+                        int rejectQty = incominginspection
+                            .Sum(x => int.TryParse(x.Reject_Qty.ToString(), out int val) ? val : 0);
+
+                        int reworkQty = incominginspection
+                            .Sum(x => int.TryParse(x.Rework_Qty.ToString(), out int val) ? val : 0);
+
+                        int deviationQty = incominginspection
+                            .Sum(x => int.TryParse(x.Deviation_Qty.ToString(), out int val) ? val : 0);
+
+                        int rejectPercentage = inwardQty > 0
+                            ? (int)Math.Round((double)rejectQty / inwardQty * 100)
+                            : 0;
+
+                        int reworkPercentage = inwardQty > 0
+                            ? (int)Math.Round((double)reworkQty / inwardQty * 100)
+                            : 0;
+
+                        int deviationPercentage = inwardQty > 0
+                            ? (int)Math.Round((double)deviationQty / inwardQty * 100)
+                            : 0;
+
+                        int rejectedLots = incominginspection
+                            .Where(x => int.TryParse(x.Reject_Qty.ToString(), out int r) && r > 0)
+                            .Select(x => new { x.JobNum, x.QualityStage })
+                            .Distinct()
+                            .Count();
+
+                        int lotReject = inwardLot > 0
+                            ? (int)Math.Round((double)rejectedLots / inwardLot * 100)
+                            : 0;
+
+                        worksheet2.Cells[summaryRow++, colLabel].Value = "Filter date";
+                        worksheet2.Cells[summaryRow++, colLabel].Value = "Inward Lot";
+                        worksheet2.Cells[summaryRow++, colLabel].Value = "Inward Qty";
+                        worksheet2.Cells[summaryRow++, colLabel].Value = "Inspection Qty";
+                        worksheet2.Cells[summaryRow++, colLabel].Value = "Reject Qty";
+                        worksheet2.Cells[summaryRow++, colLabel].Value = "Reject%";
+                        worksheet2.Cells[summaryRow++, colLabel].Value = "Rework Qty";
+                        worksheet2.Cells[summaryRow++, colLabel].Value = "Rework%";
+                        worksheet2.Cells[summaryRow++, colLabel].Value = "Deviation Qty";
+                        worksheet2.Cells[summaryRow++, colLabel].Value = "Deviation%";
+                        worksheet2.Cells[summaryRow++, colLabel].Value = "Lot Reject%";
+
+                        summaryRow = 2;
+                        worksheet2.Cells[summaryRow++, colValue].Value = "01-Jan-2024 to 31-Jan-2024";
+                        worksheet2.Cells[summaryRow++, colValue].Value = inwardLot;
+                        worksheet2.Cells[summaryRow++, colValue].Value = inwardQty;
+                        worksheet2.Cells[summaryRow++, colValue].Value = inspectionQty;
+                        worksheet2.Cells[summaryRow++, colValue].Value = rejectQty;
+                        worksheet2.Cells[summaryRow++, colValue].Value = $"{rejectPercentage}%";
+                        worksheet2.Cells[summaryRow++, colValue].Value = reworkQty;
+                        worksheet2.Cells[summaryRow++, colValue].Value = $"{reworkPercentage}%";
+                        worksheet2.Cells[summaryRow++, colValue].Value = deviationQty;
+                        worksheet2.Cells[summaryRow++, colValue].Value = $"{deviationPercentage}%";
+                        worksheet2.Cells[summaryRow++, colValue].Value = $"{lotReject}%";
+
+                        worksheet2.Cells[worksheet2.Dimension.Address].AutoFitColumns();
                     }
                     catch (Exception)
                     {
@@ -288,7 +432,7 @@ namespace Inspection.Web.Controllers
                         worksheet3.Cells[1, 13].Value = "Rework%";
                         worksheet3.Cells[1, 14].Value = "Deviation Qty";
                         worksheet3.Cells[1, 15].Value = "Deviation%";
-                        worksheet3.Cells[1, 16].Value = "Lot Reject%";          
+                        worksheet3.Cells[1, 16].Value = "Lot Reject%";
                         worksheet3.Cells[1, 17].Value = "Total time in Quality%";
                         worksheet3.Cells[1, 18].Value = "Inspection time(Type) Manpower spend time";
                         worksheet3.Cells[1, 19].Value = "Total inspection time- Manpower spend time ";
@@ -336,7 +480,79 @@ namespace Inspection.Web.Controllers
                             }
 
                             row++;
+                            
                         }
+                        int colLabel = 28;
+                        int colValue = 29;
+                        int summaryRow = 2;
+
+                        int inwardLot = incominginspection.Select(x => new { x.JobNum, x.QualityStage }).Distinct().Count();
+
+                        int inwardQty = incominginspection
+                            .GroupBy(x => new { x.JobNum, x.QualityStage })
+                            .Select(g => g.First())
+                            .Sum(x => int.TryParse(x.Inspection_Qty, out int val) ? val : 0);
+
+                        int inspectionQty = incominginspection
+                            .Sum(x => int.TryParse(x.Inspection_Qty, out int val) ? val : 0);
+
+                        int rejectQty = incominginspection
+                            .Sum(x => int.TryParse(x.Reject_Qty.ToString(), out int val) ? val : 0);
+
+                        int reworkQty = incominginspection
+                            .Sum(x => int.TryParse(x.Rework_Qty.ToString(), out int val) ? val : 0);
+
+                        int deviationQty = incominginspection
+                            .Sum(x => int.TryParse(x.Deviation_Qty.ToString(), out int val) ? val : 0);
+
+                        int rejectPercentage = inwardQty > 0
+                            ? (int)Math.Round((double)rejectQty / inwardQty * 100)
+                            : 0;
+
+                        int reworkPercentage = inwardQty > 0
+                            ? (int)Math.Round((double)reworkQty / inwardQty * 100)
+                            : 0;
+
+                        int deviationPercentage = inwardQty > 0
+                            ? (int)Math.Round((double)deviationQty / inwardQty * 100)
+                            : 0;
+
+                        int rejectedLots = incominginspection
+                            .Where(x => int.TryParse(x.Reject_Qty.ToString(), out int r) && r > 0)
+                            .Select(x => new { x.JobNum, x.QualityStage })
+                            .Distinct()
+                            .Count();
+
+                        int lotReject = inwardLot > 0
+                            ? (int)Math.Round((double)rejectedLots / inwardLot * 100)
+                            : 0;
+
+                        worksheet3.Cells[summaryRow++, colLabel].Value = "Filter date";
+                        worksheet3.Cells[summaryRow++, colLabel].Value = "Inward Lot";
+                        worksheet3.Cells[summaryRow++, colLabel].Value = "Inward Qty";
+                        worksheet3.Cells[summaryRow++, colLabel].Value = "Inspection Qty";
+                        worksheet3.Cells[summaryRow++, colLabel].Value = "Reject Qty";
+                        worksheet3.Cells[summaryRow++, colLabel].Value = "Reject%";
+                        worksheet3.Cells[summaryRow++, colLabel].Value = "Rework Qty";
+                        worksheet3.Cells[summaryRow++, colLabel].Value = "Rework%";
+                        worksheet3.Cells[summaryRow++, colLabel].Value = "Deviation Qty";
+                        worksheet3.Cells[summaryRow++, colLabel].Value = "Deviation%";
+                        worksheet3.Cells[summaryRow++, colLabel].Value = "Lot Reject%";
+
+                        summaryRow = 2;
+                        worksheet3.Cells[summaryRow++, colValue].Value = dateRange;
+                        worksheet3.Cells[summaryRow++, colValue].Value = inwardLot;
+                        worksheet3.Cells[summaryRow++, colValue].Value = inwardQty;
+                        worksheet3.Cells[summaryRow++, colValue].Value = inspectionQty;
+                        worksheet3.Cells[summaryRow++, colValue].Value = rejectQty;
+                        worksheet3.Cells[summaryRow++, colValue].Value = $"{rejectPercentage}%";
+                        worksheet3.Cells[summaryRow++, colValue].Value = reworkQty;
+                        worksheet3.Cells[summaryRow++, colValue].Value = $"{reworkPercentage}%";
+                        worksheet3.Cells[summaryRow++, colValue].Value = deviationQty;
+                        worksheet3.Cells[summaryRow++, colValue].Value = $"{deviationPercentage}%";
+                        worksheet3.Cells[summaryRow++, colValue].Value = $"{lotReject}%";
+
+                        worksheet3.Cells[worksheet3.Dimension.Address].AutoFitColumns();
                     }
                     catch (Exception)
                     {
@@ -408,7 +624,79 @@ namespace Inspection.Web.Controllers
                             }
 
                             row++;
+                           
                         }
+                        int colLabel = 28;
+                        int colValue = 29;
+                        int summaryRow = 2;
+
+                        int inwardLot = incominginspection.Select(x => new { x.JobNum, x.QualityStage }).Distinct().Count();
+
+                        int inwardQty = incominginspection
+                            .GroupBy(x => new { x.JobNum, x.QualityStage })
+                            .Select(g => g.First())
+                            .Sum(x => int.TryParse(x.Inspection_Qty, out int val) ? val : 0);
+
+                        int inspectionQty = incominginspection
+                            .Sum(x => int.TryParse(x.Inspection_Qty, out int val) ? val : 0);
+
+                        int rejectQty = incominginspection
+                            .Sum(x => int.TryParse(x.Reject_Qty.ToString(), out int val) ? val : 0);
+
+                        int reworkQty = incominginspection
+                            .Sum(x => int.TryParse(x.Rework_Qty.ToString(), out int val) ? val : 0);
+
+                        int deviationQty = incominginspection
+                            .Sum(x => int.TryParse(x.Deviation_Qty.ToString(), out int val) ? val : 0);
+
+                        int rejectPercentage = inwardQty > 0
+                            ? (int)Math.Round((double)rejectQty / inwardQty * 100)
+                            : 0;
+
+                        int reworkPercentage = inwardQty > 0
+                            ? (int)Math.Round((double)reworkQty / inwardQty * 100)
+                            : 0;
+
+                        int deviationPercentage = inwardQty > 0
+                            ? (int)Math.Round((double)deviationQty / inwardQty * 100)
+                            : 0;
+
+                        int rejectedLots = incominginspection
+                            .Where(x => int.TryParse(x.Reject_Qty.ToString(), out int r) && r > 0)
+                            .Select(x => new { x.JobNum, x.QualityStage })
+                            .Distinct()
+                            .Count();
+
+                        int lotReject = inwardLot > 0
+                            ? (int)Math.Round((double)rejectedLots / inwardLot * 100)
+                            : 0;
+
+                        worksheet4.Cells[summaryRow++, colLabel].Value = "Filter date";
+                        worksheet4.Cells[summaryRow++, colLabel].Value = "Inward Lot";
+                        worksheet4.Cells[summaryRow++, colLabel].Value = "Inward Qty";
+                        worksheet4.Cells[summaryRow++, colLabel].Value = "Inspection Qty";
+                        worksheet4.Cells[summaryRow++, colLabel].Value = "Reject Qty";
+                        worksheet4.Cells[summaryRow++, colLabel].Value = "Reject%";
+                        worksheet4.Cells[summaryRow++, colLabel].Value = "Rework Qty";
+                        worksheet4.Cells[summaryRow++, colLabel].Value = "Rework%";
+                        worksheet4.Cells[summaryRow++, colLabel].Value = "Deviation Qty";
+                        worksheet4.Cells[summaryRow++, colLabel].Value = "Deviation%";
+                        worksheet4.Cells[summaryRow++, colLabel].Value = "Lot Reject%";
+
+                        summaryRow = 2;
+                        worksheet4.Cells[summaryRow++, colValue].Value = dateRange;
+                        worksheet4.Cells[summaryRow++, colValue].Value = inwardLot;
+                        worksheet4.Cells[summaryRow++, colValue].Value = inwardQty;
+                        worksheet4.Cells[summaryRow++, colValue].Value = inspectionQty;
+                        worksheet4.Cells[summaryRow++, colValue].Value = rejectQty;
+                        worksheet4.Cells[summaryRow++, colValue].Value = $"{rejectPercentage}%";
+                        worksheet4.Cells[summaryRow++, colValue].Value = reworkQty;
+                        worksheet4.Cells[summaryRow++, colValue].Value = $"{reworkPercentage}%";
+                        worksheet4.Cells[summaryRow++, colValue].Value = deviationQty;
+                        worksheet4.Cells[summaryRow++, colValue].Value = $"{deviationPercentage}%";
+                        worksheet4.Cells[summaryRow++, colValue].Value = $"{lotReject}%";
+
+                        worksheet4.Cells[worksheet4.Dimension.Address].AutoFitColumns();
                     }
                     catch (Exception)
                     {
@@ -480,7 +768,79 @@ namespace Inspection.Web.Controllers
                             }
 
                             row++;
+                            
                         }
+                        int colLabel = 28;
+                        int colValue = 29;
+                        int summaryRow = 2;
+
+                        int inwardLot = incominginspection.Select(x => new { x.JobNum, x.QualityStage }).Distinct().Count();
+
+                        int inwardQty = incominginspection
+                            .GroupBy(x => new { x.JobNum, x.QualityStage })
+                            .Select(g => g.First())
+                            .Sum(x => int.TryParse(x.Inspection_Qty, out int val) ? val : 0);
+
+                        int inspectionQty = incominginspection
+                            .Sum(x => int.TryParse(x.Inspection_Qty, out int val) ? val : 0);
+
+                        int rejectQty = incominginspection
+                            .Sum(x => int.TryParse(x.Reject_Qty.ToString(), out int val) ? val : 0);
+
+                        int reworkQty = incominginspection
+                            .Sum(x => int.TryParse(x.Rework_Qty.ToString(), out int val) ? val : 0);
+
+                        int deviationQty = incominginspection
+                            .Sum(x => int.TryParse(x.Deviation_Qty.ToString(), out int val) ? val : 0);
+
+                        int rejectPercentage = inwardQty > 0
+                            ? (int)Math.Round((double)rejectQty / inwardQty * 100)
+                            : 0;
+
+                        int reworkPercentage = inwardQty > 0
+                            ? (int)Math.Round((double)reworkQty / inwardQty * 100)
+                            : 0;
+
+                        int deviationPercentage = inwardQty > 0
+                            ? (int)Math.Round((double)deviationQty / inwardQty * 100)
+                            : 0;
+
+                        int rejectedLots = incominginspection
+                            .Where(x => int.TryParse(x.Reject_Qty.ToString(), out int r) && r > 0)
+                            .Select(x => new { x.JobNum, x.QualityStage })
+                            .Distinct()
+                            .Count();
+
+                        int lotReject = inwardLot > 0
+                            ? (int)Math.Round((double)rejectedLots / inwardLot * 100)
+                            : 0;
+
+                        worksheet5.Cells[summaryRow++, colLabel].Value = "Filter date";
+                        worksheet5.Cells[summaryRow++, colLabel].Value = "Inward Lot";
+                        worksheet5.Cells[summaryRow++, colLabel].Value = "Inward Qty";
+                        worksheet5.Cells[summaryRow++, colLabel].Value = "Inspection Qty";
+                        worksheet5.Cells[summaryRow++, colLabel].Value = "Reject Qty";
+                        worksheet5.Cells[summaryRow++, colLabel].Value = "Reject%";
+                        worksheet5.Cells[summaryRow++, colLabel].Value = "Rework Qty";
+                        worksheet5.Cells[summaryRow++, colLabel].Value = "Rework%";
+                        worksheet5.Cells[summaryRow++, colLabel].Value = "Deviation Qty";
+                        worksheet5.Cells[summaryRow++, colLabel].Value = "Deviation%";
+                        worksheet5.Cells[summaryRow++, colLabel].Value = "Lot Reject%";
+
+                        summaryRow = 2;
+                        worksheet5.Cells[summaryRow++, colValue].Value = dateRange;
+                        worksheet5.Cells[summaryRow++, colValue].Value = inwardLot;
+                        worksheet5.Cells[summaryRow++, colValue].Value = inwardQty;
+                        worksheet5.Cells[summaryRow++, colValue].Value = inspectionQty;
+                        worksheet5.Cells[summaryRow++, colValue].Value = rejectQty;
+                        worksheet5.Cells[summaryRow++, colValue].Value = $"{rejectPercentage}%";
+                        worksheet5.Cells[summaryRow++, colValue].Value = reworkQty;
+                        worksheet5.Cells[summaryRow++, colValue].Value = $"{reworkPercentage}%";
+                        worksheet5.Cells[summaryRow++, colValue].Value = deviationQty;
+                        worksheet5.Cells[summaryRow++, colValue].Value = $"{deviationPercentage}%";
+                        worksheet5.Cells[summaryRow++, colValue].Value = $"{lotReject}%";
+
+                        worksheet5.Cells[worksheet5.Dimension.Address].AutoFitColumns();
                     }
                     catch (Exception)
                     {
@@ -516,107 +876,278 @@ namespace Inspection.Web.Controllers
                         worksheet6.Cells[1, 24].Value = "Sorting time";
                         worksheet6.Cells[1, 25].Value = "Deviation waiting time";
 
-                        //int row = 2;
-                        //foreach (var item in data)
-                        //{
-                        //    worksheet.Cells[row, 1].Value = item.Name;
-                        //    worksheet.Cells[row, 2].Value = item.Age;
-                        //    worksheet.Cells[row, 3].Value = item.Country;
-                        //    row++;
-                        //}
-                    }
-                    catch (Exception)
-                    {
+                        int row = 2;
+                        foreach (var item in incominginspection)
+                        {
+                            worksheet6.Cells[row, 1].Value = item.ID;
+                            worksheet6.Cells[row, 2].Value = item.PartNum;
+                            worksheet6.Cells[row, 3].Value = item.EpiRev;
+                            worksheet6.Cells[row, 4].Value = item.JobNum;
+                            worksheet6.Cells[row, 5].Value = item.Inspection_Qty;
+                            worksheet6.Cells[row, 6].Value = item.Inspection_Type;
+                            worksheet6.Cells[row, 7].Value = item.QualityStage;
+                            worksheet6.Cells[row, 8].Value = item.Suppliername;
+                            worksheet6.Cells[row, 9].Value = item.Sample_Qty;
+                            worksheet6.Cells[row, 10].Value = item.Reject_Qty;
+                            worksheet6.Cells[row, 11].Value = item.rejectpersentage;
+                            worksheet6.Cells[row, 12].Value = item.Rework_Qty;
+                            worksheet6.Cells[row, 13].Value = item.Reworkpersentage;
+                            worksheet6.Cells[row, 14].Value = item.Deviation_Qty;
+                            worksheet6.Cells[row, 15].Value = item.Deviationpersentage;
+                            worksheet6.Cells[row, 16].Value = item.lotreject;
+                            worksheet6.Cells[row, 17].Value = item.TotalTimeinquality;
+                            worksheet6.Cells[row, 18].Value = item.InspectiontimeManpowerspendtime;
+                            worksheet6.Cells[row, 19].Value = item.TotalinspectiontimeManpowerspendtime;
+                            worksheet6.Cells[row, 20].Value = item.InspectiontimeQualitydivisionspendtimebypart;
+                            worksheet6.Cells[row, 21].Value = item.Totalinspectiontimequalitydivisionspendtimebypart;
+                            worksheet6.Cells[row, 22].Value = item.MRBTakentime;
+                            worksheet6.Cells[row, 23].Value = item.Reworktime;
+                            worksheet6.Cells[row, 24].Value = item.Sortingtime;
+                            worksheet6.Cells[row, 25].Value = item.Deviationwaitingtime; 
+                            row++;
+                        }
 
-                        throw;
+                        int colLabel = 28; 
+                        int colValue = 29; 
+                        int summaryRow = 2;
+
+                        int inwardLot = incominginspection.Select(x => new { x.JobNum, x.QualityStage }).Distinct().Count();
+
+                        int inwardQty = incominginspection
+                            .GroupBy(x => new { x.JobNum, x.QualityStage })
+                            .Select(g => g.First())
+                            .Sum(x => int.TryParse(x.Inspection_Qty, out int val) ? val : 0);
+
+                        int inspectionQty = incominginspection
+                            .Sum(x => int.TryParse(x.Inspection_Qty, out int val) ? val : 0);
+
+                        int rejectQty = incominginspection
+                            .Sum(x => int.TryParse(x.Reject_Qty.ToString(), out int val) ? val : 0);
+
+                        int reworkQty = incominginspection
+                            .Sum(x => int.TryParse(x.Rework_Qty.ToString(), out int val) ? val : 0);
+
+                        int deviationQty = incominginspection
+                            .Sum(x => int.TryParse(x.Deviation_Qty.ToString(), out int val) ? val : 0);
+
+                        int rejectPercentage = inwardQty > 0
+                            ? (int)Math.Round((double)rejectQty / inwardQty * 100)
+                            : 0;
+
+                        int reworkPercentage = inwardQty > 0
+                            ? (int)Math.Round((double)reworkQty / inwardQty * 100)
+                            : 0;
+
+                        int deviationPercentage = inwardQty > 0
+                            ? (int)Math.Round((double)deviationQty / inwardQty * 100)
+                            : 0;
+
+                        int rejectedLots = incominginspection
+                            .Where(x => int.TryParse(x.Reject_Qty.ToString(), out int r) && r > 0)
+                            .Select(x => new { x.JobNum, x.QualityStage })
+                            .Distinct()
+                            .Count();
+
+                        int lotReject = inwardLot > 0
+                            ? (int)Math.Round((double)rejectedLots / inwardLot * 100)
+                            : 0;
+
+                        worksheet6.Cells[summaryRow++, colLabel].Value = "Filter date";
+                        worksheet6.Cells[summaryRow++, colLabel].Value = "Inward Lot";
+                        worksheet6.Cells[summaryRow++, colLabel].Value = "Inward Qty";
+                        worksheet6.Cells[summaryRow++, colLabel].Value = "Inspection Qty";
+                        worksheet6.Cells[summaryRow++, colLabel].Value = "Reject Qty";
+                        worksheet6.Cells[summaryRow++, colLabel].Value = "Reject%";
+                        worksheet6.Cells[summaryRow++, colLabel].Value = "Rework Qty";
+                        worksheet6.Cells[summaryRow++, colLabel].Value = "Rework%";
+                        worksheet6.Cells[summaryRow++, colLabel].Value = "Deviation Qty";
+                        worksheet6.Cells[summaryRow++, colLabel].Value = "Deviation%";
+                        worksheet6.Cells[summaryRow++, colLabel].Value = "Lot Reject%";
+
+                        summaryRow = 2; 
+                        worksheet6.Cells[summaryRow++, colValue].Value = "01-Jan-2024 to 31-Jan-2024";
+                        worksheet6.Cells[summaryRow++, colValue].Value = inwardLot;
+                        worksheet6.Cells[summaryRow++, colValue].Value = inwardQty;
+                        worksheet6.Cells[summaryRow++, colValue].Value = inspectionQty;
+                        worksheet6.Cells[summaryRow++, colValue].Value = rejectQty;
+                        worksheet6.Cells[summaryRow++, colValue].Value = $"{rejectPercentage}%";
+                        worksheet6.Cells[summaryRow++, colValue].Value = reworkQty;
+                        worksheet6.Cells[summaryRow++, colValue].Value = $"{reworkPercentage}%";
+                        worksheet6.Cells[summaryRow++, colValue].Value = deviationQty;
+                        worksheet6.Cells[summaryRow++, colValue].Value = $"{deviationPercentage}%";
+                        worksheet6.Cells[summaryRow++, colValue].Value = $"{lotReject}%";
+
+                        int supplierRow = summaryRow + 2;
+                        int supplierCol = 28;
+
+                        worksheet6.Cells[supplierRow, supplierCol].Value = "Supplier Name";
+                        worksheet6.Cells[supplierRow, supplierCol + 1].Value = "Inward Lot";
+                        worksheet6.Cells[supplierRow, supplierCol + 2].Value = "Inward Qty";
+                        worksheet6.Cells[supplierRow, supplierCol + 3].Value = "Reject Qty";
+                        worksheet6.Cells[supplierRow, supplierCol + 4].Value = "Reject%";
+                        worksheet6.Cells[supplierRow, supplierCol + 5].Value = "Rework Qty";
+                        worksheet6.Cells[supplierRow, supplierCol + 6].Value = "Rework%";
+                        worksheet6.Cells[supplierRow, supplierCol + 7].Value = "Deviation Qty";
+                        worksheet6.Cells[supplierRow, supplierCol + 8].Value = "Deviation%";
+                        worksheet6.Cells[supplierRow, supplierCol + 9].Value = "Lot Reject%";
+
+                        supplierRow++;
+
+                        var groupedSuppliers = incominginspection.GroupBy(x => x.Suppliername);
+
+                        foreach (var group in groupedSuppliers)
+                        {
+                            string supplier = group.Key;
+                            int lotCount = group.Select(x => new { x.JobNum, x.QualityStage }).Distinct().Count();
+                            int totalInward = group
+                                .GroupBy(x => new { x.JobNum, x.QualityStage })
+                                .Select(g => g.First())
+                                .Sum(x => int.TryParse(x.Inspection_Qty, out int val) ? val : 0);
+                            int totalReject = group.Sum(x => int.TryParse(x.Reject_Qty.ToString(), out int val) ? val : 0);
+                            int totalRework = group.Sum(x => int.TryParse(x.Rework_Qty.ToString(), out int val) ? val : 0);
+                            int totalDeviation = group.Sum(x => int.TryParse(x.Deviation_Qty.ToString(), out int val) ? val : 0);
+                            int rejectedLotsPerSupplier = group
+                                .Where(x => int.TryParse(x.Reject_Qty.ToString(), out int r) && r > 0)
+                                .Select(x => new { x.JobNum, x.QualityStage })
+                                .Distinct()
+                                .Count();
+
+                            double rejectPer = totalInward > 0 ? (double)totalReject * 100 / totalInward : 0;
+                            double reworkPer = totalInward > 0 ? (double)totalRework * 100 / totalInward : 0;
+                            double devPer = totalInward > 0 ? (double)totalDeviation * 100 / totalInward : 0;
+                            double lotRejPer = lotCount > 0 ? (double)rejectedLotsPerSupplier * 100 / lotCount : 0;
+
+                            worksheet6.Cells[supplierRow, supplierCol].Value = supplier;
+                            worksheet6.Cells[supplierRow, supplierCol + 1].Value = lotCount;
+                            worksheet6.Cells[supplierRow, supplierCol + 2].Value = totalInward;
+                            worksheet6.Cells[supplierRow, supplierCol + 3].Value = totalReject;
+                            worksheet6.Cells[supplierRow, supplierCol + 4].Value = $"{rejectPer:0.00}%";
+                            worksheet6.Cells[supplierRow, supplierCol + 5].Value = totalRework;
+                            worksheet6.Cells[supplierRow, supplierCol + 6].Value = $"{reworkPer:0.00}%";
+                            worksheet6.Cells[supplierRow, supplierCol + 7].Value = totalDeviation;
+                            worksheet6.Cells[supplierRow, supplierCol + 8].Value = $"{devPer:0.00}%";
+                            worksheet6.Cells[supplierRow, supplierCol + 9].Value = $"{lotRejPer:0.00}%";
+
+                            supplierRow++;
+                        }
+
+                        worksheet6.Cells[worksheet6.Dimension.Address].AutoFitColumns();
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new Exception("Error generating Excel report: " + ex.Message);
                     }
                     // for Sum of Rejection Code Sheet
                     try
                     {
-                        worksheet7.Cells[1, 1].Value = "Sr No";
-                        worksheet7.Cells[1, 2].Value = "Defect code";
-                        worksheet7.Cells[1, 3].Value = "Description";
-                        worksheet7.Cells[1, 4].Value = "Rejection Qty.";
-                        worksheet7.Cells[1, 5].Value = "Rework Qty.";
+                        worksheet7.Cells["A1:D1"].Merge = true;
+                        worksheet7.Cells["A1"].Value = dateRange;
+                        worksheet7.Cells["A1"].Style.Font.Bold = true;
+                        worksheet7.Cells["A1"].Style.Font.Size = 14;
+                        worksheet7.Cells["A1"].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                        worksheet7.Cells["A1"].Style.VerticalAlignment = ExcelVerticalAlignment.Center;
+                        worksheet7.Row(1).Height = 25;
+                        worksheet7.Cells["A1:D1"].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                        worksheet7.Cells["A1:D1"].Style.Fill.BackgroundColor.SetColor(Color.LightBlue);
 
-                        worksheet7.Cells[3, 1].Value = "R1";
-                        worksheet7.Cells[4, 1].Value = "R2";
-                        worksheet7.Cells[5, 1].Value = "R3";
-                        worksheet7.Cells[6, 1].Value = "R4";
-                        worksheet7.Cells[7, 1].Value = "R5";
-                        worksheet7.Cells[8, 1].Value = "R6";
-                        worksheet7.Cells[9, 1].Value = "R7";
-                        worksheet7.Cells[10, 1].Value = "R8";
-                        worksheet7.Cells[11, 1].Value = "R9 ";
-                        worksheet7.Cells[12, 1].Value = "R10";
-                        worksheet7.Cells[13, 1].Value = "R11";
-                        worksheet7.Cells[14, 1].Value = "R12";
-                        worksheet7.Cells[15, 1].Value = "R13";
-                        worksheet7.Cells[16, 1].Value = "R14";
-                        worksheet7.Cells[17, 1].Value = "R15";
-                        worksheet7.Cells[18, 1].Value = "R16";
-                        worksheet7.Cells[19, 1].Value = "R17";
-                        worksheet7.Cells[20, 1].Value = "R18";
-                        worksheet7.Cells[21, 1].Value = "R19";
-                        worksheet7.Cells[22, 1].Value = "R20";
-                        worksheet7.Cells[23, 1].Value = "R21";
-                        worksheet7.Cells[24, 1].Value = "R22";
-                        worksheet7.Cells[25, 1].Value = "R23";
-                        worksheet7.Cells[26, 1].Value = "R24";
-                        worksheet7.Cells[27, 1].Value = "R25";
-                        worksheet7.Cells[28, 1].Value = "R26";
-                        worksheet7.Cells[29, 1].Value = "R27";
-                        worksheet7.Cells[30, 1].Value = "R28";
-                        worksheet7.Cells[31, 1].Value = "R29";
-                        worksheet7.Cells[32, 1].Value = "R30";
+                        worksheet7.Cells[2, 1].Value = "Defect code";
+                        worksheet7.Cells[2, 2].Value = "Description";
+                        worksheet7.Cells[2, 3].Value = "Rejection Qty.";
+                        worksheet7.Cells[2, 4].Value = "Rework Qty.";
+                        worksheet7.Cells["A2:D2"].Style.Font.Bold = true;
+                        worksheet7.Cells["A2:D2"].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                        worksheet7.Cells["A2:D2"].Style.Fill.BackgroundColor.SetColor(Color.LightBlue);
 
+                        var headerRange = worksheet7.Cells["A2:D2"];
+                        headerRange.Style.Border.Top.Style = ExcelBorderStyle.Thin;
+                        headerRange.Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
+                        headerRange.Style.Border.Left.Style = ExcelBorderStyle.Thin;
+                        headerRange.Style.Border.Right.Style = ExcelBorderStyle.Thin;
 
-                        worksheet7.Cells[3, 2].Value = "Dimensional rejection in outer diameter";
-                        worksheet7.Cells[4, 2].Value = "Dimensional rejection in inner diameter";
-                        worksheet7.Cells[5, 2].Value = "Dimensional rejection in distance or center distance at outer side";
-                        worksheet7.Cells[6, 2].Value = "Dimensional rejection in distance or center distance at inner side";
-                        worksheet7.Cells[7, 2].Value = "Dimensional rejection in Angle";
-                        worksheet7.Cells[8, 2].Value = "Dimension rejection in total length";
-                        worksheet7.Cells[9, 2].Value = "Dimensional rejection in GD & T";
-                        worksheet7.Cells[10, 2].Value = "Dimensional rejection in threading";
-                        worksheet7.Cells[11, 2].Value = "Dimensional rejection in radius form ";
-                        worksheet7.Cells[12, 2].Value = "Dimensional rejection in Hex/Square/Flat/Slot sizes";
-                        worksheet7.Cells[13, 2].Value = "Rejection due to Burr/surface finish/Step";
-                        worksheet7.Cells[14, 2].Value = "Rejection due to Dent/Scratches/Steel mark at machining stage";
-                        worksheet7.Cells[15, 2].Value = "Rejection due to Overbuff at machining stage";
-                        worksheet7.Cells[16, 2].Value = "Dimensional rejection due to Special processes";
-                        worksheet7.Cells[17, 2].Value = "Rejection due to Rusting";
-                        worksheet7.Cells[18, 2].Value = "Rejection due to Dent/Scratches/Steel mark at special processes stage";
-                        worksheet7.Cells[19, 2].Value = "Rejection due to Overbuff at special processes stage";
-                        worksheet7.Cells[20, 2].Value = "Rejection due to special processes";
-                        worksheet7.Cells[21, 2].Value = "Rejection due to functionality";
-                        worksheet7.Cells[22, 2].Value = "Rejection due to welding defects";
-                        worksheet7.Cells[23, 2].Value = "Rejection in setting";
-                        worksheet7.Cells[24, 2].Value = "Rejection reused for setting";
-                        worksheet7.Cells[25, 2].Value = "Rejection due to power-cut";
-                        worksheet7.Cells[26, 2].Value = "Rejection due to cut pc/HT checking";
-                        worksheet7.Cells[27, 2].Value = "Rejection due to wrong gauge/instrument";
-                        worksheet7.Cells[28, 2].Value = "Rejection due to raw material";
-                        worksheet7.Cells[29, 2].Value = "Rejection due to outside processes";
-                        worksheet7.Cells[30, 2].Value = "Rejection due to miss reading of drawing or print drawing";
-                        worksheet7.Cells[31, 2].Value = "Rejection due to counterfeit part";
-                        worksheet7.Cells[32, 2].Value = "Rejection of development";
+                        string[] codes = {
+                            "R1", "R2", "R3", "R4", "R5", "R6", "R7", "R8", "R9", "R10",
+                            "R11", "R12", "R13", "R14", "R15", "R16", "R17", "R18", "R19",
+                            "R20", "R21", "R22", "R23", "R24", "R25", "R26", "R27", "R28", "R29", "R30"
+                        };
 
-                        //int row = 2;
-                        //foreach (var item in data)
-                        //{
-                        //    worksheet.Cells[row, 1].Value = item.Name;
-                        //    worksheet.Cells[row, 2].Value = item.Age;
-                        //    worksheet.Cells[row, 3].Value = item.Country;
-                        //    row++;
-                        //}
+                        string[] descriptions = {
+                            "Dimensional rejection in outer diameter",
+                            "Dimensional rejection in inner diameter",
+                            "Dimensional rejection in distance or center distance at outer side",
+                            "Dimensional rejection in distance or center distance at inner side",
+                            "Dimensional rejection in Angle",
+                            "Dimension rejection in total length",
+                            "Dimensional rejection in GD & T",
+                            "Dimensional rejection in threading",
+                            "Dimensional rejection in radius form",
+                            "Dimensional rejection in Hex/Square/Flat/Slot sizes",
+                            "Rejection due to Burr/surface finish/Step",
+                            "Rejection due to Dent/Scratches/Steel mark at machining stage",
+                            "Rejection due to Overbuff at machining stage",
+                            "Dimensional rejection due to Special processes",
+                            "Rejection due to Rusting",
+                            "Rejection due to Dent/Scratches/Steel mark at special processes stage",
+                            "Rejection due to Overbuff at special processes stage",
+                            "Rejection due to special processes",
+                            "Rejection due to functionality",
+                            "Rejection due to welding defects",
+                            "Rejection in setting",
+                            "Rejection reused for setting",
+                            "Rejection due to power-cut",
+                            "Rejection due to cut pc/HT checking",
+                            "Rejection due to wrong gauge/instrument",
+                            "Rejection due to raw material",
+                            "Rejection due to outside processes",
+                            "Rejection due to miss reading of drawing or print drawing",
+                            "Rejection due to counterfeit part",
+                            "Rejection of development"
+                        };
+
+                        var defectSummary = DB.Final_Inspection_Mrb_Rcode
+                            .Where(x => x.Active == true && x.Deleted == false)
+                            .GroupBy(x => x.Rcode)
+                            .ToDictionary(
+                                g => g.Key,
+                                g => new
+                                {
+                                    RejectionQty = g.Sum(x => x.Reject ?? 0),
+                                    ReworkQty = g.Sum(x => x.Rework ?? 0)
+                                });
+
+                        for (int i = 0; i < codes.Length; i++)
+                        {
+                            int row = i + 3;
+                            string code = codes[i];
+                            worksheet7.Cells[row, 1].Value = code;
+                            worksheet7.Cells[row, 2].Value = descriptions[i];
+
+                            if (defectSummary.ContainsKey(code))
+                            {
+                                worksheet7.Cells[row, 3].Value = defectSummary[code].RejectionQty;
+                                worksheet7.Cells[row, 4].Value = defectSummary[code].ReworkQty;
+                            }
+
+                            var fillColor = (i >= 13 && i <= 16) ? Color.MediumPurple : Color.LightGreen;
+                            var cellRange = worksheet7.Cells[row, 1, row, 4];
+                            cellRange.Style.Fill.PatternType = ExcelFillStyle.Solid;
+                            cellRange.Style.Fill.BackgroundColor.SetColor(fillColor);
+
+                            cellRange.Style.Border.Top.Style = ExcelBorderStyle.Thin;
+                            cellRange.Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
+                            cellRange.Style.Border.Left.Style = ExcelBorderStyle.Thin;
+                            cellRange.Style.Border.Right.Style = ExcelBorderStyle.Thin;
+                        }
+
+                        worksheet7.Cells[worksheet7.Dimension.Address].AutoFitColumns();
+
+                        worksheet7.View.FreezePanes(3, 1);
                     }
                     catch (Exception)
                     {
 
                         throw;
                     }
-                    
+
                     // Save to MemoryStream
                     var stream = new MemoryStream();
                     package.SaveAs(stream);

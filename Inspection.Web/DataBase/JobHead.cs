@@ -164,8 +164,6 @@ namespace Inspection.Web.DataBase
         public string ContractID { get; set; }
         public bool ProjProcessed { get; set; }
         public bool SyncReqBy { get; set; }
-        public string CustName { get; set; }
-        public string CustID { get; set; }
         public bool IsCSRSet { get; set; }
         public bool UnReadyCostProcess { get; set; }
         public string ProcSuspendedUpdates { get; set; }
@@ -174,5 +172,12 @@ namespace Inspection.Web.DataBase
         public bool ExternalMESSyncRequired { get; set; }
         public Nullable<System.DateTime> ExternalMESLastSync { get; set; }
         public bool EpicorFSA { get; set; }
+        public int KBConfigProdID { get; set; }
+        public bool UseAdvancedStaging { get; set; }
+        public int AttributeSetID { get; set; }
+        public bool ReadyToFulfill { get; set; }
+        public bool FSMSendTo { get; set; }
+        public string FSMServiceReportID { get; set; }
+        public string PersonIDName { get; set; }
     }
 }

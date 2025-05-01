@@ -69,7 +69,7 @@ namespace Inspection.Web.DataBase
         public Nullable<bool> admin_rights { get; set; }
         public Nullable<bool> Secondary_approval_required { get; set; }
         public string Secondary_approval_person { get; set; }
+        public string Company { get; set; }
         public Nullable<int> MSPRO_UserType { get; set; }
-        public Nullable<int> ToolTrial_UserType { get; set; }
     }
 }

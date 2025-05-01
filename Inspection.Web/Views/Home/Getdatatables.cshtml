@@ -186,125 +186,128 @@
                                     }
                                     else
                                     {
-                                        <tr style="background-color:mediumseagreen">
-                                            <td>
-                                                @Html.DisplayFor(modelItem => Count)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.InwardDate)
-                                            </td>
-                                            @*<td>
-                                                @Html.DisplayFor(modelItem => item.InwardTime)
-                                            </td>*@
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.JobNo)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.Partno)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.Qty)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.InspectionType)
-                                            </td>
-                                            @{
-                                                var STAGESelectList = inspectionservice.GetInspectiontype();
-                                            }
-                                            @Html.HiddenFor(modelItem => item.id, new { id = "ItemId" })
+                        <tr style="background-color:mediumseagreen">
+                            <td>
+                                @Html.DisplayFor(modelItem => Count)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.InwardDate)
+                            </td>
+                            @*<td>
+            @Html.DisplayFor(modelItem => item.InwardTime)
+        </td>*@
+                            <td>
+                                @Html.DisplayFor(modelItem => item.JobNo)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Partno)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Qty)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.InspectionType)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.QualityStage)
+                            </td>
+                            @{
+                                var STAGESelectList = inspectionservice.GetInspectiontype();
+                            }
+                            @Html.HiddenFor(modelItem => item.id, new { id = "ItemId" })
 
-                                            <td>
-                                                @if (item.currentstage == "9")
-                                                {
+                            <td>
+                                @if (item.currentstage == "9")
+                                {
 
-                                                    <button class="btn btn-danger add-btn" onclick="StartInspection(@item.reworkqty, @item.id, 'Rework')">
-                                                        <i class="ri-add-line align-bottom me-1"></i> Start Inspection
-                                                    </button>
+                                    <button class="btn btn-danger add-btn" onclick="StartInspection(@item.reworkqty, @item.id, 'Rework')">
+                                        <i class="ri-add-line align-bottom me-1"></i> Start Inspection
+                                    </button>
 
-                                                }
-                                                else if (item.currentstage == "7")
-                                                {
+                                }
+                                else if (item.currentstage == "7")
+                                {
 
-                                                    <input type="checkbox" class="form-check-input" style="width:30px;height:30px" onchange="handleCheckboxChange(this, '@item.id', 'Rework')">
-                                                    <label class="form-check-label" for="reworkCheckbox">Move to in rework</label>
-
-
-                                                }
-                                                else if (item.currentstage == "10")
-                                                {
-
-                                                    <button class="btn btn-danger add-btn" onclick="adddeviationdata(@item.deviationqty, @item.id , 'Daviation')">
-                                                        <i class="ri-add-line align-bottom me-1"></i> Deviation Form
-                                                    </button>
-
-                                                    <button class="btn btn-danger add-btn" onclick="addsorting(@item.deviationqty, @item.id , 'Daviation')">
-                                                        <i class="ri-add-line align-bottom me-1"></i> Start Deviation
-                                                    </button>
-
-                                                }
-                                                else if (item.currentstage == "8")
-                                                {
-
-                                                    <button class="btn btn-danger add-btn" onclick="addreworkdata(@item.reworkqty, @item.id, 'Rework','@item.InspectionType')">
-                                                        <i class="ri-add-line align-bottom me-1"></i> Rework Form
-                                                    </button>
-
-                                                }
-                                                else if (item.currentstage == "6")
-                                                {
-
-                                                    <button class="btn btn-danger add-btn" onclick="StartDaviation(@item.sortingqty, @item.id, 'Sorting')">
-                                                        <i class="ri-add-line align-bottom me-1"></i> Sorting Form
-                                                    </button>
+                                    <input type="checkbox" class="form-check-input" style="width:30px;height:30px" onchange="handleCheckboxChange(this, '@item.id', 'Rework')">
+                                    <label class="form-check-label" for="reworkCheckbox">Move to in rework</label>
 
 
-                                                }
-                                                else if (item.currentstage == "12")
-                                                {
+                                }
+                                else if (item.currentstage == "10")
+                                {
 
-                                                    <button class="btn btn-danger add-btn" onclick="DocumentVerification(@item.id , 'Document')">
-                                                        <i class="ri-add-line align-bottom me-1"></i> Start Document Verification
-                                                    </button>
+                                    <button class="btn btn-danger add-btn" onclick="adddeviationdata(@item.deviationqty, @item.id , 'Daviation')">
+                                        <i class="ri-add-line align-bottom me-1"></i> Deviation Form
+                                    </button>
 
-                                                }
-                                                else if (item.currentstage == "13")
-                                                {
+                                    <button class="btn btn-danger add-btn" onclick="addsorting(@item.deviationqty, @item.id , 'Daviation')">
+                                        <i class="ri-add-line align-bottom me-1"></i> Start Deviation
+                                    </button>
 
-                                                    <input type="checkbox" class="form-check-input" style="width:30px;height:30px" onchange="handleCheckboxChange(this, '@item.id', 'Packing')">
-                                                    <label class="form-check-label" for="reworkCheckbox">Move to Last Stge</label>
+                                }
+                                else if (item.currentstage == "8")
+                                {
 
-                                                }
-                                                else if (item.currentstage == "14")
-                                                {
+                                    <button class="btn btn-danger add-btn" onclick="addreworkdata(@item.reworkqty, @item.id, 'Rework','@item.InspectionType')">
+                                        <i class="ri-add-line align-bottom me-1"></i> Rework Form
+                                    </button>
 
-                                                    <button class="btn btn-danger add-btn" onclick="CloseInspection(@item.id, '@item.JobNo','@item.QualityStage')">
-                                                        End Process
-                                                    </button>
+                                }
+                                else if (item.currentstage == "6")
+                                {
 
-                                                }
-                                                else if (item.currentstage == "18")
-                                                {
+                                    <button class="btn btn-danger add-btn" onclick="StartDaviation(@item.sortingqty, @item.id, 'Sorting')">
+                                        <i class="ri-add-line align-bottom me-1"></i> Sorting Form
+                                    </button>
 
-                                                    <input type="checkbox" class="form-check-input" style="width:30px;height:30px" onchange="stageChangedata(this, '@item.id', 'redynextoperation')">
-                                                    <label class="form-check-label" for="reworkCheckbox">Move to in Last Stage</label>
 
-                                                }
-                                                else if (item.currentstage == "1")
-                                                {
-                                                    @*<td>
-                                 @Html.DropDownListFor(modelItem => item.ProcessStage, STAGESelectList, "select...", new { @class = "form-select mb-3 js-example-basic-single", id = "Inputinstype" })
-                                </td>
-                                <td>
-                                    @Html.TextBoxFor(modelItem => item.IQTY, new { @class = "form-control mb-3", id = "Inputinsqty" })
-                                </td>
-                                <td>
-                                    <button class="btn btn-primary" onclick="handleChangedata();">Save</button>
-                                </td>*@
-                                                }
+                                }
+                                else if (item.currentstage == "12")
+                                {
 
-                                                @Html.ActionLink("History", "PartHistory", "Home", new { jobnum = item.JobNo, id = item.id, type = item.InspectionType, stage = item.QualityStage }, new { @class = "btn  btn-primary " })
-                                            </td>
-                                        </tr>
+                                    <button class="btn btn-danger add-btn" onclick="DocumentVerification(@item.id , 'Document')">
+                                        <i class="ri-add-line align-bottom me-1"></i> Start Document Verification
+                                    </button>
+
+                                }
+                                else if (item.currentstage == "13")
+                                {
+
+                                    <input type="checkbox" class="form-check-input" style="width:30px;height:30px" onchange="handleCheckboxChange(this, '@item.id', 'Packing')">
+                                    <label class="form-check-label" for="reworkCheckbox">Move to Last Stge</label>
+
+                                }
+                                else if (item.currentstage == "14")
+                                {
+
+                                    <button class="btn btn-danger add-btn" onclick="CloseInspection(@item.id, '@item.JobNo','@item.QualityStage')">
+                                        End Process
+                                    </button>
+
+                                }
+                                else if (item.currentstage == "18")
+                                {
+
+                                    <input type="checkbox" class="form-check-input" style="width:30px;height:30px" onchange="stageChangedata(this, '@item.id', 'redynextoperation')">
+                                    <label class="form-check-label" for="reworkCheckbox">Move to in Last Stage</label>
+
+                                }
+                                else if (item.currentstage == "1")
+                                {
+                                    @*<td>
+                 @Html.DropDownListFor(modelItem => item.ProcessStage, STAGESelectList, "select...", new { @class = "form-select mb-3 js-example-basic-single", id = "Inputinstype" })
+                </td>
+                <td>
+                    @Html.TextBoxFor(modelItem => item.IQTY, new { @class = "form-control mb-3", id = "Inputinsqty" })
+                </td>
+                <td>
+                    <button class="btn btn-primary" onclick="handleChangedata();">Save</button>
+                </td>*@
+                                }
+
+                                @Html.ActionLink("History", "PartHistory", "Home", new { jobnum = item.JobNo, id = item.id, type = item.InspectionType, stage = item.QualityStage }, new { @class = "btn  btn-primary " })
+                            </td>
+                        </tr>
                                         Count++;
                                     }
 

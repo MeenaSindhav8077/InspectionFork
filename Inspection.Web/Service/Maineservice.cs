@@ -15,7 +15,7 @@ namespace Inspection.Web.Service
         LogService logService = new LogService();
         public List<SelectListItem> GetInspectiontype()
         {
-            ITe_INDIAEntities1 DB = new ITe_INDIAEntities1();
+            ITEIndiaEntities DB = new ITEIndiaEntities();
 
             var dbData = DB.Final_Inspection_Stage_Master.GroupBy(tol => tol.stage_part_status.Trim()).Select(group => group.FirstOrDefault()).OrderBy(p=>p.Stage).ToList();
 
@@ -30,7 +30,7 @@ namespace Inspection.Web.Service
         }
         public List<SelectListItem> Getuser()
         {
-            ITe_INDIAEntities1 DB = new ITe_INDIAEntities1();
+            ITEIndiaEntities DB = new ITEIndiaEntities();
 
             List<SelectListItem> selectListItems = DB.user_data.GroupBy(tol => tol.name.Trim()).Select(group => group.FirstOrDefault())
                 .Select(tol => new SelectListItem

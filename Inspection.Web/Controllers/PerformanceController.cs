@@ -12,7 +12,7 @@ namespace Inspection.Web.Controllers
 {
     public class PerformanceController : Controller
     {
-        ITe_INDIAEntities1 DB = new ITe_INDIAEntities1();
+        ITEIndiaEntities DB = new ITEIndiaEntities();
         [Authorize]
         public ActionResult Index(PerformanceModel _model)
         {

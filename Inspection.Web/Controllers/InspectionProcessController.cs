@@ -14,7 +14,7 @@ namespace Inspection.Web.Controllers
     public class InspectionProcessController : Controller
     {
         // GET: InspectionProcess
-        ITe_INDIAEntities1 DB = new ITe_INDIAEntities1();
+        ITEIndiaEntities DB = new ITEIndiaEntities();
         List<InwardDataModel> List = new List<InwardDataModel>();
         Inspectionservice _service = new Inspectionservice();
         LogService logService = new LogService();

@@ -15,7 +15,7 @@ namespace Inspection.Web.Controllers
     public class AfterInspectionController : Controller
     {
         // GET: AfterInspection
-        ITe_INDIAEntities1 DB = new ITe_INDIAEntities1();
+        ITEIndiaEntities DB = new ITEIndiaEntities();
         List<InwardDataModel> _List = new List<InwardDataModel>();
         LogService logService = new LogService();
         [Authorize]

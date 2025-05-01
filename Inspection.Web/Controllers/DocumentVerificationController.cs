@@ -21,7 +21,7 @@ namespace Inspection.Web.Controllers
     public class DocumentVerificationController : Controller
     {
         // GET: DocumentVerification
-        ITe_INDIAEntities1 DB = new ITe_INDIAEntities1();
+        ITEIndiaEntities DB = new ITEIndiaEntities();
         LogService logService = new LogService();
         Maineservice _service = new Maineservice();
         [Authorize]

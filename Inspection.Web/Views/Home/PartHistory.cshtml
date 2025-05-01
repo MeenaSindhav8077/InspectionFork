@@ -79,23 +79,27 @@
                                     </div>
                                 }
                             }
-                            @if (Model._submodel.Count > 0)
+                            @if (Model._submodel != null)
                             {
-                                foreach (var item in Model._submodel)
+                                if (Model._submodel.Count > 0)
                                 {
-                                    <div class="swiper-slide">
-                                        <div class="card pt-2 border-0 item-box text-center">
-                                            <div class="timeline-content p-3 rounded">
-                                                <div>
-                                                    <p class="text-muted mb-1">@Model._INWARD.JobNo</p>
-                                                    <h6 class="fs-15 mb-0">@item.Stage</h6>
+                                    foreach (var item in Model._submodel)
+                                    {
+                                        <div class="swiper-slide">
+                                            <div class="card pt-2 border-0 item-box text-center">
+                                                <div class="timeline-content p-3 rounded">
+                                                    <div>
+                                                        <p class="text-muted mb-1">@Model._INWARD.JobNo</p>
+                                                        <h6 class="fs-15 mb-0">@item.Stage</h6>
+                                                    </div>
                                                 </div>
+                                                <div class="time"><span class="badge bg-success">@item.StartTime , @item.StartTime</span></div>
                                             </div>
-                                            <div class="time"><span class="badge bg-success">@item.StartTime , @item.StartTime</span></div>
                                         </div>
-                                    </div>
+                                    }
                                 }
                             }
+
 
                         </div>
                         <div class="swiper-button-next"></div>
