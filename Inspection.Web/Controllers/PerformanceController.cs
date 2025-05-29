@@ -37,7 +37,7 @@ namespace Inspection.Web.Controllers
                         if (_model.inspector == "All")
                         {
                             List<Final_Inspection_Process> _data = DB.Final_Inspection_Process.Where(x => x.Inspection_date >= _sdate && x.Inspection_date <= _edate && x.Inspection_Type == "Humidity" && (x.Active == null || x.Active == true)).ToList();
-                            if (_data != null)
+                            if (_data.Count > 0)
                             {
                                 double totalMinutes = _data.Sum(p =>
                                 {
@@ -58,11 +58,11 @@ namespace Inspection.Web.Controllers
                                     }
                                 });
                                 model.Humidityqty = _data.Sum(p => p.Inspection_Qty);
-                                model.HumidityHours = Math.Ceiling(totalMinutes / 60.1);
+                                model.HumidityHours = Math.Round(totalMinutes / 60.0, 2);
                             }
                             List<Final_Inspection_Process> _Fdata = DB.Final_Inspection_Process.Where(x => x.Inspection_date >= _sdate && x.Inspection_date <= _edate && x.Inspection_Type == "Final" && (x.Active == null || x.Active == true)).ToList();
                             
-                            if (_Fdata != null)
+                            if (_Fdata.Count > 0)
                             {
                                 double totalMinutes = _Fdata.Sum(p =>
                                 {
@@ -84,10 +84,10 @@ namespace Inspection.Web.Controllers
                                 });
 
                                 model.Finalqty = _Fdata.Sum(p => p.Inspection_Qty);
-                                model.FinalHours = Math.Ceiling(totalMinutes / 60.0); // Convert minutes to hours and round up
+                                model.FinalHours = Math.Round(totalMinutes / 60.0, 2); // Convert minutes to hours and round up
                             }
                             List<Final_Inspection_Process> _Vdata = DB.Final_Inspection_Process.Where(x => x.Inspection_date >= _sdate && x.Inspection_date <= _edate && x.Inspection_Type == "Visual" && (x.Active == null || x.Active == true)).ToList();
-                            if (_Vdata != null)
+                            if (_Vdata.Count > 0)
                             {
                                 double totalMinutes = _Vdata.Sum(p =>
                                 {
@@ -109,10 +109,10 @@ namespace Inspection.Web.Controllers
                                 });
 
                                 model.Visualqty = _Vdata.Sum(p => p.Inspection_Qty);
-                                model.VisualHours = Math.Ceiling(totalMinutes / 60.1);
+                                model.VisualHours = Math.Round(totalMinutes / 60.0, 2);
                             }
                             List<Final_Inspection_Process> _Tdata = DB.Final_Inspection_Process.Where(x => x.Inspection_date >= _sdate && x.Inspection_date <= _edate && x.Inspection_Type == "Thread" && (x.Active == null || x.Active == true)).ToList();
-                            if (_Tdata != null)
+                            if (_Tdata.Count > 0)
                             {
                                 double totalMinutes = _Tdata.Sum(p =>
                                 {
@@ -133,17 +133,18 @@ namespace Inspection.Web.Controllers
                                     }
                                 });
                                 model.Threadqty = _Tdata.Sum(p => p.Inspection_Qty);
-                                model.ThreadHours = Math.Ceiling(totalMinutes / 60.1);
+                                model.ThreadHours = Math.Round(totalMinutes / 60.0, 2);
                             }
                         }
                         else
                         {
-                            List<Final_Inspection_Process> _data = DB.Final_Inspection_Process.Where(x => x.Inspection_date >= _sdate && x.Inspection_date <= _edate && x.Inspection_Type == "Humidity" && x.done_by == _model.inspector && (x.Active == null || x.Active == true)).ToList();
-                            if (_data != null)
+                            List<Final_Inspection_Process> _data = DB.Final_Inspection_Process.Where(x => x.Inspection_date >= _sdate && x.Inspection_date <= _edate && x.Inspection_Type == "Humidity" && x.done_by == _model.inspector  && x.Statuschange == true && (x.Active == null || x.Active == true)).ToList();
+                            if (_data.Count > 0)
                             {
                                 double totalMinutes = _data.Sum(p =>
                                 {
-                                    if (string.IsNullOrEmpty(p.starttime) || p.endtime != null)
+
+                                    if (p.endtime != null)
                                         return 0;
 
                                     try
@@ -160,9 +161,9 @@ namespace Inspection.Web.Controllers
                                     }
                                 });
                                 model.Humidityqty = _data.Sum(p => p.Inspection_Qty);
-                                model.HumidityHours = Math.Ceiling(totalMinutes / 60.0);
+                                model.HumidityHours = Math.Round(totalMinutes / 60.0, 2);
                             }
-                            List<Final_Inspection_Process> _Fdata = DB.Final_Inspection_Process.Where(x => x.Inspection_date >= _sdate && x.Inspection_date <= _edate && x.Inspection_Type == "Final" && x.done_by == _model.inspector && (x.Active == null || x.Active == true)).ToList();
+                            List<Final_Inspection_Process> _Fdata = DB.Final_Inspection_Process.Where(x => x.Inspection_date >= _sdate && x.Inspection_date <= _edate && x.Inspection_Type == "Final" && x.done_by == _model.inspector && x.Statuschange == true && (x.Active == null || x.Active == true)).ToList();
                             //if (_Fdata != null)
                             //{
                             //    double totalMinutes = _Fdata.Sum(p =>
@@ -180,11 +181,12 @@ namespace Inspection.Web.Controllers
                             //    model.Finalqty = _Fdata.Sum(p => p.Inspection_Qty);
                             //    model.FinalHours = Math.Ceiling(totalMinutes / 60.0);
                             //}
-                            if (_Fdata != null)
+                            if (_Fdata.Count > 0)
                             {
                                 double totalMinutes = _Fdata.Sum(p =>
                                 {
-                                    if (string.IsNullOrEmpty(p.starttime) || p.endtime != null)
+
+                                    if (p.endtime != null)
                                         return 0;
 
                                     try
@@ -197,20 +199,19 @@ namespace Inspection.Web.Controllers
                                     }
                                     catch
                                     {
-                                        return 0; // Handle parsing errors
+                                        return 0; 
                                     }
                                 });
 
                                 model.Finalqty = _Fdata.Sum(p => p.Inspection_Qty);
-                                model.FinalHours = Math.Ceiling(totalMinutes / 60.0); // Convert minutes to hours and round up
+                                model.FinalHours = Math.Round(totalMinutes / 60.0, 2); // Convert minutes to hours and round up
                             }
-                            List<Final_Inspection_Process> _Vdata = DB.Final_Inspection_Process.Where(x => x.Inspection_date >= _sdate && x.Inspection_date <= _edate && x.Inspection_Type == "Visual" && x.done_by == _model.inspector && (x.Active == null || x.Active == true)).ToList();
-                            if (_Vdata != null)
+                            List<Final_Inspection_Process> _Vdata = DB.Final_Inspection_Process.Where(x => x.Inspection_date >= _sdate && x.Inspection_date <= _edate && x.Inspection_Type == "Visual" && x.done_by == _model.inspector && x.Statuschange == true && (x.Active == null || x.Active == true)).ToList();
+                            if (_Vdata.Count > 0)
                             {
                                 double totalMinutes = _Vdata.Sum(p =>
                                 {
-                                    if (string.IsNullOrEmpty(p.starttime) || p.endtime != null)
-                                        return 0;
+                                   
 
                                     try
                                     {
@@ -222,20 +223,20 @@ namespace Inspection.Web.Controllers
                                     }
                                     catch
                                     {
-                                        return 0; // Handle parsing errors
+                                        return 0; 
                                     }
                                 });
                                 model.Visualqty = _Vdata.Sum(p => p.Inspection_Qty);
-                                model.VisualHours = Math.Ceiling(totalMinutes / 60.0);
+                                model.VisualHours = Math.Round(totalMinutes / 60.0, 2);
 
                             }
-                            List<Final_Inspection_Process> _Tdata = DB.Final_Inspection_Process.Where(x => x.Inspection_date >= _sdate && x.Inspection_date <= _edate && x.Inspection_Type == "Thread" && x.done_by == _model.inspector && (x.Active == null || x.Active == true)).ToList();
-                            if (_Tdata != null)
+                            List<Final_Inspection_Process> _Tdata = DB.Final_Inspection_Process.Where(x => x.Inspection_date >= _sdate && x.Inspection_date <= _edate && x.Inspection_Type == "Thread" && x.done_by == _model.inspector && x.Statuschange == true && (x.Active == null || x.Active == true)).ToList();
+                            if (_Tdata.Count > 0)
                             {
                                 double totalMinutes = _Tdata.Sum(p =>
                                 {
-                                    if (string.IsNullOrEmpty(p.starttime) || p.endtime != null)
-                                        return 0;
+
+                               
 
                                     try
                                     {
@@ -247,28 +248,26 @@ namespace Inspection.Web.Controllers
                                     }
                                     catch
                                     {
-                                        return 0; // Handle parsing errors
+                                        return 0; 
                                     }
                                 });
 
                                 model.Threadqty = _Tdata.Sum(p => p.Inspection_Qty);
-                                model.ThreadHours = Math.Ceiling(totalMinutes / 60.0);
+                                model.ThreadHours = Math.Round(totalMinutes / 60.0, 2);
                             }
                         }
                     }
                 }
                 else
                 {
-                    DateTime sdate = DateTime.Parse("2024-01-01");
-                    DateTime edate = DateTime.Parse("2024-01-31");
-                    _model.DateRange = "01 Jan 2022 to 31 Jan 2022";
-                    List<Final_Inspection_Process> _data = DB.Final_Inspection_Process.Where(x => x.Inspection_date >= sdate && x.Inspection_date <= edate && x.Inspection_Type == "Humidity" && (x.Active == null || x.Active == true)).ToList();
-                    if (_data != null)
+                    DateTime sdate = DateTime.Parse("2025-01-01");
+                    DateTime edate = DateTime.Parse("2025-12-31");
+                    _model.DateRange = "01 Jan 2025 to 31 Jan 2025";
+                    List<Final_Inspection_Process> _data = DB.Final_Inspection_Process.Where(x => x.Inspection_date >= sdate && x.Inspection_date <= edate && x.Inspection_Type == "Humidity" && x.Statuschange == true  && (x.Active == null || x.Active == true)).ToList();
+                    if (_data.Count > 0)
                     {
                         double totalMinutes = _data.Sum(p =>
                         {
-                            if (string.IsNullOrEmpty(p.starttime) || p.endtime != null)
-                                return 0;
 
                             try
                             {
@@ -280,19 +279,17 @@ namespace Inspection.Web.Controllers
                             }
                             catch
                             {
-                                return 0; // Handle parsing errors
+                                return 0;
                             }
                         });
                         model.Humidityqty = _data.Sum(p => p.Inspection_Qty);
-                        model.HumidityHours = Math.Ceiling(totalMinutes / 60.0); ;
+                        model.HumidityHours = Math.Round(totalMinutes / 60.0, 2); ;
                     }
-                    List<Final_Inspection_Process> _Fdata = DB.Final_Inspection_Process.Where(x => x.Inspection_date >= sdate && x.Inspection_date <= edate && x.Inspection_Type == "Final" && (x.Active == null || x.Active == true)).ToList();
-                    if (_Fdata != null)
+                    List<Final_Inspection_Process> _Fdata = DB.Final_Inspection_Process.Where(x => x.Inspection_date >= sdate && x.Inspection_date <= edate && x.Inspection_Type == "Final" && x.Statuschange == true  && (x.Active == null || x.Active == true)).ToList();
+                    if (_Fdata.Count > 0)
                     {
                         double totalMinutes = _Fdata.Sum(p =>
                         {
-                            if (string.IsNullOrEmpty(p.starttime) || p.endtime != null)
-                                return 0;
 
                             try
                             {
@@ -304,20 +301,17 @@ namespace Inspection.Web.Controllers
                             }
                             catch
                             {
-                                return 0; // Handle parsing errors
+                                return 0;
                             }
                         });
                         model.Finalqty = _Fdata.Sum(p => p.Inspection_Qty);
-                        model.FinalHours = Math.Ceiling(totalMinutes / 60.0);
+                        model.FinalHours = Math.Round(totalMinutes / 60.0, 2);
                     }
-                    List<Final_Inspection_Process> _Vdata = DB.Final_Inspection_Process.Where(x => x.Inspection_date >= sdate && x.Inspection_date <= edate && x.Inspection_Type == "Visual" && (x.Active == null || x.Active == true)).ToList();
-                    if (_Vdata != null)
+                    List<Final_Inspection_Process> _Vdata = DB.Final_Inspection_Process.Where(x => x.Inspection_date >= sdate && x.Inspection_date <= edate && x.Inspection_Type == "Visual" && x.Statuschange == true && (x.Active == null || x.Active == true)).ToList();
+                    if (_Vdata.Count > 0)
                     {
                         double totalMinutes = _Vdata.Sum(p =>
                         {
-                            if (string.IsNullOrEmpty(p.starttime) || p.endtime != null)
-                                return 0;
-
                             try
                             {
                                 DateTime? start = p.Inspection_date;
@@ -328,20 +322,18 @@ namespace Inspection.Web.Controllers
                             }
                             catch
                             {
-                                return 0; // Handle parsing errors
+                                return 0; 
                             }
                         });
                         model.Visualqty = _Vdata.Sum(p => p.Inspection_Qty);
-                        model.VisualHours = Math.Ceiling(totalMinutes / 60.0);
+                        model.VisualHours = Math.Round(totalMinutes / 60.0,2);
                     }
-                    List<Final_Inspection_Process> _Tdata = DB.Final_Inspection_Process.Where(x => x.Inspection_date >= sdate && x.Inspection_date <= edate && x.Inspection_Type == "Thread" && (x.Active == null || x.Active == true)).ToList();
-                    if (_Tdata != null)
+                    List<Final_Inspection_Process> _Tdata = DB.Final_Inspection_Process.Where(x => x.Inspection_date >= sdate && x.Inspection_date <= edate && x.Inspection_Type == "Thread" && x.Statuschange == true  && (x.Active == null || x.Active == true)).ToList();
+                    if (_Tdata.Count > 0)
                     {
                         double totalMinutes = _Tdata.Sum(p =>
                         {
-                            if (string.IsNullOrEmpty(p.starttime) || p.endtime != null)
-                                return 0;
-
+                           
                             try
                             {
                                 DateTime? start = p.Inspection_date;
@@ -357,7 +349,7 @@ namespace Inspection.Web.Controllers
                         });
 
                         model.Threadqty = _Tdata.Sum(p => p.Inspection_Qty);
-                        model.HumidityHours = Math.Ceiling(totalMinutes / 60.0);
+                        model.ThreadHours = Math.Round(totalMinutes / 60.0,2);
                     }
                 }
             }
@@ -378,7 +370,7 @@ namespace Inspection.Web.Controllers
             List<showdetails> _model = new List<showdetails>();
             if (!string.IsNullOrEmpty(inspector))
             {
-                _model = (from model in DB.Final_Inspection_Process.Where(p => p.Active == true && p.Deleted == false && p.Inspection_Type == type && p.done_by == inspector)
+                _model = (from model in DB.Final_Inspection_Process.Where(p => p.Active == true && p.Deleted == false && p.Inspection_Type == type && p.done_by == inspector  && p.Statuschange == true)
                           select new showdetails
                           {
                               id = model.ID,
@@ -388,14 +380,17 @@ namespace Inspection.Web.Controllers
                               qualitystage = model.Qualitystage,
                               sampleqty = model.sampleqty,
                               endtime = model.endtime,
-                              startime = model.starttime,
+                              startdate = model.Inspection_date,
                               inspectionqty = model.Inspection_Qty,
+                              inspectiontype = model.Inspection_Type,
+                              doneby = model.done_by,
+
                           }).ToList();
                 
             }
             else
             {
-                _model = (from model in DB.Final_Inspection_Process.Where(p => p.Active == true && p.Deleted == false && p.Inspection_Type == type)
+                _model = (from model in DB.Final_Inspection_Process.Where(p => p.Active == true && p.Deleted == false && p.Inspection_Type == type && p.Statuschange == true)
                           select new showdetails
                           {
                               id = model.ID,
@@ -408,6 +403,9 @@ namespace Inspection.Web.Controllers
                               startime = model.starttime,
                               inspectionqty = model.Inspection_Qty,
                               startdate = model.Inspection_date,
+                              inspectiontype = model.Inspection_Type,
+                              doneby = model.done_by,
+
                           }).ToList();
             }
             

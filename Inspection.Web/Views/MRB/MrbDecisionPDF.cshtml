@@ -72,14 +72,34 @@
     .card-title1 {
         text-align: left;
     }
-</style>
+    tr, td {
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+    }
+    .page-break {
+    page-break-before: always;
+  }
 
-<div class=" md-6 mb-2">
-    <button type="button" class="btn btn-success col-lg-12" id="generatePdfBtn"><h2>Download PDF</h2></button>
-</div>
+  .no-break {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+
+  @@media print {
+    .no-break {
+      page-break-inside: avoid !important;
+    }
+  }
+</style>
+<center>
+    <div class=" md-6 mb-2 col-lg-3">
+        <button type="button" class="btn btn-success col-lg-12" id="generatePdfBtn"><h2>Download PDF</h2></button>
+    </div>
+</center>
+
 <div style="background-color:aliceblue">
     <div id="yourDivId">
-        <div class="row">
+        <div class="row no-break">
             <div class="col-lg-12">
                 <div class="card" style=" background-color:white">
                     <div class="card-header">
@@ -111,7 +131,7 @@
                                 <div class="col-xxl-3 col-md-6">
                                     <div>
                                         <label>Total Qty</label>
-                                        @Html.TextBoxFor(model => model._MrbModel.Qty_qty, new { @disabled = "disabled", @class = "form-control", id = "exampleInputdate" })
+                                        @Html.TextBoxFor(model => model._MrbModel.qty, new { @disabled = "disabled", @class = "form-control", id = "exampleInputdate" })
                                     </div>
                                 </div>
                                 <div class="col-xxl-3 col-md-6">
@@ -161,7 +181,7 @@
                         @Html.HiddenFor(model => model.mrbdecisioModel[i].Id)
                     }
                     <div class="table-responsive">
-                        <table class="table table-bordered border-success align-middle table-nowrap mb-0">
+                        <table class="table table-bordered border-success align-middle table-nowrap mb-0 table table-bordered no-break">
                             <thead>
                                 <tr>
                                     <th width="20px">Sr No</th>
@@ -169,7 +189,7 @@
                                     <th width="50px">RCode</th>
                                     <th scope="col" width="600px">Defect</th>
                                     <th scope="col" width="150px">Location</th>
-                                    <th scope="col" width="100px">Sub Qty</th>
+                                    @*<th scope="col" width="100px">Sub Qty</th>*@
                                     <th scope="col" width="100px">Decision</th>
                                 </tr>
                             </thead>
@@ -208,13 +228,13 @@
 
                                             }
                                         </td>
-                                        <td>
+                                        @*<td>
                                             @foreach (var sqty in item.subqty)
                                             {
                                                 @Html.TextBoxFor(model => sqty, new { @class = "form-control product-location", @disabled = "disabled", @name = "location", @id = "productLocation-1" })
 
                                             }
-                                        </td>
+                                        </td>*@
                                         <td>
                                             @foreach (var descc in item.Desicion)
                                             {
@@ -318,10 +338,11 @@
 
         var options = {
             margin: 0,
-            filename: pdfName,
+            filename: pdfName + '.pdf',
             image: { type: 'jpeg', quality: 0.98 },
-            html2canvas: { scale: 2 },
+            html2canvas: { scale: 1.5 },
             jsPDF: { format: 'a4', orientation: 'landscape' },
+            pagebreak: { mode: ['avoid-all', 'css', 'legacy'] } // 👈 KEY FIX
         };
 
 

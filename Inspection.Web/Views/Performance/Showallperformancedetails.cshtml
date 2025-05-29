@@ -27,7 +27,7 @@
     <div class="col-lg-12">
         <div class="card">
             <div class="card-header">
-                <h5 class="card-title mb-0">Mrb Data</h5>
+                <h5 class="card-title mb-0">Inspection Data</h5>
             </div>
             <div class="card-body">
                 <table id="alternative-pagination" class="table nowrap dt-responsive align-middle table-hover table-bordered" style="width:100%">
@@ -36,9 +36,11 @@
                             <th>Sr No</th>
                             <th>JobNo</th>
                             <th>PartNo</th>
+                            <th>Inspection Qty</th>
                             <th>Start Date</th>
-                            <th>Start Time</th>
                             <th>End Time</th>
+                            <th>Inspection Type</th>
+                            <th>Inspector Name</th>
                             <th>sample qty</th>
                             <th>Stage</th>
                         </tr>
@@ -57,13 +59,19 @@
                                     @Html.DisplayFor(modelItem => item.partno)
                                 </td>
                                 <td>
+                                    @Html.DisplayFor(modelItem => item.inspectionqty)
+                                </td>
+                                <td>
                                     @Html.DisplayFor(modelItem => item.startdate)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.startime)
+                                    @Html.DisplayFor(modelItem => item.endtime)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.endtime)
+                                    @Html.DisplayFor(modelItem => item.inspectiontype)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.doneby)
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.sampleqty)

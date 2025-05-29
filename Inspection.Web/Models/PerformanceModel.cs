@@ -36,6 +36,8 @@ namespace Inspection.Web.Models
         public string stage { get; set; }
         public string qualitystage { get; set; }
         public int? inspectionqty { get; set; }
+        public string inspectiontype { get; set; }
+        public string doneby { get; set; }
 
     }
 }

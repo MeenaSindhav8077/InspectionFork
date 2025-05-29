@@ -8,6 +8,8 @@ using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Google.Apis.Sheets.v4.Data;
+using System.Web.UI.WebControls;
 
 namespace Inspection.Web.Scripts
 {
@@ -67,35 +69,40 @@ namespace Inspection.Web.Scripts
             ITEIndiaEntities DB = new ITEIndiaEntities();
 
             var names = new List<string>
-    {
-        "Hemang Pipariya",
-        "Aagam Dasadiya",
-        "Sandip Patil",
-        "Dilshad Sumra",
-        "Kaushik Makwana",
-        "Chandrasinh Parmar",
-        "Kartik Chauhan",
-        "Hitesh Parmar",
-        "Dharmik Khavadiya",
-        "Kartik Parmar",
-        "Savan Matariya",
-        "Harshad Parmar",
-        "Monika Satapara",
-        "Kaushal Thakar",
-        "Dilip Punani",
-        "Dilip Chauhan",
-        "Ghanshyam Aniyaliya"
-    };
+            {
+                "Hemang Pipariya",
+                "Aagam Dasadiya",
+                "Sandip Patil",
+                "Dilshad Sumra",
+                "Kaushik Makwana",
+                "Chandrasinh Parmar",
+                "Kartik Chauhan",
+                "Hitesh Parmar",
+                "Dharmik Khavadiya",
+                "Kartik Parmar",
+                "Savan Matariya",
+                "Harshad Parmar",
+                "Monika Satapara",
+                "Kaushal Thakar",
+                "Dilip Punani",
+                "Dilip Chauhan",
+                "Ghanshyam Aniyaliya",
+                "Prahladsinh Zala",
+                "Mohit Varmora" ,
+                "Hardik Meniya" ,
+                "Virendra Jadav",
+                "Jayesh Jitiya" ,
+                "Vivek Rathod"  ,
+                "Namrata Gohil" ,
+                "Imtiyaz Shekh" 
+            };
 
-            List<SelectListItem> selectListItems = DB.user_data
-                .Where(k => names.Contains(k.name))
-                .GroupBy(tol => tol.name.Trim())
-                .Select(group => group.FirstOrDefault())
-                .Select(tol => new SelectListItem
-                {
-                    Value = tol.name.ToString(),
-                    Text = tol.name
-                }).ToList();
+            List<SelectListItem> selectListItems = names
+                 .Select(name => new SelectListItem
+                 {
+                     Value = name,
+                     Text = name
+                 }).ToList();
 
             return selectListItems;
        

@@ -147,7 +147,7 @@
                                     <th width="50px">RCode</th>
                                     <th scope="col" width="600px">Defect</th>
                                     <th scope="col" width="150px">Location</th>
-                                    <th scope="col" width="100px">Sub Qty</th>
+                                    @*<th scope="col" width="100px">Sub Qty</th>*@
                                     <th scope="col" width="100px">MRB Decision</th>
                                     <th width="20px">Action</th>
                                 </tr>
@@ -187,13 +187,13 @@
 
                                             }
                                         </td>
-                                        <td>
+                                        @*<td>
                                             @foreach (var sqty in item.subqty)
                                             {
                                                 @Html.TextBoxFor(model => sqty, new { @class = "form-control product-location", @disabled = "disabled", @name = "location", @id = "productLocation-1" })
 
                                             }
-                                        </td>
+                                        </td>*@
                                         <td>
                                             @for (int i = 0; i < item.Reject.Count; i++)
                                             {

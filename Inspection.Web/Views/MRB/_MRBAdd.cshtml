@@ -130,7 +130,7 @@
                                 <th width="50px">RCode</th>
                                 <th scope="col" width="600px">Defect</th>
                                 <th scope="col" width="150px">Location</th>
-                                <th scope="col" width="100px">Sub Qty</th>
+                                @*<th scope="col" width="100px">Sub Qty</th>*@
                                 <th width="20px">Action</th>
                             </tr>
                         </thead>
@@ -168,13 +168,13 @@
 
                                         }
                                     </td>
-                                    <td>
+                                    @*<td>
                                         @foreach (var sqty in item.subqty)
                                         {
                                             @Html.TextBoxFor(model => sqty, new { @class = "form-control product-location", @disabled = "disabled", @name = "location", @id = "productLocation-1" })
 
                                         }
-                                    </td>
+                                    </td>*@
                                     <td>
                                         @foreach (var idsa in item.ids)
                                         {
@@ -221,7 +221,7 @@ else
                                 <th scope="col">RCode</th>
                                 <th scope="col">Defect</th>
                                 <th scope="col">Location</th>
-                                <th scope="col">SubQuantity</th>
+                                @*<th scope="col">SubQuantity</th>*@
                                 <th scope="col"></th>
                                 <th scope="col"></th>
                             </tr>
@@ -253,12 +253,12 @@ else
                                 <td>
                                     <input type="text" class="form-control product-location" name="location" id="productLocation-1" />
                                 </td>
-                                <td>
+                                @*<td>
                                     <input type="text" class="form-control product-subqty" name="subqty" id="productSubqty-1" />
-                                </td>
+                                </td>*@
 
                                 <td class="" style="vertical-align:top">
-                                    <a href="javascript:void(0)" name="plusbtn" id="plusbtn-1" onclick="addSubRow('productRate-1', 'productQty-1', 'productLocation-1', 'productSubqty-1','plusbtn-1' )" class="btn btn-success"><i class="ri-add-fill me-1 align-bottom"></i></a>
+                                    <a href="javascript:void(0)" name="plusbtn" id="plusbtn-1" onclick="addSubRow('productRate-1', 'productQty-1', 'productLocation-1','plusbtn-1' )" class="btn btn-success"><i class="ri-add-fill me-1 align-bottom"></i></a>
                                 </td>
                             </tr>
                         </tbody>

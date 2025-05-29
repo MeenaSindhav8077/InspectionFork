@@ -160,12 +160,12 @@ function new_link() {
 		"</div>" +
 		"</td>" +
 		'<td class="text-end">' +
-		"<div>" +
-		'<input type="text" class="form-control product-line-price" name="subqty-' + count + '" id="subqty-' + count + '"/>' +
-		"</div>" +
+		//"<div>" +
+		//'<input type="text" class="form-control product-line-price" name="subqty-' + count + '" id="subqty-' + count + '"/>' +
+		//"</div>" +
 		"</td>" +
 		'<td class="" style="vertical-align:top">' +
-		'<button type="button" name="plusbtn-' + count + '" id="plusbtn-' + count + '" value="' + count + '" onclick="addSubRow(\'productRate-' + count + '\', \'productQty-' + count + '\', \'productLocation-' + count + '\',\'subqty-' + count + '\',\'plusbtn-' + count + '\', ' + count + ')" class="btn btn-success">'
+		'<button type="button" name="plusbtn-' + count + '" id="plusbtn-' + count + '" value="' + count + '" onclick="addSubRow(\'productRate-' + count + '\', \'productQty-' + count + '\', \'productLocation-' + count + '\',\'plusbtn-' + count + '\', ' + count + ')" class="btn btn-success">'
 		+ '<input type="hidden" name="ButtonValue" value="' + count + '">'
 		+ '<i class="ri-add-fill me-1 align-bottom"></i></button>' +
 		"</td>" +
@@ -193,7 +193,7 @@ function new_link() {
 }
 
 
-function addSubRow(id1, id2, id3, id4, id5, count) {
+function addSubRow(id1, id2, id3, id5, count) {
 	debugger;
 	// unique sub-row ID generation
 	var subRowCount = new Date().getTime();
@@ -259,14 +259,14 @@ function addSubRow(id1, id2, id3, id4, id5, count) {
 		parentElement3.parentNode.insertBefore(subRow3, parentElement3.nextSibling);
 	}
 
-	var parentElement4 = document.getElementById(id4);
-	if (parentElement4) {
-		var subRow4 = document.createElement("tr");
-		subRow4.id = 'subRow-' + subRowCount + '-4';
-		subRow4.innerHTML =
-			'<td><input type="text" class="form-control subRow-' + count + '" name="subqty' + id4 + '" /></td>';
-		parentElement4.parentNode.insertBefore(subRow4, parentElement4.nextSibling);
-	}
+	//var parentElement4 = document.getElementById(id4);
+	//if (parentElement4) {
+	//	var subRow4 = document.createElement("tr");
+	//	subRow4.id = 'subRow-' + subRowCount + '-4';
+	//	subRow4.innerHTML =
+	//		'<td><input type="text" class="form-control subRow-' + count + '" name="subqty' + id4 + '" /></td>';
+	//	parentElement4.parentNode.insertBefore(subRow4, parentElement4.nextSibling);
+	//}
 
 	var parentElement5 = document.getElementById(id5);
 	if (parentElement5) {

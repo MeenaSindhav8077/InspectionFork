@@ -17,7 +17,7 @@
         {
             <div class="row g-3">
                 <div class="col-xl-4 col-md-6">
-                    @Html.DropDownListFor(model => model.inspector, new SelectList(userSelectList, "Value", "Text"), "All", new { @class = "form-select mb-3 js-example-basic-singlethared", id = "inspectorDropdown" })
+                    @Html.DropDownListFor(model => model.inspector, new SelectList(userSelectList, "Value", "Text"), "All", new { @class = "form-select mb-3 js-example-basic-singleThread", id = "inspectorDropdown" })
                 </div>
                 <div class="col-xl-4 col-md-6">
                     <div class="input-group">
@@ -157,12 +157,12 @@
     <div class="col-xxl-2 col-md-4">
         <div class="card overflow-hidden">
             <div class="card-body bg-soft-primary">
-                <h5 class="fs-17 text-center mb-0">Thared Inspection</h5>
+                <h5 class="fs-17 text-center mb-0">Thread Inspection</h5>
             </div>
         </div>
         <div class="card mb-2 ribbon-box ribbon-fill right">
             <div class="ribbon ribbon-info shadow-none"><i class="ri-flashlight-fill me-1"></i> 1</div>
-            <div class="card-body" onclick="showdetails('Thared');">
+            <div class="card-body" onclick="showdetails('Thread');">
                 <div class="d-flex justify-content-between">
                     <div class="col col-lg border-end">
                         <div class="mt-3 mt-md-0 py-4 px-3">
@@ -189,7 +189,7 @@
         <div class="card mb-2 ribbon-box ribbon-fill right">
             <div class="ribbon ribbon-info shadow-none"><i class="ri-flashlight-fill me-1"></i> 1</div>
 
-            <div class="card-body" onclick="showdetails('Thared');">
+            <div class="card-body" onclick="showdetails('Thread');">
                 <div class="d-flex justify-content-between">
                     <div class="col col-lg border-end">
                         <div class="mt-3 mt-md-0 py-4 px-3">

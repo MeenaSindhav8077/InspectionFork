@@ -174,7 +174,7 @@ namespace Inspection.Web.Service
                         client.Host = "smtp.gmail.com";
                         client.Port = 587;
                         client.UseDefaultCredentials = true;
-                        client.Credentials = new NetworkCredential("ssw-ai@sswhite.net", "ahbarp#6008");
+                        client.Credentials = new NetworkCredential("ssw-ai@sswhite.net", "byqp uauc mzbz uejz");
                         client.EnableSsl = true;
                         client.Send(emailMessage);
                     }

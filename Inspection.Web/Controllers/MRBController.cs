@@ -132,29 +132,29 @@ namespace Inspection.Web.Controllers
                             string[] subqty;
                             List<string> rcodeList = new List<string>();
                             List<string> locationList = new List<string>();
-                            List<string> subqtyList = new List<string>();
+                            //List<string> subqtyList = new List<string>();
                             if (COUNT <= 1)
                             {
                                 rcode = formCollection.GetValues("Rcode");
                                 location = formCollection.GetValues("Location");
-                                subqty = formCollection.GetValues("subqty");
+                                //subqty = formCollection.GetValues("subqty");
                             }
                             else
                             {
                                 string str = "Rcode" + -COUNT;
                                 string strs = "Location" + -COUNT;
-                                string strss = "subqty" + -COUNT;
+                                //string strss = "subqty" + -COUNT;
                                 rcode = formCollection.GetValues(str);
                                 location = formCollection.GetValues(strs);
-                                subqty = formCollection.GetValues(strss);
+                                //subqty = formCollection.GetValues(strss);
                             }
                             string[] rcodeS = formCollection.GetValues("RcodeproductRate" + -COUNTs);
                             string[] locations = formCollection.GetValues("LocationproductLocation" + -COUNTs);
-                            string[] subqtyvs = formCollection.GetValues("subqtyproductSubqty" + -COUNTs);
-                            if (subqtyvs == null)
-                            {
-                                subqtyvs = formCollection.GetValues("subqtysubqty" + -COUNTs);
-                            }
+                            //string[] subqtyvs = formCollection.GetValues("subqtyproductSubqty" + -COUNTs);
+                            //if (subqtyvs == null)
+                            //{
+                            //    subqtyvs = formCollection.GetValues("subqtysubqty" + -COUNTs);
+                            //}
                             if (rcode != null)
                             {
                                 //rcodeList.AddRange(rcode);
@@ -175,17 +175,17 @@ namespace Inspection.Web.Controllers
                                 //locationList.AddRange(locations);
                                 locationList.AddRange(locations.Where(loc => loc != ""));
                             }
-                            if (subqty != null)
-                            {
-                                //subqtyList.AddRange(subqty);
-                                subqtyList.AddRange(subqty.Where(loc => loc != ""));
+                            //if (subqty != null)
+                            //{
+                            //    //subqtyList.AddRange(subqty);
+                            //    subqtyList.AddRange(subqty.Where(loc => loc != ""));
 
-                            }
-                            if (subqtyvs != null)
-                            {
-                                //subqtyList.AddRange(subqtyvs);
-                                subqtyList.AddRange(subqtyvs.Where(loc => loc != ""));
-                            }
+                            //}
+                            //if (subqtyvs != null)
+                            //{
+                            //    //subqtyList.AddRange(subqtyvs);
+                            //    subqtyList.AddRange(subqtyvs.Where(loc => loc != ""));
+                            //}
                             Final_Inspection_Mrb_Data _Inspection_Data = new Final_Inspection_Mrb_Data();
                             _Inspection_Data.Qty = Convert.ToInt32(item);
                             _Inspection_Data.JobNo = _model._MrbModel.jobno;
@@ -205,8 +205,8 @@ namespace Inspection.Web.Controllers
                                 if (rcodeList.Count > 0)
                                     _data.Rcode = rcodeList[i];
 
-                                if (subqtyList.Count > 0)
-                                    _data.SubQty = subqtyList[i];
+                                //if (subqtyList.Count > 0)
+                                //    _data.SubQty = subqtyList[i];
 
                                 if (locationList.Count > 0)
                                     _data.Rtaxt = locationList[i];
@@ -1211,7 +1211,7 @@ namespace Inspection.Web.Controllers
                 using (var client = new SmtpClient())
                 {
                     var emailMessage = new MailMessage();
-                    emailMessage.From = new MailAddress("unnati@sswhite.net");
+                    emailMessage.From = new MailAddress("ssw-ai@sswhite.net");
                     emailMessage.To.Add("ashvini@sswhite.net");
                     emailMessage.Subject = "Subject of the email";
                     emailMessage.Body = "Body of the email";
@@ -1223,7 +1223,7 @@ namespace Inspection.Web.Controllers
                     client.Host = "smtp.gmail.com";
                     client.Port = 587;
                     client.UseDefaultCredentials = false;
-                    client.Credentials = new NetworkCredential("unnati@sswhite.net", "diev lxfd kxyw avza");
+                    client.Credentials = new NetworkCredential("ssw-ai@sswhite.net", "byqp uauc mzbz uejz");
                     client.EnableSsl = true;
 
                     // Send email
