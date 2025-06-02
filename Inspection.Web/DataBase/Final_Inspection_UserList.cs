@@ -19,10 +19,5 @@ namespace Inspection.Web.DataBase
         public int UserID { get; set; }
         public string UserName { get; set; }
         public string Password { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string Department { get; set; }
-        public Nullable<bool> Acive { get; set; }
-        public Nullable<bool> Deleted { get; set; }
     }
 }

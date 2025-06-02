@@ -16,8 +16,8 @@ namespace Inspection.Web.DataBase
     {
         public int ID { get; set; }
         public int MID { get; set; }
-        public int Inspection_ID { get; set; }
-        public System.DateTime CurrentDateTime { get; set; }
+        public string Inspection_ID { get; set; }
+        public string CurrentDateTime { get; set; }
         public string JobNum { get; set; }
         public string PartNum { get; set; }
         public string Stage { get; set; }

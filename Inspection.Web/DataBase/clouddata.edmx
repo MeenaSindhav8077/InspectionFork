@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="ITEIndiaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="ITEIndiaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Final_Inspection_Data">
           <Key>
             <PropertyRef Name="ID" />
@@ -272,8 +272,8 @@
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="MID" Type="int" Nullable="false" />
-          <Property Name="Inspection_ID" Type="int" Nullable="false" />
-          <Property Name="CurrentDateTime" Type="datetime" Nullable="false" />
+          <Property Name="Inspection_ID" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="CurrentDateTime" Type="nvarchar" MaxLength="50" />
           <Property Name="JobNum" Type="nvarchar" MaxLength="200" />
           <Property Name="PartNum" Type="nvarchar" MaxLength="200" />
           <Property Name="Stage" Type="nvarchar" MaxLength="500" />
@@ -291,7 +291,6 @@
           <Property Name="ID" Type="int" Nullable="false" />
           <Property Name="Stage" Type="int" />
           <Property Name="stage_part_status" Type="nvarchar(max)" />
-          <Property Name="ProcessTypes" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="Final_Inspection_UserList">
           <Key>
@@ -304,11 +303,6 @@
           <Property Name="UserID" Type="int" Nullable="false" />
           <Property Name="UserName" Type="nvarchar" MaxLength="100" />
           <Property Name="Password" Type="nvarchar" MaxLength="100" />
-          <Property Name="FirstName" Type="nvarchar" MaxLength="100" />
-          <Property Name="LastName" Type="nvarchar" MaxLength="100" />
-          <Property Name="Department" Type="nvarchar" MaxLength="100" />
-          <Property Name="Acive" Type="bit" />
-          <Property Name="Deleted" Type="bit" />
         </EntityType>
         <EntityType Name="ISUser">
           <Key>
@@ -403,7 +397,6 @@
           <Property Name="Secondary_approval_person" Type="nvarchar" MaxLength="500" />
           <Property Name="Company" Type="nvarchar" MaxLength="50" />
           <Property Name="MSPRO_UserType" Type="int" />
-          <Property Name="Tool_Trial_UserTYpe" Type="int" />
         </EntityType>
         <EntityContainer Name="ITEIndiaModelStoreContainer">
           <EntitySet Name="Final_Inspection_Data" EntityType="Self.Final_Inspection_Data" Schema="dbo" store:Type="Tables" />
@@ -424,7 +417,8 @@
           <EntitySet Name="user_data" EntityType="Self.user_data" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="USER_MST" EntityType="Self.USER_MST" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ITEIndiaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -687,6 +681,26 @@
           <Property Name="Rework_Qty" Type="Int32" />
           <Property Name="Rework_complete_Qty" Type="Int32" />
         </EntityType>
+        <EntityType Name="Final_Inspection_Stage_Data">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="MID" />
+            <PropertyRef Name="Inspection_ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MID" Type="Int32" Nullable="false" />
+          <Property Name="Inspection_ID" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CurrentDateTime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="JobNum" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="PartNum" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Stage" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Qty" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" />
+          <Property Name="Deleted" Type="Boolean" />
+          <Property Name="InspectionType" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="stageno" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Qualitystage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
         <EntityType Name="Final_Inspection_Stage_Master">
           <Key>
             <PropertyRef Name="ID" />
@@ -694,7 +708,18 @@
           <Property Name="ID" Type="Int32" Nullable="false" />
           <Property Name="Stage" Type="Int32" />
           <Property Name="stage_part_status" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="ProcessTypes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Final_Inspection_UserList">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="MID" />
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="MID" Type="Int32" Nullable="false" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="ISUser">
           <Key>
@@ -789,7 +814,6 @@
           <Property Name="Secondary_approval_person" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="Company" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="MSPRO_UserType" Type="Int32" />
-          <Property Name="Tool_Trial_UserTYpe" Type="Int32" />
         </EntityType>
         <EntityContainer Name="ITEIndiaEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Final_Inspection_Data" EntityType="Self.Final_Inspection_Data" />
@@ -803,50 +827,13 @@
           <EntitySet Name="Final_Inspection_Process_Rework" EntityType="Self.Final_Inspection_Process_Rework" />
           <EntitySet Name="Final_Inspection_RCode" EntityType="Self.Final_Inspection_RCode" />
           <EntitySet Name="Final_Inspection_Rework" EntityType="Self.Final_Inspection_Rework" />
+          <EntitySet Name="Final_Inspection_Stage_Data" EntityType="Self.Final_Inspection_Stage_Data" />
           <EntitySet Name="Final_Inspection_Stage_Master" EntityType="Self.Final_Inspection_Stage_Master" />
+          <EntitySet Name="Final_Inspection_UserList" EntityType="Self.Final_Inspection_UserList" />
           <EntitySet Name="ISUsers" EntityType="Self.ISUser" />
           <EntitySet Name="user_data" EntityType="Self.user_data" />
           <EntitySet Name="USER_MST" EntityType="Self.USER_MST" />
-          <EntitySet Name="Final_Inspection_UserList" EntityType="ITEIndiaModel.Final_Inspection_UserList" />
-          <EntitySet Name="Final_Inspection_Stage_Data" EntityType="ITEIndiaModel.Final_Inspection_Stage_Data" />
         </EntityContainer>
-        <EntityType Name="Final_Inspection_UserList">
-          <Key>
-            <PropertyRef Name="ID" />
-            <PropertyRef Name="MID" />
-            <PropertyRef Name="UserID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
-          <Property Name="MID" Type="Int32" Nullable="false" />
-          <Property Name="UserID" Type="Int32" Nullable="false" />
-          <Property Name="UserName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Password" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="FirstName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="LastName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Department" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Acive" Type="Boolean" />
-          <Property Name="Deleted" Type="Boolean" />
-        </EntityType>
-        <EntityType Name="Final_Inspection_Stage_Data">
-          <Key>
-            <PropertyRef Name="ID" />
-            <PropertyRef Name="MID" />
-            <PropertyRef Name="Inspection_ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="MID" Type="Int32" Nullable="false" />
-          <Property Name="Inspection_ID" Type="Int32" Nullable="false" />
-          <Property Name="CurrentDateTime" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="JobNum" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="PartNum" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="Stage" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="Qty" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="Active" Type="Boolean" />
-          <Property Name="Deleted" Type="Boolean" />
-          <Property Name="InspectionType" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="stageno" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Qualitystage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1113,13 +1100,42 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Final_Inspection_Stage_Data">
+            <EntityTypeMapping TypeName="ITEIndiaModel.Final_Inspection_Stage_Data">
+              <MappingFragment StoreEntitySet="Final_Inspection_Stage_Data">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="MID" ColumnName="MID" />
+                <ScalarProperty Name="Inspection_ID" ColumnName="Inspection_ID" />
+                <ScalarProperty Name="CurrentDateTime" ColumnName="CurrentDateTime" />
+                <ScalarProperty Name="JobNum" ColumnName="JobNum" />
+                <ScalarProperty Name="PartNum" ColumnName="PartNum" />
+                <ScalarProperty Name="Stage" ColumnName="Stage" />
+                <ScalarProperty Name="Qty" ColumnName="Qty" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+                <ScalarProperty Name="InspectionType" ColumnName="InspectionType" />
+                <ScalarProperty Name="stageno" ColumnName="stageno" />
+                <ScalarProperty Name="Qualitystage" ColumnName="Qualitystage" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Final_Inspection_Stage_Master">
             <EntityTypeMapping TypeName="ITEIndiaModel.Final_Inspection_Stage_Master">
               <MappingFragment StoreEntitySet="Final_Inspection_Stage_Master">
-                <ScalarProperty Name="ProcessTypes" ColumnName="ProcessTypes" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Stage" ColumnName="Stage" />
                 <ScalarProperty Name="stage_part_status" ColumnName="stage_part_status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Final_Inspection_UserList">
+            <EntityTypeMapping TypeName="ITEIndiaModel.Final_Inspection_UserList">
+              <MappingFragment StoreEntitySet="Final_Inspection_UserList">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="MID" ColumnName="MID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1158,7 +1174,6 @@
           <EntitySetMapping Name="USER_MST">
             <EntityTypeMapping TypeName="ITEIndiaModel.USER_MST">
               <MappingFragment StoreEntitySet="USER_MST">
-                <ScalarProperty Name="Tool_Trial_UserTYpe" ColumnName="Tool_Trial_UserTYpe" />
                 <ScalarProperty Name="TenentID" ColumnName="TenentID" />
                 <ScalarProperty Name="USER_ID" ColumnName="USER_ID" />
                 <ScalarProperty Name="LOCATION_ID" ColumnName="LOCATION_ID" />
@@ -1216,41 +1231,6 @@
                 <ScalarProperty Name="Secondary_approval_person" ColumnName="Secondary_approval_person" />
                 <ScalarProperty Name="Company" ColumnName="Company" />
                 <ScalarProperty Name="MSPRO_UserType" ColumnName="MSPRO_UserType" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Final_Inspection_UserList">
-            <EntityTypeMapping TypeName="ITEIndiaModel.Final_Inspection_UserList">
-              <MappingFragment StoreEntitySet="Final_Inspection_UserList">
-                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
-                <ScalarProperty Name="Acive" ColumnName="Acive" />
-                <ScalarProperty Name="Department" ColumnName="Department" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="UserName" ColumnName="UserName" />
-                <ScalarProperty Name="UserID" ColumnName="UserID" />
-                <ScalarProperty Name="MID" ColumnName="MID" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Final_Inspection_Stage_Data">
-            <EntityTypeMapping TypeName="ITEIndiaModel.Final_Inspection_Stage_Data">
-              <MappingFragment StoreEntitySet="Final_Inspection_Stage_Data">
-                <ScalarProperty Name="Qualitystage" ColumnName="Qualitystage" />
-                <ScalarProperty Name="stageno" ColumnName="stageno" />
-                <ScalarProperty Name="InspectionType" ColumnName="InspectionType" />
-                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
-                <ScalarProperty Name="Active" ColumnName="Active" />
-                <ScalarProperty Name="Qty" ColumnName="Qty" />
-                <ScalarProperty Name="Stage" ColumnName="Stage" />
-                <ScalarProperty Name="PartNum" ColumnName="PartNum" />
-                <ScalarProperty Name="JobNum" ColumnName="JobNum" />
-                <ScalarProperty Name="CurrentDateTime" ColumnName="CurrentDateTime" />
-                <ScalarProperty Name="Inspection_ID" ColumnName="Inspection_ID" />
-                <ScalarProperty Name="MID" ColumnName="MID" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
