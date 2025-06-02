@@ -36,11 +36,11 @@ namespace Inspection.Web.DataBase
         public virtual DbSet<Final_Inspection_Process_Rework> Final_Inspection_Process_Rework { get; set; }
         public virtual DbSet<Final_Inspection_RCode> Final_Inspection_RCode { get; set; }
         public virtual DbSet<Final_Inspection_Rework> Final_Inspection_Rework { get; set; }
-        public virtual DbSet<Final_Inspection_Stage_Data> Final_Inspection_Stage_Data { get; set; }
         public virtual DbSet<Final_Inspection_Stage_Master> Final_Inspection_Stage_Master { get; set; }
-        public virtual DbSet<Final_Inspection_UserList> Final_Inspection_UserList { get; set; }
         public virtual DbSet<ISUser> ISUsers { get; set; }
         public virtual DbSet<user_data> user_data { get; set; }
         public virtual DbSet<USER_MST> USER_MST { get; set; }
+        public virtual DbSet<Final_Inspection_UserList> Final_Inspection_UserList { get; set; }
+        public virtual DbSet<Final_Inspection_Stage_Data> Final_Inspection_Stage_Data { get; set; }
     }
 }

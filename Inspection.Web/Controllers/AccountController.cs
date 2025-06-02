@@ -28,15 +28,17 @@ namespace Inspection.Web.Controllers
             string username = _Model.UserName;
             string password = _Model.Password;
             try
-            {
-                USER_MST _user = DB.USER_MST.FirstOrDefault(p => p.TenentID == 10 && p.PASSWORD_CHNG == password && p.LOGIN_ID.Contains(username));
+            {// Fetch user from Final_Inspection_UserList table using UserName and Password
+                Final_Inspection_UserList _user = DB.Final_Inspection_UserList.FirstOrDefault(
+                    p => p.UserName == username && p.Password == password
+                );
                 if (_user != null)
                 {
-                    Session["userid"] = _user.USER_ID;
+                    Session["userid"] = _user.UserID;
                     Session["Username"] = username;
-                    Session["name"] = _user.FIRST_NAME;
+                    Session["name"] = _user.FirstName;
                     Session["password"] = password;
-                    Session["pic"] = "http://192.168.1.97/pic/" + _user.personID + ".jpg";
+                    Session["pic"] = ""; // No personID in this table, so leave blank or set as needed
                     FormsAuthentication.SetAuthCookie(_Model.UserName, false);
 
                     return RedirectToAction("Index", "Home");

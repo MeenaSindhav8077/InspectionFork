@@ -621,13 +621,14 @@ namespace Inspection.Web.Controllers
                                   }).FirstOrDefault();
 
             int ID = inwardData._INWARD.id;
+            // Fix for CS1061: Replace '_INWAiRD' with '_INWARD' as per the definition of 'MainInwardModel'.
             string _ID = inwardData._INWARD.id.ToString();
 
-            inwardData._INWARDListdata = (from model in DB.Final_Inspection_Stage_Data.Where(v => v.Inspection_ID == _ID && v.Active == true && v.Deleted == false)
+            inwardData._INWARDListdata = (from model in DB.Final_Inspection_Stage_Data.Where(v => v.Inspection_ID == int.Parse(_ID) && v.Active == true && v.Deleted == false)
                                           select new InwardDataModel
                                           {
                                               id = model.ID,
-                                              InwardTime = model.CurrentDateTime,
+                                              InwardTime = model.CurrentDateTime.ToString("HH:mm:ss"),
                                               JobNo = model.JobNum,
                                               Partno = model.PartNum,
                                               ProcessStage = model.Stage,
@@ -658,7 +659,7 @@ namespace Inspection.Web.Controllers
                     {
 
                         string stag = DB.Final_Inspection_Stage_Master.Where(l => l.stage_part_status == _data.Stage).Select(l => l.stage_part_status).FirstOrDefault();
-                        _stage.Inspection_ID = _data.ID.ToString();
+                        _stage.Inspection_ID = _data.ID;
                         _stage.MID = _data.MID;
                         _stage.JobNum = _data.JobNum;
                         _stage.PartNum = _data.PartNum;
@@ -668,7 +669,7 @@ namespace Inspection.Web.Controllers
                         _stage.Qty = _data.Inspection_Qty;
                         _stage.Active = true;
                         _stage.Deleted = false;
-                        _stage.CurrentDateTime = DateTime.Now.ToString();
+                        _stage.CurrentDateTime = DateTime.Now;
                         DB.Final_Inspection_Stage_Data.Add(_stage);
 
                         _data.Stage = _Stage;
@@ -722,7 +723,7 @@ namespace Inspection.Web.Controllers
                     if (_data != null)
                     {
                         stag = DB.Final_Inspection_Stage_Master.Where(l => l.stage_part_status == _data.Stage).Select(l => l.stage_part_status).FirstOrDefault();
-                        _stage.Inspection_ID = _data.ID.ToString();
+                        _stage.Inspection_ID = _data.ID;
                         _stage.MID = _data.MID;
                         _stage.JobNum = _data.JobNum;
                         _stage.PartNum = _data.PartNum;
@@ -732,7 +733,7 @@ namespace Inspection.Web.Controllers
                         _stage.Qty = _data.Inspection_Qty;
                         _stage.Active = true;
                         _stage.Deleted = false;
-                        _stage.CurrentDateTime = DateTime.Now.ToString();
+                        _stage.CurrentDateTime = DateTime.Now;
                         DB.Final_Inspection_Stage_Data.Add(_stage);
                         DB.SaveChanges();
                         if (_model._submodeldata.InspectionTYPE == "Sorting" || _model._submodeldata.TYPE == "Sorting")
@@ -1504,14 +1505,14 @@ namespace Inspection.Web.Controllers
                     DB.SaveChanges();
                     Final_Inspection_Stage_Data _Stage_Data = new Final_Inspection_Stage_Data();
                     _Stage_Data.InspectionType = _model._INWARD.InspectionType;
-                    _Stage_Data.Inspection_ID = _model._INWARD.id.ToString();
+                    _Stage_Data.Inspection_ID = _model._INWARD.id; ;
                     _Stage_Data.PartNum = _model._INWARD.Partno;
                     _Stage_Data.JobNum = _model._INWARD.JobNo;
                     _Stage_Data.Stage = _Inspection_Data.Stage;
                     _Stage_Data.Qty = _Inspection_Data.qty.ToString();
                     _Stage_Data.Active = true;
                     _Stage_Data.Deleted = false;
-                    _Stage_Data.CurrentDateTime = DateTime.Now.ToString();
+                    _Stage_Data.CurrentDateTime = DateTime.Now; ;
                     DB.Final_Inspection_Stage_Data.Add(_Stage_Data);
 
 
@@ -1605,14 +1606,14 @@ namespace Inspection.Web.Controllers
                     }
                     Final_Inspection_Stage_Data _Stage_Data = new Final_Inspection_Stage_Data();
                     _Stage_Data.InspectionType = _model._INWARD.InspectionType;
-                    _Stage_Data.Inspection_ID = _model._INWARD.id.ToString();
+                    _Stage_Data.Inspection_ID = _model._INWARD.id;
                     _Stage_Data.PartNum = _model._INWARD.Partno;
                     _Stage_Data.JobNum = _model._INWARD.JobNo;
                     _Stage_Data.Stage = _Inspection_Data.Stage;
                     _Stage_Data.Qty = _Inspection_Data.qty.ToString();
                     _Stage_Data.Active = true;
                     _Stage_Data.Deleted = false;
-                    _Stage_Data.CurrentDateTime = DateTime.Now.ToString();
+                    _Stage_Data.CurrentDateTime = DateTime.Now;
                     DB.Final_Inspection_Stage_Data.Add(_Stage_Data);
 
 

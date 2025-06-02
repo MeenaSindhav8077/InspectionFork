@@ -377,14 +377,14 @@ namespace Inspection.Web.Controllers
                     {
                         Final_Inspection_Stage_Data _Stage_Data = new Final_Inspection_Stage_Data();
                         _Stage_Data.InspectionType = _model._INWARD.InspectionType;
-                        _Stage_Data.Inspection_ID = _model._INWARD.id.ToString();
+                        _Stage_Data.Inspection_ID = _model._INWARD.id;
                         _Stage_Data.PartNum = _model._INWARD.Partno;
                         _Stage_Data.JobNum = _model._INWARD.JobNo;
                         _Stage_Data.Stage = _Inspection_Data.Stage;
                         _Stage_Data.Qty = _Inspection_Data.qty.ToString();
                         _Stage_Data.Active = true;
                         _Stage_Data.Deleted = false;
-                        _Stage_Data.CurrentDateTime = DateTime.Now.ToString();
+                        _Stage_Data.CurrentDateTime = DateTime.Now;
                         DB.Final_Inspection_Stage_Data.Add(_Stage_Data);
                         
 
