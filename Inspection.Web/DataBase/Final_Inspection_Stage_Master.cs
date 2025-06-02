@@ -17,5 +17,6 @@ namespace Inspection.Web.DataBase
         public int ID { get; set; }
         public Nullable<int> Stage { get; set; }
         public string stage_part_status { get; set; }
+        public string ProcessTypes { get; set; }
     }
 }
