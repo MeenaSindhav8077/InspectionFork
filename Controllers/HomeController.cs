@@ -16,19 +16,14 @@ namespace Inspection.Web.Controllers
             var currentDate = DateTime.Now;
             var twoDaysAgo = currentDate.AddDays(-2);
 
-            try
-            {
-                var _data = DB.Final_Inspection_Data.Where(v => v.Inward_Date < twoDaysAgo).ToList();
+            // Removed try-catch block that was re-throwing the exception.
+            // Removed unused variable matchingDataList.
+            var _data = DB.Final_Inspection_Data.Where(v => v.Inward_Date < twoDaysAgo).ToList();
 
-                if (_data.Count > 0)
-                {
-                    var matchingDataList = _data.Where(entry => DB.Final_Inspection_Process.Any(secondEntry => secondEntry.PID != entry.ID)).ToList();
-
-                }
-            }
-            catch (Exception)
+            if (_data.Count > 0)
             {
-                throw;  
+                // Original logic for matchingDataList, though it's not used.
+                // var matchingDataList = _data.Where(entry => DB.Final_Inspection_Process.Any(secondEntry => secondEntry.PID != entry.ID)).ToList();
             }
 
             return View();

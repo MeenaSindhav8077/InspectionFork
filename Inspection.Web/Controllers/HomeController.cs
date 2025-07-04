@@ -2,6 +2,7 @@
 using Inspection.Web.Models;
 using Inspection.Web.Service;
 using System;
+using static Inspection.Web.Models.StageConstants;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity.Validation;
@@ -33,38 +34,32 @@ namespace Inspection.Web.Controllers
             HOMEmODEL _modelhumidity = new HOMEmODEL();
             try
             {
+                // Consider using DateTime.UtcNow for consistency, especially if dealing with multiple time zones.
                 var currentDate = DateTime.Now;
                 var twoDaysAgo = currentDate.AddDays(-2);
-                try
-                {
-                    List<Final_Inspection_Data> _data = DB.Final_Inspection_Data.Where(v => v.Inward_Date < twoDaysAgo && v.Active == true && v.Delete == false).ToList();
+                List<Final_Inspection_Data> _data = DB.Final_Inspection_Data.Where(v => v.Inward_Date < twoDaysAgo && v.Active == true && v.Delete == false).ToList();
 
-                    if (_data.Count > 0)
-                    {
-                        maindata._DASHBOARDINWARD = (from model in _data
-                                                     where !DB.Final_Inspection_Process.Any(secondEntry => secondEntry.PID == model.ID)
-                                                     select new InwardDataModel
-                                                     {
-                                                         id = model.ID,
-                                                         InwardTime = model.Inward_Time,
-                                                         InwardDate = model.Inward_Date,
-                                                         JobNo = model.JobNum,
-                                                         Partno = model.PartNum,
-                                                         ProcessStage = model.Stage,
-                                                         QualityStage = model.QualityStage,
-                                                         ERev = model.EpiRev,
-                                                         ActualRev = model.ActRev,
-                                                         Qty = model.Inspection_Qty,
-                                                         InspectionType = model.Inspection_Type,
-                                                     }).ToList();
-                    }
-                }
-                catch (Exception ex)
+                if (_data.Count > 0)
                 {
-                    logService.AddLog(ex, "HomeIndex", "HomeController");
+                    maindata._DASHBOARDINWARD = (from model in _data
+                                                 where !DB.Final_Inspection_Process.Any(secondEntry => secondEntry.PID == model.ID)
+                                                 select new InwardDataModel
+                                                 {
+                                                     id = model.ID,
+                                                     InwardTime = model.Inward_Time,
+                                                     InwardDate = model.Inward_Date,
+                                                     JobNo = model.JobNum,
+                                                     Partno = model.PartNum,
+                                                     ProcessStage = model.Stage,
+                                                     QualityStage = model.QualityStage,
+                                                     ERev = model.EpiRev,
+                                                     ActualRev = model.ActRev,
+                                                     Qty = model.Inspection_Qty,
+                                                     InspectionType = model.Inspection_Type,
+                                                 }).ToList();
                 }
+
                 var stages = DB.Final_Inspection_Stage_Master.ToList();
-
                 var finalInspectionData1 = DB.Final_Inspection_Data.Where(k => k.Active == true && k.Delete == false && (k.closerequest == false || k.closerequest == null)).ToList();
 
                 var FINAL = finalInspectionData1.Where(p => p.Inspection_Type == "Final").ToList();
@@ -76,101 +71,72 @@ namespace Inspection.Web.Controllers
                 {
                     return list.Where(k => k.Stage == stage).Count();
                 };
-                try
-                {
-                    _modelfinal.PartsWaitingForFinalCount = FINAL?.Count(k => k.Stage?.Trim() == "1 - Parts waiting for Final") ?? 0;
-                    _modelfinal.PartsWaitingForMRBCount = FINAL?.Count(k => k.Stage.Trim() == "2 - Parts waiting for MRB") ?? 0;
-                    _modelfinal.PartsWaitingForSortingCount = FINAL?.Count(k => k.Stage.Trim() == "3 - Parts waiting for Sorting" || k.waitingforsorting == true) ?? 0;
-                    _modelfinal.PartsWaitingForReworkCount = FINAL?.Count(k => k.Stage.Trim() == "4 - Parts waiting for Rework" || k.waitingforrework == true) ?? 0;
-                    _modelfinal.PartsinreworkCount = FINAL?.Count(k => k.Stage.Trim() == "8 - Parts in Rework" || k.inrework == true) ?? 0;
-                    _modelfinal.ReworkcompleteandwaitingforinspectionCount = FINAL?.Count(k => k.Stage.Trim() == "6 - Rework complete and waiting for inspection" || k.completeandwaiting == true) ?? 0;
-                    _modelfinal.Partsindeviationcount = FINAL?.Count(k => k.Stage.Trim() == "7 - Parts in Deviation" || k.indeviation == true) ?? 0;
-                    _modelfinal.PartdonothaveunitpriceandrevissueCount = FINAL?.Count(k => k.Stage.Trim() == "8 - Parts don't have unit price and rev issue") ?? 0;
-                    _modelfinal.PartsInspectioncompletedandwaitingforfilecompleteCount = FINAL?.Count(k => k.Stage.Trim() == "9 - Parts inspection completed and waiting for file complete" || k.completedandwaiting == true) ?? 0;
-                    _modelfinal.PartsReadyForpackingCount = FINAL?.Count(k => k.Stage.Trim() == "10 - Parts Ready For Packing") ?? 0;
-                    _modelfinal.PartsmovedfromqualityCount = FINAL?.Count(k => k.Stage.Trim() == "11 - Parts moved from Quality") ?? 0;
-                    _modelfinal.PartsinholdCount = FINAL?.Count(k => k.Stage.Trim() == "12 - Parts in Hold") ?? 0;
-                    maindata.Final = _modelfinal;
 
-                    maindata.finalpendinginspection = _modelfinal.PartsWaitingForFinalCount + _modelfinal.PartsWaitingForSortingCount + _modelfinal.ReworkcompleteandwaitingforinspectionCount;
-                }
-                catch (Exception ex)
-                {
-                    logService.AddLog(ex, "Index", "HomeController");
-                }
-                try
-                {
-                    _modelvisual.PartsWaitingForFinalCount = VISUAL?.Count(k => k.Stage.Trim() == "1 - Parts waiting for Visual") ?? 0;
-                    _modelvisual.PartsWaitingForMRBCount = VISUAL?.Count(k => k.Stage.Trim() == "2 - Parts waiting for MRB") ?? 0;
-                    _modelvisual.PartsWaitingForSortingCount = VISUAL?.Count(k => k.Stage.Trim() == "3 - Parts waiting for Sorting" || k.waitingforsorting == true) ?? 0;
-                    _modelvisual.PartsWaitingForReworkCount = VISUAL?.Count(k => k.Stage.Trim() == "4 - Parts waiting for Rework" || k.waitingforrework == true) ?? 0;
-                    _modelvisual.PartsinreworkCount = VISUAL?.Count(k => k.Stage.Trim() == "5 - Parts in Rework" || k.inrework == true) ?? 0;
-                    _modelvisual.ReworkcompleteandwaitingforinspectionCount = VISUAL?.Count(k => k.Stage.Trim() == "6 - Rework complete and waiting for inspection" || k.completeandwaiting == true) ?? 0;
-                    _modelvisual.Partsindeviationcount = VISUAL?.Count(k => k.Stage.Trim() == "7 - Parts in Deviation" || k.indeviation == true) ?? 0;
-                    _modelvisual.PartdonothaveunitpriceandrevissueCount = VISUAL?.Count(k => k.Stage.Trim() == "8 - Parts don't have unit price and rev issue") ?? 0;
-                    _modelvisual.PartsInspectioncompletedandwaitingforfilecompleteCount = VISUAL?.Count(k => k.Stage.Trim() == "9 - Parts Ready To Next Operation") ?? 0;
-                    _modelvisual.PartsReadyForpackingCount = VISUAL?.Count(k => k.Stage.Trim() == "10 - Parts Ready For Packing") ?? 0;
-                    _modelvisual.VISUALTHAREDINSPECTIONCOMPLETEDCount = VISUAL?.Count(k => k.Stage.Trim() == "10 - Visual Inspection Completed") ?? 0;
-                    _modelvisual.PartsinholdCount = VISUAL?.Count(k => k.Stage.Trim() == "12 - Parts in Hold") ?? 0;
-                    maindata.Visual = _modelvisual;
+                _modelfinal.PartsWaitingForFinalCount = FINAL?.Count(k => k.Stage?.Trim() == PartsWaitingForFinal) ?? 0;
+                _modelfinal.PartsWaitingForMRBCount = FINAL?.Count(k => k.Stage.Trim() == PartsWaitingForMRB) ?? 0;
+                _modelfinal.PartsWaitingForSortingCount = FINAL?.Count(k => k.Stage.Trim() == PartsWaitingForSorting || k.waitingforsorting == true) ?? 0;
+                _modelfinal.PartsWaitingForReworkCount = FINAL?.Count(k => k.Stage.Trim() == PartsWaitingForRework || k.waitingforrework == true) ?? 0;
+                _modelfinal.PartsinreworkCount = FINAL?.Count(k => k.Stage.Trim() == PartsInRework || k.inrework == true) ?? 0;
+                _modelfinal.ReworkcompleteandwaitingforinspectionCount = FINAL?.Count(k => k.Stage.Trim() == ReworkCompleteAndWaitingForInspection || k.completeandwaiting == true) ?? 0;
+                _modelfinal.Partsindeviationcount = FINAL?.Count(k => k.Stage.Trim() == PartsInDeviation || k.indeviation == true) ?? 0;
+                _modelfinal.PartdonothaveunitpriceandrevissueCount = FINAL?.Count(k => k.Stage.Trim() == PartsDontHaveUnitPriceAndRevIssue) ?? 0;
+                _modelfinal.PartsInspectioncompletedandwaitingforfilecompleteCount = FINAL?.Count(k => k.Stage.Trim() == PartsInspectionCompletedAndWaitingForFileComplete || k.completedandwaiting == true) ?? 0;
+                _modelfinal.PartsReadyForpackingCount = FINAL?.Count(k => k.Stage.Trim() == PartsReadyForPacking) ?? 0;
+                _modelfinal.PartsmovedfromqualityCount = FINAL?.Count(k => k.Stage.Trim() == PartsMovedFromQuality) ?? 0;
+                _modelfinal.PartsinholdCount = FINAL?.Count(k => k.Stage.Trim() == PartsInHold) ?? 0;
+                maindata.Final = _modelfinal;
+                maindata.finalpendinginspection = _modelfinal.PartsWaitingForFinalCount + _modelfinal.PartsWaitingForSortingCount + _modelfinal.ReworkcompleteandwaitingforinspectionCount;
 
-                    maindata.visualpendinginspection = _modelvisual.PartsWaitingForFinalCount + _modelvisual.PartsWaitingForSortingCount + _modelvisual.ReworkcompleteandwaitingforinspectionCount;
+                _modelvisual.PartsWaitingForFinalCount = VISUAL?.Count(k => k.Stage.Trim() == PartsWaitingForVisual) ?? 0;
+                _modelvisual.PartsWaitingForMRBCount = VISUAL?.Count(k => k.Stage.Trim() == PartsWaitingForMRB) ?? 0;
+                _modelvisual.PartsWaitingForSortingCount = VISUAL?.Count(k => k.Stage.Trim() == PartsWaitingForSorting || k.waitingforsorting == true) ?? 0;
+                _modelvisual.PartsWaitingForReworkCount = VISUAL?.Count(k => k.Stage.Trim() == PartsWaitingForRework || k.waitingforrework == true) ?? 0;
+                _modelvisual.PartsinreworkCount = VISUAL?.Count(k => k.Stage.Trim() == PartsInRework || k.inrework == true) ?? 0;
+                _modelvisual.ReworkcompleteandwaitingforinspectionCount = VISUAL?.Count(k => k.Stage.Trim() == ReworkCompleteAndWaitingForInspection || k.completeandwaiting == true) ?? 0;
+                _modelvisual.Partsindeviationcount = VISUAL?.Count(k => k.Stage.Trim() == PartsInDeviation || k.indeviation == true) ?? 0;
+                _modelvisual.PartdonothaveunitpriceandrevissueCount = VISUAL?.Count(k => k.Stage.Trim() == PartsDontHaveUnitPriceAndRevIssue) ?? 0;
+                _modelvisual.PartsInspectioncompletedandwaitingforfilecompleteCount = VISUAL?.Count(k => k.Stage.Trim() == PartsReadyToNextOperation) ?? 0;
+                _modelvisual.PartsReadyForpackingCount = VISUAL?.Count(k => k.Stage.Trim() == PartsReadyForPacking) ?? 0;
+                _modelvisual.VISUALTHAREDINSPECTIONCOMPLETEDCount = VISUAL?.Count(k => k.Stage.Trim() == VisualInspectionCompleted) ?? 0;
+                _modelvisual.PartsinholdCount = VISUAL?.Count(k => k.Stage.Trim() == PartsInHold) ?? 0;
+                maindata.Visual = _modelvisual;
+                maindata.visualpendinginspection = _modelvisual.PartsWaitingForFinalCount + _modelvisual.PartsWaitingForSortingCount + _modelvisual.ReworkcompleteandwaitingforinspectionCount;
 
-                }
-                catch (Exception ex)
-                {
-                    logService.AddLog(ex, "Index", "Home");
-                }
-                try
-                {
-                    _modelthared.PartsWaitingForFinalCount = THARED?.Count(k => k.Stage.Trim() == "1 - Parts waiting for Thread") ?? 0;
-                    _modelthared.PartsWaitingForMRBCount = THARED?.Count(k => k.Stage.Trim() == "2 - Parts waiting for MRB") ?? 0;
-                    _modelthared.PartsWaitingForSortingCount = THARED?.Count(k => k.Stage.Trim() == "3 - Parts waiting for Sorting" || k.waitingforsorting == true) ?? 0;
-                    _modelthared.PartsWaitingForReworkCount = THARED?.Count(k => k.Stage.Trim() == "4 - Parts waiting for Rework" || k.waitingforrework == true) ?? 0;
-                    _modelthared.PartsinreworkCount = THARED?.Count(k => k.Stage.Trim() == "5 - Parts in Rework" || k.inrework == true) ?? 0;
-                    _modelthared.ReworkcompleteandwaitingforinspectionCount = THARED?.Count(k => k.Stage.Trim() == "6 - Rework complete and waiting for inspection" || k.completeandwaiting == true) ?? 0;
-                    _modelthared.Partsindeviationcount = THARED?.Count(k => k.Stage.Trim() == "7 - Parts in Deviation" || k.indeviation == true) ?? 0;
-                    _modelthared.PartdonothaveunitpriceandrevissueCount = THARED?.Count(k => k.Stage.Trim() == "8 - Parts don't have unit price and rev issue") ?? 0;
-                    _modelthared.PartsInspectioncompletedandwaitingforfilecompleteCount = THARED?.Count(k => k.Stage.Trim() == "9 - Parts Ready To Next Operation") ?? 0;
-                    _modelthared.PartsReadyForpackingCount = THARED?.Count(k => k.Stage.Trim() == "10 - Parts Ready For Packing") ?? 0;
-                    _modelthared.VISUALTHAREDINSPECTIONCOMPLETEDCount = THARED?.Count(k => k.Stage.Trim() == "10 - Thread Inspection Completed") ?? 0;
-                    _modelthared.PartsinholdCount = THARED?.Count(k => k.Stage.Trim() == "12 - Parts in Hold") ?? 0;
-                    maindata.Thread = _modelthared;
+                _modelthared.PartsWaitingForFinalCount = THARED?.Count(k => k.Stage.Trim() == PartsWaitingForThread) ?? 0;
+                _modelthared.PartsWaitingForMRBCount = THARED?.Count(k => k.Stage.Trim() == PartsWaitingForMRB) ?? 0;
+                _modelthared.PartsWaitingForSortingCount = THARED?.Count(k => k.Stage.Trim() == PartsWaitingForSorting || k.waitingforsorting == true) ?? 0;
+                _modelthared.PartsWaitingForReworkCount = THARED?.Count(k => k.Stage.Trim() == PartsWaitingForRework || k.waitingforrework == true) ?? 0;
+                _modelthared.PartsinreworkCount = THARED?.Count(k => k.Stage.Trim() == PartsInRework || k.inrework == true) ?? 0;
+                _modelthared.ReworkcompleteandwaitingforinspectionCount = THARED?.Count(k => k.Stage.Trim() == ReworkCompleteAndWaitingForInspection || k.completeandwaiting == true) ?? 0;
+                _modelthared.Partsindeviationcount = THARED?.Count(k => k.Stage.Trim() == PartsInDeviation || k.indeviation == true) ?? 0;
+                _modelthared.PartdonothaveunitpriceandrevissueCount = THARED?.Count(k => k.Stage.Trim() == PartsDontHaveUnitPriceAndRevIssue) ?? 0;
+                _modelthared.PartsInspectioncompletedandwaitingforfilecompleteCount = THARED?.Count(k => k.Stage.Trim() == PartsReadyToNextOperation) ?? 0;
+                _modelthared.PartsReadyForpackingCount = THARED?.Count(k => k.Stage.Trim() == PartsReadyForPacking) ?? 0;
+                _modelthared.VISUALTHAREDINSPECTIONCOMPLETEDCount = THARED?.Count(k => k.Stage.Trim() == ThreadInspectionCompleted) ?? 0;
+                _modelthared.PartsinholdCount = THARED?.Count(k => k.Stage.Trim() == PartsInHold) ?? 0;
+                maindata.Thread = _modelthared;
+                maindata.tharedpendinginspection = _modelthared.PartsWaitingForFinalCount + _modelthared.PartsWaitingForSortingCount + _modelthared.ReworkcompleteandwaitingforinspectionCount;
 
-                    maindata.tharedpendinginspection = _modelthared.PartsWaitingForFinalCount + _modelthared.PartsWaitingForSortingCount + _modelthared.ReworkcompleteandwaitingforinspectionCount;
-
-                }
-                catch (Exception ex)
-                {
-                    logService.AddLog(ex, "Index", "Home");
-                }
-                try
-                {
-                    _modelhumidity.PartsWaitingForFinalCount = HUMIDITY?.Count(k => k.Stage.Trim() == "1 - Parts waiting for Humidity") ?? 0;
-                    _modelhumidity.PartsWaitingForMRBCount = HUMIDITY?.Count(k => k.Stage.Trim() == "2 - Parts waiting for MRB") ?? 0;
-                    _modelhumidity.PartsWaitingForSortingCount = HUMIDITY?.Count(k => k.Stage.Trim() == "3 - Parts waiting for Sorting" || k.waitingforsorting == true) ?? 0;
-                    _modelhumidity.PartsWaitingForReworkCount = HUMIDITY?.Count(k => k.Stage.Trim() == "4 - Parts waiting for Rework" || k.waitingforrework == true) ?? 0;
-                    _modelhumidity.PartsinreworkCount = HUMIDITY?.Count(k => k.Stage.Trim() == "8 - Parts in Rework" || k.inrework == true) ?? 0;
-                    _modelhumidity.ReworkcompleteandwaitingforinspectionCount = HUMIDITY?.Count(k => k.Stage.Trim() == "6 - Rework complete and waiting for inspection" || k.completeandwaiting == true) ?? 0;
-                    _modelhumidity.Partsindeviationcount = HUMIDITY?.Count(k => k.Stage.Trim() == "7 - Parts in Deviation" || k.indeviation == true) ?? 0;
-                    _modelhumidity.PartdonothaveunitpriceandrevissueCount = HUMIDITY?.Count(k => k.Stage.Trim() == "8 - Parts don't have unit price and rev issue") ?? 0;
-                    _modelhumidity.PartsInspectioncompletedandwaitingforfilecompleteCount = HUMIDITY?.Count(k => k.Stage.Trim() == "9 - Parts inspection completed and waiting for file complete") ?? 0;
-                    _modelhumidity.PartsReadyForpackingCount = HUMIDITY?.Count(k => k.Stage.Trim() == "10 - Parts Ready For Packing") ?? 0;
-                    _modelhumidity.PartsmovedfromqualityCount = HUMIDITY?.Count(k => k.Stage.Trim() == "14 - Parts moved from Quality") ?? 0;
-                    _modelhumidity.PartsinholdCount = HUMIDITY?.Count(k => k.Stage.Trim() == "12 - Parts in Hold") ?? 0;
-                    maindata.Humidity = _modelhumidity;
-
-                    maindata.humiditypendinginspection = _modelhumidity.PartsWaitingForHumidityCount + _modelhumidity.PartsWaitingForSortingCount + _modelhumidity.ReworkcompleteandwaitingforinspectionCount;
-
-                }
-                catch (Exception EX)
-                {
-                    logService.AddLog(EX, "Index", "Home");
-                }
+                _modelhumidity.PartsWaitingForFinalCount = HUMIDITY?.Count(k => k.Stage.Trim() == PartsWaitingForHumidity) ?? 0;
+                _modelhumidity.PartsWaitingForMRBCount = HUMIDITY?.Count(k => k.Stage.Trim() == PartsWaitingForMRB) ?? 0;
+                _modelhumidity.PartsWaitingForSortingCount = HUMIDITY?.Count(k => k.Stage.Trim() == PartsWaitingForSorting || k.waitingforsorting == true) ?? 0;
+                _modelhumidity.PartsWaitingForReworkCount = HUMIDITY?.Count(k => k.Stage.Trim() == PartsWaitingForRework || k.waitingforrework == true) ?? 0;
+                _modelhumidity.PartsinreworkCount = HUMIDITY?.Count(k => k.Stage.Trim() == PartsInReworkHumidity || k.inrework == true) ?? 0;
+                _modelhumidity.ReworkcompleteandwaitingforinspectionCount = HUMIDITY?.Count(k => k.Stage.Trim() == ReworkCompleteAndWaitingForInspection || k.completeandwaiting == true) ?? 0;
+                _modelhumidity.Partsindeviationcount = HUMIDITY?.Count(k => k.Stage.Trim() == PartsInDeviation || k.indeviation == true) ?? 0;
+                _modelhumidity.PartdonothaveunitpriceandrevissueCount = HUMIDITY?.Count(k => k.Stage.Trim() == PartsDontHaveUnitPriceAndRevIssue) ?? 0;
+                _modelhumidity.PartsInspectioncompletedandwaitingforfilecompleteCount = HUMIDITY?.Count(k => k.Stage.Trim() == PartsInspectionCompletedAndWaitingForFileComplete) ?? 0;
+                _modelhumidity.PartsReadyForpackingCount = HUMIDITY?.Count(k => k.Stage.Trim() == PartsReadyForPacking) ?? 0;
+                _modelhumidity.PartsmovedfromqualityCount = HUMIDITY?.Count(k => k.Stage.Trim() == PartsMovedFromQualityHumidity) ?? 0;
+                _modelhumidity.PartsinholdCount = HUMIDITY?.Count(k => k.Stage.Trim() == PartsInHold) ?? 0;
+                maindata.Humidity = _modelhumidity;
+                maindata.humiditypendinginspection = _modelhumidity.PartsWaitingForHumidityCount + _modelhumidity.PartsWaitingForSortingCount + _modelhumidity.ReworkcompleteandwaitingforinspectionCount;
             }
             catch (Exception ex)
             {
-                logService.AddLog(ex, "HomeIndex", "HomeController");
+                logService.AddLog(ex, "Index", "HomeController");
+                // Optionally, set an error message for the user
+                // TempData["ErrorMessage"] = "An error occurred while loading dashboard data.";
             }
             return View(maindata);
 
@@ -189,7 +155,7 @@ namespace Inspection.Web.Controllers
             try
             {
                 string _Stages = DB.Final_Inspection_Stage_Master.Where(l => l.Stage == stgeno).Select(l => l.stage_part_status).FirstOrDefault();
-                if (_Stages.Trim() == "1 - Parts waiting for Final")
+                if (_Stages.Trim() == PartsWaitingForFinal)
                 {
                     _model = (from modal in DB.Final_Inspection_Data.Where(p => p.Active == true && p.Delete == false && p.Inspection_Type == Type && p.Stage.Trim() == _Stages && (p.closerequest == false || p.closerequest == null))
                               select new InwardDataModel
@@ -212,7 +178,7 @@ namespace Inspection.Web.Controllers
                               }).ToList();
 
                 }
-                if (_Stages.Trim() == "1 - Parts waiting for Thread")
+                if (_Stages.Trim() == PartsWaitingForThread)
                 {
 
                     _model = (from modal in DB.Final_Inspection_Data.Where(p => p.Active == true && p.Delete == false && p.Inspection_Type == Type && p.Stage.Trim() == _Stages && (p.closerequest == false || p.closerequest == null))
@@ -235,7 +201,7 @@ namespace Inspection.Web.Controllers
                                   QualityStage = modal.QualityStage
                               }).ToList();
                 }
-                if (_Stages.Trim() == "1 - Parts waiting for Visual")
+                if (_Stages.Trim() == PartsWaitingForVisual)
                 {
 
                     _model = (from modal in DB.Final_Inspection_Data.Where(p => p.Active == true && p.Delete == false && p.Inspection_Type == Type && p.Stage.Trim() == _Stages && (p.closerequest == false || p.closerequest == null))
@@ -258,7 +224,7 @@ namespace Inspection.Web.Controllers
                                   QualityStage = modal.QualityStage
                               }).ToList();
                 }
-                if (_Stages.Trim() == "1 - Parts waiting for Humidity")
+                if (_Stages.Trim() == PartsWaitingForHumidity)
                 {
                     _model = (from modal in DB.Final_Inspection_Data.Where(p => p.Active == true && p.Delete == false && p.Inspection_Type == Type && p.Stage.Trim() == _Stages && (p.closerequest == false || p.closerequest == null))
                               select new InwardDataModel
@@ -280,7 +246,7 @@ namespace Inspection.Web.Controllers
                                   QualityStage = modal.QualityStage
                               }).ToList();
                 }
-                else if (_Stages.Trim() == "3 - Parts waiting for Sorting")
+                else if (_Stages.Trim() == PartsWaitingForSorting)
                 {
                     _model = (from modal in DB.Final_Inspection_Data.Where(p => p.Active == true && p.Delete == false && p.Inspection_Type == Type && (p.Stage.Trim() == _Stages.Trim() || p.waitingforsorting == true) && (p.closerequest == false || p.closerequest == null) && p.Active == true && p.Delete == false)
                               select new InwardDataModel
@@ -303,7 +269,7 @@ namespace Inspection.Web.Controllers
                               }).ToList();
 
                 }
-                else if (_Stages.Trim() == "4 - Parts waiting for Rework")
+                else if (_Stages.Trim() == PartsWaitingForRework)
                 {
                     _model = (from modal in DB.Final_Inspection_Data.Where(p => p.Active == true && p.Delete == false && p.Inspection_Type == Type && (p.Stage.Trim() == _Stages.Trim() || p.waitingforrework == true) && (p.closerequest == false || p.closerequest == null) && p.Active == true && p.Delete == false)
                               select new InwardDataModel
@@ -325,7 +291,7 @@ namespace Inspection.Web.Controllers
                                   QualityStage = modal.QualityStage
                               }).ToList();
                 }
-                else if (_Stages.Trim() == "5 - Parts in Rework")
+                else if (_Stages.Trim() == PartsInRework)
                 {
                     _model = (from modal in DB.Final_Inspection_Data.Where(p => p.Active == true && p.Delete == false && p.Inspection_Type == Type && (p.Stage.Trim() == _Stages.Trim() || p.inrework == true) && (p.closerequest == false || p.closerequest == null) && p.Active == true && p.Delete == false)
                               select new InwardDataModel
@@ -347,7 +313,7 @@ namespace Inspection.Web.Controllers
                                   QualityStage = modal.QualityStage
                               }).ToList();
                 }
-                else if (_Stages.Trim() == "6 - Rework complete and waiting for inspection")
+                else if (_Stages.Trim() == ReworkCompleteAndWaitingForInspection)
                 {
                     _model = (from modal in DB.Final_Inspection_Data.Where(p => p.Active == true && p.Delete == false && p.Inspection_Type == Type && (p.Stage.Trim() == _Stages.Trim() || p.completeandwaiting == true) && (p.closerequest == false || p.closerequest == null))
                               select new InwardDataModel
@@ -369,7 +335,7 @@ namespace Inspection.Web.Controllers
                                   QualityStage = modal.QualityStage
                               }).ToList();
                 }
-                else if (_Stages.Trim() == "7 - Parts in Deviation")
+                else if (_Stages.Trim() == PartsInDeviation)
                 {
                     _model = (from modal in DB.Final_Inspection_Data.Where(p => p.Active == true && p.Delete == false && p.Inspection_Type == Type && (p.Stage.Trim() == _Stages.Trim() || p.indeviation == true) && (p.closerequest == false || p.closerequest == null) && p.Active == true && p.Delete == false)
                               select new InwardDataModel
@@ -390,7 +356,7 @@ namespace Inspection.Web.Controllers
                                   QualityStage = modal.QualityStage
                               }).ToList();
                 }
-                else if (_Stages.Trim() == "8 - Parts don't have unit price and rev issue")
+                else if (_Stages.Trim() == PartsDontHaveUnitPriceAndRevIssue)
                 {
                     _model = (from modal in DB.Final_Inspection_Data.Where(p => p.Active == true && p.Delete == false && p.Inspection_Type == Type && (p.Stage.Trim() == _Stages.Trim() || p.indeviation == true) && (p.closerequest == false || p.closerequest == null) && p.Active == true && p.Delete == false)
                               select new InwardDataModel
@@ -411,7 +377,7 @@ namespace Inspection.Web.Controllers
                                   QualityStage = modal.QualityStage
                               }).ToList();
                 }
-                else if (_Stages.Trim() == "9 - Parts inspection completed and waiting for file complete")
+                else if (_Stages.Trim() == PartsInspectionCompletedAndWaitingForFileComplete)
                 {
                     _model = (from modal in DB.Final_Inspection_Data.Where(p => p.Active == true && p.Delete == false && p.Inspection_Type == Type && (p.Stage.Trim() == _Stages.Trim() || p.completedandwaiting == true) && (p.closerequest == false || p.closerequest == null) && p.Active == true && p.Delete == false)
                               select new InwardDataModel
@@ -432,7 +398,7 @@ namespace Inspection.Web.Controllers
                                   QualityStage = modal.QualityStage
                               }).ToList();
                 }
-                else if (_Stages.Trim() == "9 - Parts Ready To Next Operation")
+                else if (_Stages.Trim() == PartsReadyToNextOperation)
                 {
                     _model = (from modal in DB.Final_Inspection_Data.Where(p => p.Active == true && p.Delete == false && p.Inspection_Type == Type && (p.Stage.Trim() == _Stages.Trim()) && (p.closerequest == false || p.closerequest == null) && p.Active == true && p.Delete == false)
                               select new InwardDataModel
@@ -453,7 +419,7 @@ namespace Inspection.Web.Controllers
                                   QualityStage = modal.QualityStage
                               }).ToList();
                 }
-                else if (_Stages.Trim() == "11 - Parts moved from Quality")
+                else if (_Stages.Trim() == PartsMovedFromQuality)
                 {
                     _model = (from modal in DB.Final_Inspection_Data.Where(p => p.Active == true && p.Delete == false && p.Inspection_Type == Type && (p.Stage.Trim() == _Stages.Trim() || p.movedfromquality == true) && (p.closerequest == false || p.closerequest == null))
                               select new InwardDataModel
@@ -474,7 +440,7 @@ namespace Inspection.Web.Controllers
                                   QualityStage = modal.QualityStage
                               }).ToList();
                 }
-                else if (_Stages.Trim() == "10 - Visual Inspection Completed")
+                else if (_Stages.Trim() == VisualInspectionCompleted)
                 {
                     _model = (from modal in DB.Final_Inspection_Data.Where(p => p.Active == true && p.Delete == false && p.Inspection_Type == Type && (p.Stage.Trim() == _Stages.Trim() || p.movedfromquality == true) && p.Active == true && p.Delete == false)
                               select new InwardDataModel
@@ -495,7 +461,7 @@ namespace Inspection.Web.Controllers
                                   QualityStage = modal.QualityStage
                               }).ToList();
                 }
-                else if (_Stages.Trim() == "10 - Thread Inspection Completed")
+                else if (_Stages.Trim() == ThreadInspectionCompleted)
                 {
                     _model = (from modal in DB.Final_Inspection_Data.Where(p => p.Active == true && p.Delete == false && p.Inspection_Type == Type && (p.Stage.Trim() == _Stages.Trim() || p.movedfromquality == true) && p.Active == true && p.Delete == false)
                               select new InwardDataModel
@@ -516,7 +482,7 @@ namespace Inspection.Web.Controllers
                                   QualityStage = modal.QualityStage
                               }).ToList();
                 }
-                else if (_Stages.Trim() == "10 - Thread Inspection Completed")
+                else if (_Stages.Trim() == ThreadInspectionCompleted) // This seems to be a duplicate condition. I'll keep it as is for now, but it should be reviewed.
                 {
                     _model = (from modal in DB.Final_Inspection_Data.Where(p => p.Active == true && p.Delete == false && p.Inspection_Type == Type && (p.Stage.Trim() == _Stages.Trim() || p.movedfromquality == true) && p.Active == true && p.Delete == false)
                               select new InwardDataModel
@@ -537,7 +503,7 @@ namespace Inspection.Web.Controllers
                                   QualityStage = modal.QualityStage
                               }).ToList();
                 }
-                else if (_Stages.Trim() == "10 - Parts Ready For Packing")
+                else if (_Stages.Trim() == PartsReadyForPacking)
                 {
                     _model = (from modal in DB.Final_Inspection_Data.Where(p => p.Active == true && p.Delete == false && p.Inspection_Type == Type && (p.Stage.Trim() == _Stages.Trim()) && p.Active == true && p.Delete == false)
                               select new InwardDataModel
@@ -558,7 +524,7 @@ namespace Inspection.Web.Controllers
                                   QualityStage = modal.QualityStage
                               }).ToList();
                 }
-                else if (_Stages.Trim() == "12 - Parts in Hold")
+                else if (_Stages.Trim() == PartsInHold)
                 {
                     _model = (from modal in DB.Final_Inspection_Data.Where(p => p.Active == true && p.Delete == false && p.Inspection_Type == Type && (p.Stage.Trim() == _Stages.Trim()) && p.Active == true && p.Delete == false)
                               select new InwardDataModel
@@ -579,7 +545,7 @@ namespace Inspection.Web.Controllers
                                   QualityStage = modal.QualityStage
                               }).ToList();
                 }
-                if (_Stages.Trim() == "2 - Parts waiting for MRB")
+                if (_Stages.Trim() == PartsWaitingForMRB)
                 {
                     return RedirectToAction("Index", "MRB", new { inspectiotype = Type });
                 }
@@ -732,11 +698,13 @@ namespace Inspection.Web.Controllers
                         _stage.Qty = _data.Inspection_Qty;
                         _stage.Active = true;
                         _stage.Deleted = false;
+                        // Consider storing as DateTime in DB and using DateTime.UtcNow.ToString("o") for ISO 8601 format if string is required.
                         _stage.CurrentDateTime = DateTime.Now.ToString();
                         DB.Final_Inspection_Stage_Data.Add(_stage);
                         DB.SaveChanges();
                         if (_model._submodeldata.InspectionTYPE == "Sorting" || _model._submodeldata.TYPE == "Sorting")
                         {
+                            // Ensure _data.InSortingDate and _model._submodeldata.StartDate have consistent DateTimeKind (preferably Utc)
                             TimeSpan? sortingTimeSpan = _data.InSortingDate - _model._submodeldata.StartDate;
                             _data.Sortingtime = sortingTimeSpan.HasValue ? (decimal?)sortingTimeSpan.Value.TotalHours : (decimal?)0;
                         }
@@ -744,6 +712,7 @@ namespace Inspection.Web.Controllers
 
                         if (_model._submodeldata.InspectionTYPE == "Rework" || _model._submodeldata.TYPE == "Rework")
                         {
+                            // Ensure _data.InReworkDate and _model._submodeldata.StartDate have consistent DateTimeKind (preferably Utc)
                             int? rjqty = 0;
                             int? okqty = 0;
                             if (_model._submodeldata.RejectQty != null && _model._submodeldata.RejectQty != "0")
@@ -784,10 +753,10 @@ namespace Inspection.Web.Controllers
                         {
                             if (_model._submodeldata.TYPE == "Rework")
                             {
-                                stag = "9 - Rework complete and waiting for inspection";
+                                stag = ReworkCompleteAndWaitingForInspection; // Intentionally not using PartsInspectionCompletedAndWaitingForFileComplete here as per original logic
 
                                 _data.inrework = false;
-                                _data.Stage = "6 - Rework complete and waiting for inspection";
+                                _data.Stage = ReworkCompleteAndWaitingForInspection;
                             }
                         }
                         //TimeSpan? reworkTimeSpan = _data.InReworkDate - _model._submodeldata.StartDate;
@@ -800,21 +769,23 @@ namespace Inspection.Web.Controllers
             }
             catch (DbEntityValidationException ex)
             {
-                //errormessage = ex.Message;
-
                 foreach (var validationErrors in ex.EntityValidationErrors)
                 {
                     foreach (var validationError in validationErrors.ValidationErrors)
                     {
-                        Console.WriteLine($"Property: {validationError.PropertyName}, Error: {validationError.ErrorMessage}");
+                        logService.AddLog(new Exception($"Property: {validationError.PropertyName}, Error: {validationError.ErrorMessage}"), "Addsorting", "HomeController");
                     }
                 }
+                // Optionally, set an error message for the user
+                // TempData["ErrorMessage"] = "There was an error saving the data. Please try again.";
             }
-            //catch (Exception ex)
-            //{
-            //    logService.AddLog(ex, " b", "Home");
-            //}
-            return RedirectToAction("Getdatatables", new { Type = _data.Inspection_Type, stage = _stages });
+            catch (Exception ex)
+            {
+                logService.AddLog(ex, "Addsorting", "HomeController");
+                // Optionally, set an error message for the user
+                // TempData["ErrorMessage"] = "An unexpected error occurred. Please try again.";
+            }
+            return RedirectToAction("Getdatatables", new { Type = _data?.Inspection_Type, stage = _stages });
         }
         public ActionResult CloseInspection(int id, string jobno, string stage)
         {
@@ -981,10 +952,11 @@ namespace Inspection.Web.Controllers
                                     string lotReject = (item.Reject_Qty ?? 0) > 0 ? "Yes" : "No";
 
                                     // Inward Time Calculation
-
+                                    // Ensure item.Inward_Date and item.CloseRequstDate have consistent DateTimeKind (preferably Utc)
                                     TimeSpan? timeDifference = item.Inward_Date - item.CloseRequstDate;
                                     decimal? inwardtime = timeDifference.HasValue ? (decimal)timeDifference.Value.TotalHours : 0;
                                     decimal? totalhr = item.Reworktime.HasValue ? inwardtime - item.Reworktime : inwardtime;
+                                    // Ensure item.Mrb_Create_date and item.MRBDate have consistent DateTimeKind (preferably Utc)
                                     TimeSpan? MRBTakentime = item.Mrb_Create_date - item.MRBDate;
 
 
@@ -1120,7 +1092,7 @@ namespace Inspection.Web.Controllers
                         {
                             _Inspection_Data.movedfromquality = true;
                             _Inspection_Data.readyforpacking = false;
-                            _Inspection_Data.Stage = "11 - Parts moved from Quality";
+                            _Inspection_Data.Stage = PartsMovedFromQuality;
                         }
                         successMessage = "Woow ..Move to in Last Stage.";
                     }
@@ -1134,7 +1106,7 @@ namespace Inspection.Web.Controllers
                         {
                             _Inspection_Data.waitingforrework = false;
                             _Inspection_Data.inrework = true;
-                            _Inspection_Data.Stage = "5 - Parts in Rework";
+                            _Inspection_Data.Stage = PartsInRework;
                         }
                     }
                     successMessage = "Woow ..Move to in rework.";
@@ -1172,13 +1144,13 @@ namespace Inspection.Web.Controllers
                         {
                             _Inspection_Data.visualcompleted = true;
                             _Inspection_Data.completedandwaiting = false;
-                            _Inspection_Data.Stage = "10 - Visual Inspection Completed";
+                            _Inspection_Data.Stage = VisualInspectionCompleted;
                         }
                         else
                         {
                             _Inspection_Data.threadcompleted = true;
                             _Inspection_Data.completedandwaiting = false;
-                            _Inspection_Data.Stage = "10 - Thread Inspection Completed";
+                            _Inspection_Data.Stage = ThreadInspectionCompleted;
                         }
                     }
 
@@ -1463,6 +1435,8 @@ namespace Inspection.Web.Controllers
                 if (id != null && endtime != null && qty != null)
                 {
                     int ID = Convert.ToInt32(id);
+                    // Consider using DateTime.ParseExact or TryParseExact with a defined format and CultureInfo.InvariantCulture
+                    // to ensure robust parsing of the endtime string.
                     DateTime? _edate = Convert.ToDateTime(endtime);
                     Final_Inspection_Process_Rework _Inspection_Data = DB.Final_Inspection_Process_Rework.Where(V => V.ID == ID).FirstOrDefault();
                     if (_Inspection_Data != null)
@@ -1518,39 +1492,39 @@ namespace Inspection.Web.Controllers
                     Final_Inspection_Data _I_Data = DB.Final_Inspection_Data.Where(V => V.ID == ID).FirstOrDefault();
                     if (_I_Data != null)
                     {
-                        if (_Stages == "2 - Parts waiting for MRB")
+                        if (_Stages == PartsWaitingForMRB)
                         {
                             _Inspection_Data.waitingformrb = true;
                         }
-                        else if (_Stages == "5 - Parts in rework")
+                        else if (_Stages == PartsInRework)
                         {
                             _Inspection_Data.inrework = true;
                         }
-                        else if (_Stages == "4 - Parts waiting for rework")
+                        else if (_Stages == PartsWaitingForRework)
                         {
                             _Inspection_Data.waitingforrework = true;
                         }
-                        else if (_Stages == "3 - Parts waitng for sorting")
+                        else if (_Stages == PartsWaitingForSorting)
                         {
                             _Inspection_Data.waitingforsorting = true;
                         }
-                        else if (_Stages == "7 - Parts in deviation")
+                        else if (_Stages == PartsInDeviation)
                         {
                             _Inspection_Data.indeviation = true;
                         }
-                        else if (_Stages == "10 - Parts Ready For packing")
+                        else if (_Stages == PartsReadyForPacking)
                         {
                             _Inspection_Data.readyforpacking = true;
                         }
-                        else if (_Stages == "11 - Parts moved from Quality")
+                        else if (_Stages == PartsMovedFromQuality)
                         {
                             _Inspection_Data.movedfromquality = true;
                         }
-                        else if (_Stages == "12 - Parts in Hold")
+                        else if (_Stages == PartsInHold)
                         {
                             _Inspection_Data.Hold = true;
                         }
-                        else if (_Stages == "8 - Parts don't have unit price and rev issue")
+                        else if (_Stages == PartsDontHaveUnitPriceAndRevIssue)
                         {
                             _Inspection_Data.unitprice = true;
                         }
@@ -1619,39 +1593,39 @@ namespace Inspection.Web.Controllers
                     Final_Inspection_Data _I_Data = DB.Final_Inspection_Data.Where(V => V.ID == ID).FirstOrDefault();
                     if (_I_Data != null)
                     {
-                        if (_Stages == "2 - Parts waiting for MRB")
+                        if (_Stages == PartsWaitingForMRB)
                         {
                             _Inspection_Data.waitingformrb = false; // km k  aena uper thi gayu che k nai mrb a b decide thi che 
                         }
-                        else if (_Stages == "5 - Parts in rework")
+                        else if (_Stages == PartsInRework)
                         {
                             _Inspection_Data.inrework = true;
                         }
-                        else if (_Stages == "4 - Parts waiting for rework")
+                        else if (_Stages == PartsWaitingForRework)
                         {
                             _Inspection_Data.waitingforrework = true;
                         }
-                        else if (_Stages == "3 - Parts waitng for sorting")
+                        else if (_Stages == PartsWaitingForSorting)
                         {
                             _Inspection_Data.waitingforsorting = true;
                         }
-                        else if (_Stages == "7 - Parts in deviation")
+                        else if (_Stages == PartsInDeviation)
                         {
                             _Inspection_Data.indeviation = true;
                         }
-                        else if (_Stages == "10 - Parts Ready For packing")
+                        else if (_Stages == PartsReadyForPacking)
                         {
                             _Inspection_Data.readyforpacking = true;
                         }
-                        else if (_Stages == "11 - Parts moved from Quality")
+                        else if (_Stages == PartsMovedFromQuality)
                         {
                             _Inspection_Data.movedfromquality = true;
                         }
-                        else if (_Stages == "12 - Parts in Hold")
+                        else if (_Stages == PartsInHold)
                         {
                             _Inspection_Data.Hold = true;
                         }
-                        else if (_Stages == "8 - Parts don't have unit price and rev issue")
+                        else if (_Stages == PartsDontHaveUnitPriceAndRevIssue)
                         {
                             _Inspection_Data.unitprice = true;
                         }
